@@ -2,7 +2,7 @@
 name: "[Client] - <제목>"
 about: 클라이언트 기능 개발을 위한 템플릿
 title: ''
-labels: ''
+labels: FE
 assignees: ''
 
 ---

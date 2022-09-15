@@ -2,7 +2,7 @@
 name: "[Server] - <제목>"
 about: 백엔드 기능 개발을 위한 템플릿
 title: ''
-labels: ''
+labels: BE
 assignees: ''
 
 ---
