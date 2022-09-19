@@ -5,18 +5,25 @@ import { BiSearch } from "react-icons/bi";
 export default function SearchBar() {
   return (
     <Container>
-      <input />
-      <BiSearch />
+      <Wrapper>
+        <input />
+        <BiSearch />
+      </Wrapper>
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 250px;
+  flex: 1;
+`;
+
+const Wrapper = styled.div`
+  max-width: 250px;
   border-bottom: 1px solid #565656;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   input {
     padding: 0 4px;
     line-height: 1.5rem;

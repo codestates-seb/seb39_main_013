@@ -7,7 +7,9 @@ const Header = () => {
   return (
     <Container>
       <SearchBar />
-      <h1>LOGO</h1>
+      <LogoBox>
+        <h1>LOGO</h1>
+      </LogoBox>
       <HeaderMenu />
     </Container>
   );
@@ -20,6 +22,12 @@ const Container = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 64px;
+`;
+
+const LogoBox = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
 `;
 
 export default Header;

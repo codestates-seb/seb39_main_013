@@ -6,24 +6,35 @@ import { AiOutlineLogin } from "react-icons/ai";
 const HeaderMenu = () => {
   return (
     <Container>
-      <a href="#">
-        <BsCart2 />
-      </a>
-      <a href="#">
-        <AiOutlineLogin />
-      </a>
+      <Wrapper>
+        <a href="#">
+          <BsCart2 />
+        </a>
+        <a href="#">
+          <AiOutlineLogin />
+        </a>
+      </Wrapper>
     </Container>
   );
 };
 
 const Container = styled.nav`
+  flex: 1;
+`;
+
+const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 32px;
+
   svg {
     width: 24px;
     height: 24px;
+  }
+
+  a {
+    color: #2d2d2d;
   }
 `;
 
