@@ -29,11 +29,15 @@ const Container = styled.div`
     outline: none;
     padding: 12px 1rem;
     border-radius: 10px;
+    border-right: 16px solid transparent;
+    /* -webkit-appearance: none;
+    -moz-appearance: none; */
   }
 `;
 
 const Label = styled.label`
   font-size: 1rem;
+  font-weight: 700;
 
   ${(props) =>
     props.require &&

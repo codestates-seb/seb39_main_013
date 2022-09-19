@@ -2,14 +2,14 @@ import React from "react";
 import Header from "./components/Header/Header";
 import GlobalStyled from "./GlobalStyle";
 import styled from "styled-components";
-import ProductRegisterForm from "./components/ProductRegister/ProductRegisterForm";
+import ProductRegisterPage from "./pages/ProductRegisterPage";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <MainContainer>
-        <ProductRegisterForm />
+        <ProductRegisterPage />
       </MainContainer>
       <GlobalStyled />
     </div>
