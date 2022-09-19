@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled, { css } from "styled-components";
+import { BiWon } from "react-icons/bi";
 
 export default function InputText(props) {
   console.log(props.require);
@@ -9,7 +10,10 @@ export default function InputText(props) {
       <Label require={props.require} htmlFor={props.name}>
         {props.label}
       </Label>
-      <input type="text" id={props.name} placeholder={props.text} />
+      <InputWrapper>
+        <InputArea type={props.type} id={props.name} placeholder={props.text} />
+        {props.mode === "price" && <BiWon />}
+      </InputWrapper>
     </Container>
   );
 }
@@ -18,20 +22,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  input {
-    font-size: 14px;
-    background-color: #f1f1f1;
-    border: none;
-    outline: none;
-    padding: 12px 1rem;
-    border-radius: 10px;
-  }
 `;
 
 const Label = styled.label`
   font-size: 1rem;
-
+  font-weight: 700;
   ${(props) =>
     props.require &&
     css`
@@ -40,4 +35,22 @@ const Label = styled.label`
         content: " *";
       }
     `}
+`;
+
+const InputArea = styled.input`
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  padding: 12px 1rem;
+  border-radius: 10px;
+  background-color: transparent;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding-right: 1rem;
 `;
