@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import HeaderMenu from "./HeaderMenu";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   return (
     <Container>
+      <SearchBar />
       <h1>LOGO</h1>
+      <HeaderMenu />
     </Container>
   );
 };
