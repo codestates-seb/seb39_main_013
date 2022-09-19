@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./components/Header/Header";
 import GlobalStyled from "./GlobalStyle";
 import styled from "styled-components";
+import SubBanner from "./components/SubBanner/Subbanner";
 
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <div className="App">
       <Header />
       <MainContainer></MainContainer>
+      <SubBanner/>
       <GlobalStyled />
     </div>
   );
