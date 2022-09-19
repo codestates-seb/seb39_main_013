@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
 const DummyColor = [
@@ -17,24 +18,36 @@ const DummyColor = [
   "#DC358F",
 ];
 
-export default function ColorSelector() {
-  const [colors, setColors] = useState([]);
+export default function ColorSelector(props) {
+  const [colors, setColors] = useState("");
   const [isChecked, setIsChecked] = useState(
     Array(DummyColor.length).fill(false)
   );
-  console.log(isChecked);
+  useEffect(() => {
+    props.setColorHandler(colors);
+  }, [colors, isChecked]);
   const colorSelecthandler = useCallback(
     (value, index) => {
-      if (colors.includes(value)) {
-        setColors(colors.filter((v) => v !== value));
-        setIsChecked(
-          isChecked.map((v, i) => (i === index && v === true ? (v = false) : v))
+      /**
+       * 다중 선택 로직
+       */
+      // if (colors.includes(value)) {
+      //   setColors(colors.filter((v) => v !== value));
+      //   setIsChecked((prev) =>
+      //     prev.map((v, i) => i === index && v === true && false)
+      //   );
+      //   return;
+      // }
+      if (value === colors) {
+        setColors("");
+        setIsChecked((prev) =>
+          prev.map((v, i) => i === index && v === true && false)
         );
         return;
       }
-      setColors((prev) => [...prev, value]);
-      setIsChecked(
-        isChecked.map((v, i) => (i === index && v === false ? (v = true) : v))
+      setColors(value);
+      setIsChecked((prev) =>
+        prev.map((v, i) => (i === index && v === false ? true : false))
       );
     },
     [colors, isChecked]

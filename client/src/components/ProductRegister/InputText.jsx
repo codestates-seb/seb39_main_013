@@ -4,14 +4,19 @@ import styled, { css } from "styled-components";
 import { BiWon } from "react-icons/bi";
 
 export default function InputText(props) {
-  console.log(props.require);
   return (
     <Container>
       <Label require={props.require} htmlFor={props.name}>
         {props.label}
       </Label>
       <InputWrapper>
-        <InputArea type={props.type} id={props.name} placeholder={props.text} />
+        <InputArea
+          name={props.name}
+          onChange={(e) => props.changeHandler(e)}
+          type={props.type}
+          id={props.name}
+          placeholder={props.text}
+        />
         {props.mode === "price" && <BiWon />}
       </InputWrapper>
     </Container>

@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Commons/Button";
 import CheckBoxSelector from "./CheckBoxSelector";
@@ -8,6 +9,25 @@ import InputSelect from "./InputSelect";
 import InputText from "./InputText";
 
 export default function ProductRegisterForm() {
+  const [inputs, setInputs] = useState({
+    productname: "",
+    brand: "",
+    productPrice: "",
+    category1: "",
+    category2: "",
+    productQuantity: "",
+  });
+
+  const [color, setColor] = useState("");
+
+  const setColorHandler = (value) => {
+    console.log(value);
+    setColor(value);
+  };
+
+  const inputChangeHandler = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
   return (
     <Container>
       <InputWrapper>
@@ -18,8 +38,15 @@ export default function ProductRegisterForm() {
           require={true}
           mode={"title"}
           type={"text"}
+          changeHandler={inputChangeHandler}
         />
-        <InputSelect label={"Brand"} text={"Select Brand"} require={true} />
+        <InputSelect
+          label={"Brand"}
+          name={"brand"}
+          text={"Select Brand"}
+          require={true}
+          changeHandler={inputChangeHandler}
+        />
         <InputText
           name={"productPrice"}
           label={"Price"}
@@ -27,20 +54,34 @@ export default function ProductRegisterForm() {
           require={true}
           mode={"price"}
           type={"text"}
+          changeHandler={inputChangeHandler}
         />
         <CategoryBox>
-          <InputSelect label={"Category1"} text={"Category1"} require={true} />
-          <InputSelect label={"Category2"} text={"Category2"} require={true} />
+          <InputSelect
+            name="category1"
+            label={"Category1"}
+            text={"Category1"}
+            require={true}
+            changeHandler={inputChangeHandler}
+          />
+          <InputSelect
+            name="category2"
+            label={"Category2"}
+            text={"Category2"}
+            require={true}
+            changeHandler={inputChangeHandler}
+          />
         </CategoryBox>
         <InputText
-          name={"Quantity"}
+          name={"productQuantity"}
           label={"Quantity"}
           text={"Input Quantity"}
           require={true}
           mode={"title"}
           type={"text"}
+          changeHandler={inputChangeHandler}
         />
-        <ColorSelector />
+        <ColorSelector setColorHandler={setColorHandler} />
         <CheckBoxSelector />
         <ImageSelector buttonText={"Select Thumbnail"} label={"Thumbnail"} />
         <ImageSelector
@@ -57,6 +98,7 @@ export default function ProductRegisterForm() {
 
 const Container = styled.form`
   margin-top: 60px;
+  font-family: "GmarketSansMedium";
 `;
 
 const InputWrapper = styled.div`
