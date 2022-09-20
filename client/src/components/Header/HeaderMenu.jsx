@@ -8,7 +8,7 @@ const HeaderMenu = () => {
   return (
     <Container>
       <Wrapper>
-        <Link to="/">
+        <Link to="/cart">
           <BsCart2 />
         </Link>
         <Link to="/login">

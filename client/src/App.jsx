@@ -7,6 +7,7 @@ import ProductRegisterPage from "./pages/ProductRegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<ProductRegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/cart" element={<CartPage />} />
           </Routes>
         </MainContainer>
       </BrowserRouter>
