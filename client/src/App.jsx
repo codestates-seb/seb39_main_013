@@ -8,14 +8,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
-
-
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
     <div className="App">
-
-
       <BrowserRouter>
         <Header />
         <MainContainer>
@@ -27,7 +24,7 @@ function App() {
           </Routes>
         </MainContainer>
       </BrowserRouter>
-
+      <Footer />
       <GlobalStyled />
       <GlobalFonts />
     </div>

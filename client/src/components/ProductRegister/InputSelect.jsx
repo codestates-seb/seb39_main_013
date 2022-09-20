@@ -28,14 +28,13 @@ const Container = styled.div`
 
   select {
     font-size: 14px;
+    margin: 0;
     background-color: #f1f1f1;
     border: none;
     outline: none;
-    padding: 12px 1rem;
+    padding: 12px 0 12px 1rem;
     border-radius: 10px;
     border-right: 16px solid transparent;
-    /* -webkit-appearance: none;
-    -moz-appearance: none; */
   }
 `;
 

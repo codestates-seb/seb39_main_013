@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HeaderMenu from "./HeaderMenu";
 import SearchBar from "./SearchBar";
+import logo from "../../assets/images/logo_demo02.svg";
 
 const Header = () => {
   return (
@@ -10,7 +11,7 @@ const Header = () => {
       <SearchBar />
       <LogoBox>
         <Link to="/">
-          <h1>LOGO</h1>
+          <img src={logo} alt="logo" />
         </Link>
       </LogoBox>
       <HeaderMenu />
@@ -31,6 +32,10 @@ const LogoBox = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+
+  img {
+    width: 120px;
+  }
 `;
 
 export default Header;
