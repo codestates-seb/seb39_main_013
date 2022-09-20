@@ -2,17 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { BsCart2 } from "react-icons/bs";
 import { AiOutlineLogin } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const HeaderMenu = () => {
   return (
     <Container>
       <Wrapper>
-        <a href="#">
+        <Link to="/">
           <BsCart2 />
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="/login">
           <AiOutlineLogin />
-        </a>
+        </Link>
       </Wrapper>
     </Container>
   );

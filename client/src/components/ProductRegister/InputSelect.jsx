@@ -8,7 +8,11 @@ export default function InputSelect(props) {
       <Label require={props.require} htmlFor={props.name}>
         {props.label}
       </Label>
-      <select id={props.name}>
+      <select
+        id={props.name}
+        name={props.name}
+        onChange={(e) => props.changeHandler(e)}
+      >
         <option value="">{props.text}</option>
         <option value="Nike">{"Nike"}</option>
         <option value="Adidas">{"Adidas"}</option>
