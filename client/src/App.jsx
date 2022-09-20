@@ -6,6 +6,7 @@ import styled from "styled-components";
 import ProductRegisterPage from "./pages/ProductRegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<ProductRegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
           </Routes>
         </MainContainer>
       </BrowserRouter>
