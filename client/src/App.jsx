@@ -4,14 +4,21 @@ import GlobalStyled from "./GlobalStyle";
 import GlobalFonts from "./fonts/GlobalFonts";
 import styled from "styled-components";
 import ProductRegisterPage from "./pages/ProductRegisterPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <MainContainer>
-        <ProductRegisterPage />
-      </MainContainer>
+      <BrowserRouter>
+        <MainContainer>
+          <Routes>
+            <Route path="/" element={<ProductRegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </MainContainer>
+      </BrowserRouter>
       <GlobalStyled />
       <GlobalFonts />
     </div>
