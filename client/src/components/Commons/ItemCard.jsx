@@ -16,7 +16,7 @@ function ItemCard(props) {
        
         setIsClicked(curr => !curr);
         e.preventDefault();
-        
+        //추후에 post요청을 통하여 찜한 목록에 post요청 필요.
     }
   return (
     <Container>
