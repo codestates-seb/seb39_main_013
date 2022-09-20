@@ -1,13 +1,20 @@
 spring:
+  profiles:
+    include:
+      - aws
+      - mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: ${{ secrets.MYSQL_USERNAME }}
-    password: ${{ secrets.MYSQL_PASSWORD }}
+    username: root
+    password: '@tnqh258'
   jpa:
     hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: create
     show-sql: true
+    properties.hibernate.format_sql: true
+    defer-datasource-initialization: true
 #    database: mysql
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
 #    properties.hibernate.format_sql: true
