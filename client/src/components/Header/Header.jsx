@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HeaderMenu from "./HeaderMenu";
 import SearchBar from "./SearchBar";
@@ -8,7 +9,9 @@ const Header = () => {
     <Container>
       <SearchBar />
       <LogoBox>
-        <h1>LOGO</h1>
+        <Link to="/">
+          <h1>LOGO</h1>
+        </Link>
       </LogoBox>
       <HeaderMenu />
     </Container>
