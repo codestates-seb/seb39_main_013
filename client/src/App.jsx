@@ -4,6 +4,7 @@ import GlobalStyled from "./GlobalStyle";
 import styled from "styled-components";
 
 import Footer from "./components/Footer/Footer";
+import Category from "./components/Category/Category";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <MainContainer></MainContainer>
       <Footer/>
+      <Category/>
       <GlobalStyled />
     </div>
   );
