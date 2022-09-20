@@ -10,8 +10,8 @@ import LoginPage from "./pages/LoginPage";
 function App() {
   return (
     <div className="App">
-      <Header />
       <BrowserRouter>
+        <Header />
         <MainContainer>
           <Routes>
             <Route path="/" element={<ProductRegisterPage />} />

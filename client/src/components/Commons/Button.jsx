@@ -10,5 +10,6 @@ const Container = styled.button`
   background-color: #383838;
   padding: 9px 45px;
   color: #ffffff;
+  border: none;
   cursor: pointer;
 `;
