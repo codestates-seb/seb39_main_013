@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
 import SignInput from "../Commons/SignInput";
@@ -16,7 +17,7 @@ export default function LoginForm() {
         <SignButton mode={"login"}>Login</SignButton>
         <SignMenuWrapper>
           <div>
-            <a href="#">회원가입</a>
+            <Link to="/signup">회원가입</Link>
           </div>
           <div>
             <a href="#">아이디 찾기</a>
