@@ -42,21 +42,24 @@ function ItemCard(props) {
 }
 
 let Container = styled.div`
-  width: 290px;
-  height: 380px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-
   * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
   }
 
+  width: 290px;
+  height: 380px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px;
+
   a {
     text-decoration: none;
     color: black;
+   
+
   }
 
   .ItemCard-Image {
@@ -75,7 +78,7 @@ let Container = styled.div`
     font-size: 30px;
     margin-bottom: 0px;
     z-index: 100;
-    color: pink;
+    color: #ff696a;
     padding: 3px;
   }
 
@@ -85,6 +88,7 @@ let Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
 
     p {
       font-weight: 800;

@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
 import ItemCard from "./components/Commons/ItemCard";
 import MainItemsCategory from "./components/MainItems/MainItemsCategory";
+import MainItems from "./components/MainItems/MainItems";
 
 
 
@@ -30,6 +31,7 @@ function App() {
           </Routes>
           <ItemCard />
           <MainItemsCategory/>
+          <MainItems />
 
         </MainContainer>
       </BrowserRouter>
