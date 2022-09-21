@@ -3,12 +3,14 @@ import React from "react";
 import styled from "styled-components";
 import QuantitySelector from "./QuantitySelector";
 import { FaWonSign } from "react-icons/fa";
+import DeleteButton from "../Commons/DeleteButton";
+import { Link } from "react-router-dom";
 
 export default function CartItem(props) {
   return (
     <Container>
       <ItemProfile>
-        <a href="#">
+        <Link to="/detail">
           <ImageWrapper>
             <img src={props.itemImg} alt="productImg" />
           </ImageWrapper>
@@ -16,7 +18,7 @@ export default function CartItem(props) {
             <span>{props.brandName}</span>
             <span>{props.itemTitle}</span>
           </ItemTextWrapper>
-        </a>
+        </Link>
       </ItemProfile>
       <ItemOptions>
         {props.option.map((v, i) => {
@@ -44,8 +46,11 @@ export default function CartItem(props) {
         })}
       </ItemOptions>
       <TotalPrice>
-        <FaWonSign />
-        203939
+        <div>
+          <FaWonSign />
+          203939
+        </div>
+        <DeleteButton />
       </TotalPrice>
     </Container>
   );
@@ -95,7 +100,9 @@ const ItemTextWrapper = styled.div`
   gap: 4px;
 
   span {
+    font-weight: 600;
     &:nth-child(2) {
+      font-weight: normal;
       font-size: 14px;
       color: #707070;
     }
@@ -110,10 +117,9 @@ const ItemOptions = styled.div`
 
 const OptionWrapper = styled.div`
   display: flex;
-  width: fit-content;
+  max-width: 180px;
   gap: 1rem;
-  /* padding: 16px 0; */
-
+  justify-content: space-between;
   border-bottom: ${(props) => props.border === "bottom" && "1px solid #d4d4d4"};
 
   padding: ${(props) =>
@@ -143,13 +149,15 @@ const OptionWrapper = styled.div`
 `;
 
 const TotalPrice = styled.div`
-  flex: 1;
+  flex: 0.8;
   display: flex;
   align-items: center;
   gap: 4px;
+  font-weight: 700;
+  justify-content: space-between;
 
   svg {
     fill: #656565;
-    margin-bottom: 2px;
+    margin-bottom: -2px;
   }
 `;

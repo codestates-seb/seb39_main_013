@@ -2,6 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import CartItem from "./CartItem";
+import { HiOutlineX } from "react-icons/hi";
+import { FaWonSign } from "react-icons/fa";
+import Button from "../Commons/Button";
 
 const dummyData = [
   {
@@ -64,6 +67,20 @@ export default function CartForm() {
           );
         })}
       </FormBody>
+      <FormFooter>
+        <button>
+          <HiOutlineX />
+          Clear Shopping Cart
+        </button>
+        <SubTotal>
+          <span>Subtotal</span>
+          <span>
+            <FaWonSign />
+            560000
+          </span>
+        </SubTotal>
+      </FormFooter>
+      <Button>ORDER NOW</Button>
     </Container>
   );
 }
@@ -73,7 +90,8 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  margin-top: 64px;
 `;
 
 const FormHeader = styled.div`
@@ -95,6 +113,10 @@ const MenuBox = styled.div`
   &:nth-child(1) {
     flex: 2;
   }
+
+  &:last-child {
+    flex: 0.8;
+  }
 `;
 
 const FormBody = styled.section`
@@ -102,4 +124,49 @@ const FormBody = styled.section`
   width: 100%;
   align-items: center;
   flex-direction: column;
+`;
+
+const FormFooter = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 40px;
+
+  button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+`;
+
+const SubTotal = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #525252;
+
+    &:last-child {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
 `;

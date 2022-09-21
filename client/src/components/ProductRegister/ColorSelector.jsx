@@ -3,25 +3,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
-const DummyColor = [
-  "#B9B9B9",
-  "#181818",
-  "#FF8C8C",
-  "#FF5050",
-  "#FCDE77",
-  "#80BC34",
-  "#5898F9",
-  "#3562FF",
-  "#9A5CFF",
-  "#FF85DD",
-  "#7B5050",
-  "#DC358F",
-];
-
 export default function ColorSelector(props) {
   const [colors, setColors] = useState("");
   const [isChecked, setIsChecked] = useState(
-    Array(DummyColor.length).fill(false)
+    Array(props.colorList.length).fill(false)
   );
   useEffect(() => {
     props.setColorHandler(colors);
@@ -57,7 +42,7 @@ export default function ColorSelector(props) {
     <Container>
       <span>Color</span>
       <SelectorWrapper>
-        {DummyColor.map((v, i) => {
+        {props.colorList.map((v, i) => {
           return (
             <ColorBox
               onClick={() => colorSelecthandler(v, i)}

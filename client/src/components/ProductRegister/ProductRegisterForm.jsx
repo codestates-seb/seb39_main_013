@@ -8,6 +8,21 @@ import ImageSelector from "./ImageSelector";
 import InputSelect from "./InputSelect";
 import InputText from "./InputText";
 
+const dummyColor = [
+  "#B9B9B9",
+  "#181818",
+  "#FF8C8C",
+  "#FF5050",
+  "#FCDE77",
+  "#80BC34",
+  "#5898F9",
+  "#3562FF",
+  "#9A5CFF",
+  "#FF85DD",
+  "#7B5050",
+  "#DC358F",
+];
+
 export default function ProductRegisterForm() {
   const [inputs, setInputs] = useState({
     productname: "",
@@ -81,7 +96,10 @@ export default function ProductRegisterForm() {
           type={"text"}
           changeHandler={inputChangeHandler}
         />
-        <ColorSelector setColorHandler={setColorHandler} />
+        <ColorSelector
+          setColorHandler={setColorHandler}
+          colorList={dummyColor}
+        />
         <CheckBoxSelector />
         <ImageSelector buttonText={"Select Thumbnail"} label={"Thumbnail"} />
         <ImageSelector
@@ -103,7 +121,8 @@ const Container = styled.form`
 `;
 
 const InputWrapper = styled.div`
-  width: 620px;
+  max-width: 620px;
+  min-width: 320px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 40px;
@@ -112,10 +131,13 @@ const InputWrapper = styled.div`
 `;
 
 const CategoryBox = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 3;
+  width: 100%;
   display: flex;
+  gap: 40px;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
 `;
 
 const SubmitButtonWrapper = styled.div`
