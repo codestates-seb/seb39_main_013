@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: ${{ secrets.MYSQL_USERNAME }}
-    password: ${{ secrets.MYSQL_PASSWORD }}
+    username:
+    password: 
   jpa:
     hibernate:
       ddl-auto: create

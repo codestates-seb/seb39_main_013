@@ -1,19 +1,15 @@
 package com.codestates.eCommerce.member.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Member extends BaseEntity {
     @Id @GeneratedValue
     private Long memberId;
@@ -29,6 +25,15 @@ public class Member extends BaseEntity {
     private int point;
     private int height;
     private int weight;
-    private MemberStatus memberStatus;
-    public enum MemberStatus {}
+
+    private String role;
+//    @Enumerated(value = EnumType.STRING)
+//    private MemberStatus memberStatus = MemberStatus.MEMBER;
+//    @Getter @AllArgsConstructor
+//    public enum MemberStatus {
+//        MEMBER("회원"),
+//        MANAGER("관리자"),
+//        SECESSION("탈퇴");
+//        private String status;
+//    }
 }
