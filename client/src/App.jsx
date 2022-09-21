@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
 import ItemCard from "./components/Commons/ItemCard";
+import MainItemsCategory from "./components/MainItems/MainItemsCategory";
 
 
 
@@ -28,6 +29,8 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
           </Routes>
           <ItemCard />
+          <MainItemsCategory/>
+
         </MainContainer>
       </BrowserRouter>
 

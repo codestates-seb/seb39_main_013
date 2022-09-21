@@ -2,6 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineMail } from "react-icons/ai";
 
+
+function Footer() {
+    return(
+        <Container>
+            <div className="Footer-Left">
+                {/* 로고를 눌렀을 때 홈으로 연결되어야 한다 */}
+                <a href="#">
+                    <h1>LOGO</h1>
+                </a>
+            </div>
+            <div className="Footer-Middle">
+                <a href="#">Menu</a>
+                <a href="#">Menu</a>
+                <a href="#">Menu</a>
+                <a href="#">Menu</a>
+            </div>
+            {/* 추후에 버튼을 누를시 연결해줄 링크를 만들어야 한다. */}
+            <div className="Footer-Right">
+                <button>Register</button>  
+                <button><AiOutlineMail />&nbsp;&nbsp;Email</button>
+            </div>
+        </Container>
+    )
+    
+}
+
 let Container = styled.div`
     *{
         margin: 0;
@@ -52,29 +78,5 @@ let Container = styled.div`
 
     }
 `
-function Footer() {
-    return(
-        <Container>
-            <div className="Footer-Left">
-                {/* 로고를 눌렀을 때 홈으로 연결되어야 한다 */}
-                <a href="#">
-                    <h1>LOGO</h1>
-                </a>
-            </div>
-            <div className="Footer-Middle">
-                <a href="#">Menu</a>
-                <a href="#">Menu</a>
-                <a href="#">Menu</a>
-                <a href="#">Menu</a>
-            </div>
-            {/* 추후에 버튼을 누를시 연결해줄 링크를 만들어야 한다. */}
-            <div className="Footer-Right">
-                <button>Register</button>  
-                <button><AiOutlineMail />&nbsp;&nbsp;Email</button>
-            </div>
-        </Container>
-    )
-    
-}
 
 export default Footer;
