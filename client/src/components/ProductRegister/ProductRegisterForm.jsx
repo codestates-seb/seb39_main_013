@@ -8,6 +8,21 @@ import ImageSelector from "./ImageSelector";
 import InputSelect from "./InputSelect";
 import InputText from "./InputText";
 
+const dummyColor = [
+  "#B9B9B9",
+  "#181818",
+  "#FF8C8C",
+  "#FF5050",
+  "#FCDE77",
+  "#80BC34",
+  "#5898F9",
+  "#3562FF",
+  "#9A5CFF",
+  "#FF85DD",
+  "#7B5050",
+  "#DC358F",
+];
+
 export default function ProductRegisterForm() {
   const [inputs, setInputs] = useState({
     productname: "",
@@ -81,7 +96,10 @@ export default function ProductRegisterForm() {
           type={"text"}
           changeHandler={inputChangeHandler}
         />
-        <ColorSelector setColorHandler={setColorHandler} />
+        <ColorSelector
+          setColorHandler={setColorHandler}
+          colorList={dummyColor}
+        />
         <CheckBoxSelector />
         <ImageSelector buttonText={"Select Thumbnail"} label={"Thumbnail"} />
         <ImageSelector

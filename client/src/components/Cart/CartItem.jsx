@@ -4,12 +4,13 @@ import styled from "styled-components";
 import QuantitySelector from "./QuantitySelector";
 import { FaWonSign } from "react-icons/fa";
 import DeleteButton from "../Commons/DeleteButton";
+import { Link } from "react-router-dom";
 
 export default function CartItem(props) {
   return (
     <Container>
       <ItemProfile>
-        <a href="#">
+        <Link to="/detail">
           <ImageWrapper>
             <img src={props.itemImg} alt="productImg" />
           </ImageWrapper>
@@ -17,7 +18,7 @@ export default function CartItem(props) {
             <span>{props.brandName}</span>
             <span>{props.itemTitle}</span>
           </ItemTextWrapper>
-        </a>
+        </Link>
       </ItemProfile>
       <ItemOptions>
         {props.option.map((v, i) => {
