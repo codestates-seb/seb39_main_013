@@ -10,19 +10,23 @@ import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
 import Footer from "./components/Footer/Footer";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import MainPage from "./pages/MainPage";
+import ScrollToTop from "./components/Commons/ScrollToTop";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
         <Header />
         <MainContainer>
           <Routes>
-            <Route path="/" element={<ProductRegisterPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/detail" element={<ProductDetailPage />} />
+            <Route path="/product-register" element={<ProductRegisterPage />} />
           </Routes>
         </MainContainer>
         <Footer />

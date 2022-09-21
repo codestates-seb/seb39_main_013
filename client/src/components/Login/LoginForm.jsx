@@ -33,7 +33,8 @@ export default function LoginForm() {
 }
 
 const Container = styled.form`
-  width: 620px;
+  width: 100%;
+  max-width: 620px;
   padding: 64px;
   display: flex;
   flex-direction: column;

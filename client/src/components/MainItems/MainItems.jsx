@@ -1,43 +1,36 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 // eslint-disable-next-line
 import styled from "styled-components";
 import ItemCard from "../Commons/ItemCard";
 
-
 // eslint-disable-next-line
 function MainItems(props) {
-    return(
-        <Container>
-            <div className="ItemCards">
-                {/* 추후에 props에 담긴 배열을 itemCard에 넣어주어야 한다.  */}
-                {/* <ItemCard className="ItemCard"></ItemCard>
-                <ItemCard className="ItemCard"></ItemCard>
-                <ItemCard className="ItemCard"></ItemCard>
-                <ItemCard className="ItemCard"></ItemCard> */}
-                <ItemCard className="ItemCard"></ItemCard>
-                <ItemCard className="ItemCard"></ItemCard>
-                <ItemCard className="ItemCard"></ItemCard>
-                <ItemCard className="ItemCard"></ItemCard>
-            </div>
-        </Container>
-    )
+  return (
+    <Container>
+      {props.productList.map((v) => {
+        return (
+          <ItemCard
+            key={v.id}
+            productImg={v.productImg}
+            brand={v.brand}
+            title={v.title}
+            price={v.price}
+          />
+        );
+      })}
+    </Container>
+  );
 }
 
 const Container = styled.div`
-    display:flex;
-    align-items:center;
-    justify-content: center;
-    width:100%;
-
-    .ItemCards{
-        display:flex;
-
-    }
-
-
-    
-`
-
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 40px;
+  grid-row-gap: 64px;
+  width: 100%;
+  max-width: 1280px;
+`;
 
 export default MainItems;
 
