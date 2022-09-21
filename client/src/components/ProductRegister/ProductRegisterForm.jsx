@@ -103,7 +103,8 @@ const Container = styled.form`
 `;
 
 const InputWrapper = styled.div`
-  width: 620px;
+  max-width: 620px;
+  min-width: 320px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 40px;
@@ -112,10 +113,13 @@ const InputWrapper = styled.div`
 `;
 
 const CategoryBox = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 3;
+  width: 100%;
   display: flex;
+  gap: 40px;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
 `;
 
 const SubmitButtonWrapper = styled.div`

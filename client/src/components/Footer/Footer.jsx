@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { AiOutlineMail } from "react-icons/ai";
+import logo from "../../assets/images/logo_demo02.svg";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <Container>
       <div className="Footer-Left">
         {/* 로고를 눌렀을 때 홈으로 연결되어야 한다 */}
-        <a href="#">
-          <h1>LOGO</h1>
-        </a>
+        <Link to="/">
+          <img src={logo} alt="logo" />
+        </Link>
       </div>
       <div className="Footer-Middle">
         <a href="#">Menu</a>
@@ -34,8 +36,6 @@ const Container = styled.footer`
   width: 100%;
   bottom: 0;
   position: absolute;
-  /* position: relative;
-  transform: translateY(-100%); */
   background-color: #4b4b4b;
   display: flex;
 
@@ -50,6 +50,10 @@ const Container = styled.footer`
   .Footer-Left {
     a {
       color: white;
+    }
+
+    img {
+      width: 120px;
     }
   }
 

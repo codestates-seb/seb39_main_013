@@ -25,8 +25,8 @@ function App() {
             <Route path="/detail" element={<ProductDetailPage />} />
           </Routes>
         </MainContainer>
+        <Footer />
       </BrowserRouter>
-      <Footer />
       <GlobalStyled />
       <GlobalFonts />
     </div>
