@@ -31,7 +31,7 @@ const Container = styled.div`
 
     .ItemCards{
         display:flex;
-        border:2px solid blue;
+
     }
 
 
