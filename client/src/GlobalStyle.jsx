@@ -17,6 +17,16 @@ const GlobalStyled = createGlobalStyle`
         font-family: 'S-CoreDream-3Light';
     }
 
+    html {    
+        position: relative;
+        min-height: 100%;
+        margin: 0;
+    }
+
+    body {
+        min-height: 100%;
+    }
+
     a {
         text-decoration: none;
         cursor: pointer;
@@ -26,6 +36,11 @@ const GlobalStyled = createGlobalStyle`
         cursor: pointer;
     }
 
+    .App {
+        /* min-height: 100%;
+        position: relative; */
+        padding-bottom: 320px;
+    }
 `;
 
 export default GlobalStyled;
