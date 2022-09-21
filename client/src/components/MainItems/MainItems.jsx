@@ -3,10 +3,17 @@ import React from "react";
 import styled from "styled-components";
 import ItemCard from "../Commons/ItemCard";
 
-function MainItems() {
+
+// eslint-disable-next-line
+function MainItems(props) {
     return(
         <Container>
             <div className="ItemCards">
+                {/* 추후에 props에 담긴 배열을 itemCard에 넣어주어야 한다.  */}
+                {/* <ItemCard className="ItemCard"></ItemCard>
+                <ItemCard className="ItemCard"></ItemCard>
+                <ItemCard className="ItemCard"></ItemCard>
+                <ItemCard className="ItemCard"></ItemCard> */}
                 <ItemCard className="ItemCard"></ItemCard>
                 <ItemCard className="ItemCard"></ItemCard>
                 <ItemCard className="ItemCard"></ItemCard>
