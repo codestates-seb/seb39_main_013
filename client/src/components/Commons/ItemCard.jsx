@@ -55,14 +55,10 @@ const Container = styled.div`
   }
 
   .ItemCard-Heart {
-    position: relative;
-    top: 240px;
-    left: 230px;
     font-size: 30px;
-    margin-bottom: 0px;
+    margin: 0 1rem 1rem 0;
     z-index: 100;
     color: #ff696a;
-    padding: 3px;
   }
 
   .ItemCard-Explain {
@@ -83,6 +79,9 @@ const ImageWrapper = styled.div`
 `;
 
 const ItemCardImg = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   border-radius: 10px;
   width: 100%;
   height: 100%;

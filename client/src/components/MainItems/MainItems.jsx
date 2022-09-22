@@ -24,6 +24,7 @@ function MainItems(props) {
 }
 
 const Container = styled.div`
+  margin-top: 64px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 40px;

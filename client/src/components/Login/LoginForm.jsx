@@ -20,6 +20,7 @@ export default function LoginForm() {
       gapi.auth2.init({
         clientId: googleClientID,
         scope: "email",
+        ux_mode: "popup",
       });
     };
     gapi.load("client:auth2", initAuth);
