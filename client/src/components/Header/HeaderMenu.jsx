@@ -1,19 +1,29 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import { BsCart2 } from "react-icons/bs";
 import { AiOutlineLogin } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const HeaderMenu = () => {
+const HeaderMenu = (props) => {
   return (
     <Container>
       <Wrapper>
-        <Link to="/cart">
-          <BsCart2 />
-        </Link>
-        <Link to="/login">
-          <AiOutlineLogin />
-        </Link>
+        {props.login ? (
+          <>
+            <div>login</div>
+            <div>MyPage</div>
+          </>
+        ) : (
+          <>
+            <Link to="/cart">
+              <BsCart2 />
+            </Link>
+            <Link to="/login">
+              <AiOutlineLogin />
+            </Link>
+          </>
+        )}
       </Wrapper>
     </Container>
   );

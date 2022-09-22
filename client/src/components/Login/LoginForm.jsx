@@ -1,10 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
 import SignInput from "../Commons/SignInput";
+import GoogleLogin from "react-google-login";
+import { gapi } from "gapi-script";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducer/userSlice";
 
 export default function LoginForm() {
+  const googleClientID = process.env.REACT_APP_CLIENT_ID;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const initAuth = () => {
+      gapi.auth2.init({
+        clientId: googleClientID,
+        scope: "email",
+      });
+    };
+    gapi.load("client:auth2", initAuth);
+  }, []);
+
+  const googleAuthOnSuccess = (res) => {
+    // console.log(res);
+    dispatch(setUser({ name: res.wt.Ad, email: res.wt.cu }));
+    navigate("/");
+  };
+
   return (
     <Container>
       <SignInput label={"Email"} text={"Input your Email"} type={"email"} />
@@ -27,7 +53,8 @@ export default function LoginForm() {
           </div>
         </SignMenuWrapper>
       </MiddleWrapper>
-      <SignButton>Login with Google</SignButton>
+      <GoogleLogin clientId={googleClientID} onSuccess={googleAuthOnSuccess} />
+      {/* <SignButton>Login with Google</SignButton> */}
     </Container>
   );
 }
