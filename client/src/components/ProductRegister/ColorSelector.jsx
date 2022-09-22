@@ -8,9 +8,11 @@ export default function ColorSelector(props) {
   const [isChecked, setIsChecked] = useState(
     Array(props.colorList.length).fill(false)
   );
+
   useEffect(() => {
     props.setColorHandler(colors);
   }, [colors, isChecked]);
+
   const colorSelecthandler = useCallback(
     (value, index) => {
       /**
@@ -39,7 +41,7 @@ export default function ColorSelector(props) {
   );
 
   return (
-    <Container>
+    <Container require={props.require}>
       <span>Color</span>
       <SelectorWrapper>
         {props.colorList.map((v, i) => {
@@ -65,10 +67,14 @@ const Container = styled.div`
     font-size: 1rem;
     font-weight: 700;
 
-    &::after {
-      color: #ff5252;
-      content: " *";
-    }
+    ${(props) =>
+      props.require &&
+      css`
+        &::after {
+          color: #ff5252;
+          content: " *";
+        }
+      `}
   }
 `;
 

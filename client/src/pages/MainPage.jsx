@@ -61,7 +61,7 @@ export default function MainPage() {
       <MainBanner />
       <Category />
       <MainItemsCategory />
-      <MainItems productList={dummyData} />
+      <MainItems productList={dummyData} mode={"main"} />
     </Container>
   );
 }
