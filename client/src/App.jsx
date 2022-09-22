@@ -18,7 +18,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ScrollToTop />
-        {/* <h1>hello {userInfo && userInfo.name}</h1> */}
         <Header />
         <MainContainer>
           <Routes>
