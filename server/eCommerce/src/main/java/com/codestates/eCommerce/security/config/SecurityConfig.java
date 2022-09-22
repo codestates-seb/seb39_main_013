@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
                 .anyRequest().permitAll();
 //                .and()
-//                .oauth2Login()
+//                .oauth2Login();
 //                .loginPage()
         return http.build();
     }
