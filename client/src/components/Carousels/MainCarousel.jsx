@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import { mainBanner } from "../../assets";
 
 export default function MainCarousel() {
   // eslint-disable-next-line no-unused-vars
-  const [imgList, setImgList] = useState([
-    "https://active.ridibooks.com/ridibooks_banner/1659279787605_MjIwNzA3.jpg",
-    "https://active.ridibooks.com/ridibooks_banner/1659107102749_MjIwNzIz.jpg",
-    "https://active.ridibooks.com/ridibooks_banner/1658807205795_MjIwNzEx.jpg",
-    "https://active.ridibooks.com/ridibooks_banner/1658707051124_MjIwNzE5.jpg",
-    "https://active.ridibooks.com/ridibooks_banner/1658416086708_MjIwNzA0.jpg",
-    "https://active.ridibooks.com/ridibooks_banner/1658455774270_MjIwNzA2.jpg",
-    "https://active.ridibooks.com/ridibooks_banner/1658899593633_MjIwNzI2.jpg",
-  ]);
+  const [imgList, setImgList] = useState(mainBanner);
   const [imgNum, setImgNum] = useState(0);
 
   const slideRightHandle = () => {
