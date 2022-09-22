@@ -23,6 +23,17 @@ public class MemberController {
         return new ResponseEntity<>(memberId, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{member-id}")
+    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
+        Member member = service.findMember(memberId);
+        MemberDto.Response response = mapper.memberToResponse(member);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+
+
+    // test URI
     @GetMapping("/user")
     public String user() {
         return "user";

@@ -35,15 +35,19 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
-                .formLogin().disable()
+                .formLogin().disable() // todo: oauth 로그인시 해제필요?
                 .httpBasic().disable()
 //                .addFilter(new JwtAuthenticationFilter(authenticationManager)) // AuthenticationManager 파라미터로 넘겨줘야 함
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
+                .antMatchers("/api/v1/members/user/**").access("hasRole('ROLE_MEMBER') or hasRole('MANAGER')")
+//                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
                 .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
                 .anyRequest().permitAll();
+//                .and()
+//                .oauth2Login()
+//                .loginPage()
         return http.build();
     }
 

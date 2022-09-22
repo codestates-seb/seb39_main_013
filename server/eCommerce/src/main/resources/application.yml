@@ -3,11 +3,21 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username:
-    password: 
+    password:
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id:
+#            client-secret:
+#            scope:
+#              - email
+#              - profile
 #    database: mysql
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
 #    properties.hibernate.format_sql: true

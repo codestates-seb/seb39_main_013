@@ -7,4 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
     Member postToMember(MemberDto.Post post);
+
+    MemberDto.Response memberToResponse(Member member);
+
 }
