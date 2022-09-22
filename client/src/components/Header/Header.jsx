@@ -4,8 +4,12 @@ import styled from "styled-components";
 import HeaderMenu from "./HeaderMenu";
 import SearchBar from "./SearchBar";
 import logo from "../../assets/images/logo_demo02.svg";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const userInfo = useSelector((state) => state.user);
+  console.log("inner header :", userInfo);
+
   return (
     <Container>
       <SearchBar />
@@ -14,7 +18,11 @@ const Header = () => {
           <img src={logo} alt="logo" />
         </Link>
       </LogoBox>
-      <HeaderMenu />
+      {userInfo.isLogin ? (
+        <HeaderMenu login={true} />
+      ) : (
+        <HeaderMenu login={false} />
+      )}
     </Container>
   );
 };

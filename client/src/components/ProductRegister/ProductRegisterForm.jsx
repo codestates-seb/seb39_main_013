@@ -117,7 +117,6 @@ export default function ProductRegisterForm() {
 const Container = styled.form`
   margin-top: 60px;
   margin-bottom: 60px;
-  font-family: "GmarketSansMedium";
 `;
 
 const InputWrapper = styled.div`

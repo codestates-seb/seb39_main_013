@@ -85,8 +85,13 @@ export default function CartForm() {
   );
 }
 
+/**
+ * flex로 정가운데 고정 시 max-width width 100%로 전체 공간 잡기
+ */
+
 const Container = styled.section`
-  width: 1280px;
+  width: 100%;
+  max-width: 1280px;
   display: flex;
   flex-direction: column;
   justify-content: center;

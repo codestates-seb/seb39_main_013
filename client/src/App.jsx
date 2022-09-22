@@ -8,35 +8,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
-<<<<<<< HEAD
-import ItemCard from "./components/Commons/ItemCard";
-import MainItemsCategory from "./components/MainItems/MainItemsCategory";
-import MainItems from "./components/MainItems/MainItems";
-
-
-
-=======
 import Footer from "./components/Footer/Footer";
 import ProductDetailPage from "./pages/ProductDetailPage";
->>>>>>> b21e5fc81133c5712209842f04df1a6adf925b63
+import MainPage from "./pages/MainPage";
+import ScrollToTop from "./components/Commons/ScrollToTop";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
+        {/* <h1>hello {userInfo && userInfo.name}</h1> */}
         <Header />
         <MainContainer>
           <Routes>
-            <Route path="/" element={<ProductRegisterPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/detail" element={<ProductDetailPage />} />
+            <Route path="/product-register" element={<ProductRegisterPage />} />
           </Routes>
-          <ItemCard />
-          <MainItemsCategory/>
-          <MainItems />
-
         </MainContainer>
         <Footer />
       </BrowserRouter>
