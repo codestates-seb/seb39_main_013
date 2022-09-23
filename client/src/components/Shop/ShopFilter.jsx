@@ -3,12 +3,15 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../Commons/Button";
 import ColorSelector from "../ProductRegister/ColorSelector";
+import CategorySelector from "./CategorySelector";
 
 export default function ShopFilter(props) {
   return (
     <Container>
+      <CategorySelector />
       <ColorSelector
         colorList={props.dummyColor}
+        fontSize={"22px"}
         setColorHandler={props.setColorHandler}
       />
       <PriceSelector>
@@ -36,7 +39,7 @@ const PriceSelector = styled.div`
   p {
     font-weight: 700;
     margin-bottom: 1rem;
-    font-size: 24px;
+    font-size: 22px;
   }
 `;
 

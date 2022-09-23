@@ -36,9 +36,11 @@ const GlobalStyled = createGlobalStyle`
         cursor: pointer;
     }
 
+    li {
+        list-style: none;
+    }
+
     .App {
-        /* min-height: 100%;
-        position: relative; */
         padding-bottom: 320px;
     }
 `;
