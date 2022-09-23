@@ -8,18 +8,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
-<<<<<<< HEAD
 import ItemCard from "./components/Commons/ItemCard";
 import MainItemsCategory from "./components/MainItems/MainItemsCategory";
 import MainItems from "./components/MainItems/MainItems";
 
-
-
-=======
 import Footer from "./components/Footer/Footer";
 import ProductDetailPage from "./pages/ProductDetailPage";
->>>>>>> b21e5fc81133c5712209842f04df1a6adf925b63
-
+import Comment from "./components/Comment/Comment";
 function App() {
   return (
     <div className="App">
@@ -36,6 +31,8 @@ function App() {
           <ItemCard />
           <MainItemsCategory/>
           <MainItems />
+
+          <Comment/>
 
         </MainContainer>
         <Footer />
