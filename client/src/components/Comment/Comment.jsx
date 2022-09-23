@@ -37,13 +37,16 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0;
 
   .comment {
     display: flex;
     width: 70%;
+    height: 200px;
     border-bottom: 2px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
-    padding-top: 20px;
+    margin-top: 20px;
+    border: 2px solid turquoise;
   }
 
   .comment-image-container {
@@ -63,6 +66,7 @@ const Container = styled.div`
     .comment-content-top {
       display: flex;
       border: 2px solid red;
+      height: 50px;
 
       .comment-content-top__left {
         border: 2px solid red;
@@ -89,6 +93,10 @@ const Container = styled.div`
       }
     }
     .comment-content_bottom {
+      .comment-text {
+        border: 2px solid blue;
+        height: 110px;
+      }
       .comment-replyIcon {
         display: flex;
         justify-content: end;

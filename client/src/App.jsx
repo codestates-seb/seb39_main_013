@@ -15,6 +15,9 @@ import MainItems from "./components/MainItems/MainItems";
 import Footer from "./components/Footer/Footer";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Comment from "./components/Comment/Comment";
+import ReplyCommentForm from "./components/Comment/ReplyCommentForm";
+import QnaForm from "./components/Comment/QnaForm";
+
 function App() {
   return (
     <div className="App">
@@ -29,11 +32,12 @@ function App() {
             <Route path="/detail" element={<ProductDetailPage />} />
           </Routes>
           <ItemCard />
-          <MainItemsCategory/>
+          <MainItemsCategory />
           <MainItems />
 
-          <Comment/>
-
+          <Comment />
+          <ReplyCommentForm />
+          <QnaForm />
         </MainContainer>
         <Footer />
       </BrowserRouter>
