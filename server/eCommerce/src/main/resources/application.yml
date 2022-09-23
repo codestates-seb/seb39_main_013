@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    include:
+      - aws
+      - mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
@@ -6,6 +10,7 @@ spring:
     password: 
   jpa:
     hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: create
     show-sql: true
 #  security:

@@ -1,0 +1,31 @@
+.slider_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1200px;
+}
+
+.banner_slide {
+  margin: 0 10px;
+  width: 1200px;
+  height: 400px;
+  transition: 0.5s;
+  /* flex-wrap: wrap; */
+}
+
+.banner_slide > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+@keyframes slide {
+  from {
+    flex-basis: 1000;
+  }
+
+  to {
+    flex-basis: 100px;
+  }
+}
