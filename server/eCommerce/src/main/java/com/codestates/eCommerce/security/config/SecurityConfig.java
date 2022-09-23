@@ -3,6 +3,8 @@ package com.codestates.eCommerce.security.config;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
+import com.codestates.eCommerce.security.oauth.OAuth2SuccessHandler;
+import com.codestates.eCommerce.security.oauth.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,32 +24,29 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfig {
     private final CorsFilter corsFilter;
     private final MemberRepository repository;
-//    private final AuthenticationManager authenticationManager;
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
+    private final PrincipalOauth2UserService principalOauth2UserService;
+    private final OAuth2SuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.addFilterBefore(new MyFilter(), BasicAuthenticationFilter.class);
-        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
                 .formLogin().disable() // todo: oauth 로그인시 해제필요?
                 .httpBasic().disable()
-//                .addFilter(new JwtAuthenticationFilter(authenticationManager)) // AuthenticationManager 파라미터로 넘겨줘야 함
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/members/user/**").access("hasRole('ROLE_MEMBER') or hasRole('MANAGER')")
 //                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
                 .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
-                .anyRequest().permitAll();
-//                .and()
-//                .oauth2Login();
-//                .loginPage()
+                .anyRequest().permitAll()
+                .and()
+                .oauth2Login()
+                .successHandler(successHandler)
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
+        http.csrf().disable();
         return http.build();
     }
 

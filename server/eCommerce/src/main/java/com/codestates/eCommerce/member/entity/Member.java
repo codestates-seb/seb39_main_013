@@ -22,6 +22,8 @@ public class Member extends BaseEntity {
     private String companyAddress;
     private String birthday;
     private String image;
+    private String provider;
+    private String providerId;
     private int point;
     private int height;
     private int weight;
@@ -36,4 +38,14 @@ public class Member extends BaseEntity {
 //        SECESSION("탈퇴");
 //        private String status;
 //    }
+
+    @Builder
+    public Member(String password, String name, String email, String provider, String providerId, String role) {
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.role = role;
+    }
 }
