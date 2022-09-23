@@ -46,7 +46,6 @@ const Container = styled.div`
     border-bottom: 2px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
     margin-top: 20px;
-    border: 2px solid turquoise;
   }
 
   .comment-image-container {
@@ -61,15 +60,13 @@ const Container = styled.div`
   }
 
   .comment-right-part {
-    border: 2px solid red;
     flex: auto;
     .comment-content-top {
       display: flex;
-      border: 2px solid red;
+
       height: 50px;
 
       .comment-content-top__left {
-        border: 2px solid red;
         display: flex;
         align-items: center;
         flex: auto;
@@ -85,7 +82,6 @@ const Container = styled.div`
         }
       }
       .comment-content-top__right {
-        border: 2px solid red;
         display: flex;
         flex: auto;
         justify-content: end;
@@ -94,7 +90,6 @@ const Container = styled.div`
     }
     .comment-content_bottom {
       .comment-text {
-        border: 2px solid blue;
         height: 110px;
       }
       .comment-replyIcon {
@@ -102,7 +97,8 @@ const Container = styled.div`
         justify-content: end;
         margin-right: 10px;
         padding: 5px 0;
-        font-size: 20px;
+        font-size: 27px;
+        cursor: pointer;
       }
     }
   }

@@ -11,7 +11,7 @@ function QnaForm() {
         <div className="Qna-options">
           <p>Your Ratting</p>
           <label>
-            <input type="checkbox" id="isSecret" />
+            <input className="Qna-options__checkBox" type="checkbox" id="isSecret" />
             비공개
           </label>
         </div>
@@ -37,7 +37,7 @@ const Container = styled.div`
     padding: 0;
     box-sizing: border-box;
   }
-  border: 2px solid blue;
+
   display: flex;
   justify-content: center;
 
@@ -51,20 +51,22 @@ const Container = styled.div`
       justify-content: center;
       font-weight: bold;
       padding: 20px 0;
-      border: 2px solid black;
     }
     .Qna-options {
       display: flex;
       padding: 10px 0;
-      border: 2px solid black;
-      label {
-        margin: 0 20px;
+      p {
+        margin-right: 10px;
+      }
+
+      .Qna-options__checkBox {
+        margin: 0 5px;
       }
     }
 
     .Qna-inputInfo {
       display: flex;
-      border: 2px solid black;
+
       gap: 10px;
       input {
         width: 100%;
@@ -72,7 +74,7 @@ const Container = styled.div`
         border-radius: 5px;
         border: none;
         font-size: 17px;
-        padding: 0 5px;
+        padding: 5px 5px;
       }
     }
 

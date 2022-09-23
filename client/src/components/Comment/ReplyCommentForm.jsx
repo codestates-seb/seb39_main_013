@@ -29,16 +29,18 @@ const Container = styled.div`
   justify-content: center;
   .replyComment-box {
     width: 70%;
-    border: 2px solid red;
+
     display: flex;
     flex-direction: column;
 
     textarea {
-      height: 100px;
+      height: 150px;
       background-color: #f1f1f1;
       border: none;
       border-radius: 5px;
       resize: none;
+      font-size: 17px;
+      padding: 5px 5px;
 
       &:focus {
         outline: none;
@@ -50,7 +52,7 @@ const Container = styled.div`
     justify-content: end;
     align-items: center;
     margin-top: 20px;
-    border: 2px solid blue;
+
     input {
       margin: 0 10px;
     }
@@ -62,6 +64,7 @@ const Container = styled.div`
       background-color: #383838;
       font-size: 16px;
       margin-left: 10px;
+      border-radius: 5px;
     }
   }
 `;
