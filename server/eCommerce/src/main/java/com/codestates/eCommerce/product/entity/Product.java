@@ -27,5 +27,10 @@ public class Product extends BaseEntity {
     private int stock;
     private double review;
     private ProductColor productColor;
+
+    public void decreaseStock(int quantity) {
+        this.setStock(this.getStock() - quantity);
+    }
+
     public enum ProductColor {}
 }

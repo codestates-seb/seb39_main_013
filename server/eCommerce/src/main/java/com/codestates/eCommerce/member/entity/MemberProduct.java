@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.cart.entity;
+package com.codestates.eCommerce.member.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -7,18 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart extends BaseEntity {
-    @Id
-    @GeneratedValue
+@Table(name = "cart")
+public class MemberProduct extends BaseEntity {
     private Long cartId;
-    private Long memberId;
+
+    @ManyToOne
+    private Member member;
     private Long productId;
     private int productQuantity;
     private boolean isWanted;
