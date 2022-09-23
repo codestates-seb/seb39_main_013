@@ -27,6 +27,7 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 	implementation 'mysql:mysql-connector-java'
+	implementation 'com.auth0:java-jwt:4.0.0'
 	compileOnly 'org.projectlombok:lombok'
 //	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
