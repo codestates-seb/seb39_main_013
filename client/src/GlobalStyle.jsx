@@ -41,7 +41,7 @@ const GlobalStyled = createGlobalStyle`
     }
 
     .App {
-        padding-bottom: 320px;
+        padding-bottom: 180px;
     }
 `;
 

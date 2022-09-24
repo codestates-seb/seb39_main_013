@@ -13,6 +13,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import MainPage from "./pages/MainPage";
 import ScrollToTop from "./components/Commons/ScrollToTop";
 import ShopPage from "./pages/ShopPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/detail" element={<ProductDetailPage />} />
             <Route path="/product-register" element={<ProductRegisterPage />} />
             <Route path="/shop" element={<ShopPage />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Routes>
         </MainContainer>
         <Footer />

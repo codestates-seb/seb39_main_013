@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { AiOutlineMail } from "react-icons/ai";
 import logo from "../../assets/images/logo_demo02.svg";
 import { Link } from "react-router-dom";
 
@@ -20,19 +19,13 @@ function Footer() {
         <a href="#">Menu</a>
       </div>
       {/* 추후에 버튼을 누를시 연결해줄 링크를 만들어야 한다. */}
-      <div className="Footer-Right">
-        <button>Register</button>
-        <button>
-          <AiOutlineMail />
-          &nbsp;&nbsp;Email
-        </button>
-      </div>
+      <div className="Footer-Right"></div>
     </Container>
   );
 }
 
 const Container = styled.footer`
-  height: 220px;
+  height: 80px;
   width: 100%;
   bottom: 0;
   position: absolute;
@@ -44,7 +37,6 @@ const Container = styled.footer`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 100px;
   }
 
   .Footer-Left {

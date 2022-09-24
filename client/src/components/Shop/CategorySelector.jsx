@@ -23,18 +23,15 @@ export default function CategorySelector() {
       <CategoryWrapper>
         {categoryArray.map((v) => {
           return (
-            <li key={v.id}>
-              <MainCategory
-                onClick={() => categoryClickHandler(v.mainCategory)}
-              >
-                {v.mainCategory}
-              </MainCategory>
-              <SubCategory>
-                {v.mainCategory === isClick &&
-                  v.subCategory.map((value) => {
+            <li key={v.id} onClick={() => categoryClickHandler(v.mainCategory)}>
+              <MainCategory>{v.mainCategory}</MainCategory>
+              {v.mainCategory === isClick && (
+                <SubCategory>
+                  {v.subCategory.map((value) => {
                     return <div>{value}</div>;
                   })}
-              </SubCategory>
+                </SubCategory>
+              )}
             </li>
           );
         })}
@@ -56,7 +53,7 @@ const Container = styled.div`
 const CategoryWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 `;
 
 const MainCategory = styled.button`
@@ -68,20 +65,20 @@ const MainCategory = styled.button`
 const SubCategory = styled(Link)`
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 4px;
-  /* transform: translateY(-20px); */
+  gap: 8px;
+  padding: 12px 4px;
 
   div {
+    animation: 0.2s ease-in-out smoothAppear;
     font-size: 14px;
   }
 
   @keyframes smoothAppear {
-    from {
+    0% {
       opacity: 0;
-      transform: translateY(-5%);
+      transform: translateY(-10px);
     }
-    to {
+    100% {
       opacity: 1;
       transform: translateY(0);
     }
