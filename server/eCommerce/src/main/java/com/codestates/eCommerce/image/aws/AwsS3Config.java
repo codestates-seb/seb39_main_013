@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.common.aws;
+package com.codestates.eCommerce.image.aws;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

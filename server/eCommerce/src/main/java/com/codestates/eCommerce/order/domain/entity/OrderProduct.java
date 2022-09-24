@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.order.domain;
+package com.codestates.eCommerce.order.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import com.codestates.eCommerce.order.enums.ProductOrderStatus;
@@ -14,12 +14,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderProduct extends BaseEntity {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderProductId;
 
     //1
     @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
     private Order order;
 
 //    private Long memberId;
