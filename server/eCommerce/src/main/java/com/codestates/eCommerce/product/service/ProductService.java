@@ -10,10 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class ProductService {
+
+
     private final ProductRepository productRepository;
 
     public void decreaseStock(Long prdocutId, Integer quantity) {
        Product product = productRepository.findById(prdocutId).orElseThrow(() -> new IllegalArgumentException("해당 상품은 없습니다."));
-       product.decreaseStock();
+       product.decreaseStock(quantity);
     }
 }

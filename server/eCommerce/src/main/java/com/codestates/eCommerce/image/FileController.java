@@ -1,8 +1,8 @@
-package com.codestates.eCommerce;
+package com.codestates.eCommerce.image;
 
 import java.io.IOException;
 
-import com.codestates.eCommerce.common.aws.S3Uploader;
+import com.codestates.eCommerce.image.aws.S3Uploader;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

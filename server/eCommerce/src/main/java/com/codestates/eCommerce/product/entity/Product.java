@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -15,7 +16,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product extends BaseEntity {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long productId;
     private Long brandId;
     private String code;
@@ -23,9 +25,9 @@ public class Product extends BaseEntity {
     private String name;
     private String thumbnailImg;
     private String contentImg;
-    private int price;
-    private int stock;
-    private double review;
+    private Integer price;
+    private Integer stock;
+    private Double review;
     private ProductColor productColor;
 
     public void decreaseStock(int quantity) {

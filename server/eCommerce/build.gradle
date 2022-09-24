@@ -36,14 +36,13 @@ dependencies {
 //	testImplementation 'org.springframework.security:spring-security-test'
 
 	//aws
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws'
-	testImplementation 'io.findify:s3mock_2.13:0.2.6'
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
 }
-dependencyManagement {
-	imports {
-		mavenBom 'org.springframework.cloud:spring-cloud-aws:2.2.6.RELEASE'
-	}
-}
+//dependencyManagement {
+//	imports {
+//		mavenBom 'org.springframework.cloud:spring-cloud-aws:2.2.6.RELEASE'
+//	}
+//}
 tasks.named('test') {
 	useJUnitPlatform()
 }

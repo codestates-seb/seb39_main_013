@@ -18,7 +18,7 @@ import java.util.List;
 @Transactional
 public class AppOrderService {
 
-    private OrderMapper<OrderProduct,OrderProductDto> orderMapper;
+    private OrderMapper orderMapper;
     private OrderService orderService;
     private ProductService productService;
 

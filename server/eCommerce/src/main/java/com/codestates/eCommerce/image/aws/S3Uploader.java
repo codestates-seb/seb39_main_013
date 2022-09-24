@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.common.aws;
+package com.codestates.eCommerce.image.aws;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;

@@ -1,6 +1,6 @@
-package com.codestates.eCommerce.order.infrastructure;
+package com.codestates.eCommerce.order.domain.repository;
 
-import com.codestates.eCommerce.order.domain.Order;
+import com.codestates.eCommerce.order.domain.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
