@@ -28,9 +28,10 @@ export default function MainCarousel() {
     <div>
       <Container>
         {imgList.map((v, i) => {
+          console.log(v);
           return (
             <Slider
-              key={i}
+              key={v.id}
               style={
                 i === imgNum
                   ? { flexBasis: "1240px", flexGrow: 1 }
@@ -39,7 +40,7 @@ export default function MainCarousel() {
                   : { flexBasis: "0px", margin: "0px", padding: "0px" }
               }
             >
-              <img src={v} alt="banner-img" />
+              <img src={v.url} alt="banner-img" />
             </Slider>
           );
         })}

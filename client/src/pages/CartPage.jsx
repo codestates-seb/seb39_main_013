@@ -8,7 +8,7 @@ export default function CartPage() {
   return (
     <Container>
       <SubBanner
-        imgUrl={`${process.env.PUBLIC_URL}/public/assets/images/cart_sub_banner.png`}
+        imgUrl={`${process.env.PUBLIC_URL}/assets/images/cart_sub_banner.png`}
       />
       <CartForm />
     </Container>
