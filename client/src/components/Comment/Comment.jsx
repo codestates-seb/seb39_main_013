@@ -4,9 +4,15 @@ import styled from "styled-components";
 import { MdOutlineModeComment } from "react-icons/md";
 import ReplyComment from "./ReplyComment";
 
+//특정 질문을 클릭하면 아래에 이에 관한 답변이 나와야 한다.
+//특정 질문을 클릭하면 상위컴포넌트에서 상태를 관리해 주어야 한다. commetId중에 현재 클릭된 아이를 저장할 수 있어야 한다.
+//클릭이 된 아이는 state에 id값이 저장이 된다.
+//다시 렌더링 하는 과정에서 click된 아이는 replies를 화면에 보여주게 한다.
+//새로운 아이가 클릭되면 state를 변경해준다.
+
 function Comment(props) {
   const stars = "👍".repeat(Number(props.item.questionStars));
-  console.log(props.replies);
+
   return (
     <Container>
       <div className="comment">
@@ -25,7 +31,9 @@ function Comment(props) {
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div className="comment-text">{props.item.questionContent}</div>
+              <div className="comment-text" onClick={() => props.setClickedQuestion(props.item.questionId)}>
+                {props.item.questionContent}
+              </div>
               <div className="comment-replyIcon">
                 <MdOutlineModeComment className="replyIcon" />
               </div>
@@ -33,7 +41,7 @@ function Comment(props) {
           </div>
         </div>
       </div>
-      <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div>
+      {props.active ? <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div> : null}
     </Container>
   );
 }

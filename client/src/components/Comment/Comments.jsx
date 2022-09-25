@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CommentCategory from "./CommentCategory";
 import Comment from "./Comment";
 import ReplyComment from "./ReplyComment";
+import { useState } from "react";
 
 const dummyData = [
   {
@@ -51,19 +52,28 @@ const dummyData2 = [
     answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
     answerContent: "답변 내용3",
   },
+  {
+    answerId: 4,
+    parentQuestion: 2,
+    answerName: "포키포키포키5",
+    answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
+    answerContent: "답변 내용5",
+  },
 ];
 
 function Comments() {
   const getReplies = (questionId) => {
     return dummyData2.filter((item) => item.parentQuestion === questionId);
   };
+  const [clickedQuestion, setClickedQuestion] = useState(null);
+  console.log(clickedQuestion);
 
   return (
     <Container>
       <div>
         <CommentCategory name={["Additional Info", "Reviews", "QnA"]} />
         {dummyData.map((comment) => (
-          <Comment item={comment} replies={getReplies(comment.questionId)} key={comment.questionId} />
+          <Comment active={clickedQuestion === comment.questionId} setClickedQuestion={setClickedQuestion} item={comment} replies={getReplies(comment.questionId)} key={comment.questionId} />
         ))}
       </div>
       <p>======================================================================================================================================================</p>
