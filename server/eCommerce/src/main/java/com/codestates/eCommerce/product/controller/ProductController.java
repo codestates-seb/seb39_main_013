@@ -24,5 +24,9 @@ public class ProductController {
         ResponseProduct responseProduct = appProductSerivce.postProduct(product);
         return new ResponseEntity<>(new SingleResponseDto<>(responseProduct),HttpStatus.CREATED);
     }
-
+    @GetMapping("/{product-id}")
+    public ResponseEntity getProduct(@PathVariable("product-id") Long productId) {
+        ResponseProduct responseProduct = appProductSerivce.getProduct(productId);
+        return new ResponseEntity(new SingleResponseDto<>(responseProduct),HttpStatus.OK);
+    }
 }

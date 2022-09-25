@@ -6,10 +6,11 @@ import com.codestates.eCommerce.product.dto.ResponseProduct;
 import com.codestates.eCommerce.product.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.transaction.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,4 +27,9 @@ public class AppProductSerivce {
         return productMapper.toResponseProductDto(saveProduct);
     }
 
+    @Transactional(readOnly = true)
+    public ResponseProduct getProduct(Long productId){
+        Product product = productService.getProductById(productId);
+        return productMapper.toResponseProductDto(product);
+    }
 }

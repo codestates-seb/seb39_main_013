@@ -14,7 +14,6 @@ public class RequestProduct {
     @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     public static class Post {
         private Long managerId;
-        private Long productId;
         private Long brandId;
         private String majorClass;
         private String subClass;
