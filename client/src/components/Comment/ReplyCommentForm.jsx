@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from "react";
 import styled from "styled-components";
+import Button from "../Commons/Button";
 
 function ReplyCommentForm() {
   return (
@@ -12,7 +13,7 @@ function ReplyCommentForm() {
             <input type="checkbox" id="isSecret" />
             비공개
           </label>
-          <button>SUBMIT</button>
+          <Button>Submit</Button>
         </div>
       </form>
     </Container>

@@ -1,8 +1,12 @@
+/* eslint-disable */
 import React from "react";
 import styled from "styled-components";
 import { MdOutlineModeComment } from "react-icons/md";
+import ReplyComment from "./ReplyComment";
 
-function Comment() {
+function Comment(props) {
+  const stars = "👍".repeat(Number(props.item.questionStars));
+  console.log(props.replies);
   return (
     <Container>
       <div className="comment">
@@ -13,31 +17,37 @@ function Comment() {
           <div className="comment-content">
             <div className="comment-content-top">
               <div className="comment-content-top__left">
-                <div className="comment-author">하키하키하키</div>
-                <div className="comment-CreatedAt">{new Date().toLocaleString()}</div>
+                <div className="comment-author">{props.item.questionName}</div>
+                <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
               </div>
               <div className="comment-content-top__right">
-                <div>👍👍👍👍👍</div>
+                <div>{stars}</div>
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div className="comment-text">comment의 내용이다.</div>
+              <div className="comment-text">{props.item.questionContent}</div>
               <div className="comment-replyIcon">
-                <MdOutlineModeComment />
+                <MdOutlineModeComment className="replyIcon" />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
+
+  .replyBox {
+    width: 100%;
+  }
 
   .comment {
     display: flex;
@@ -98,7 +108,9 @@ const Container = styled.div`
         margin-right: 10px;
         padding: 5px 0;
         font-size: 27px;
-        cursor: pointer;
+        .replyIcon {
+          cursor: pointer;
+        }
       }
     }
   }

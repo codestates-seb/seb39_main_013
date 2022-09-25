@@ -8,15 +8,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
-import ItemCard from "./components/Commons/ItemCard";
-import MainItemsCategory from "./components/MainItems/MainItemsCategory";
-import MainItems from "./components/MainItems/MainItems";
 
 import Footer from "./components/Footer/Footer";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import Comment from "./components/Comment/Comment";
+
 import ReplyCommentForm from "./components/Comment/ReplyCommentForm";
 import QnaForm from "./components/Comment/QnaForm";
+import Comments from "./components/Comment/Comments";
 
 function App() {
   return (
@@ -30,12 +28,9 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/detail" element={<ProductDetailPage />} />
+            <Route path="/comments" element={<Comments></Comments>}></Route>
           </Routes>
-          <ItemCard />
-          <MainItemsCategory />
-          <MainItems />
 
-          <Comment />
           <ReplyCommentForm />
           <QnaForm />
         </MainContainer>

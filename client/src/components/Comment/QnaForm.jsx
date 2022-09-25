@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 /* eslint-disable */
 function QnaForm() {
   return (
@@ -86,7 +87,7 @@ const Container = styled.div`
         border: none;
         border-radius: 5px;
         resize: none;
-        padding: 0 5px;
+        padding: 5px 5px;
         font-size: 17px;
 
         &:focus {
