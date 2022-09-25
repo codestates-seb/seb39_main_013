@@ -5,9 +5,12 @@ import com.codestates.eCommerce.order.domain.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
 

@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.product.entity;
+package com.codestates.eCommerce.product.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -20,19 +20,18 @@ public class Product extends BaseEntity {
     @GeneratedValue
     private Long productId;
     private Long brandId;
-    private String code;
-
+    private String majorClass;
+    private String subClass;
     private String name;
-    private String thumbnailImg;
-    private String contentImg;
     private Integer price;
     private Integer stock;
+    private String color;
+    private String thumbnailImg;
+    private String contentImg;
     private Double review;
-    private ProductColor productColor;
 
     public void decreaseStock(int quantity) {
         this.setStock(this.getStock() - quantity);
     }
 
-    public enum ProductColor {}
 }

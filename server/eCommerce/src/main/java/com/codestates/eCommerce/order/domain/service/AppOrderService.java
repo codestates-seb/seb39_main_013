@@ -6,7 +6,7 @@ import com.codestates.eCommerce.order.mapper.OrderProductMapper;
 import com.codestates.eCommerce.order.dto.OrderDto;
 import com.codestates.eCommerce.order.mapper.OrderMapper;
 import com.codestates.eCommerce.order.dto.ResponseOrderDto;
-import com.codestates.eCommerce.product.service.ProductService;
+import com.codestates.eCommerce.product.domain.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class AppOrderService {
     public ResponseOrderDto placeOrder(OrderDto reqOrderDto){
         Long memberId = 1L;
         System.out.println(reqOrderDto.toString());
-        Order reqOrder = orderMapper.orderDtoToEntity(reqOrderDto);
+        Order reqOrder = orderMapper.toEntity(reqOrderDto);
         Order order = orderService.createOrder(memberId, reqOrder);
 
         order.getOrderProducts()

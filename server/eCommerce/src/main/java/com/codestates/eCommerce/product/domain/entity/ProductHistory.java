@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.product.entity;
+package com.codestates.eCommerce.product.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import lombok.AllArgsConstructor;
