@@ -39,11 +39,17 @@ function Comment(props) {
 }
 
 const Container = styled.div`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px 0;
+  margin: 3px 0;
 
   .replyBox {
     width: 100%;
@@ -52,7 +58,7 @@ const Container = styled.div`
   .comment {
     display: flex;
     width: 70%;
-    height: 200px;
+    height: auto;
     border-bottom: 2px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
     margin-top: 20px;
@@ -100,7 +106,7 @@ const Container = styled.div`
     }
     .comment-content_bottom {
       .comment-text {
-        height: 110px;
+        height: auto;
       }
       .comment-replyIcon {
         display: flex;
