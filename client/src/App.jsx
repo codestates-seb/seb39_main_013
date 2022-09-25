@@ -14,6 +14,7 @@ import MainPage from "./pages/MainPage";
 import ScrollToTop from "./components/Commons/ScrollToTop";
 import ShopPage from "./pages/ShopPage";
 import MyPage from "./pages/MyPage";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (
