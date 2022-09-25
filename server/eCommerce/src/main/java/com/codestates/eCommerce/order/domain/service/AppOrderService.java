@@ -5,7 +5,7 @@ import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.mapper.OrderProductMapper;
 import com.codestates.eCommerce.order.dto.OrderDto;
 import com.codestates.eCommerce.order.mapper.OrderMapper;
-import com.codestates.eCommerce.order.dto.OrderResponseDto;
+import com.codestates.eCommerce.order.dto.ResponseOrderDto;
 import com.codestates.eCommerce.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class AppOrderService {
     private final ProductService productService;
     private final MemberService memberService;
 
-    public OrderResponseDto placeOrder(OrderDto reqOrderDto){
+    public ResponseOrderDto placeOrder(OrderDto reqOrderDto){
         Long memberId = 1L;
         System.out.println(reqOrderDto.toString());
         Order reqOrder = orderMapper.orderDtoToEntity(reqOrderDto);
@@ -34,6 +34,6 @@ public class AppOrderService {
 
         OrderDto resOrderDto = orderMapper.toDto(order);
 
-        return new OrderResponseDto(resOrderDto);
+        return new ResponseOrderDto(resOrderDto);
     }
 }

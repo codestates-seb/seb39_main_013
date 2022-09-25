@@ -1,8 +1,8 @@
 package com.codestates.eCommerce.order.controller;
 
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
-import com.codestates.eCommerce.order.dto.OrderRequestDto;
-import com.codestates.eCommerce.order.dto.OrderResponseDto;
+import com.codestates.eCommerce.order.dto.RequestOrderDto;
+import com.codestates.eCommerce.order.dto.ResponseOrderDto;
 import com.codestates.eCommerce.order.domain.service.AppOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,8 @@ public class OrderController {
     private final AppOrderService appOrderService;
 
     @PostMapping("/cart")
-    public ResponseEntity<?> cartOrder(@RequestBody OrderRequestDto dto){
-        OrderResponseDto responseDto = appOrderService.placeOrder(dto.toOrderDto());
+    public ResponseEntity<?> cartOrder(@RequestBody RequestOrderDto dto){
+        ResponseOrderDto responseDto = appOrderService.placeOrder(dto.toOrderDto());
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
 
