@@ -22,7 +22,12 @@ const HeaderMenu = (props) => {
             <button onClick={async () => await logoutHandler()}>
               <AiOutlineLogout />
             </button>
-            <div>MyPage</div>
+            <ProfileImage to="/mypage">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv-xDIYOuEy1r-AOVNQi807ovbQJln9JwyCw&usqp=CAU"
+                alt="profileImg"
+              />
+            </ProfileImage>
           </>
         ) : (
           <>
@@ -64,6 +69,19 @@ const Wrapper = styled.div`
     align-items: center;
     border: none;
     background-color: transparent;
+  }
+`;
+
+const ProfileImage = styled(Link)`
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+
+  img {
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
   }
 `;
 

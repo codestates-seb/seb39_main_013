@@ -8,9 +8,11 @@ export default function ColorSelector(props) {
   const [isChecked, setIsChecked] = useState(
     Array(props.colorList.length).fill(false)
   );
+
   useEffect(() => {
     props.setColorHandler(colors);
   }, [colors, isChecked]);
+
   const colorSelecthandler = useCallback(
     (value, index) => {
       /**
@@ -39,7 +41,7 @@ export default function ColorSelector(props) {
   );
 
   return (
-    <Container>
+    <Container require={props.require} fontSize={props?.fontSize}>
       <span>Color</span>
       <SelectorWrapper>
         {props.colorList.map((v, i) => {
@@ -62,13 +64,17 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1rem;
   span {
-    font-size: 1rem;
+    font-size: ${(props) => (props.fontSize ? props.fontSize : "1rem")};
     font-weight: 700;
 
-    &::after {
-      color: #ff5252;
-      content: " *";
-    }
+    ${(props) =>
+      props.require &&
+      css`
+        &::after {
+          color: #ff5252;
+          content: " *";
+        }
+      `}
   }
 `;
 

@@ -1,12 +1,19 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-import styled from "styled-components";
-import Category from "../components/Category/Category";
-import MainBanner from "../components/Main/MainBanner";
-import MainItems from "../components/MainItems/MainItems";
-import MainItemsCategory from "../components/MainItems/MainItemsCategory";
+export const dummyColor = [
+  "#B9B9B9",
+  "#181818",
+  "#FF8C8C",
+  "#FF5050",
+  "#FCDE77",
+  "#80BC34",
+  "#5898F9",
+  "#3562FF",
+  "#9A5CFF",
+  "#FF85DD",
+  "#7B5050",
+  "#DC358F",
+];
 
-const dummyData = [
+export const productData = [
   {
     id: "1",
     favorite: true,
@@ -55,21 +62,4 @@ const dummyData = [
   },
 ];
 
-export default function MainPage() {
-  return (
-    <Container>
-      <MainBanner />
-      <Category />
-      <MainItemsCategory />
-      <MainItems productList={dummyData} mode={"main"} />
-    </Container>
-  );
-}
-
-const Container = styled.article`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+export const categoryData = [];

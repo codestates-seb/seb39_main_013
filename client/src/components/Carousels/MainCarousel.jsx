@@ -33,9 +33,9 @@ export default function MainCarousel() {
               key={i}
               style={
                 i === imgNum
-                  ? { flexBasis: "1200px", flexGrow: 1 }
+                  ? { flexBasis: "1240px", flexGrow: 1 }
                   : i === imgNum + 1 || i === imgNum + 2
-                  ? { flexBasis: "80px" }
+                  ? { flexBasis: "40px" }
                   : { flexBasis: "0px", margin: "0px", padding: "0px" }
               }
             >
