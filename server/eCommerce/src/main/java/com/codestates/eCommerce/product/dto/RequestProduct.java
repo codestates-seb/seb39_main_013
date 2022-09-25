@@ -16,13 +16,13 @@ public class RequestProduct {
         private Long managerId;
         private Long productId;
         private Long brandId;
-        private String productName;
         private String majorClass;
         private String subClass;
+        private String name;
         private Integer price;
         private Integer stock;
         private String color;
-        private String thumbnail;
+        private String thumbnailImg;
         private String contentImage;
     }
 }

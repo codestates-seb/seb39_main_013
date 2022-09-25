@@ -22,4 +22,10 @@ public class ProductService {
        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("해당 상품은 없습니다."));
        product.decreaseStock(quantity);
     }
+
+    public Product getProductById(Long productId){
+        return productRepository.findById(productId).orElseThrow();
+    }
+
+
 }
