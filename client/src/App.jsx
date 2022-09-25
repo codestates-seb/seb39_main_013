@@ -15,8 +15,11 @@ import ScrollToTop from "./components/Commons/ScrollToTop";
 import ShopPage from "./pages/ShopPage";
 import MyPage from "./pages/MyPage";
 import PrivateRoute from "./utils/PrivateRoute";
+// import PrivateRoute from "./utils/PrivateRoute";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isLogin = useSelector((state) => state.user.isLogin);
   return (
     <div className="App">
       <BrowserRouter>
@@ -25,9 +28,19 @@ function App() {
         <MainContainer>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/login"
+              element={
+                <PrivateRoute isLogin={isLogin} component={<LoginPage />} />
+              }
+            />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/cart" element={<CartPage />} />
+            <Route
+              path="/cart"
+              element={
+                <PrivateRoute isLogin={isLogin} component={<CartPage />} />
+              }
+            />
             <Route path="/detail" element={<ProductDetailPage />} />
             <Route path="/product-register" element={<ProductRegisterPage />} />
             <Route path="/shop" element={<ShopPage />} />

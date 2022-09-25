@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 export default function PrivateRoute(props) {
-  const isLogin = useSelector((state) => state.user.isLogin);
+  const location = useLocation();
 
-  if (!isLogin) {
-    return <Navigate to={"/login"} replace />;
+  if (location.pathname === "/login" || location.pathname === "signup") {
+    console.log("loginPage");
+    return props.isLogin ? <Navigate to={"/"} /> : props.component;
+  } else {
+    return props.isLogin ? props.component : <Navigate to={"/login"} replace />;
   }
-
-  return props.children;
 }
