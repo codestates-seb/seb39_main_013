@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
-import { mainBanner } from "../../assets";
+import { mainBanner } from "../../constance/bannerImage";
 
 export default function MainCarousel() {
   // eslint-disable-next-line no-unused-vars
