@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 export default function PrivateRoute(props) {
   const location = useLocation();
 
-  if (location.pathname === "/login" || location.pathname === "signup") {
+  if (location.pathname === "/login" || location.pathname === "/signup") {
     console.log("loginPage");
     return props.isLogin ? <Navigate to={"/"} /> : props.component;
   } else {
