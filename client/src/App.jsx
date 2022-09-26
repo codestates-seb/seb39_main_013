@@ -4,11 +4,13 @@ import GlobalStyled from "./GlobalStyle";
 import GlobalFonts from "./fonts/GlobalFonts";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
 import { routerList } from "./utils/Routers";
 import PrivateRoute from "./utils/PrivateRoute";
+
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -19,6 +21,7 @@ function App() {
         <Header />
         <MainContainer>
           <Routes>
+
             {routerList.map((v) => {
               return (
                 <Route
@@ -35,6 +38,7 @@ function App() {
               );
             })}
           </Routes>
+
         </MainContainer>
         <Footer />
       </BrowserRouter>

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { AiOutlineGithub } from "react-icons/ai";
 
+
 function Footer() {
   return (
     <Container>
@@ -86,7 +87,9 @@ const Container = styled.footer`
   position: absolute;
   background-color: #4b4b4b;
   display: flex;
+
   padding: 0 64px;
+
 
   div {
     width: 100%;
@@ -128,6 +131,7 @@ const Container = styled.footer`
   }
 `;
 
+
 const GitLinkBox = styled.ul`
   display: flex;
   align-items: center;
@@ -146,5 +150,6 @@ const GitLinkBox = styled.ul`
     }
   }
 `;
+
 
 export default Footer;
