@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Long> , ProductQueryDslRepositoryCustom {
-
-    @Query(value = "SELECT p FROM PRODUCT ORDER BY p.createdAt DESC")
-    List<Product> selectAllDescJPQL();
+public interface ProductRepository extends JpaRepository<Product, Long>  {
+//
+//    @Query(value = "SELECT p FROM PRODUCT ORDER BY p.createdAt DESC")
+//    List<Product> selectAllDescJPQL();
 }
