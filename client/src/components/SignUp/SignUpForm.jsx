@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SignInput from "../Commons/SignInput";
 import SignButton from "../Commons/SignButton";
-import { Link } from "react-router-dom";
-import { useMutation } from "react-query";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import useSignUpMutation from "../../hooks/useSignUpMutation";
 
 export default function SignUpForm() {
-  // const {} = useMutation()
-
   const [signUpValue, setSignUpValue] = useState({
     email: "",
     name: "",
@@ -16,10 +14,20 @@ export default function SignUpForm() {
     phone: "",
   });
 
+  const signUpAction = useSignUpMutation(signUpValue);
+
   const inputChangeHandler = (e) => {
-    console.log(e);
     setSignUpValue({ ...signUpValue, [e.target.name]: e.target.value });
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    signUpAction.mutate();
+  };
+
+  if (signUpAction.isSuccess) {
+    return <Navigate to={"/login"} replace />;
+  }
 
   return (
     <Container>
@@ -63,7 +71,9 @@ export default function SignUpForm() {
         <label htmlFor="policy">Private policy</label>
       </PolicyChackWrapper>
       <MiddleWrapper>
-        <SignButton mode={"login"}>SignUp</SignButton>
+        <SignButton mode={"login"} onClickHandler={submitHandler}>
+          SignUp
+        </SignButton>
         <span>
           이미 계정이 있으십니까? <Link to={"/login"}>Login</Link>
         </span>

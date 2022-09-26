@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
@@ -9,11 +9,17 @@ import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducer/userSlice";
+import useLoginMutation from "../../hooks/useLoginMutation";
 
 export default function LoginForm() {
+  const [loginValue, setLoginValue] = useState({
+    email: "",
+    password: "",
+  });
   const googleClientID = process.env.REACT_APP_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loginAction = useLoginMutation(loginValue);
 
   useEffect(() => {
     const initAuth = () => {
@@ -32,16 +38,35 @@ export default function LoginForm() {
     navigate("/");
   };
 
+  const inputChangeHandler = (e) => {
+    setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
+  };
+
+  const loginActionHandler = (e) => {
+    e.preventDefault();
+    loginAction.mutate();
+  };
+
   return (
     <Container>
-      <SignInput label={"Email"} text={"Input your Email"} type={"email"} />
       <SignInput
+        name={"email"}
+        label={"Email"}
+        text={"Input your Email"}
+        type={"email"}
+        changeHandler={inputChangeHandler}
+      />
+      <SignInput
+        name={"password"}
         label={"Password"}
         text={"Input your Password"}
         type={"password"}
+        changeHandler={inputChangeHandler}
       />
       <MiddleWrapper>
-        <SignButton mode={"login"}>Login</SignButton>
+        <SignButton mode={"login"} onClickHandler={loginActionHandler}>
+          Login
+        </SignButton>
         <SignMenuWrapper>
           <div>
             <Link to="/signup">회원가입</Link>

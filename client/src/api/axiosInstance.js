@@ -12,6 +12,7 @@ axiosInstance.interceptors.request.use();
 axiosInstance.interceptors.response.use(
   (response) => {
     const res = response.data;
+    console.log(res);
     return res;
   },
   (error) => {
