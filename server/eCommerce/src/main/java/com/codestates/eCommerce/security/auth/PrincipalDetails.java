@@ -2,38 +2,44 @@ package com.codestates.eCommerce.security.auth;
 
 import com.codestates.eCommerce.member.entity.Member;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 //Security Session : Authentication 타입
 //Authentication : UserDetails(PrincipalDetails) 타입
-@RequiredArgsConstructor
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
     private final Member member;
+    private final Map<String, Object> attributes;
 
-    //해당 member의 권한을 리턴하는곳
-    @Override
+    public PrincipalDetails(Member member) {
+        this(member, null);
+    }
+
+    public PrincipalDetails(Member member, Map<String, Object> attributes) {
+        this.member = member;
+        this.attributes = attributes;
+    }
+
+    @Override // 해당 member의 권한을 리턴하는곳
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
                 return member.getRole();
-//                return member.getMemberStatus().getStatus();
             }
         });
         return authorities;
     }
-
     @Override
     public String getPassword() {
         return member.getPassword();
-//        return null;
     }
 
     @Override
@@ -59,5 +65,15 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }

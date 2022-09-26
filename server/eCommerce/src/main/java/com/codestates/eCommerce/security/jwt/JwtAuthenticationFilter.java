@@ -33,7 +33,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             ObjectMapper om = new ObjectMapper();
             Member member = om.readValue(request.getInputStream(), Member.class);
-//            System.out.println(member.toString());
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword());
 
             // authenticationManager 로 로그인 시도를 하면
@@ -53,7 +52,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
-
         String jwtToken = JWT.create()
                 .withSubject(principalDetails.getUsername()) // 토큰 이름 설정
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 10)))

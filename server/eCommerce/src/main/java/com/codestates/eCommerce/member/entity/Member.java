@@ -9,7 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member extends BaseEntity {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
     @Column(nullable = false)
     private String name;
@@ -20,6 +20,8 @@ public class Member extends BaseEntity {
     private String homeAddress;
     private String companyAddress;
     private String birthday;
+    private String provider;
+    private String providerId;
     private String profileImage;
     private int point;
     private int height;
@@ -34,4 +36,14 @@ public class Member extends BaseEntity {
 //        SECESSION("탈퇴");
 //        private String status;
 //    }
+
+    @Builder
+    public Member(String password, String name, String email, String provider, String providerId, String role) {
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.role = role;
+    }
 }

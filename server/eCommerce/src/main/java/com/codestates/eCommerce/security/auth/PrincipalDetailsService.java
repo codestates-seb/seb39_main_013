@@ -15,10 +15,9 @@ import org.springframework.stereotype.Service;
 public class PrincipalDetailsService implements UserDetailsService {
     private final MemberRepository repository;
 
-    @Override
+    @Override // 함수 종료 시 @AuthenticationPrincipal 어노테이션이 만들어진다
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = repository.findByEmail(email);
-        System.out.println("email = " + email);
         if (member != null) {
             return new PrincipalDetails(member);
         }
