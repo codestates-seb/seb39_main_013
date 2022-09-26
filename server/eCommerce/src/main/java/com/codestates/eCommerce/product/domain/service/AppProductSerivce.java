@@ -20,7 +20,6 @@ public class AppProductSerivce {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-
     public ResponseProduct postProduct(RequestProduct.Post requestDto) {
         Product product = productMapper.toEntity(requestDto);
         Product saveProduct = productService.save(product);
