@@ -1,12 +1,12 @@
+/* eslint-disable */
 import React, { useState } from "react";
 // eslint-disable-next-line
 import styled from "styled-components";
 
-function MainItemsCategory() {
-  const [btnActive, setBtnActive] = useState("1");
+function CommentCategory(props) {
+  const [btnActive, setBtnActive] = useState(props.name[0]);
   const handleClicked = (e) => {
-    //클릭시에 패치 요청을 보내서 적절한 아이템들을 띄우ㅓ 주어야 한다.
-
+    //클릭시에 패치 요청을 보내서 적절한 아이템들을 띄워 주어야 한다.
     setBtnActive(e.target.id);
     e.preventDefault();
   };
@@ -16,34 +16,38 @@ function MainItemsCategory() {
       <div className="Banner-Items">
         <a
           href="#"
-          id="1"
+          id={props.name[0]}
           onClick={handleClicked}
-          className={"Banner-Item " + (btnActive === "1" ? "active" : "")}
+          className={
+            "Banner-Item " + (btnActive === props.name[0] ? "active" : "")
+          }
         >
-          Best seller
+          {props.name[0]}
         </a>
         <a
           href="#"
-          id="2"
+          id={props.name[1]}
           onClick={handleClicked}
-          className={"Banner-Item " + (btnActive === "2" ? "active" : "")}
+          className={
+            "Banner-Item " + (btnActive === props.name[1] ? "active" : "")
+          }
         >
-          New arrivals
+          {props.name[1]}
         </a>
         <a
           href="#"
-          id="3"
+          id={props.name[2]}
           onClick={handleClicked}
-          className={"Banner-Item " + (btnActive === "3" ? "active" : "")}
+          className={
+            "Banner-Item " + (btnActive === props.name[2] ? "active" : "")
+          }
         >
-          Sale Item
+          {props.name[2]}
         </a>
       </div>
     </Container>
   );
 }
-
-export default MainItemsCategory;
 
 const Container = styled.div`
   width: 100%;
@@ -51,7 +55,8 @@ const Container = styled.div`
   justify-content: center;
 
   .Banner-Items {
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     display: flex;
     justify-content: space-around;
   }
@@ -86,3 +91,5 @@ const Container = styled.div`
     }
   }
 `;
+
+export default CommentCategory;

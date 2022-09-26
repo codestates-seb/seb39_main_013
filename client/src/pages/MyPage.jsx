@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AddressForm from "../components/Address/AddressForm";
 import MyPageIconBox from "../components/MyPage/MyPageIconBox";
 import ProfileCard from "../components/MyPage/ProfileCard";
 
@@ -9,6 +10,7 @@ export default function MyPage() {
       <ContentsWrapper>
         <ProfileCard />
         <MyPageIconBox />
+        <AddressForm />
       </ContentsWrapper>
     </Container>
   );

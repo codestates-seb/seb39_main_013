@@ -2,9 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import Category from "../components/Category/Category";
+import CommentCategory from "../components/Commons/CommentCategory";
 import MainBanner from "../components/Main/MainBanner";
 import MainItems from "../components/MainItems/MainItems";
-import MainItemsCategory from "../components/MainItems/MainItemsCategory";
 
 const dummyData = [
   {
@@ -60,7 +60,7 @@ export default function MainPage() {
     <Container>
       <MainBanner />
       <Category />
-      <MainItemsCategory />
+      <CommentCategory name={["Best seller", "New arrivals", "Sale Item"]} />
       <MainItems productList={dummyData} mode={"main"} />
     </Container>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react";
 import styled from "styled-components";
-import CommentCategory from "./CommentCategory";
+import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
 import ReplyComment from "./ReplyComment";
 import { useState } from "react";
@@ -69,48 +69,43 @@ function Comments() {
   console.log(clickedQuestion);
 
   const addComment = (text, questionId, answerId) => {
-    //데이터가 들어오면 추가해준다. 
+    //데이터가 들어오면 추가해준다.
+  };
 
-  }
-
-  const deleteComment= (questionId, answerId ) => {
+  const deleteComment = (questionId, answerId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
-  }
+  };
 
-  const editComment = (questionId, answerId) =>{
+  const editComment = (questionId, answerId) => {
     //questionId나 answerId에 맞추어서 수정해준다.
-  }
+  };
 
   return (
     <Container>
       <div>
         <CommentCategory name={["Additional Info", "Reviews", "QnA"]} />
         {dummyData.map((comment) => (
-          <Comment 
-            active={clickedQuestion[0] === comment.questionId} 
-            isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]} 
-            setClickedQuestion={setClickedQuestion} 
-            item={comment} 
-            replies={getReplies(comment.questionId)} 
+          <Comment
+            active={clickedQuestion[0] === comment.questionId}
+            isReplying={
+              clickedQuestion[0] === comment.questionId && clickedQuestion[1]
+            }
+            setClickedQuestion={setClickedQuestion}
+            item={comment}
+            replies={getReplies(comment.questionId)}
             key={comment.questionId}
-            addComment = {addComment}
-            deleteComment = {deleteComment}
-            editComment = {editComment}
-             />
-            
+            addComment={addComment}
+            deleteComment={deleteComment}
+            editComment={editComment}
+          />
         ))}
       </div>
-      <p>======================================================================================================================================================</p>
     </Container>
   );
 }
 
 const Container = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: 0;
-  }
+  width: 100%;
 `;
 
 export default Comments;

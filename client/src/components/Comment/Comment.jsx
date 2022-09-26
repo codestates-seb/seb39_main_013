@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { MdOutlineModeComment } from "react-icons/md";
 import ReplyComment from "./ReplyComment";
 import ReplyCommentForm from "./ReplyCommentForm";
+import { useSelector } from "react-redux";
 
 //특정 질문을 클릭하면 아래에 이에 관한 답변이 나와야 한다.
 //특정 질문을 클릭하면 상위컴포넌트에서 상태를 관리해 주어야 한다. commetId중에 현재 클릭된 아이를 저장할 수 있어야 한다.
@@ -17,6 +18,7 @@ import ReplyCommentForm from "./ReplyCommentForm";
 
 function Comment(props) {
   const stars = "👍".repeat(Number(props.item.questionStars));
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
     <Container>
@@ -29,36 +31,51 @@ function Comment(props) {
             <div className="comment-content-top">
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
-                <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
+                <div className="comment-CreatedAt">
+                  {props.item.questionCreatedAt}
+                </div>
               </div>
               <div className="comment-content-top__right">
                 <div>{stars}</div>
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false])}>
+              <div
+                className="comment-text"
+                onClick={() =>
+                  props.setClickedQuestion([props.item.questionId, false])
+                }
+              >
                 {props.item.questionContent}
               </div>
-              <div className="comment-replyIcon">
-                <MdOutlineModeComment className="replyIcon" onClick={() => props.setClickedQuestion([props.item.questionId, true])} />
-              </div>
+              <button
+                disabled={!isLogin}
+                onClick={() =>
+                  props.setClickedQuestion([props.item.questionId, true])
+                }
+                className="comment-replyIcon"
+              >
+                <MdOutlineModeComment className="replyIcon" />
+              </button>
             </div>
           </div>
         </div>
       </div>
-      {props.active ? <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div> : null}
+      {props.active ? (
+        <div className="replyBox">
+          {props.replies.length > 0
+            ? props.replies.map((reply) => (
+                <ReplyComment reply={reply} key={reply.answerId} />
+              ))
+            : null}
+        </div>
+      ) : null}
       {props.isReplying ? <ReplyCommentForm /> : null}
     </Container>
   );
 }
 
 const Container = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,7 +88,8 @@ const Container = styled.div`
 
   .comment {
     display: flex;
-    width: 70%;
+    width: 100%;
+    max-width: 836px;
     height: auto;
     border-bottom: 2px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
@@ -126,11 +144,7 @@ const Container = styled.div`
         display: flex;
         justify-content: end;
         margin-right: 10px;
-        padding: 5px 0;
         font-size: 27px;
-        .replyIcon {
-          cursor: pointer;
-        }
       }
     }
   }
