@@ -9,10 +9,6 @@ function ReplyCommentForm() {
       <form className="replyComment-box">
         <textarea></textarea>
         <div className="replyComment-submitBox">
-          <label>
-            <input type="checkbox" id="isSecret" />
-            비공개
-          </label>
           <Button>Submit</Button>
         </div>
       </form>
@@ -21,17 +17,12 @@ function ReplyCommentForm() {
 }
 
 const Container = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   display: flex;
   justify-content: center;
-  width:100%;
+  width: 100%;
   .replyComment-box {
-    width: 70%;
-
+    width: 100%;
+    max-width: 836px;
     display: flex;
     flex-direction: column;
 
@@ -54,10 +45,6 @@ const Container = styled.div`
     justify-content: end;
     align-items: center;
     margin-top: 20px;
-
-    input {
-      margin: 0 10px;
-    }
 
     button {
       padding: 3px 20px;

@@ -27,11 +27,6 @@ function ReplyComment(props) {
   );
 }
 const Container = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: 0;
-  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +34,8 @@ const Container = styled.div`
 
   .replyComment {
     display: flex;
-    width: 70%;
+    width: 100%;
+    max-width: 836px;
     height: auto;
     border-bottom: 2px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;

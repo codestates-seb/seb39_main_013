@@ -85,19 +85,7 @@ function Comments() {
       <div>
         <CommentCategory name={["Additional Info", "Reviews", "QnA"]} />
         {dummyData.map((comment) => (
-          <Comment
-            active={clickedQuestion[0] === comment.questionId}
-            isReplying={
-              clickedQuestion[0] === comment.questionId && clickedQuestion[1]
-            }
-            setClickedQuestion={setClickedQuestion}
-            item={comment}
-            replies={getReplies(comment.questionId)}
-            key={comment.questionId}
-            addComment={addComment}
-            deleteComment={deleteComment}
-            editComment={editComment}
-          />
+          <Comment active={clickedQuestion[0] === comment.questionId} isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]} setClickedQuestion={setClickedQuestion} item={comment} replies={getReplies(comment.questionId)} key={comment.questionId} addComment={addComment} deleteComment={deleteComment} editComment={editComment} />
         ))}
       </div>
     </Container>
