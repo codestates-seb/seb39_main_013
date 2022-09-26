@@ -15,20 +15,20 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService service;
     private final MemberMapper mapper;
-
-    @PostMapping
-    public ResponseEntity postMember(@RequestBody MemberDto.Post post) {
-        Member member = mapper.postToMember(post);
-        Long memberId = service.createMember(member);
-        return new ResponseEntity<>(memberId, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
-        Member member = service.findMember(memberId);
-        MemberDto.Response response = mapper.memberToResponse(member);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//
+//    @PostMapping
+//    public ResponseEntity postMember(@RequestBody MemberDto.Post post) {
+//        Member member = mapper.postToMember(post);
+//        Long memberId = service.createMember(member);
+//        return new ResponseEntity<>(memberId, HttpStatus.CREATED);
+//    }
+//
+//    @GetMapping("/{member-id}")
+//    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
+//        Member member = service.findMember(memberId);
+//        MemberDto.Response response = mapper.memberToResponse(member);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
 
 
