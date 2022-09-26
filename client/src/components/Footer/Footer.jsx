@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 import React from "react";
 import styled from "styled-components";
-import logo from "../../assets/images/logo_demo02_white.svg";
+
 import { Link } from "react-router-dom";
 import { AiOutlineGithub } from "react-icons/ai";
 
@@ -9,7 +10,10 @@ function Footer() {
     <Container>
       <div className="Footer-Left">
         <Link to="/">
-          <img src={logo} alt="logo" />
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/logo_demo02_white.svg`}
+            alt="logo"
+          />
         </Link>
       </div>
       <div className="Footer-Middle">

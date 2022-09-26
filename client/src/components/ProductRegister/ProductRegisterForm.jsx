@@ -17,15 +17,11 @@ export default function ProductRegisterForm() {
     category1: "",
     category2: "",
     productQuantity: "",
+    color: "",
   });
 
-  const [color, setColor] = useState("");
-
-  const setColorHandler = (value) => {
-    setColor(value);
-  };
-
   const inputChangeHandler = (e) => {
+    console.log(e);
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
   return (
@@ -83,8 +79,9 @@ export default function ProductRegisterForm() {
         />
         <ColorSelector
           require={true}
-          setColorHandler={setColorHandler}
           colorList={dummyColor}
+          name={"color"}
+          changeHandler={inputChangeHandler}
         />
         <CheckBoxSelector />
         <ImageSelector buttonText={"Select Thumbnail"} label={"Thumbnail"} />

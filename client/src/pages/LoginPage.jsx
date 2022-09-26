@@ -1,13 +1,15 @@
+/* eslint-disable no-undef */
 import React from "react";
 import styled from "styled-components";
 import LoginForm from "../components/Login/LoginForm";
 import SubBanner from "../components/SubBanner/Subbanner";
-import bannerImg from "../assets/images/shop_sub_banner.png";
 
 export default function LoginPage() {
   return (
     <Container>
-      <SubBanner imgUrl={bannerImg} />
+      <SubBanner
+        imgUrl={`${process.env.PUBLIC_URL}/assets/images/shop_sub_banner.png`}
+      />
       <LoginForm />
     </Container>
   );

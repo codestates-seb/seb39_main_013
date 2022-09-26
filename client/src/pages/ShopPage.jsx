@@ -1,10 +1,10 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
 import MainItems from "../components/MainItems/MainItems";
 import ShopFilter from "../components/Shop/ShopFilter";
 import { dummyColor, productData } from "../dummyData";
-import bannerImg from "../assets/images/shop_sub_banner.png";
 import SubBanner from "../components/SubBanner/Subbanner";
 
 export default function ShopPage() {
@@ -15,7 +15,9 @@ export default function ShopPage() {
   };
   return (
     <Container>
-      <SubBanner imgUrl={bannerImg} />
+      <SubBanner
+        imgUrl={`${process.env.PUBLIC_URL}/public/assets/images/shop_sub_banner.png`}
+      />
       <ShopWrapper>
         <ShopFilter dummyColor={dummyColor} setColorHandler={setColorHandler} />
         <ItemsWrapper>

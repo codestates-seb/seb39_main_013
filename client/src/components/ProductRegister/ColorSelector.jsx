@@ -10,21 +10,11 @@ export default function ColorSelector(props) {
   );
 
   useEffect(() => {
-    props.setColorHandler(colors);
+    props.changeHandler({ target: { name: props.name, value: colors } });
   }, [colors, isChecked]);
 
   const colorSelecthandler = useCallback(
     (value, index) => {
-      /**
-       * 다중 선택 로직
-       */
-      // if (colors.includes(value)) {
-      //   setColors(colors.filter((v) => v !== value));
-      //   setIsChecked((prev) =>
-      //     prev.map((v, i) => i === index && v === true && false)
-      //   );
-      //   return;
-      // }
       if (value === colors) {
         setColors("");
         setIsChecked((prev) =>
@@ -55,6 +45,12 @@ export default function ColorSelector(props) {
           );
         })}
       </SelectorWrapper>
+      <input
+        type={"color"}
+        value={colors}
+        name={props.name}
+        onInput={(e) => console.log("change")}
+      />
     </Container>
   );
 }
@@ -75,6 +71,10 @@ const Container = styled.div`
           content: " *";
         }
       `}
+  }
+
+  input {
+    display: none;
   }
 `;
 
