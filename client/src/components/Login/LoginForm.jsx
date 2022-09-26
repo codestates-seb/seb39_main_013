@@ -27,7 +27,7 @@ export default function LoginForm() {
   }, []);
 
   const googleAuthOnSuccess = (res) => {
-    // console.log(res);
+    console.log(res);
     dispatch(setUser({ name: res.wt.Ad, email: res.wt.cu }));
     navigate("/");
   };

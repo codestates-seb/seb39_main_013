@@ -1,22 +1,62 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 import styled from "styled-components";
 import SignInput from "../Commons/SignInput";
 import SignButton from "../Commons/SignButton";
 import { Link } from "react-router-dom";
+import { useMutation } from "react-query";
 
 export default function SignUpForm() {
+  // const {} = useMutation()
+
+  const [signUpValue, setSignUpValue] = useState({
+    email: "",
+    name: "",
+    password: "",
+    phone: "",
+  });
+
+  const inputChangeHandler = (e) => {
+    console.log(e);
+    setSignUpValue({ ...signUpValue, [e.target.name]: e.target.value });
+  };
+
   return (
     <Container>
-      <SignInput label={"Email"} text={"Input your Email"} type={"email"} />
+      <SignInput
+        label={"Email"}
+        text={"Input your Email"}
+        type={"email"}
+        name={"email"}
+        changeHandler={inputChangeHandler}
+      />
+      <SignInput
+        label={"Name"}
+        text={"Input your Name"}
+        type={"text"}
+        name={"name"}
+        changeHandler={inputChangeHandler}
+      />
+      <SignInput
+        label={"Phone"}
+        text={"Input your PhoneNumber"}
+        type={"text"}
+        name={"phone"}
+        changeHandler={inputChangeHandler}
+      />
       <SignInput
         label={"Password"}
         text={"Input Password for Signup"}
         type={"password"}
+        name={"password"}
+        changeHandler={inputChangeHandler}
       />
       <SignInput
         label={"Check Password"}
         text={"Check Password"}
         type={"password"}
+        name={"passwordCheck"}
+        changeHandler={inputChangeHandler}
       />
       <PolicyChackWrapper>
         <input type={"checkbox"} id={"policy"} />

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
@@ -9,11 +10,11 @@ export default function ShopFilter(props) {
   return (
     <Container>
       <CategorySelector />
-      <ColorSelector
+      {/* <ColorSelector
         colorList={props.dummyColor}
         fontSize={"22px"}
         setColorHandler={props.setColorHandler}
-      />
+      /> */}
       <PriceSelector>
         <p>Price</p>
         <InputWrapper>

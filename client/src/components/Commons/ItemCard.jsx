@@ -76,6 +76,8 @@ const Container = styled.div`
 const ImageWrapper = styled.div`
   width: 100%;
   height: 290px;
+  /* height: 100%; */
+  /* min-height: 290px; */
 `;
 
 const ItemCardImg = styled.div`
