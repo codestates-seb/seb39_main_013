@@ -65,7 +65,7 @@ function Comments() {
   const getReplies = (questionId) => {
     return dummyData2.filter((item) => item.parentQuestion === questionId);
   };
-  const [clickedQuestion, setClickedQuestion] = useState(null);
+  const [clickedQuestion, setClickedQuestion] = useState([null, null]);
   console.log(clickedQuestion);
 
   return (
@@ -73,7 +73,13 @@ function Comments() {
       <div>
         <CommentCategory name={["Additional Info", "Reviews", "QnA"]} />
         {dummyData.map((comment) => (
-          <Comment active={clickedQuestion === comment.questionId} setClickedQuestion={setClickedQuestion} item={comment} replies={getReplies(comment.questionId)} key={comment.questionId} />
+          <Comment 
+            active={clickedQuestion[0] === comment.questionId} 
+            isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]} 
+            setClickedQuestion={setClickedQuestion} 
+            item={comment} 
+            replies={getReplies(comment.questionId)} 
+            key={comment.questionId} />
         ))}
       </div>
       <p>======================================================================================================================================================</p>

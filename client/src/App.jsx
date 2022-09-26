@@ -12,7 +12,6 @@ import CartPage from "./pages/CartPage";
 import Footer from "./components/Footer/Footer";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
-import ReplyCommentForm from "./components/Comment/ReplyCommentForm";
 import QnaForm from "./components/Comment/QnaForm";
 import Comments from "./components/Comment/Comments";
 
@@ -31,7 +30,6 @@ function App() {
             <Route path="/comments" element={<Comments></Comments>}></Route>
           </Routes>
 
-          <ReplyCommentForm />
           <QnaForm />
         </MainContainer>
         <Footer />
