@@ -1,8 +1,20 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
+
 
 /* eslint-disable */
 function QnaForm() {
+
+  const handleSubmit = () =>{  //qnaId와 name, email을 넣어서 api에 객체를 전달해준다. 
+
+  }
+
+  const [qnaData, setQnaData] = useState(null); //주어진 자료를 기초로 텍스트가 변경될 때 textarea에 있는 아이를 추가해준다. 
+
+  const [text, setText] = useState("");
+  const isTextareaDisabled = text.length === 0;
+
   return (
     <Container>
       <div className="QnaBox">
@@ -17,11 +29,14 @@ function QnaForm() {
           </label>
         </div>
         <div className="Qna-inputInfo">
-          <InputForm className="inputForm" name={"Name"} type="text" />
+          <InputForm className="inputForm" name={"Name"} type="text" required />
           <InputForm className="inputForm" name={"Email"} type="email" />
         </div>
         <div className="Qna-content">
-          <textarea></textarea>
+          <textarea value={text} onChange={(e) => setText(e.target.value)}/>
+        </div>
+        <div className="submitBox">
+          <button onClick={handleSubmit()} disabled={isTextareaDisabled}>Submit</button>
         </div>
       </div>
     </Container>
@@ -29,7 +44,7 @@ function QnaForm() {
 }
 
 function InputForm(props) {
-  return <input name={props.name} placeholder={props.name} type={props.type}></input>;
+  return <input name={props.name} placeholder={props.name} type={props.type} required={props.required}></input>;
 }
 
 const Container = styled.div`
@@ -94,6 +109,19 @@ const Container = styled.div`
           outline: none;
         }
       }
+    }
+    .submitBox{
+      display:flex;
+      justify-content: end;
+      button {
+      padding: 3px 20px;
+      color: white;
+      font-weight: bolder;
+      background-color: #383838;
+      font-size: 16px;
+      margin-left: 10px;
+      border-radius: 5px;
+    }
     }
   }
 `;

@@ -68,6 +68,19 @@ function Comments() {
   const [clickedQuestion, setClickedQuestion] = useState([null, null]);
   console.log(clickedQuestion);
 
+  const addComment = (text, questionId, answerId) => {
+    //데이터가 들어오면 추가해준다. 
+
+  }
+
+  const deleteComment= (questionId, answerId ) => {
+    //questionId 나 answerId에 맞추어서 삭제해준다.
+  }
+
+  const editComment = (questionId, answerId) =>{
+    //questionId나 answerId에 맞추어서 수정해준다.
+  }
+
   return (
     <Container>
       <div>
@@ -79,7 +92,12 @@ function Comments() {
             setClickedQuestion={setClickedQuestion} 
             item={comment} 
             replies={getReplies(comment.questionId)} 
-            key={comment.questionId} />
+            key={comment.questionId}
+            addComment = {addComment}
+            deleteComment = {deleteComment}
+            editComment = {editComment}
+             />
+            
         ))}
       </div>
       <p>======================================================================================================================================================</p>
