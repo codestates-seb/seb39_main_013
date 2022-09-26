@@ -28,5 +28,5 @@ export const mainBanner = [
   {
     id: 7,
     url: "https://kream-phinf.pstatic.net/MjAyMjA5MTJfOTkg/MDAxNjYyOTA5MDI0MDAy.TYBnXCecIlLWvfu6ePmyWteOkzFxK1Rr6qhAfhmZkjEg.PSdtaMbxWxAv0mNtoo3khn0t69LQvmugsydFU9NYrxsg.JPEG/a_627d3640534d4bf8a8a96280ca446a40.jpg?type=m_2560",
-  }
+  },
 ];
