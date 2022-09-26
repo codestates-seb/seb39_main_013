@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.brand.entity;
+package com.codestates.eCommerce.product.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -15,15 +15,23 @@ import javax.persistence.Id;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Brand extends BaseEntity {
+public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productId;
     private Long brandId;
+    private String majorClass;
+    private String subClass;
     private String name;
-    private String owner;
-    private String companyNumber;
-    private String mailOrderNumber;
-    private String location;
-    private String zipcode;
-    private String address;
+    private Integer price;
+    private Integer stock;
+    private String color;
+    private String thumbnailImg;
+    private String contentImg;
+    private Double review;
+
+    public void decreaseStock(int quantity) {
+        this.setStock(this.getStock() - quantity);
+    }
+
 }

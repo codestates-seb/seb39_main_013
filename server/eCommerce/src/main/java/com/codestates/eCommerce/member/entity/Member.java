@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Member extends BaseEntity {
     @Id @GeneratedValue
     private Long memberId;

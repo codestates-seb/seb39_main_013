@@ -1,17 +1,19 @@
 package com.codestates.eCommerce.order.dto;
 
 import com.codestates.eCommerce.order.enums.ProductOrderStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.*;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderProductDto {
     private Long orderProductId;
-    private OrderDto order;
     private Long productId;
     private Integer productQuantity;
     private Integer productPrice;

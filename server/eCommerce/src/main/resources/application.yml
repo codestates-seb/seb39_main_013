@@ -5,28 +5,24 @@ spring:
       - mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username:
-    password: 
+    url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=Asia/Seoul
+    username: root
+    password: '@tnqh258'
+    data: classpath:/data.sql
+#    initialization-mode: always
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: create
     show-sql: true
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          google:
-#            client-id:
-#            client-secret:
-#            scope:
-#              - email
-#              - profile
-#    database: mysql
-#    database-platform: org.hibernate.dialect.MySQL8Dialect
-#    properties.hibernate.format_sql: true
-#    defer-datasource-initialization: true
-#  sql:
-#    init:
-#      mode: always
+    properties.hibernate.format_sql : true
+    defer-datasource-initialization : true
+  sql:
+    init:
+      mode: always
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG

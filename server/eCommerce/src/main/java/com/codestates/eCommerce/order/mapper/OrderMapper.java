@@ -1,16 +1,13 @@
 package com.codestates.eCommerce.order.mapper;
 
-import com.codestates.eCommerce.order.domain.OrderProduct;
-import com.codestates.eCommerce.order.dto.OrderProductDto;
-import org.mapstruct.IterableMapping;
+import com.codestates.eCommerce.order.dto.OrderDto;
+import com.codestates.eCommerce.order.domain.entity.Order;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {OrderProductMapper.class})
-public interface OrderMapper<Order, OrderDto> {
+public interface OrderMapper {
 
     OrderDto toDto(Order entity);
     Order toEntity(OrderDto dto);
