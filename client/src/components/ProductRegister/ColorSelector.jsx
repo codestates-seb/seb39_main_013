@@ -8,21 +8,13 @@ export default function ColorSelector(props) {
   const [isChecked, setIsChecked] = useState(
     Array(props.colorList.length).fill(false)
   );
+
   useEffect(() => {
-    props.setColorHandler(colors);
+    props.changeHandler({ target: { name: props.name, value: colors } });
   }, [colors, isChecked]);
+
   const colorSelecthandler = useCallback(
     (value, index) => {
-      /**
-       * 다중 선택 로직
-       */
-      // if (colors.includes(value)) {
-      //   setColors(colors.filter((v) => v !== value));
-      //   setIsChecked((prev) =>
-      //     prev.map((v, i) => i === index && v === true && false)
-      //   );
-      //   return;
-      // }
       if (value === colors) {
         setColors("");
         setIsChecked((prev) =>
@@ -39,7 +31,7 @@ export default function ColorSelector(props) {
   );
 
   return (
-    <Container>
+    <Container require={props.require} fontSize={props?.fontSize}>
       <span>Color</span>
       <SelectorWrapper>
         {props.colorList.map((v, i) => {
@@ -53,6 +45,12 @@ export default function ColorSelector(props) {
           );
         })}
       </SelectorWrapper>
+      <input
+        type={"color"}
+        value={colors}
+        name={props.name}
+        onInput={(e) => console.log("change")}
+      />
     </Container>
   );
 }
@@ -62,13 +60,21 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1rem;
   span {
-    font-size: 1rem;
+    font-size: ${(props) => (props.fontSize ? props.fontSize : "1rem")};
     font-weight: 700;
 
-    &::after {
-      color: #ff5252;
-      content: " *";
-    }
+    ${(props) =>
+      props.require &&
+      css`
+        &::after {
+          color: #ff5252;
+          content: " *";
+        }
+      `}
+  }
+
+  input {
+    display: none;
   }
 `;
 

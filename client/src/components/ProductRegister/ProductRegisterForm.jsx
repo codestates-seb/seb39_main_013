@@ -1,27 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
+import { dummyColor } from "../../dummyData";
 import Button from "../Commons/Button";
 import CheckBoxSelector from "./CheckBoxSelector";
 import ColorSelector from "./ColorSelector";
 import ImageSelector from "./ImageSelector";
 import InputSelect from "./InputSelect";
 import InputText from "./InputText";
-
-const dummyColor = [
-  "#B9B9B9",
-  "#181818",
-  "#FF8C8C",
-  "#FF5050",
-  "#FCDE77",
-  "#80BC34",
-  "#5898F9",
-  "#3562FF",
-  "#9A5CFF",
-  "#FF85DD",
-  "#7B5050",
-  "#DC358F",
-];
 
 export default function ProductRegisterForm() {
   const [inputs, setInputs] = useState({
@@ -31,16 +17,11 @@ export default function ProductRegisterForm() {
     category1: "",
     category2: "",
     productQuantity: "",
+    color: "",
   });
 
-  const [color, setColor] = useState("");
-
-  const setColorHandler = (value) => {
-    console.log(value);
-    setColor(value);
-  };
-
   const inputChangeHandler = (e) => {
+    console.log(e);
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
   return (
@@ -97,8 +78,10 @@ export default function ProductRegisterForm() {
           changeHandler={inputChangeHandler}
         />
         <ColorSelector
-          setColorHandler={setColorHandler}
+          require={true}
           colorList={dummyColor}
+          name={"color"}
+          changeHandler={inputChangeHandler}
         />
         <CheckBoxSelector />
         <ImageSelector buttonText={"Select Thumbnail"} label={"Thumbnail"} />
@@ -117,7 +100,6 @@ export default function ProductRegisterForm() {
 const Container = styled.form`
   margin-top: 60px;
   margin-bottom: 60px;
-  font-family: "GmarketSansMedium";
 `;
 
 const InputWrapper = styled.div`
