@@ -7,14 +7,17 @@ import ColorSelector from "../ProductRegister/ColorSelector";
 import CategorySelector from "./CategorySelector";
 
 export default function ShopFilter(props) {
+  const filterHandler = () => {};
+
   return (
     <Container>
       <CategorySelector />
-      {/* <ColorSelector
+      <ColorSelector
         colorList={props.dummyColor}
         fontSize={"22px"}
-        setColorHandler={props.setColorHandler}
-      /> */}
+        changeHandler={filterHandler}
+        name={"color"}
+      />
       <PriceSelector>
         <p>Price</p>
         <InputWrapper>

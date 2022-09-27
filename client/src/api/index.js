@@ -10,7 +10,7 @@ export const loginFn = async (payload) => {
   const res = await axiosInstance.post("/login", payload);
 
   if (res?.headers) {
-    Cookie.set("access_token", res.headers["authorization"]);
+    Cookie.set("authorization", res.headers["authorization"]);
   }
   console.log("inner Index :", res);
   return res;
@@ -30,8 +30,8 @@ export const authorizeToken = async () => {
   console.log(token);
   const res = await axiosInstance.get("/api/v1/members/user", {
     headers: {
-      Authorization: token,
-    },
+      authorization: token
+    }
   });
   return res;
 };
