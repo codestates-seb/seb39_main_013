@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
@@ -6,13 +7,16 @@ import ColorSelector from "../ProductRegister/ColorSelector";
 import CategorySelector from "./CategorySelector";
 
 export default function ShopFilter(props) {
+  const filterHandler = () => {};
+
   return (
     <Container>
       <CategorySelector />
       <ColorSelector
         colorList={props.dummyColor}
         fontSize={"22px"}
-        setColorHandler={props.setColorHandler}
+        changeHandler={filterHandler}
+        name={"color"}
       />
       <PriceSelector>
         <p>Price</p>

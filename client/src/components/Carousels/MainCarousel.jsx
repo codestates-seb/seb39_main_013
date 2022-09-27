@@ -28,7 +28,6 @@ export default function MainCarousel() {
     <div>
       <Container>
         {imgList.map((v, i) => {
-          console.log(v);
           return (
             <Slider
               key={v.id}

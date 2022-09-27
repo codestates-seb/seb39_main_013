@@ -27,8 +27,8 @@ export default function CategorySelector() {
               <MainCategory>{v.mainCategory}</MainCategory>
               {v.mainCategory === isClick && (
                 <SubCategory>
-                  {v.subCategory.map((value) => {
-                    return <div>{value}</div>;
+                  {v.subCategory.map((value, idx) => {
+                    return <div key={idx}>{value}</div>;
                   })}
                 </SubCategory>
               )}

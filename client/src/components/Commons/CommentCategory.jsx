@@ -45,7 +45,7 @@ const Container = styled.div`
     color: black;
     text-decoration: none;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 900;
     padding-bottom: 6px;
     position: relative;
     outline: none;

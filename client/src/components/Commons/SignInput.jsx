@@ -11,6 +11,8 @@ export default function SignInput(props) {
           type={props.type || "text"}
           id={props.name}
           placeholder={props.text}
+          name={props.name}
+          onChange={(e) => props.changeHandler(e)}
         />
       </InputWrapper>
     </Container>

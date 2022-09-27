@@ -3,7 +3,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 export default function SIgnButton(props) {
-  return <Container mode={props.mode}>{props.children}</Container>;
+  return (
+    <Container mode={props.mode} onClick={props.onClickHandler}>
+      {props.children}
+    </Container>
+  );
 }
 
 const Container = styled.button`
