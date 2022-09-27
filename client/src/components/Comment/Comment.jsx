@@ -33,9 +33,6 @@ function Comment(props) {
                 <div className="comment-author">{props.item.questionName}</div>
                 <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
               </div>
-              <div className="comment-content-top__right">
-                <div>{stars}</div>
-              </div>
             </div>
             <div className="comment-content_bottom">
               <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false])}>
@@ -110,12 +107,6 @@ const Container = styled.div`
           margin-left: 10px;
           opacity: 0.7;
         }
-      }
-      .comment-content-top__right {
-        display: flex;
-        flex: auto;
-        justify-content: end;
-        padding-right: 5px;
       }
     }
     .comment-content_bottom {
