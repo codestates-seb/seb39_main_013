@@ -31,7 +31,7 @@ let testData = [
   },
 ];
 
-let dummyData2 = [
+let testData2 = [
   {
     answerId: 1,
     parentQuestion: 1,
@@ -95,6 +95,7 @@ function Comments() {
   const [clickedCategory, setClickedCategory] = useState(1);
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
   const [dummyData, setDummyData] = useState(testData);
+  const [dummyData2, setDummyData2] = useState(testData2);
   console.log(dummyData);
 
   const addComment = (newComment) => {
@@ -102,8 +103,10 @@ function Comments() {
     return;
   };
 
-  const addReplyComment = (text, questionId, answerId) => {
+  const addReplyComment = (newReply) => {
     //질문에 대한 답변을 추가해준다.
+    setDummyData2([...dummyData2, newReply]);
+    return;
   };
 
   const deleteComment = (questionId, answerId) => {

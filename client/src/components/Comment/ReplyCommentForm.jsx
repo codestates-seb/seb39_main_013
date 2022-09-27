@@ -1,15 +1,32 @@
 /* eslint-disable */
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "../Commons/Button";
 
-function ReplyCommentForm() {
+function ReplyCommentForm(props) {
+  const [text, setText] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newReply = {
+      answerId: Math.random().toString(36).substr(2, 9),
+      parentQuestion: props.replyparent.questionId,
+      answerName: "답변자이당...",
+      answerCreatedAt: new Date().toLocaleDateString(),
+      answerContent: text,
+    };
+    props.addReplyComment(newReply);
+    setText("");
+  };
+
+  console.log(props.replyparent);
+  console.log(props.addReplyComment);
   return (
     <Container>
-      <form className="replyComment-box">
-        <textarea></textarea>
+      <form className="replyComment-box" onSubmit={handleSubmit}>
+        <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
         <div className="replyComment-submitBox">
-          <Button>Submit</Button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </Container>
