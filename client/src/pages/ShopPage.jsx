@@ -16,7 +16,7 @@ export default function ShopPage() {
   return (
     <Container>
       <SubBanner
-        imgUrl={`${process.env.PUBLIC_URL}/public/assets/images/shop_sub_banner.png`}
+        imgUrl={`${process.env.PUBLIC_URL}/assets/images/shop_sub_banner.png`}
       />
       <ShopWrapper>
         <ShopFilter dummyColor={dummyColor} setColorHandler={setColorHandler} />

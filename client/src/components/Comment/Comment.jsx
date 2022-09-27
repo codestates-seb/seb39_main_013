@@ -32,18 +32,32 @@ function Comment(props) {
             <div className="comment-content-top">
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
-                <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
-                <button disabled={!isLogin} onClick={() => props.deleteQuestion(props.item.questionId)}>
+                <div className="comment-CreatedAt">
+                  {props.item.questionCreatedAt}
+                </div>
+                <button
+                  onClick={() => props.deleteQuestion(props.item.questionId)}
+                >
                   질문 삭제하기
                 </button>
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false])}>
+              <div
+                className="comment-text"
+                onClick={() =>
+                  props.setClickedQuestion([props.item.questionId, false])
+                }
+              >
                 {props.item.questionContent}
               </div>
               <div className="comment-replyIconBox">
-                <button disabled={!isLogin} onClick={() => props.setClickedQuestion([props.item.questionId, true])} className="comment-replyIcon">
+                <button
+                  onClick={() =>
+                    props.setClickedQuestion([props.item.questionId, true])
+                  }
+                  className="comment-replyIcon"
+                >
                   <MdOutlineModeComment className="replyIcon" />
                 </button>
               </div>
@@ -51,7 +65,15 @@ function Comment(props) {
           </div>
         </div>
       </div>
-      {props.active ? <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div> : null}
+      {props.active ? (
+        <div className="replyBox">
+          {props.replies.length > 0
+            ? props.replies.map((reply) => (
+                <ReplyComment reply={reply} key={reply.answerId} />
+              ))
+            : null}
+        </div>
+      ) : null}
       {props.isReplying ? (
         <ReplyCommentForm
           addReplyComment={props.addReplyComment} //

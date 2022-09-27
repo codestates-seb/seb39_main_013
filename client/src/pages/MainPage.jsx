@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Category from "../components/Category/Category";
 import CommentCategory from "../components/Commons/CommentCategory";
 import MainBanner from "../components/Main/MainBanner";
+import MainTextBanner from "../components/Main/MainTextBanner";
 import MainItems from "../components/MainItems/MainItems";
 
 const dummyData = [
@@ -59,8 +60,9 @@ export default function MainPage() {
   return (
     <Container>
       <MainBanner />
+      <MainTextBanner />
       <Category />
-      <CommentCategory name={["Best seller", "New arrivals", "Sale Item"]} />
+      <ListTitle>TRENDING ITEMS</ListTitle>
       <MainItems productList={dummyData} mode={"main"} />
     </Container>
   );
@@ -72,4 +74,11 @@ const Container = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const ListTitle = styled.span`
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  word-spacing: 4px;
 `;

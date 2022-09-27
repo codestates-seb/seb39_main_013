@@ -24,7 +24,7 @@ function MainItems(props) {
 }
 
 const Container = styled.div`
-  margin-top: 64px;
+  margin-top: 48px;
   display: grid;
   grid-template-columns: ${(props) =>
     props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};

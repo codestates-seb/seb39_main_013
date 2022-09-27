@@ -1,4 +1,4 @@
-import { axiosInstance } from "./axiosInstance";
+import { authAxios, axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
 
 export const signUpFn = async (payload) => {
@@ -26,9 +26,9 @@ export const oauthLoginFn = async () => {
 
 export const authorizeToken = async () => {
   console.log("on Auth");
-  const token = Cookie.get("access_token");
+  const token = Cookie.get("authorization");
   console.log(token);
-  const res = await axiosInstance.get("/api/v1/members/user", {
+  const res = await authAxios.get("/api/v1/members/user", {
     headers: {
       authorization: token
     }

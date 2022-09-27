@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
@@ -11,17 +12,18 @@ export const axiosInstance = axios.create({
  */
 axiosInstance.defaults.timeout = 5000;
 
-axiosInstance.interceptors.request.use();
-
 axiosInstance.interceptors.response.use((response) => {
-  // console.log(response);
   return response;
 });
 
 export const authAxios = axios.create({
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json", "authorization": Cookies.get("authorization")},
   withCredentials: true,
 });
+
+authAxios.interceptors.response.use(
+  config => console.log(config)
+)
 
 /**
  * 에러 관리시 모달?

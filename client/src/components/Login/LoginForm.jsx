@@ -42,6 +42,10 @@ export default function LoginForm() {
     authToken.refetch();
   };
 
+  if (loginAction.isSuccess) {
+    navigate("/");
+  }
+
   return (
     <Container>
       <SignInput

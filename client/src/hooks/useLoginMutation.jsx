@@ -10,12 +10,20 @@ import { setUser } from "../redux/reducer/userSlice";
  */
 export default function useLoginMutation(value) {
   const dispatch = useDispatch();
+  console.log(dispatch);
 
   const { mutate, isError, isLoading, isSuccess } = useMutation(
     () => loginFn(value),
     {
       retry: false,
-      onSuccess: (data) => console.log(data),
+      onSuccess: async (res) =>
+        dispatch(
+          setUser({
+            name: res.data.data.name,
+            email: res.data.data.email,
+            isLogin: true,
+          })
+        ),
     }
   );
 
