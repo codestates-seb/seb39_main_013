@@ -2,7 +2,9 @@ package com.codestates.eCommerce.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.codestates.eCommerce.member.dto.MemberDto;
 import com.codestates.eCommerce.member.entity.Member;
+import com.codestates.eCommerce.member.mapper.MemberMapper;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -26,6 +29,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private final MemberMapper mapper;
 
     // ("/login") 요청을 하면 로그인 시도를 위해서 실행되는 함수
     @Override
@@ -59,5 +63,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("email", principalDetails.getMember().getEmail())
                 .sign(Algorithm.HMAC512("SECRET"));// 고유한 시크릿 값 적용
         response.addHeader("Authorization", "Bearer " + jwtToken);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        Member member = principalDetails.getMember();
+        MemberDto.Response responseMember = mapper.memberToResponse(member);
+        response.getWriter().write(String.valueOf(responseMember));
+        response.getWriter().flush();
+    }
+
+    @Override
+    protected AuthenticationSuccessHandler getSuccessHandler() {
+        return super.getSuccessHandler();
     }
 }
