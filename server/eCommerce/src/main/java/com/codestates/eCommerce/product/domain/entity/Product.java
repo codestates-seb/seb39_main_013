@@ -39,8 +39,11 @@ public class Product extends BaseEntity {
         product.setContentImg(contentImg);
         return product;
     }
+    public void increaseStock(int quantity) {
+        this.stock += quantity;
+    }
     public void decreaseStock(int quantity) {
-        this.setStock(this.getStock() - quantity);
+        this.stock -= quantity;
     }
 
 }

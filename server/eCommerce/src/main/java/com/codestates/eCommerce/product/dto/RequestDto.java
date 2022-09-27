@@ -6,7 +6,7 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
-public class RequestProduct {
+public class RequestDto {
 
     @Getter
     @AllArgsConstructor
@@ -22,18 +22,19 @@ public class RequestProduct {
         private String thumbnailImg;
         private String contentImage;
     }
+    @Getter
+    @AllArgsConstructor
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    public static class Patch {
+        private Long brandId;
+        private String majorClass;
+        private String subClass;
+        private String name;
+        private Integer price;
+        private Integer stock;
+        private String color;
+        private String thumbnailImg;
+        private String contentImage;
+    }
 
-//    @Getter
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class ProductCondition {
-//            private Long brandId;
-//            private String majorClass;
-//            private String subClass;
-//            private String name;
-//            private Integer priceMax;
-//            private Integer priceMin;
-//            private String color;
-//            private Integer stock;
-//    }
 }

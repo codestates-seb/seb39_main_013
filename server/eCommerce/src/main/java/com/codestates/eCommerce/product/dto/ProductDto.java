@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
+//Q타입 전용 dto
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@ToString
 public class ProductDto {
 
     private Long productId;
@@ -23,12 +25,12 @@ public class ProductDto {
     private String contentImage;
 
     @QueryProjection
-    public ProductDto(Long productId, Long brandId, String name, String majorClass, String subClass, Integer price, Integer stock, String color, String thumbnail, String contentImage) {
+    public ProductDto(Long productId, Long brandId, String majorClass, String subClass, String name, Integer price, Integer stock, String color, String thumbnail, String contentImage) {
         this.productId = productId;
         this.brandId = brandId;
-        this.name = name;
         this.majorClass = majorClass;
         this.subClass = subClass;
+        this.name = name;
         this.price = price;
         this.stock = stock;
         this.color = color;

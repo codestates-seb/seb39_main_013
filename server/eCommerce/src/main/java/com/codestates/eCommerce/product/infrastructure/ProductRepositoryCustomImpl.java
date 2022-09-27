@@ -1,17 +1,24 @@
 package com.codestates.eCommerce.product.infrastructure;
 
+import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
+import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.QProductDto;
+import com.codestates.eCommerce.product.dto.UpdateCondition;
+import com.querydsl.core.dml.UpdateClause;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.codestates.eCommerce.product.domain.entity.QProduct.product;
@@ -40,14 +47,14 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 ))
                 .from(product)
                 .where(
-                        brandIdEq(condition.getBrandId()),
-                        majorClassEq(condition.getMajorClass()),
-                        subClassEq(condition.getSubClass()),
-                        nameEq(condition.getName()),
-                        colorEq(condition.getColor()),
-                        priceGoe(condition.getPriceMin()),
-                        priceLoe(condition.getPriceMax()),
-                        stockLoe(condition.getStock())
+                    brandIdEq(condition.getBrandId()),
+                    majorClassEq(condition.getMajorClass()),
+                    subClassEq(condition.getSubClass()),
+                    nameContains(condition.getName()),
+                    colorEq(condition.getColor()),
+                    priceGoe(condition.getPriceMin()),
+                    priceLoe(condition.getPriceMax()),
+                    stockLoe(condition.getStock())
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())//페이지 사이즈
@@ -59,7 +66,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     brandIdEq(condition.getBrandId()),
                     majorClassEq(condition.getMajorClass()),
                     subClassEq(condition.getSubClass()),
-                    nameEq(condition.getName()),
+                    nameContains(condition.getName()),
                     colorEq(condition.getColor()),
                     priceGoe(condition.getPriceMin()),
                     priceLoe(condition.getPriceMax()),
@@ -82,8 +89,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return hasText(subClass) ? product.subClass.eq(subClass) : null;
     }
 
-    private BooleanExpression nameEq(String name) {
-        return hasText(name) ? product.name.eq(name) : null;
+    private BooleanExpression nameContains(String name) {
+        return hasText(name) ? product.name.contains(name) : null;
     }
 
     private BooleanExpression colorEq(String color) {
