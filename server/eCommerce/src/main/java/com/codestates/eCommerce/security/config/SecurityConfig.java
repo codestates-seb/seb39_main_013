@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.security.config;
 
+import com.codestates.eCommerce.member.mapper.MemberMapper;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
@@ -26,6 +27,7 @@ public class SecurityConfig {
     private final MemberRepository repository;
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final OAuth2SuccessHandler successHandler;
+    private final MemberMapper mapper;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,13 +39,14 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/members/user/**").access("hasRole('ROLE_MEMBER') or hasRole('MANAGER')")
+//                .antMatchers("/api/v1/members/user/**").access("hasRole('ROLE_MEMBER') or hasRole('MANAGER')")
 //                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
-                .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
+//                .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login()
                 .successHandler(successHandler)
+//                .defaultSuccessUrl()
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
         http.csrf().disable();
@@ -56,7 +59,7 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
                     .addFilter(corsFilter)
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager, mapper))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, repository));
         }
     }

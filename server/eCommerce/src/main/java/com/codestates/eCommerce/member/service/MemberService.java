@@ -31,7 +31,8 @@ public class MemberService {
     // 회원 검색
     public Member findMember(long memberId) {
         Optional<Member> optionalMember = repository.findById(memberId);
-        return optionalMember.orElseThrow(() -> new RuntimeException("Member Not Found"));
+        Member member = optionalMember.orElseThrow(() -> new RuntimeException("Member Not Found"));
+        return member;
     }
 
     // 기존에 가입된 회원인지 검증(email)

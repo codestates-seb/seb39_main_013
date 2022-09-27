@@ -2,17 +2,27 @@ package com.codestates.eCommerce.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class MemberDto {
     @Getter @AllArgsConstructor
     public static class Post {
+        @NotBlank
         private String password;
+        @NotBlank
         private String name;
+        @Email
         private String email;
+        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
         private String phone;
     }
 
     @Getter @AllArgsConstructor
+    @ToString
     public static class Response {
         private Long memberId;
         private String name;

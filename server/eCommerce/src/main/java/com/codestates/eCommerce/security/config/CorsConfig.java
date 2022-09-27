@@ -16,7 +16,7 @@ public class CorsConfig {
         configuration.addAllowedOrigin("*"); // 모든 ip에 응답을 허용
         configuration.addAllowedHeader("*"); // 모든 header에 응답을 허용
         configuration.addAllowedMethod("*"); // 모든 요청(post, get, patch)을 허용
-        source.registerCorsConfiguration("/api/v1/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }
 }
