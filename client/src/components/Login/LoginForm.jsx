@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
 import SignInput from "../Commons/SignInput";
-import GoogleLogin from "react-google-login";
-import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/reducer/userSlice";
 import useLoginMutation from "../../hooks/useLoginMutation";
+import useOauthMutaion from "../../hooks/useOauthMutaion";
 
 export default function LoginForm() {
   const [loginValue, setLoginValue] = useState({
@@ -20,23 +18,7 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginAction = useLoginMutation(loginValue);
-
-  useEffect(() => {
-    const initAuth = () => {
-      gapi.auth2.init({
-        clientId: googleClientID,
-        scope: "email",
-        ux_mode: "popup",
-      });
-    };
-    gapi.load("client:auth2", initAuth);
-  }, []);
-
-  const googleAuthOnSuccess = (res) => {
-    console.log(res);
-    dispatch(setUser({ name: res.wt.Ad, email: res.wt.cu }));
-    navigate("/");
-  };
+  const oauthLoginAction = useOauthMutaion();
 
   const inputChangeHandler = (e) => {
     setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
@@ -45,6 +27,11 @@ export default function LoginForm() {
   const loginActionHandler = (e) => {
     e.preventDefault();
     loginAction.mutate();
+  };
+
+  const oauthActionHandler = (e) => {
+    e.preventDefault();
+    oauthLoginAction.refetch();
   };
 
   return (
@@ -79,8 +66,10 @@ export default function LoginForm() {
           </div>
         </SignMenuWrapper>
       </MiddleWrapper>
-      <GoogleLogin clientId={googleClientID} onSuccess={googleAuthOnSuccess} />
-      {/* <SignButton>Login with Google</SignButton> */}
+      {/* <GoogleLogin clientId={googleClientID} onSuccess={googleAuthOnSuccess} /> */}
+      <SignButton onClickHandler={oauthActionHandler}>
+        Login with Google
+      </SignButton>
     </Container>
   );
 }
