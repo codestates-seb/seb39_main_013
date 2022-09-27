@@ -21,13 +21,10 @@ function ItemCard(props) {
       <Link to="/detail">
         <ImageWrapper>
           <ItemCardImg className="ItemCard-Image" img={props.productImg}>
-            {isClicked ? (
+            {isClicked ? ( //
               <AiFillHeart onClick={handleClicked} className="ItemCard-Heart" />
             ) : (
-              <AiOutlineHeart
-                onClick={handleClicked}
-                className="ItemCard-Heart"
-              />
+              <AiOutlineHeart onClick={handleClicked} className="ItemCard-Heart" />
             )}
           </ItemCardImg>
         </ImageWrapper>
@@ -48,6 +45,7 @@ const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  border: 2px solid red;
 
   a {
     text-decoration: none;
@@ -75,7 +73,7 @@ const Container = styled.div`
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height: 290px;
+  height: 190%;
 `;
 
 const ItemCardImg = styled.div`
