@@ -17,8 +17,9 @@ import { useSelector } from "react-redux";
 //배열로 만든다 [clickedId, isReplying]으로 만든다.
 
 function Comment(props) {
-  const stars = "👍".repeat(Number(props.item.questionStars));
+  const stars = "⭐".repeat(Number(props.item.questionStars));
   const isLogin = useSelector((state) => state.user.isLogin);
+  const deleteQuestion = () => {};
 
   return (
     <Container>
@@ -31,46 +32,32 @@ function Comment(props) {
             <div className="comment-content-top">
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
-                <div className="comment-CreatedAt">
-                  {props.item.questionCreatedAt}
-                </div>
-              </div>
-              <div className="comment-content-top__right">
-                <div>{stars}</div>
+                <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
+                <button disabled={!isLogin} onClick={() => props.deleteQuestion(props.item.questionId)}>
+                  질문 삭제하기
+                </button>
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div
-                className="comment-text"
-                onClick={() =>
-                  props.setClickedQuestion([props.item.questionId, false])
-                }
-              >
+              <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false])}>
                 {props.item.questionContent}
               </div>
-              <button
-                disabled={!isLogin}
-                onClick={() =>
-                  props.setClickedQuestion([props.item.questionId, true])
-                }
-                className="comment-replyIcon"
-              >
-                <MdOutlineModeComment className="replyIcon" />
-              </button>
+              <div className="comment-replyIconBox">
+                <button disabled={!isLogin} onClick={() => props.setClickedQuestion([props.item.questionId, true])} className="comment-replyIcon">
+                  <MdOutlineModeComment className="replyIcon" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {props.active ? (
-        <div className="replyBox">
-          {props.replies.length > 0
-            ? props.replies.map((reply) => (
-                <ReplyComment reply={reply} key={reply.answerId} />
-              ))
-            : null}
-        </div>
+      {props.active ? <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div> : null}
+      {props.isReplying ? (
+        <ReplyCommentForm
+          addReplyComment={props.addReplyComment} //
+          replyparent={props.item}
+        />
       ) : null}
-      {props.isReplying ? <ReplyCommentForm /> : null}
     </Container>
   );
 }
@@ -81,6 +68,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 3px 0;
+  width: 100%;
 
   .replyBox {
     width: 100%;
@@ -125,26 +113,27 @@ const Container = styled.div`
         }
         .comment-CreatedAt {
           font-size: 16px;
-          margin-left: 10px;
+          margin: 0 10px;
           opacity: 0.7;
         }
-      }
-      .comment-content-top__right {
-        display: flex;
-        flex: auto;
-        justify-content: end;
-        padding-right: 5px;
       }
     }
     .comment-content_bottom {
       .comment-text {
         height: auto;
       }
-      .comment-replyIcon {
+      .comment-replyIconBox {
         display: flex;
         justify-content: end;
         margin-right: 10px;
-        font-size: 27px;
+        .comment-replyIcon {
+          border: 0;
+          outline: 0;
+          background-color: white;
+        }
+        .replyIcon {
+          font-size: 25px;
+        }
       }
     }
   }

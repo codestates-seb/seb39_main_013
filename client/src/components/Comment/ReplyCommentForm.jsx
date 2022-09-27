@@ -1,19 +1,32 @@
 /* eslint-disable */
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "../Commons/Button";
 
-function ReplyCommentForm() {
+function ReplyCommentForm(props) {
+  const [text, setText] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newReply = {
+      answerId: Math.random().toString(36).substr(2, 9),
+      parentQuestion: props.replyparent.questionId,
+      answerName: "답변자이당...",
+      answerCreatedAt: new Date().toLocaleDateString(),
+      answerContent: text,
+    };
+    props.addReplyComment(newReply);
+    setText("");
+  };
+
+  console.log(props.replyparent);
+  console.log(props.addReplyComment);
   return (
     <Container>
-      <form className="replyComment-box">
-        <textarea></textarea>
+      <form className="replyComment-box" onSubmit={handleSubmit}>
+        <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
         <div className="replyComment-submitBox">
-          <label>
-            <input type="checkbox" id="isSecret" />
-            비공개
-          </label>
-          <Button>Submit</Button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </Container>
@@ -21,17 +34,12 @@ function ReplyCommentForm() {
 }
 
 const Container = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   display: flex;
   justify-content: center;
-  width:100%;
+  width: 100%;
   .replyComment-box {
-    width: 70%;
-
+    width: 100%;
+    max-width: 836px;
     display: flex;
     flex-direction: column;
 
@@ -54,10 +62,6 @@ const Container = styled.div`
     justify-content: end;
     align-items: center;
     margin-top: 20px;
-
-    input {
-      margin: 0 10px;
-    }
 
     button {
       padding: 3px 20px;

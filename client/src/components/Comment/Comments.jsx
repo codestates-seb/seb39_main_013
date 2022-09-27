@@ -3,10 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
-import ReplyComment from "./ReplyComment";
-import { useState } from "react";
 
-const dummyData = [
+import { useState } from "react";
+import ReviewComment from "./ReviewComment";
+import QnaForm from "./QnaForm";
+let testData = [
   {
     questionId: 1,
     questionName: "하키하키하키",
@@ -30,7 +31,7 @@ const dummyData = [
   },
 ];
 
-const dummyData2 = [
+let testData2 = [
   {
     answerId: 1,
     parentQuestion: 1,
@@ -61,44 +62,101 @@ const dummyData2 = [
   },
 ];
 
+let dummyData3 = [
+  {
+    reviewId: 1,
+    reviewName: "리뷰리뷰리뷰1",
+    reviewCreatedAt: "2022. 9. 26. 오후 8:53:26",
+    reviewContent: "리뷰의 내용1",
+    reviewStars: 4,
+  },
+  {
+    reviewId: 2,
+    reviewName: "리뷰리뷰리뷰2",
+    reviewCreatedAt: "2022. 9. 27. 오후 8:53:26",
+    reviewContent: "리뷰의 내용2",
+    reviewStars: 3,
+  },
+  {
+    reviewId: 3,
+    reviewName: "리뷰리뷰리뷰3",
+    reviewCreatedAt: "2022. 9. 28. 오후 8:53:26",
+    reviewContent: "리뷰의 내용3",
+    reviewStars: 5,
+  },
+];
+
 function Comments() {
   const getReplies = (questionId) => {
     return dummyData2.filter((item) => item.parentQuestion === questionId);
   };
   const [clickedQuestion, setClickedQuestion] = useState([null, null]);
   console.log(clickedQuestion);
+  const [clickedCategory, setClickedCategory] = useState(1);
+  const categoryItemList = ["Additional Info", "Reviews", "QnA"];
+  const [dummyData, setDummyData] = useState(testData);
+  const [dummyData2, setDummyData2] = useState(testData2);
+  console.log(dummyData);
 
-  const addComment = (text, questionId, answerId) => {
-    //데이터가 들어오면 추가해준다.
+  const addComment = (newComment) => {
+    setDummyData([...dummyData, newComment]);
+    return;
   };
 
-  const deleteComment = (questionId, answerId) => {
+  const addReplyComment = (newReply) => {
+    //질문에 대한 답변을 추가해준다.
+    setDummyData2([...dummyData2, newReply]);
+    return;
+  };
+
+  const deleteQuestion = (questionId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
+    const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
+    setDummyData(updatedDummyData);
+    const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
+    setDummyData2(updatedDummyData);
   };
 
+  console.log("dummyData1 =>>>>>>");
+  console.log(dummyData);
+  console.log("dummyData2 =>>>>>>");
+  console.log(dummyData2);
   const editComment = (questionId, answerId) => {
     //questionId나 answerId에 맞추어서 수정해준다.
   };
+  // category 컴포넌트에서 item을 고르는 경우에는 내려준setCateogry로 클릭된 상태를 바꿔준다.
+  // category의 상태에 맞추어서 보여줄지 안보여줄지를 결정한다.
 
   return (
     <Container>
       <div>
-        <CommentCategory name={["Additional Info", "Reviews", "QnA"]} />
-        {dummyData.map((comment) => (
-          <Comment
-            active={clickedQuestion[0] === comment.questionId}
-            isReplying={
-              clickedQuestion[0] === comment.questionId && clickedQuestion[1]
-            }
-            setClickedQuestion={setClickedQuestion}
-            item={comment}
-            replies={getReplies(comment.questionId)}
-            key={comment.questionId}
-            addComment={addComment}
-            deleteComment={deleteComment}
-            editComment={editComment}
-          />
-        ))}
+        <CommentCategory setClickedCategory={setClickedCategory} name={categoryItemList} />
+        {clickedCategory === categoryItemList[2] ? (
+          <>
+            {dummyData.map((comment) => (
+              <Comment
+                active={clickedQuestion[0] === comment.questionId} //
+                isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]}
+                setClickedQuestion={setClickedQuestion}
+                item={comment}
+                replies={getReplies(comment.questionId)}
+                key={comment.questionId}
+                addReplyComment={addReplyComment}
+                deleteQuestion={deleteQuestion}
+                editComment={editComment}
+              />
+            ))}
+            <QnaForm addComment={addComment} />
+          </>
+        ) : null}
+
+        {clickedCategory === categoryItemList[1]
+          ? dummyData3.map(
+              (
+                review //
+              ) => <ReviewComment key={review.reviewId} review={review} />
+            )
+          : null}
       </div>
     </Container>
   );
