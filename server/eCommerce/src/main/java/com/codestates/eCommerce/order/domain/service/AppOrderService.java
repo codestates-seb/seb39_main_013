@@ -21,7 +21,6 @@ public class AppOrderService {
     private final OrderProductMapper orderProductMapper;
     private final OrderService orderService;
     private final ProductService productService;
-    private final MemberService memberService;
 
     /* * Todo 주문하기
     * JWT에 담긴 유저가 주문(구매)을 시도한다.

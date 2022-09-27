@@ -1,10 +1,14 @@
 package com.codestates.eCommerce.product.controller;
 
+import com.codestates.eCommerce.common.dto.MultiResponseDto;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
+import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestProduct;
 import com.codestates.eCommerce.product.dto.ResponseProduct;
+import com.codestates.eCommerce.product.infrastructure.ProductCondition;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +32,12 @@ public class ProductController {
     public ResponseEntity getProduct(@PathVariable("product-id") Long productId) {
         ResponseProduct responseProduct = appProductSerivce.getProduct(productId);
         return new ResponseEntity(new SingleResponseDto<>(responseProduct),HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getProductPage(@RequestParam int page, @RequestParam int size,@RequestBody ProductCondition productCondition) {
+        Page<ProductDto> responseProductPage = appProductSerivce.getProductPage(page,size,productCondition);
+        System.out.println(responseProductPage.getContent());
+        return new ResponseEntity(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage),HttpStatus.OK);
     }
 }

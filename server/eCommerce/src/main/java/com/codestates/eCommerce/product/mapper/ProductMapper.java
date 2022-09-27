@@ -12,9 +12,14 @@ import java.util.List;
 public interface ProductMapper {
 
     Product toEntity(RequestProduct.Post post);
-    Product toEntity(ProductDto productDto);
+    Product toEntity(ProductDto ProductDto);
     ProductDto toProductDto(Product product);
     ResponseProduct toResponseProductDto(Product product);
-    List<Product> toEntityList(List<ProductDto> productDtos);
+    List<Product> toEntityList(List<ProductDto> ProductDtos);
     List<ProductDto> toDtoList(List<Product> products);
+
+
+    //서비스 -> 컨트롤러
+    List<ResponseProduct> toResponseProductList(List<ProductDto> productDto);
+
 }

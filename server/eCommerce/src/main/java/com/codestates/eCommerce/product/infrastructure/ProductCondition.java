@@ -1,22 +1,22 @@
-package com.codestates.eCommerce.product.dto;
+package com.codestates.eCommerce.product.infrastructure;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ResponseProduct {
-    private Long productId;
+public class ProductCondition {
+
     private Long brandId;
     private String majorClass;
     private String subClass;
     private String name;
-    private Integer price;
-    private Integer stock;
+    private Integer priceMax;
+    private Integer priceMin;
     private String color;
-    private String thumbnail;
-    private String contentImage;
+    private Integer stock;
+
 }
