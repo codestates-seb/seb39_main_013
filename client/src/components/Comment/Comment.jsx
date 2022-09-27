@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 function Comment(props) {
   const stars = "⭐".repeat(Number(props.item.questionStars));
   const isLogin = useSelector((state) => state.user.isLogin);
+  const deleteQuestion = () => {};
 
   return (
     <Container>
@@ -32,6 +33,9 @@ function Comment(props) {
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
                 <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
+                <button disabled={!isLogin} onClick={() => props.deleteQuestion(props.item.questionId)}>
+                  질문 삭제하기
+                </button>
               </div>
             </div>
             <div className="comment-content_bottom">
@@ -48,7 +52,12 @@ function Comment(props) {
         </div>
       </div>
       {props.active ? <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} />) : null}</div> : null}
-      {props.isReplying ? <ReplyCommentForm addReplyComment={props.addReplyComment} replyparent={props.item} /> : null}
+      {props.isReplying ? (
+        <ReplyCommentForm
+          addReplyComment={props.addReplyComment} //
+          replyparent={props.item}
+        />
+      ) : null}
     </Container>
   );
 }
@@ -104,7 +113,7 @@ const Container = styled.div`
         }
         .comment-CreatedAt {
           font-size: 16px;
-          margin-left: 10px;
+          margin: 0 10px;
           opacity: 0.7;
         }
       }

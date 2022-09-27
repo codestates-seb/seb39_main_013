@@ -109,10 +109,18 @@ function Comments() {
     return;
   };
 
-  const deleteComment = (questionId, answerId) => {
+  const deleteQuestion = (questionId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
+    const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
+    setDummyData(updatedDummyData);
+    const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
+    setDummyData2(updatedDummyData);
   };
 
+  console.log("dummyData1 =>>>>>>");
+  console.log(dummyData);
+  console.log("dummyData2 =>>>>>>");
+  console.log(dummyData2);
   const editComment = (questionId, answerId) => {
     //questionId나 answerId에 맞추어서 수정해준다.
   };
@@ -134,7 +142,7 @@ function Comments() {
                 replies={getReplies(comment.questionId)}
                 key={comment.questionId}
                 addReplyComment={addReplyComment}
-                deleteComment={deleteComment}
+                deleteQuestion={deleteQuestion}
                 editComment={editComment}
               />
             ))}
