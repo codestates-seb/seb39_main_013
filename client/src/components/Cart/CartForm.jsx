@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 import { HiOutlineX } from "react-icons/hi";
 import { FaWonSign } from "react-icons/fa";
 import Button from "../Commons/Button";
+import Price from "../Comment/Price";
 
 const dummyData = [
   {
@@ -76,7 +77,7 @@ export default function CartForm() {
           <span>Subtotal</span>
           <span>
             <FaWonSign />
-            560000
+            <Price price="1238000" />
           </span>
         </SubTotal>
       </FormFooter>

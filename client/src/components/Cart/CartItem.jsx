@@ -5,6 +5,7 @@ import QuantitySelector from "./QuantitySelector";
 import { FaWonSign } from "react-icons/fa";
 import DeleteButton from "../Commons/DeleteButton";
 import { Link } from "react-router-dom";
+import Price from "../Comment/Price";
 
 export default function CartItem(props) {
   return (
@@ -39,7 +40,7 @@ export default function CartItem(props) {
               </div>
               <span>
                 <FaWonSign />
-                {props.price}
+                <Price price={props.price} />
               </span>
             </OptionWrapper>
           );
@@ -48,7 +49,7 @@ export default function CartItem(props) {
       <TotalPrice>
         <div>
           <FaWonSign />
-          203939
+          <Price price={203939} />
         </div>
         <DeleteButton />
       </TotalPrice>

@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <Container>
       <SubBanner
-        imgUrl={`${process.env.PUBLIC_URL}/assets/images/shop_sub_banner.png`}
+        imgUrl={`${process.env.PUBLIC_URL}/assets/images/login_sub_banner.png`}
       />
       <LoginForm />
     </Container>
