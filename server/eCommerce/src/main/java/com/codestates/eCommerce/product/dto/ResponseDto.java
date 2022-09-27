@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -17,6 +19,6 @@ public class ResponseDto {
     private Integer price;
     private Integer stock;
     private String color;
-    private String thumbnail;
-    private String contentImage;
+    private List<String> thumbImages;
+    private List<String> contentImages;
 }

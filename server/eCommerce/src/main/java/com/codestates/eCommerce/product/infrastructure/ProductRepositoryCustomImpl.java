@@ -1,24 +1,18 @@
 package com.codestates.eCommerce.product.infrastructure;
 
-import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
 import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.QProductDto;
-import com.codestates.eCommerce.product.dto.UpdateCondition;
-import com.querydsl.core.dml.UpdateClause;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ObjectUtils;
 
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.codestates.eCommerce.product.domain.entity.QProduct.product;
@@ -42,8 +36,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     product.price,
                     product.stock,
                     product.color,
-                    product.thumbnailImg,
-                    product.contentImg
+                    product.thumbImages,
+                    product.contentImages
                 ))
                 .from(product)
                 .where(

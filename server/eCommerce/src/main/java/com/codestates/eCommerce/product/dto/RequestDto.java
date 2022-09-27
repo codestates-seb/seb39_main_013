@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class RequestDto {
@@ -19,8 +22,8 @@ public class RequestDto {
         private Integer price;
         private Integer stock;
         private String color;
-        private String thumbnailImg;
-        private String contentImage;
+        private List<String> thumbImages;
+        private List<String> contentImages;
     }
     @Getter
     @AllArgsConstructor
@@ -33,8 +36,8 @@ public class RequestDto {
         private Integer price;
         private Integer stock;
         private String color;
-        private String thumbnailImg;
-        private String contentImage;
+        private List<String> thumbImages;
+        private List<String> contentImages;
     }
 
 }

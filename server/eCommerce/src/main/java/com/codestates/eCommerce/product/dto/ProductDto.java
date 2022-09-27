@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
+import java.util.List;
+
 //Q타입 전용 dto
 @Getter
 @Setter
@@ -21,11 +23,11 @@ public class ProductDto {
     private Integer price;
     private Integer stock;
     private String color;
-    private String thumbnail;
-    private String contentImage;
+    private List<String> thumbImages;
+    private List<String> contentsImages;
 
     @QueryProjection
-    public ProductDto(Long productId, Long brandId, String majorClass, String subClass, String name, Integer price, Integer stock, String color, String thumbnail, String contentImage) {
+    public ProductDto(Long productId, Long brandId, String majorClass, String subClass, String name, Integer price, Integer stock, String color, List<String> thumbImages, List<String> contentsImages) {
         this.productId = productId;
         this.brandId = brandId;
         this.majorClass = majorClass;
@@ -34,8 +36,8 @@ public class ProductDto {
         this.price = price;
         this.stock = stock;
         this.color = color;
-        this.thumbnail = thumbnail;
-        this.contentImage = contentImage;
+        this.thumbImages = thumbImages;
+        this.contentsImages = contentsImages;
     }
 
 

@@ -44,6 +44,10 @@ dependencies {
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+
+	// db json타입 넣기
+	implementation 'com.vladmihalcea:hibernate-types-52:2.19.2'
 }
 
 

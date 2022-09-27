@@ -7,7 +7,6 @@ import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
 import com.codestates.eCommerce.product.dto.ResponseDto;
 import com.codestates.eCommerce.product.dto.ProductCondition;
-import com.codestates.eCommerce.product.dto.UpdateCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

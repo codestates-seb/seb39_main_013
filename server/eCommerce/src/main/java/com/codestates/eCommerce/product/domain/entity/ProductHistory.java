@@ -1,17 +1,21 @@
 package com.codestates.eCommerce.product.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter @Setter @Builder
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@TypeDef(name = "json", typeClass = JsonType.class)
 public class ProductHistory extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productHistoryId;
@@ -23,8 +27,12 @@ public class ProductHistory extends BaseEntity {
     private Integer price;
     private Integer stock;
     private String color;
-    private String thumbnailImg;
-    private String contentImg;
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private List<String> thumbImages = new ArrayList<>();
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private List<String> contentImages = new ArrayList<>();
 
     public static ProductHistory create(Product product) {
         ProductHistory productHistory = new ProductHistory();
@@ -36,8 +44,8 @@ public class ProductHistory extends BaseEntity {
         productHistory.setPrice(product.getPrice());
         productHistory.setStock(product.getStock());
         productHistory.setColor(product.getColor());
-        productHistory.setThumbnailImg(product.getThumbnailImg());
-        productHistory.setContentImg(product.getContentImg());
+        productHistory.setThumbImages(product.getThumbImages());
+        productHistory.setContentImages(product.getContentImages());
         return productHistory;
     }
 }

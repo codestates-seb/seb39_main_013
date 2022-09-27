@@ -50,7 +50,7 @@ public class ProductService {
         if (requestDto.getPrice() != null) findProduct.setPrice(requestDto.getPrice());
         if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
         if (StringUtils.hasText(requestDto.getColor())) findProduct.setColor(requestDto.getColor());
-        if (StringUtils.hasText(requestDto.getThumbnailImg())) findProduct.setThumbnailImg(requestDto.getThumbnailImg());
-        if (StringUtils.hasText(requestDto.getContentImage())) findProduct.setContentImg(requestDto.getContentImage());
+        if (requestDto.getThumbImages() != null) findProduct.setThumbImages(requestDto.getThumbImages());
+//        if (requestDto.getContents() != null) findProduct.setContents(requestDto.getContents());
     }
 }

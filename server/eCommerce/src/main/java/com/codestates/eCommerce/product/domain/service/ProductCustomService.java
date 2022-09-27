@@ -1,10 +1,8 @@
 package com.codestates.eCommerce.product.domain.service;
 
-import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
 import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductDto;
-import com.codestates.eCommerce.product.dto.UpdateCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
