@@ -26,6 +26,7 @@ public class MemberDto {
         private int point;
         private int height;
         private int weight;
+        private String role;
     }
 
 }

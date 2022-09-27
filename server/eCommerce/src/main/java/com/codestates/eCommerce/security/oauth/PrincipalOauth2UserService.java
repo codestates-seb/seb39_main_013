@@ -11,6 +11,9 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
@@ -30,11 +33,20 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String name = oAuth2User.getAttribute("name"); // todo 없으도 되나?
         String password = passwordEncoder.encode(oAuth2User.getAttribute("sub")); // todo 없으도 되나?
         String role = "ROLE_MEMBER";
-        Member member = repository.findByEmail(email);
-        if (member == null) {
-            member = Member.builder().password(password).name(name).email(email).provider(provider).providerId(providerId).role(role).build();
-            repository.save(member);
+
+        Optional<Member> optionalMember = repository.findByEmail(email);
+
+        if (optionalMember.isEmpty()) {
+            optionalMember = Optional.of(Member.builder().password(password).name(name).email(email).provider(provider).providerId(providerId).role(role).build());
+            repository.save(optionalMember.get());
         }
-        return new PrincipalDetails(member, oAuth2User.getAttributes());
+        return new PrincipalDetails(optionalMember.get(), oAuth2User.getAttributes());
+
+//        Member member = repository.findByEmail(email);
+//        if (member == null) {
+//            member = Member.builder().password(password).name(name).email(email).provider(provider).providerId(providerId).role(role).build();
+//            repository.save(member);
+//        }
+//        return new PrincipalDetails(member, oAuth2User.getAttributes());
     }
 }
