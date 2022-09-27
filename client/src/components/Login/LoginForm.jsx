@@ -8,6 +8,8 @@ import SignInput from "../Commons/SignInput";
 import { useDispatch } from "react-redux";
 import useLoginMutation from "../../hooks/useLoginMutation";
 import useOauthMutaion from "../../hooks/useOauthMutaion";
+import useAuthorize from "../../hooks/useAuthorize";
+import { authorizeToken } from "../../api";
 
 export default function LoginForm() {
   const [loginValue, setLoginValue] = useState({
@@ -19,6 +21,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const loginAction = useLoginMutation(loginValue);
   const oauthLoginAction = useOauthMutaion();
+  const authToken = useAuthorize();
 
   const inputChangeHandler = (e) => {
     setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
@@ -32,6 +35,11 @@ export default function LoginForm() {
   const oauthActionHandler = (e) => {
     e.preventDefault();
     oauthLoginAction.refetch();
+  };
+
+  const tokenAuth = (e) => {
+    e.preventDefault();
+    authToken.refetch();
   };
 
   return (
@@ -70,6 +78,7 @@ export default function LoginForm() {
       <SignButton onClickHandler={oauthActionHandler}>
         Login with Google
       </SignButton>
+      <SignButton onClickHandler={tokenAuth}>Authrize</SignButton>
     </Container>
   );
 }

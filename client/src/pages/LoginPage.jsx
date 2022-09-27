@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 import React from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import LoginForm from "../components/Login/LoginForm";
 import SubBanner from "../components/SubBanner/Subbanner";
@@ -13,7 +11,6 @@ export default function LoginPage() {
         imgUrl={`${process.env.PUBLIC_URL}/assets/images/shop_sub_banner.png`}
       />
       <LoginForm />
-      <ToastContainer position="top-center" draggable />
     </Container>
   );
 }

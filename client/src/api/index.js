@@ -23,3 +23,15 @@ export const oauthLoginFn = async () => {
   console.log("oath :", res);
   return res;
 };
+
+export const authorizeToken = async () => {
+  console.log("on Auth");
+  const token = Cookie.get("access_token");
+  console.log(token);
+  const res = await axiosInstance.get("/api/v1/members/user", {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+};

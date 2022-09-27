@@ -4,7 +4,8 @@ import GlobalStyled from "./GlobalStyle";
 // import GlobalFonts from "./fonts/GlobalFonts";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
@@ -38,6 +39,7 @@ function App() {
           </Routes>
         </MainContainer>
         <Footer />
+        <ToastContainer position="top-center" draggable />
       </BrowserRouter>
       <GlobalStyled />
       {/* <GlobalFonts /> */}
