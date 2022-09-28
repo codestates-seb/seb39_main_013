@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
 import AdditionalInfo from "../ProductDetail/AdditionalInfo";
+import ReviewForm from "./ReviewForm";
 
 import { useState } from "react";
 import ReviewComment from "./ReviewComment";
@@ -34,28 +35,28 @@ let testData = [
 
 let testData2 = [
   {
-    answerId: 1,
+    answerId: 101,
     parentQuestion: 1,
     answerName: "포키포키포키",
     answerCreatedAt: "2022. 9. 26. 오후 8:53:26",
     answerContent: "답변 내용1",
   },
   {
-    answerId: 2,
+    answerId: 102,
     parentQuestion: 2,
     answerName: "포키포키포키2",
     answerCreatedAt: "2022. 9. 27. 오후 8:53:26",
     answerContent: "답변 내용2",
   },
   {
-    answerId: 3,
+    answerId: 103,
     parentQuestion: 3,
     answerName: "포키포키포키3",
     answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
     answerContent: "답변 내용3",
   },
   {
-    answerId: 4,
+    answerId: 104,
     parentQuestion: 2,
     answerName: "포키포키포키5",
     answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
@@ -63,23 +64,23 @@ let testData2 = [
   },
 ];
 
-let dummyData3 = [
+let testData3 = [
   {
-    reviewId: 1,
+    reviewId: 1001,
     reviewName: "리뷰리뷰리뷰1",
     reviewCreatedAt: "2022. 9. 26. 오후 8:53:26",
     reviewContent: "리뷰의 내용1",
     reviewStars: 4,
   },
   {
-    reviewId: 2,
+    reviewId: 1002,
     reviewName: "리뷰리뷰리뷰2",
     reviewCreatedAt: "2022. 9. 27. 오후 8:53:26",
     reviewContent: "리뷰의 내용2",
     reviewStars: 3,
   },
   {
-    reviewId: 3,
+    reviewId: 1003,
     reviewName: "리뷰리뷰리뷰3",
     reviewCreatedAt: "2022. 9. 28. 오후 8:53:26",
     reviewContent: "리뷰의 내용3",
@@ -101,6 +102,7 @@ function Comments() {
   const [clickedCategory, setClickedCategory] = useState(categoryItemList[0]);
   const [dummyData, setDummyData] = useState(testData);
   const [dummyData2, setDummyData2] = useState(testData2);
+  const [dummyData3, setDummyData3] = useState(testData3);
   console.log(dummyData);
 
   const addComment = (newComment) => {
@@ -111,6 +113,11 @@ function Comments() {
   const addReplyComment = (newReply) => {
     //질문에 대한 답변을 추가해준다.
     setDummyData2([...dummyData2, newReply]);
+    return;
+  };
+
+  const newReview = (newReview) => {
+    setDummyData3([...dummyData3, newReview]);
     return;
   };
 
@@ -139,7 +146,7 @@ function Comments() {
     setClickedQuestion([questionId, false, false]);
   };
 
-  const updateAnswer = (answerId) => {};
+  const updateAnswer = (answerId, text) => {};
 
   console.log("dummyData1 =>>>>>>");
   console.log(dummyData);
@@ -171,19 +178,21 @@ function Comments() {
                 deleteQuestion={deleteQuestion}
                 updateQuestion={updateQuestion}
                 deleteAnswer={deleteAnswer}
+                updateAnswer={updateAnswer}
               />
             ))}
             <QnaForm addComment={addComment} />
           </>
         ) : null}
 
-        {clickedCategory === categoryItemList[1]
-          ? dummyData3.map(
-              (
-                review //
-              ) => <ReviewComment key={review.reviewId} review={review} />
-            )
-          : null}
+        {clickedCategory === categoryItemList[1] ? (
+          <>
+            {dummyData3.map((review) => (
+              <ReviewComment key={review.reviewId} review={review} />
+            ))}
+            <ReviewForm newReview={newReview} />
+          </>
+        ) : null}
       </div>
     </Container>
   );
