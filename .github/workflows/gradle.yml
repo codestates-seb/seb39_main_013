@@ -61,3 +61,11 @@ jobs:
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./deploy.zip s3://$S3_BUCKET_NAME/deploy.zip
       working-directory: ${{ env.working-directory }}
+      
+   # CodeDeploy에게 배로 명령을 내립니다.
+    - name: Code Deploy
+      run: >
+        aws deploy create-deployment --application-name eCommerce
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --deployment-group-name eCommerce-group
+        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=deploy.zip
