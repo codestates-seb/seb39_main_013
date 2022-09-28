@@ -27,11 +27,27 @@ export const oauthLoginFn = async () => {
 export const authorizeToken = async () => {
   console.log("on Auth");
   const token = Cookie.get("authorization");
-  console.log(token);
+  console.log('token :', token);
   const res = await authAxios.get("/api/v1/members/user", {
     headers: {
-      authorization: token
+      authorization: 'Bearer' + token
     }
   });
+  console.log('res :', res);
   return res;
 };
+
+export const imageRegisterFn = async (formData) => {
+  const res = axiosInstance.post("/upload", formData, { 
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+   });
+
+   return res;
+}
+
+export const productRegisterFn = async (registerInfo) => {
+    const res = axiosInstance.post('/api/v1/products', registerInfo);
+    return res;
+} 

@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { brandList } from "../../constance";
 import { dummyColor } from "../../dummyData";
+import useProductRegister from "../../hooks/useProductRegister";
 import Button from "../Commons/Button";
 import CheckBoxSelector from "./CheckBoxSelector";
 import ColorSelector from "./ColorSelector";
@@ -11,23 +13,58 @@ import InputText from "./InputText";
 
 export default function ProductRegisterForm() {
   const [inputs, setInputs] = useState({
-    productname: "",
-    brand: "",
-    productPrice: "",
-    category1: "",
-    category2: "",
-    productQuantity: "",
+    name: "",
+    brand_id: 0,
+    brand_name: "",
+    price: "",
+    major_class: "",
+    sub_class: "스니커즈",
+    stock: 0,
     color: "",
   });
 
+  const [thumbImage, setThumbImage] = useState([]);
+  const [contentImg, setContentImg] = useState([]);
+
+  const postRegister = useProductRegister({
+    ...inputs,
+    thumb_images: thumbImage,
+    content_images: contentImg,
+  });
+
+  useEffect(() => {
+    if (inputs.brand_name !== "") {
+      const brandId = brandList.filter((v) => {
+        if (v.name === inputs.brand_name) {
+          return v.id;
+        }
+      });
+      setInputs({ ...inputs, brand_id: brandId[0].id });
+    }
+  }, [inputs.brand_name]);
+
   const inputChangeHandler = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    if (e.target.name === "price") {
+      setInputs({ ...inputs, [e.target.name]: Number(e.target.value) });
+    } else {
+      setInputs({ ...inputs, [e.target.name]: e.target.value });
+    }
   };
+
+  const postRegisterHandler = (e) => {
+    e.preventDefault();
+    postRegister.mutate();
+  };
+
+  if (postRegister.isSuccess) {
+    console.log("register success");
+  }
+
   return (
     <Container>
       <InputWrapper>
         <InputText
-          name={"productName"}
+          name={"name"}
           label={"Product Name"}
           text={"Input Product Name"}
           require={true}
@@ -37,13 +74,13 @@ export default function ProductRegisterForm() {
         />
         <InputSelect
           label={"Brand"}
-          name={"brand"}
+          name={"brand_name"}
           text={"Select Brand"}
           require={true}
           changeHandler={inputChangeHandler}
         />
         <InputText
-          name={"productPrice"}
+          name={"price"}
           label={"Price"}
           text={"Input Price"}
           require={true}
@@ -53,22 +90,22 @@ export default function ProductRegisterForm() {
         />
         <CategoryBox>
           <InputSelect
-            name="category1"
+            name="major_class"
             label={"Category1"}
             text={"Category1"}
             require={true}
             changeHandler={inputChangeHandler}
           />
-          <InputSelect
-            name="category2"
+          {/* <InputSelect
+            name="sub_class"
             label={"Category2"}
             text={"Category2"}
             require={true}
             changeHandler={inputChangeHandler}
-          />
+          /> */}
         </CategoryBox>
         <InputText
-          name={"productQuantity"}
+          name={"stock"}
           label={"Quantity"}
           text={"Input Quantity"}
           require={true}
@@ -83,14 +120,21 @@ export default function ProductRegisterForm() {
           changeHandler={inputChangeHandler}
         />
         <CheckBoxSelector />
-        <ImageSelector buttonText={"Select Thumbnail"} label={"Thumbnail"} />
+        <ImageSelector
+          buttonText={"Select Thumbnail"}
+          label={"Thumbnail"}
+          name="thumb_images"
+          changeHandler={setThumbImage}
+        />
         <ImageSelector
           buttonText={"Select ContentImg"}
           label={"Content Image"}
+          name="content_images"
+          changeHandler={setContentImg}
         />
       </InputWrapper>
       <SubmitButtonWrapper>
-        <Button>Register</Button>
+        <Button onClick={postRegisterHandler}>Register</Button>
       </SubmitButtonWrapper>
     </Container>
   );

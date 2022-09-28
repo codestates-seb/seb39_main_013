@@ -33,6 +33,29 @@ export const categoryList = [
   {
     id: 6,
     mainCategory: "잡화",
-    subCategory: ["지갑/머니클립", "팔찌/반지", "목걸이", "양말"],
+    subCategory: ["모자", "목걸이", "양말"],
   },
 ];
+
+export const brandList = [
+  {
+    id: 1,
+    name: "Nike"
+  },
+  {
+    id: 2,
+    name: "Stussy"
+  },
+  {
+    id: 3,
+    name: "Adidas"
+  },
+  {
+    id: 4,
+    name: "New Balance"
+  },
+  {
+    id: 5,
+    name: "Supreme"
+  },
+]

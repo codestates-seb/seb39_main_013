@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { memo } from "react";
 import styled, { css } from "styled-components";
+import { brandList, categoryList } from "../../constance";
 
-export default function InputSelect(props) {
+export default memo(function InputSelect(props) {
   return (
     <Container>
       <Label require={props.require} htmlFor={props.name}>
@@ -14,12 +15,25 @@ export default function InputSelect(props) {
         onChange={(e) => props.changeHandler(e)}
       >
         <option value="">{props.text}</option>
-        <option value="Nike">{"Nike"}</option>
-        <option value="Adidas">{"Adidas"}</option>
+        {props.name === "brand_name"
+          ? brandList.map((v) => {
+              return (
+                <option key={v.id} value={v.name}>
+                  {v.name}
+                </option>
+              );
+            })
+          : categoryList.map((v) => {
+              return (
+                <option key={v.id} value={v.name}>
+                  {v.mainCategory}
+                </option>
+              );
+            })}
       </select>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   display: flex;

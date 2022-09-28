@@ -1,14 +1,14 @@
 export const dummyColor = [
-  "#B9B9B9",
+  "#f1f1f1",
   "#181818",
-  "#FF8C8C",
+  "#ffe1b3",
   "#FF5050",
   "#FCDE77",
   "#80BC34",
-  "#5898F9",
+  "#2a18ae",
   "#3562FF",
   "#9A5CFF",
-  "#FF85DD",
+  "#cdcdcd",
   "#7B5050",
   "#DC358F",
 ];
@@ -22,7 +22,7 @@ export const productData = [
     brand: "Stone Island",
     price: "484,000",
     productImg:
-      "https://kream-phinf.pstatic.net/MjAyMTEyMDlfMjkz/MDAxNjM5MDQ2NjMyNjEy.qcvpzLmjwn6gHC1uO1aSZjVxnwwEeJZpDeAWJHmY14Yg.h3DmoeKWJf-5YfhR7xt7eEA4vAX8fC7J4uI2zj9Twaog.PNG/a_2728e8e9187d4b378493443ef4b2adfd.png?type=m_webp",
+      "https://main13-image-bucket.s3.ap-northeast-2.amazonaws.com/static/a_2a97aefdd8e8438ba2895f0382274ef3.webp",
   },
   {
     id: "2",

@@ -4,7 +4,8 @@ import Cookies from "js-cookie";
 
 export const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
-  withCredentials: true,
+  withCredentials: 'include',
+  
 });
 
 /**
@@ -17,8 +18,8 @@ axiosInstance.interceptors.response.use((response) => {
 });
 
 export const authAxios = axios.create({
-  headers: { "Content-Type": "application/json", "authorization": Cookies.get("authorization")},
-  withCredentials: true,
+  headers: { "Content-Type": "application/json"},
+  // withCredentials: true,
 });
 
 authAxios.interceptors.response.use(

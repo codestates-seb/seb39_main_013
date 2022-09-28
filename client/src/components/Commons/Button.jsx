@@ -3,7 +3,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 export default function Button(props) {
-  return <Container mode={props?.mode}>{props.children}</Container>;
+  return (
+    <Container mode={props?.mode} onClick={(e) => props.onClick(e)}>
+      {props.children}
+    </Container>
+  );
 }
 
 const Container = styled.button`

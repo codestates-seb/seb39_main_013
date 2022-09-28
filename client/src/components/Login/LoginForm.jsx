@@ -16,8 +16,7 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-  const googleClientID = process.env.REACT_APP_CLIENT_ID;
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const loginAction = useLoginMutation(loginValue);
   const oauthLoginAction = useOauthMutaion();

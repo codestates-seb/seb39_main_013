@@ -38,6 +38,12 @@ const Container = styled.div`
   */
   @media screen and (max-width: 1280px) {
     grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
   }
 `;
 

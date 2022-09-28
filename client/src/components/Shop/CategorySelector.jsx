@@ -26,11 +26,6 @@ export default function CategorySelector() {
 
   // const location = useLocation();
   // console.log(location);
-  const category = searchParams.get("category");
-  const sub = searchParams.get("sub");
-  const testParams = (a, b) => {
-    setSearchParams({ category: a, sub: b });
-  };
 
   return (
     <Container>
