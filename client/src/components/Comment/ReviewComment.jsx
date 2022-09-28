@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react";
 import styled from "styled-components";
-
+import { AiFillStar } from "react-icons/ai";
 //특정 질문을 클릭하면 아래에 이에 관한 답변이 나와야 한다.
 //특정 질문을 클릭하면 상위컴포넌트에서 상태를 관리해 주어야 한다. commetId중에 현재 클릭된 아이를 저장할 수 있어야 한다.
 //클릭이 된 아이는 state에 id값이 저장이 된다.
@@ -13,8 +13,9 @@ import styled from "styled-components";
 //배열로 만든다 [clickedId, isReplying]으로 만든다.
 
 function ReviewComment(props) {
-  const stars = "⭐".repeat(Number(props.review.reviewStars));
-
+  //"⭐".repeat(Number(props.review.reviewStars));
+  const renderStar = () => <AiFillStar />;
+  const renderStars = (num) => [...Array(num)].map((num) => renderStar());
   return (
     <Container>
       <div className="reviewComment">
@@ -29,7 +30,7 @@ function ReviewComment(props) {
                 <div className="reviewComment-CreatedAt">{props.review.reviewCreatedAt}</div>
               </div>
               <div className="reviewComment-content-top__right">
-                <div>{stars}</div>
+                <div>{renderStars(Number(props.review.reviewStars))}</div>
               </div>
             </div>
             <div className="reviewComment-content_bottom">
@@ -74,6 +75,7 @@ const Container = styled.div`
 
   .reviewComment-right-part {
     flex: auto;
+    font-size: 16px;
     .reviewComment-content-top {
       display: flex;
 
@@ -86,10 +88,8 @@ const Container = styled.div`
 
         .reviewComment-author {
           font-weight: bold;
-          font-size: 16px;
         }
         .reviewComment-CreatedAt {
-          font-size: 16px;
           margin-left: 10px;
           opacity: 0.7;
         }
@@ -98,7 +98,9 @@ const Container = styled.div`
         display: flex;
         flex: auto;
         justify-content: end;
+        align-items: center;
         padding-right: 5px;
+        color: yellow;
       }
     }
     .reviewComment-content_bottom {

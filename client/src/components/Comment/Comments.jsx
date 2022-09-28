@@ -91,10 +91,14 @@ function Comments() {
   const getReplies = (questionId) => {
     return dummyData2.filter((item) => item.parentQuestion === questionId);
   };
-  const [clickedQuestion, setClickedQuestion] = useState([null, null]);
+  const [clickedQuestion, setClickedQuestion] = useState([null, false, false]);
+  //리스트의 0번 인덱스는 현재 클릭된 질문의 번호이다.
+  //리스트의 1번 인덱스는 isReplying을 결정한다. boolean값으로 저장한다.
+  //리스트의 2번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
+
   console.log(clickedQuestion);
-  const [clickedCategory, setClickedCategory] = useState(1);
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
+  const [clickedCategory, setClickedCategory] = useState(categoryItemList[0]);
   const [dummyData, setDummyData] = useState(testData);
   const [dummyData2, setDummyData2] = useState(testData2);
   console.log(dummyData);
@@ -123,6 +127,20 @@ function Comments() {
     setDummyData2(updatedDummyData2);
   };
 
+  const updateQuestion = (questionId, text) => {
+    const updatedDummyData = dummyData.map((question) => {
+      if (question.questionId === questionId) {
+        return { ...question, questionContent: text };
+      }
+      return question;
+    });
+
+    setDummyData(updatedDummyData);
+    setClickedQuestion([questionId, false, false]);
+  };
+
+  const updateAnswer = (answerId) => {};
+
   console.log("dummyData1 =>>>>>>");
   console.log(dummyData);
   console.log("dummyData2 =>>>>>>");
@@ -144,13 +162,14 @@ function Comments() {
               <Comment
                 active={clickedQuestion[0] === comment.questionId} //
                 isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]}
+                isEditing={clickedQuestion[0] === comment.questionId && clickedQuestion[2]}
                 setClickedQuestion={setClickedQuestion}
                 item={comment}
                 replies={getReplies(comment.questionId)}
                 key={comment.questionId}
                 addReplyComment={addReplyComment}
                 deleteQuestion={deleteQuestion}
-                editComment={editComment}
+                updateQuestion={updateQuestion}
                 deleteAnswer={deleteAnswer}
               />
             ))}

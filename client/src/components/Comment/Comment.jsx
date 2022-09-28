@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { MdOutlineModeComment } from "react-icons/md";
 import ReplyComment from "./ReplyComment";
 import ReplyCommentForm from "./ReplyCommentForm";
+import UpdateCommentForm from "./UpdateCommentForm";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
@@ -34,15 +35,16 @@ function Comment(props) {
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
                 <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
+                <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정하기</button>
                 <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제하기</button>
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false])}>
+              <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false, false])}>
                 {props.item.questionContent}
               </div>
               <div className="comment-replyIconBox">
-                <button onClick={() => props.setClickedQuestion([props.item.questionId, true])} className="comment-replyIcon">
+                <button onClick={() => props.setClickedQuestion([props.item.questionId, true, false])} className="comment-replyIcon">
                   <MdOutlineModeComment className="replyIcon" />
                 </button>
               </div>
@@ -57,6 +59,7 @@ function Comment(props) {
           replyparent={props.item}
         />
       ) : null}
+      {props.isEditing ? <UpdateCommentForm updateQuestion={props.updateQuestion} initialText={props.item.questionContent} questionId={props.item.questionId} /> : null}
     </Container>
   );
 }
@@ -114,6 +117,21 @@ const Container = styled.div`
           font-size: 16px;
           margin: 0 10px;
           opacity: 0.7;
+        }
+
+        button {
+          margin: 0 3px;
+          padding: 3px 7px;
+          font-size: 14px;
+          border: none;
+          outline: none;
+          border-radius: 5px;
+          &:nth-child(3) {
+            background-color: rgba(0, 255, 98, 0.87);
+          }
+          &:nth-child(4) {
+            background-color: rgba(255, 93, 93, 0.87);
+          }
         }
       }
     }
