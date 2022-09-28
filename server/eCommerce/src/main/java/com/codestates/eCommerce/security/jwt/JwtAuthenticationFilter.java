@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.member.dto.MemberDto;
 import com.codestates.eCommerce.member.entity.Member;
-import com.codestates.eCommerce.member.mapper.MemberMapper;
+import com.codestates.eCommerce.member.repository.mapper.MemberMapper;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

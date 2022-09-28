@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.member.mapper;
+package com.codestates.eCommerce.member.repository.mapper;
 
 import com.codestates.eCommerce.member.dto.MemberDto;
 import com.codestates.eCommerce.member.entity.Member;

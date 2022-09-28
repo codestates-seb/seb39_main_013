@@ -1,6 +1,7 @@
 package com.codestates.eCommerce.common.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,8 +13,6 @@ public class QueryDslConfig {
 
     @PersistenceContext
     private EntityManager em;
-
-    public QueryDslConfig() {}
 
     @Bean
     public JPAQueryFactory jpaQueryFactory() {

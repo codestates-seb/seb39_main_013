@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "ORDERS")
-@Getter @Setter
+@Getter @Setter @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,7 @@ public class Order extends BaseEntity {
 
     //생성 메서드
     public static Order createOrder(Long memberId, List<OrderProduct> orderProducts, String orderAddress){
+        //중복된건 로직이 들어가서 수정해야함.
         Order order = new Order();
         order.setMemberId(memberId);
         order.setOrderProducts(orderProducts);
