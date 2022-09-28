@@ -1,8 +1,4 @@
 spring:
-#  profiles:
-#    include:
-#      - aws
-#      - mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${mysql.url}/ecommerce?serverTimezone=Asia/Seoul
