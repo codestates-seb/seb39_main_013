@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import Comments from "../Comment/Comments";
-import AdditionalInfo from "./AdditionalInfo";
+
 import ProductDetailOrder from "./ProductDetailOrder";
 
 const dummyData = {
@@ -28,7 +28,6 @@ export default function ProductDetailForm() {
         <ProductDetailOrder title={dummyData.title} price={dummyData.price} subTitle={dummyData.subTitle} option={dummyData.option} />
       </OrderWrapper>
       <Comments />
-      <AdditionalInfo contentImg={dummyData.contentImg} />
     </Container>
   );
 }

@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
+import AdditionalInfo from "../ProductDetail/AdditionalInfo";
 
 import { useState } from "react";
 import ReviewComment from "./ReviewComment";
@@ -114,7 +115,12 @@ function Comments() {
     const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
     setDummyData(updatedDummyData);
     const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
-    setDummyData2(updatedDummyData);
+    setDummyData2(updatedDummyData2);
+  };
+
+  const deleteAnswer = (answerId) => {
+    const updatedDummyData2 = dummyData2.filter((answer) => answer.answerId !== answerId);
+    setDummyData2(updatedDummyData2);
   };
 
   console.log("dummyData1 =>>>>>>");
@@ -131,6 +137,7 @@ function Comments() {
     <Container>
       <div>
         <CommentCategory setClickedCategory={setClickedCategory} name={categoryItemList} />
+        {clickedCategory === categoryItemList[0] ? <AdditionalInfo contentImg={["https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-1.jpg", "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-2-m.jpg"]} /> : null}
         {clickedCategory === categoryItemList[2] ? (
           <>
             {dummyData.map((comment) => (
@@ -144,6 +151,7 @@ function Comments() {
                 addReplyComment={addReplyComment}
                 deleteQuestion={deleteQuestion}
                 editComment={editComment}
+                deleteAnswer={deleteAnswer}
               />
             ))}
             <QnaForm addComment={addComment} />

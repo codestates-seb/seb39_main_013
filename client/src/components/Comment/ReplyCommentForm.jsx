@@ -26,7 +26,7 @@ function ReplyCommentForm(props) {
       <form className="replyComment-box" onSubmit={handleSubmit}>
         <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
         <div className="replyComment-submitBox">
-          <Button type="submit">Submit</Button>
+          <button type="submit">Submit</button>
         </div>
       </form>
     </Container>
@@ -42,6 +42,7 @@ const Container = styled.div`
     max-width: 836px;
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
 
     textarea {
       height: 150px;
@@ -61,7 +62,7 @@ const Container = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 
     button {
       padding: 3px 20px;
