@@ -1,4 +1,4 @@
-package com.codestates.eCommerce;
+//package com.codestates.eCommerce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

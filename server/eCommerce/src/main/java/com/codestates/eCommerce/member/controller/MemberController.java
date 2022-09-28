@@ -1,12 +1,8 @@
 package com.codestates.eCommerce.member.controller;
 
-import com.codestates.eCommerce.member.dto.MemberDto;
-import com.codestates.eCommerce.member.entity.Member;
-import com.codestates.eCommerce.member.mapper.MemberMapper;
+import com.codestates.eCommerce.member.repository.mapper.MemberMapper;
 import com.codestates.eCommerce.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
