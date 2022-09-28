@@ -44,7 +44,7 @@ export default function CategorySelector() {
                 <SubCategory>
                   {v.subCategory.map((value) => {
                     return (
-                      <Link to={"?a"} key={value}>
+                      <Link to={`?category=${v.mainCategory}`} key={value}>
                         {value}
                       </Link>
                     );
