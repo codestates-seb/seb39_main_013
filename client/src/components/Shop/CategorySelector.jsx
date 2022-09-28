@@ -1,11 +1,18 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styled from "styled-components";
 import { categoryList } from "../../constance";
 
 export default function CategorySelector() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isClick, setIsClick] = useState("");
   const categoryArray = categoryList;
 
@@ -15,6 +22,14 @@ export default function CategorySelector() {
     } else {
       setIsClick(name);
     }
+  };
+
+  // const location = useLocation();
+  // console.log(location);
+  const category = searchParams.get("category");
+  const sub = searchParams.get("sub");
+  const testParams = (a, b) => {
+    setSearchParams({ category: a, sub: b });
   };
 
   return (
@@ -27,8 +42,12 @@ export default function CategorySelector() {
               <MainCategory>{v.mainCategory}</MainCategory>
               {v.mainCategory === isClick && (
                 <SubCategory>
-                  {v.subCategory.map((value, idx) => {
-                    return <div key={idx}>{value}</div>;
+                  {v.subCategory.map((value) => {
+                    return (
+                      <Link to={"?a"} key={value}>
+                        {value}
+                      </Link>
+                    );
                   })}
                 </SubCategory>
               )}
@@ -59,18 +78,25 @@ const CategoryWrapper = styled.ul`
 const MainCategory = styled.button`
   border: none;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 18px;
 `;
 
-const SubCategory = styled(Link)`
+const SubCategory = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 12px 4px;
+  color: black;
 
-  div {
+  a {
+    opacity: 0.6;
     animation: 0.2s ease-in-out smoothAppear;
-    font-size: 14px;
+    font-size: 1rem;
+    color: black;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   @keyframes smoothAppear {
