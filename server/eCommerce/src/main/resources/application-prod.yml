@@ -1,0 +1,19 @@
+mysql:
+  url: ${{ secrets.MYSQL_URL }}
+  username: ${{ secrets.MYSQL_USERNAME }}
+  password: ${{ secrets.MYSQL_PASSWORD }}
+security:
+  google:
+    client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+    client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+cloud:
+  aws:
+    credentials:
+      access-key: ${{ secrets.AWS_ACCESS_KEY }}
+      secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    s3:
+      bucket: ${{ secrets.IMAGE_BUCKET }}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

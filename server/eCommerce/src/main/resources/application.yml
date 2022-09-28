@@ -5,7 +5,7 @@ spring:
       - mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ecommerce?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://"${mysql.url}"/ecommerce?serverTimezone=Asia/Seoul
     username: "${mysql.username}"
     password: "${mysql.password}"
     data: classpath:/data.sql
@@ -36,3 +36,19 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
+
+
+
+---
+
+spring:
+  profiles:
+    active: prod
+
+---
+
+spring:
+  profiles:
+    active: local
+
+---
