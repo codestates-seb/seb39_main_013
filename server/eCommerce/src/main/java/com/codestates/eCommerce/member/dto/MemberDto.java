@@ -22,7 +22,6 @@ public class MemberDto {
     }
 
     @Getter @AllArgsConstructor
-    @ToString
     public static class Response {
         private Long memberId;
         private String name;

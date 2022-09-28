@@ -2,10 +2,12 @@ package com.codestates.eCommerce.security.oauth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.member.dto.MemberDto;
 import com.codestates.eCommerce.member.entity.Member;
-import com.codestates.eCommerce.member.mapper.MemberMapper;
+import com.codestates.eCommerce.member.repository.mapper.MemberMapper;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -37,7 +39,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         response.setCharacterEncoding("UTF-8");
         Member member = principalDetails.getMember();
         MemberDto.Response responseMember = mapper.memberToResponse(member);
-        response.getWriter().write(String.valueOf(responseMember));
-        response.getWriter().flush();
+
+        new ObjectMapper().writeValue(response.getOutputStream(), new SingleResponseDto<>(responseMember));
+
+        // cors
+        response.setHeader("Access-Control-Allow-origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
     }
 }

@@ -1,24 +1,37 @@
 package com.codestates.eCommerce.cart.controller;
 
-import com.codestates.eCommerce.common.dto.SingleResponseDto;
-import com.codestates.eCommerce.order.dto.RequestDto;
-import com.codestates.eCommerce.order.dto.ResponseDto;
+import com.codestates.eCommerce.cart.dto.CartDto;
+import com.codestates.eCommerce.cart.entity.Cart;
+import com.codestates.eCommerce.cart.mapper.CartMapper;
+import com.codestates.eCommerce.cart.service.CartService;
+import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/carts")
+@RequiredArgsConstructor
 public class CartController {
+    private final CartService service;
+    private final CartMapper mapper;
 
-    //상품담기 API
-//    @PostMapping("/cart")
-//    public ResponseEntity<?> cartOrder(@RequestBody RequestDto dto){
-//        ResponseDto responseDto = appOrderService.placeOrder(dto.toOrderDto());
-//        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
-//    }
+    @PostMapping
+    public ResponseEntity postCart(@RequestBody CartDto.Post post,
+                                   @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Cart cart = mapper.postToCart(post);
+        cart.setMemberId(principalDetails.getMember().getMemberId());
 
+        Long cartId = service.createCart(cart);
+        return new ResponseEntity(cartId, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{cart-id}")
+    public ResponseEntity getCart(@PathVariable("cart-id") long cartId) {
+        Cart cart = service.findCart(cartId);
+        CartDto.Response response = mapper.cartToResponse(cart);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
 }

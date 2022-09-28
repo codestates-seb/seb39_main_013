@@ -37,7 +37,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         Optional<Member> optionalMember = repository.findByEmail(email);
 
         if (optionalMember.isEmpty()) {
-            optionalMember = Optional.of(Member.builder().password(password).name(name).email(email).provider(provider).providerId(providerId).role(role).build());
+            optionalMember = Optional.of(new Member(password,name, email, provider, providerId, role));
             repository.save(optionalMember.get());
         }
         return new PrincipalDetails(optionalMember.get(), oAuth2User.getAttributes());
