@@ -25,12 +25,29 @@ export default function ProductRegisterForm() {
 
   const [thumbImage, setThumbImage] = useState([]);
   const [contentImg, setContentImg] = useState([]);
+  const [isValid, setIsValid] = useState(false);
 
   const postRegister = useProductRegister({
     ...inputs,
     thumb_images: thumbImage,
     content_images: contentImg,
   });
+  console.log(isValid);
+
+  useEffect(() => {
+    let valid = true;
+    for (let i in inputs) {
+      if (!inputs[i]) {
+        valid = false;
+        break;
+      }
+    }
+
+    if (!contentImg.length || !thumbImage.length) {
+      valid = false;
+    }
+    setIsValid(valid);
+  }, [thumbImage, contentImg, inputs]);
 
   useEffect(() => {
     if (inputs.brand_name !== "") {
@@ -134,7 +151,9 @@ export default function ProductRegisterForm() {
         />
       </InputWrapper>
       <SubmitButtonWrapper>
-        <Button onClick={postRegisterHandler}>Register</Button>
+        <Button disable={isValid} onClick={postRegisterHandler}>
+          Register
+        </Button>
       </SubmitButtonWrapper>
     </Container>
   );

@@ -3,8 +3,13 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 export default function Button(props) {
+  console.log("button :", !props.disable);
   return (
-    <Container mode={props?.mode} onClick={(e) => props.onClick(e)}>
+    <Container
+      disabled={!props.disable}
+      mode={props?.mode}
+      onClick={(e) => props.onClick(e)}
+    >
       {props.children}
     </Container>
   );
@@ -16,6 +21,8 @@ const Container = styled.button`
   color: #ffffff;
   border: none;
   cursor: pointer;
+
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 
   ${(props) =>
     props.mode === "apply" &&
