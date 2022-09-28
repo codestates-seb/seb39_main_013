@@ -17,20 +17,29 @@ public class MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     public Long createMember(Member member) {
+        verifyExistsMember(member.getEmail());
+
         String rawPassword = member.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
-
-//        member.setRole("MEMBER");
         member.setRole("ROLE_MEMBER");
-//        member.setMemberStatus(Member.MemberStatus.MANAGER);
 
         Member savedMember = repository.save(member);
         return savedMember.getMemberId();
     }
 
+    // 회원 검색
     public Member findMember(long memberId) {
         Optional<Member> optionalMember = repository.findById(memberId);
-        return optionalMember.orElseThrow(() -> new RuntimeException("Member Not Found"));
+        Member member = optionalMember.orElseThrow(() -> new RuntimeException("Member Not Found"));
+        return member;
+    }
+
+    // 기존에 가입된 회원인지 검증(email)
+    public void verifyExistsMember(String email) {
+        Optional<Member> optionalMember = repository.findByEmail(email);
+        if (optionalMember.isPresent()) {
+            throw new RuntimeException("Member exists");
+        }
     }
 }

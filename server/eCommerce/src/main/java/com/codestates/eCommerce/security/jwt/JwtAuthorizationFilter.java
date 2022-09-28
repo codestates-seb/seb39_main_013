@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 // 권한이나 인증이 필요한 특정 주소로 요청했을 경우 BasicAuthenticationFilter 를 거침
 // 권한이나 인증이 필요 없는 주소라면 이 필터를 거치지 않ㅇ므
@@ -45,8 +46,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                         .build().verify(jwtToken).getClaim("email").asString();
 
         if (email != null) {
-            Member member = repository.findByEmail(email);
-            PrincipalDetails principalDetails = new PrincipalDetails(member);
+            Optional<Member> optionalMember = repository.findByEmail(email);
+            PrincipalDetails principalDetails = new PrincipalDetails(optionalMember.get());
+
+//            Member member = repository.findByEmail(email);
+//            PrincipalDetails principalDetails = new PrincipalDetails(member);
 
             // jwt 토큰 서명을 통해서 서명이 정상이면 Authentication 객체를 만들어준다
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
