@@ -1,11 +1,7 @@
 spring:
-  profiles:
-    include:
-      - aws
-      - mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://"${mysql.url}"/ecommerce?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://${mysql.url}/ecommerce?serverTimezone=Asia/Seoul
     username: "${mysql.username}"
     password: "${mysql.password}"
     data: classpath:/data.sql
