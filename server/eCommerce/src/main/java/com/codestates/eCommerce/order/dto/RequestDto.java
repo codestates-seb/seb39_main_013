@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class RequestOrderDto {
+public class RequestDto {
 
     private String address;
     private String phone;

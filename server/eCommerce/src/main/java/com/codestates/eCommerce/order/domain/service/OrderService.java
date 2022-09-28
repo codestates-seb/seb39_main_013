@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
 
