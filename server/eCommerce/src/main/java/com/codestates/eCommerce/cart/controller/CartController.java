@@ -1,9 +1,37 @@
 package com.codestates.eCommerce.cart.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.codestates.eCommerce.cart.dto.CartDto;
+import com.codestates.eCommerce.cart.entity.Cart;
+import com.codestates.eCommerce.cart.mapper.CartMapper;
+import com.codestates.eCommerce.cart.service.CartService;
+import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/carts")
+@RequiredArgsConstructor
 public class CartController {
+    private final CartService service;
+    private final CartMapper mapper;
+
+    @PostMapping
+    public ResponseEntity postCart(@RequestBody CartDto.Post post,
+                                   @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Cart cart = mapper.postToCart(post);
+        cart.setMemberId(principalDetails.getMember().getMemberId());
+
+        Long cartId = service.createCart(cart);
+        return new ResponseEntity(cartId, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{cart-id}")
+    public ResponseEntity getCart(@PathVariable("cart-id") long cartId) {
+        Cart cart = service.findCart(cartId);
+        CartDto.Response response = mapper.cartToResponse(cart);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
 }
