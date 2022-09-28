@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,9 +19,8 @@ public class CartService {
         return savedCart.getCartId();
     }
 
-    public Cart findCart(long cartId) {
-        Optional<Cart> optionalCart = repository.findById(cartId);
-        Cart cart = optionalCart.orElseThrow(() -> new RuntimeException("Cart Not Found"));
-        return cart;
+    public List<Cart> findCarts(Long memberId) {
+        List<Cart> carts = repository.findAllByMemberId(memberId);
+        return carts;
     }
 }

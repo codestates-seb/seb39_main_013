@@ -1,7 +1,7 @@
 package com.codestates.eCommerce.security.config;
 
 import com.codestates.eCommerce.member.repository.MemberRepository;
-import com.codestates.eCommerce.member.repository.mapper.MemberMapper;
+import com.codestates.eCommerce.member.mapper.MemberMapper;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
 import com.codestates.eCommerce.security.oauth.OAuth2SuccessHandler;
