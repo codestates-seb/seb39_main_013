@@ -1,22 +1,22 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${{ secrets.MYSQL_URL }}
-    username: ${{ secrets.MYSQL_USERNAME }}
-    password: ${{ secrets.MYSQL_PASSWORD }}
+    url: ${ MYSQL_URL }
+    username: ${ MYSQL_USERNAME }
+    password: ${ MYSQL_PASSWORD }
     data: classpath:/data.sql
 #    initialization-mode: always
 security:
   google:
-    client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
-    client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    client-id: ${ GOOGLE_CLIENT_ID }
+    client-secret: ${ GOOGLE_CLIENT_SECRET }
 cloud:
   aws:
     credentials:
-      access-key: ${{ secrets.AWS_ACCESS_KEY }}
-      secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      access-key: ${ AWS_ACCESS_KEY }
+      secret-key: ${ AWS_SECRET_ACCESS_KEY }
     s3:
-      bucket: ${{ secrets.IMAGE_BUCKET }}
+      bucket: ${ IMAGE_BUCKET }
     region:
       static: ap-northeast-2
     stack:
