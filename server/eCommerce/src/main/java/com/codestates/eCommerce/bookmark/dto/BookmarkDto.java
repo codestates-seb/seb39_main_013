@@ -7,13 +7,13 @@ import javax.validation.constraints.NotBlank;
 
 public class BookmarkDto {
     @Getter @AllArgsConstructor
-    public class Post {
+    public static class Post {
         @NotBlank
         private Long productId;
     }
 
     @Getter @AllArgsConstructor
-    public class Response {
+    public static class Response {
         private Long bookmarkId;
         private Long productId;
     }

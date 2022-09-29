@@ -10,5 +10,7 @@ import java.util.List;
 public interface BookmarkMapper {
     Bookmark postToBookmark(BookmarkDto.Post post);
 
+    BookmarkDto.Response bookmarkToResponse(Bookmark bookmark);
+
     List<BookmarkDto.Response> bookmarksToResponses(List<Bookmark> bookmarks);
 }
