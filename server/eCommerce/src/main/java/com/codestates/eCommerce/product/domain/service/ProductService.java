@@ -46,12 +46,12 @@ public class ProductService {
     private static void validateCheckAndUpdate(RequestDto.Patch requestDto, Product findProduct) {
         if (requestDto.getBrandId() != null) findProduct.setBrandId(requestDto.getBrandId());
         if (StringUtils.hasText(requestDto.getMajorClass())) findProduct.setMajorClass(requestDto.getMajorClass());
-        if (StringUtils.hasText(requestDto.getSubClass())) findProduct.setSubClass(requestDto.getSubClass());
         if (StringUtils.hasText(requestDto.getName())) findProduct.setName(requestDto.getName());
         if (requestDto.getPrice() != null) findProduct.setPrice(requestDto.getPrice());
         if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
         if (StringUtils.hasText(requestDto.getColor())) findProduct.setColor(requestDto.getColor());
+        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
         if (requestDto.getThumbImages() != null) findProduct.setThumbImages(requestDto.getThumbImages());
-//        if (requestDto.getContents() != null) findProduct.setContents(requestDto.getContents());
+        if (requestDto.getContentImages() != null) findProduct.setContentImages(requestDto.getContentImages());
     }
 }
