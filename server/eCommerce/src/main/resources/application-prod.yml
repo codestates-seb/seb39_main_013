@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${{ secrets.MYSQL_URL }}/ecommerce?serverTimezone=Asia/Seoul
+    url: ${{ secrets.MYSQL_URL }}
     username: ${{ secrets.MYSQL_USERNAME }}
     password: ${{ secrets.MYSQL_PASSWORD }}
     data: classpath:/data.sql
