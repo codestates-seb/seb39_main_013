@@ -50,6 +50,7 @@ function ReviewComment(props) {
           initialText={props.review.reviewContent}
           reviewId={props.review.reviewId}
           setClickedReview={props.setClickedReview}
+          initialStars={props.review.reviewStars}
         />
       ) : null}
     </Container>

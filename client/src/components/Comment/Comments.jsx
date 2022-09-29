@@ -154,10 +154,10 @@ function Comments() {
     setClickedQuestion([questionId, false, false]);
   };
 
-  const updateReview = (reviewId, text) => {
+  const updateReview = (reviewId, text, clickedRadioBtn) => {
     const updatedDummyData3 = dummyData3.map((review) => {
       if (review.reviewId === reviewId) {
-        return { ...review, reviewContent: text };
+        return { ...review, reviewContent: text, reviewStars: clickedRadioBtn };
       }
       return review;
     });

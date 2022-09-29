@@ -14,10 +14,10 @@ function RiviewForm(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const isTextareaDisabled = text.length === 0;
+  const [clickedRadioBtn, setClickedRadioBtn] = useState("5");
 
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
   const renderStars = (num) => [...Array(num)].map((num) => renderStar());
-  const [clickedRadioBtn, setClickedRadioBtn] = useState("5");
 
   const submitNewReview = (e) => {
     e.preventDefault();
@@ -117,18 +117,6 @@ const Container = styled.div`
       label {
         margin: 0 5px;
         color: yellow;
-      }
-
-      button {
-        margin: 0 5px;
-        color: yellow;
-        background-color: white;
-        border: none;
-        outline: none;
-      }
-
-      .review-options__checkBox {
-        margin: 0 5px;
       }
     }
 
