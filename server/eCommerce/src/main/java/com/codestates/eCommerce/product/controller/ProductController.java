@@ -35,7 +35,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getProductPage(@RequestParam int page, @RequestParam int size, @RequestBody ProductCondition productCondition) {
+    public ResponseEntity<?> getProductPage(@RequestParam int page,
+                                            @RequestParam int size, ProductCondition productCondition) {
         Page<ProductDto> responseProductPage = appProductSerivce.getProductPage(page,size,productCondition);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage),HttpStatus.OK);
     }
