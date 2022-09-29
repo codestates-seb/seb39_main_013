@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -23,7 +24,7 @@ public class MemberController {
     private final MemberMapper mapper;
 
     @PostMapping
-    public ResponseEntity postMember(@RequestBody MemberDto.Post post) {
+    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post post) {
         Member member = mapper.postToMember(post);
         Long memberId = service.createMember(member);
         return new ResponseEntity<>(memberId, HttpStatus.CREATED);
