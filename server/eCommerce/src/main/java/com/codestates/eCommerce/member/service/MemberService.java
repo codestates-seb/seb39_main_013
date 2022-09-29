@@ -1,5 +1,7 @@
 package com.codestates.eCommerce.member.service;
 
+import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,7 @@ public class MemberService {
     // 회원 검색
     public Member findMember(long memberId) {
         Optional<Member> optionalMember = repository.findById(memberId);
-        Member member = optionalMember.orElseThrow(() -> new RuntimeException("Member Not Found"));
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return member;
     }
 
@@ -39,7 +41,7 @@ public class MemberService {
     public void verifyExistsMember(String email) {
         Optional<Member> optionalMember = repository.findByEmail(email);
         if (optionalMember.isPresent()) {
-            throw new RuntimeException("Member exists");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
     }
 }
