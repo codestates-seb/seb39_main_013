@@ -18,10 +18,12 @@ export default function ProductDetailForm() {
           <img src={productInfo[0].productImg} alt="img" />
         </ImageWrapper>
         <ProductDetailOrder
+          id={productInfo[0].id}
           title={productInfo[0].title}
           price={productInfo[0].price}
           subTitle={productInfo[0].brand}
           option={productInfo[0].option}
+          maxQuantity={productInfo[0].quantity}
         />
       </OrderWrapper>
       <Comments />
@@ -41,8 +43,10 @@ const Container = styled.section`
 `;
 
 const ImageWrapper = styled.div`
+  width: 100%;
   max-width: 620px;
   img {
+    width: 100%;
     max-width: 620px;
     object-fit: cover;
   }
@@ -54,4 +58,10 @@ const OrderWrapper = styled.div`
   grid-column-gap: 40px;
   border-bottom: 1px solid #d4d4d4;
   padding-bottom: 80px;
+
+  @media screen and (max-width: 1280px) {
+    place-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+  }
 `;
