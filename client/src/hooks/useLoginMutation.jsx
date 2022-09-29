@@ -5,9 +5,6 @@ import { useDispatch } from "react-redux";
 import { loginFn } from "../api";
 import { setUser } from "../redux/reducer/userSlice";
 
-/**
- * login data redux 설정하기
- */
 export default function useLoginMutation(value) {
   const dispatch = useDispatch();
 

@@ -1,43 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import styled from "styled-components";
+import { productData } from "../../constance";
 import Comments from "../Comment/Comments";
 import AdditionalInfo from "./AdditionalInfo";
 import ProductDetailOrder from "./ProductDetailOrder";
-
-const dummyData = {
-  title: "Nike Dunk High Retro Championship White",
-  brand: "나이키 덩크 하이 레트로 챔피언쉽 화이트",
-  price: "223000",
-  productImg:
-    "https://kream-phinf.pstatic.net/MjAyMjA2MTVfNjUg/MDAxNjU1MjgxMTg3MDQ3.yu9lhOD2ymol3F34Ou3Bkxex2FF3WfVzxKc8HgkNdjUg.BHhRmo3Vn5juLe9RnOVecap5GUZ3PK0hLme4AzRJ4BMg.JPEG/a_23c64f2c02ec423db4ec0a9f67960d3d.jpg?type=l_webp",
-  option: {
-    size: [245, 250, 255, 260, 265, 270, 275],
-    color: "#5898F9",
-  },
-  contentImg: [
-    "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-1.jpg",
-    "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-2-m.jpg",
-  ],
-  quantity: 9,
-};
+import { useParams } from "react-router-dom";
 
 export default function ProductDetailForm() {
+  const params = useParams();
+  const productInfo = productData.filter((v) => v.id === params.id);
+  console.log(productInfo);
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
-          <img src={dummyData.productImg} alt="img" />
+          <img src={productInfo[0].productImg} alt="img" />
         </ImageWrapper>
         <ProductDetailOrder
-          title={dummyData.title}
-          price={dummyData.price}
-          subTitle={dummyData.brand}
-          option={dummyData.option}
+          title={productInfo[0].title}
+          price={productInfo[0].price}
+          subTitle={productInfo[0].brand}
+          option={productInfo[0].option}
         />
       </OrderWrapper>
       <Comments />
-      <AdditionalInfo contentImg={dummyData.contentImg} />
+      <AdditionalInfo contentImg={productInfo[0].contentImg} />
     </Container>
   );
 }
