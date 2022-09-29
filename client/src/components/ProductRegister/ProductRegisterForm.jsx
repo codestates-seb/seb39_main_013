@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { brandList } from "../../constance";
-import { dummyColor } from "../../dummyData";
+import { dummyColor } from "../../constance/index";
 import useProductRegister from "../../hooks/useProductRegister";
 import Button from "../Commons/Button";
 import CheckBoxSelector from "./CheckBoxSelector";

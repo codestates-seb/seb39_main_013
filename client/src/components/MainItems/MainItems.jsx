@@ -12,6 +12,7 @@ function MainItems(props) {
         return (
           <ItemCard
             key={v.id}
+            id={v.id}
             productImg={v.productImg}
             brand={v.brand}
             title={v.title}

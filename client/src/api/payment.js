@@ -1,6 +1,6 @@
 export const paymentClickHandler = () => {
   const data = {
-    pg: "html5_inicis",
+    pg: "kakaopay",
     pay_method: "card",
     merchant_uid: `mid_${new Date().getTime()}`,
     name: "이니시스 테스트용",
@@ -18,7 +18,7 @@ export const paymentClickHandler = () => {
     const { success, error_msg } = res;
 
     if (success) {
-      console.log("payment success!!!");
+      console.log(res);
     } else {
       console.log("payment Error!!!" + error_msg);
     }

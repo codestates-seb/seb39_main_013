@@ -18,7 +18,7 @@ function ItemCard(props) {
 
   return (
     <Container>
-      <Link to="/detail">
+      <Link to={`/detail/${props.id}`}>
         <ItemCardImg className="ItemCard-Image">
           <img src={props.productImg} alt="" />
           {isClicked ? ( //

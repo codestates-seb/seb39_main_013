@@ -41,7 +41,7 @@ function App() {
                 <PrivateRoute isLogin={isLogin} component={<SignUpPage />} />
               }
             />
-            <Route path="/detail" element={<ProductDetailPage />} />
+            <Route path="/detail/:id" element={<ProductDetailPage />} />
             <Route
               path="/product-register"
               element={
