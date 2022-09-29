@@ -17,7 +17,6 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/api/v1/members")
 @Validated
-@Slf4j
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService service;
