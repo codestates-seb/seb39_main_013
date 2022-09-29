@@ -6,9 +6,9 @@ spring:
     show-sql: true
     properties.hibernate.format_sql : true
 #    defer-datasource-initialization : true
-  sql:
-    init:
-      mode: always
+#  sql:
+#    init:
+#      mode: always
   security:
     oauth2:
       client:
