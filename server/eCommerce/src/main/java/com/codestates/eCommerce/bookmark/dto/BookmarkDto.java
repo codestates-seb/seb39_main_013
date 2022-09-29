@@ -14,6 +14,7 @@ public class BookmarkDto {
 
     @Getter @AllArgsConstructor
     public class Response {
+        private Long bookmarkId;
         private Long productId;
     }
 }

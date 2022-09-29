@@ -32,6 +32,11 @@ public class MemberService {
 
     // 회원 검색
     public Member findMember(long memberId) {
+        Member member = findVerifiedMember(memberId);
+        return member;
+    }
+
+    private Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = repository.findById(memberId);
         Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return member;

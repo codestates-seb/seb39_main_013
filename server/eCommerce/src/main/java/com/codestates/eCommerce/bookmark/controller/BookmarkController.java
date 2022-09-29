@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -34,10 +35,16 @@ public class BookmarkController {
     }
 
     @GetMapping
-    public ResponseEntity getBookmark(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity getBookmarks(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long memberId = principalDetails.getMember().getMemberId();
         List<Bookmark> bookmarks = service.findBookmark(memberId);
         List<BookmarkDto.Response> response = mapper.bookmarksToResponses(bookmarks);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{bookmark-id}")
+    public ResponseEntity deleteBookmark(@PathVariable("bookmark-id") @Positive long bookmarkId) {
+        service.deleteBookmark(bookmarkId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
