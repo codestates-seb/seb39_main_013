@@ -52,14 +52,33 @@ function Comment(props) {
           </div>
         </div>
       </div>
-      {props.active ? <div className="replyBox">{props.replies.length > 0 ? props.replies.map((reply) => <ReplyComment reply={reply} key={reply.answerId} deleteAnswer={props.deleteAnswer} />) : null}</div> : null}
+      {props.active ? (
+        <div className="replyBox">
+          {props.replies.length > 0
+            ? props.replies.map((reply) => (
+                <ReplyComment //
+                  reply={reply}
+                  key={reply.answerId}
+                  deleteAnswer={props.deleteAnswer}
+                />
+              ))
+            : null}
+        </div>
+      ) : null}
       {props.isReplying ? (
         <ReplyCommentForm
           addReplyComment={props.addReplyComment} //
           replyparent={props.item}
         />
       ) : null}
-      {props.isEditing ? <UpdateCommentForm updateQuestion={props.updateQuestion} initialText={props.item.questionContent} questionId={props.item.questionId} /> : null}
+      {props.isEditing ? (
+        <UpdateCommentForm //
+          updateQuestion={props.updateQuestion}
+          initialText={props.item.questionContent}
+          questionId={props.item.questionId}
+          setClickedQuestion={props.setClickedQuestion}
+        />
+      ) : null}
     </Container>
   );
 }

@@ -3,28 +3,28 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 
-function UpdateCommentForm(props) {
+function UpdateReviewForm(props) {
   const [text, setText] = useState(props.initialText);
 
   return (
     <Container>
-      <form className="updateComment-box">
+      <form className="updateReview-box">
         <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
-        <div className="updateComment-submitBox">
+        <div className="updateReview-submitBox">
           <button
             type="submit"
             onClick={() =>
               //취소 버튼을 누르면 setClicked qusetion에서 2번 인덱스 인자가 isEditing을 결정하는 요소이기 때문에 해당 요소만 false로 변경해준다.
-              props.setClickedQuestion((curr) => {
+              props.setClickedReview((curr) => {
                 const newCurr = [...curr];
-                newCurr[2] = false;
+                newCurr[1] = false;
                 return newCurr;
               })
             }
           >
             취소
           </button>
-          <button type="submit" onClick={() => props.updateQuestion(props.questionId, text)}>
+          <button type="submit" onClick={() => props.updateReview(props.reviewId, text)}>
             수정
           </button>
         </div>
@@ -37,7 +37,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  .updateComment-box {
+  .updateReview-box {
     width: 100%;
     max-width: 836px;
     display: flex;
@@ -58,7 +58,7 @@ const Container = styled.div`
       }
     }
   }
-  .updateComment-submitBox {
+  .updateReview-submitBox {
     display: flex;
     justify-content: end;
     align-items: center;
@@ -84,4 +84,4 @@ const Container = styled.div`
   }
 `;
 
-export default UpdateCommentForm;
+export default UpdateReviewForm;

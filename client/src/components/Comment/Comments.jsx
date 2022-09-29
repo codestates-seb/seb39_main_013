@@ -96,6 +96,9 @@ function Comments() {
   //리스트의 0번 인덱스는 현재 클릭된 질문의 번호이다.
   //리스트의 1번 인덱스는 isReplying을 결정한다. boolean값으로 저장한다.
   //리스트의 2번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
+  const [clickedReview, setClickedReview] = useState([null, false]);
+  //리스트의 0번 인덱스틑 현재 클릭된 리뷰의 번호이다.
+  //리스트의 1번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
 
   console.log(clickedQuestion);
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
@@ -116,7 +119,7 @@ function Comments() {
     return;
   };
 
-  const newReview = (newReview) => {
+  const addNewReview = (newReview) => {
     setDummyData3([...dummyData3, newReview]);
     return;
   };
@@ -134,6 +137,11 @@ function Comments() {
     setDummyData2(updatedDummyData2);
   };
 
+  const deleteReview = (reviewId) => {
+    const updatedDummyData3 = dummyData3.filter((review) => review.reviewId !== reviewId);
+    setDummyData3(updatedDummyData3);
+  };
+
   const updateQuestion = (questionId, text) => {
     const updatedDummyData = dummyData.map((question) => {
       if (question.questionId === questionId) {
@@ -144,6 +152,18 @@ function Comments() {
 
     setDummyData(updatedDummyData);
     setClickedQuestion([questionId, false, false]);
+  };
+
+  const updateReview = (reviewId, text) => {
+    const updatedDummyData3 = dummyData3.map((review) => {
+      if (review.reviewId === reviewId) {
+        return { ...review, reviewContent: text };
+      }
+      return review;
+    });
+
+    setDummyData3(updatedDummyData3);
+    setClickedReview(reviewId, false);
   };
 
   const updateAnswer = (answerId, text) => {};
@@ -188,9 +208,16 @@ function Comments() {
         {clickedCategory === categoryItemList[1] ? (
           <>
             {dummyData3.map((review) => (
-              <ReviewComment key={review.reviewId} review={review} />
+              <ReviewComment //
+                key={review.reviewId}
+                review={review}
+                deleteReview={deleteReview}
+                setClickedReview={setClickedReview}
+                isEditing={clickedReview[0] === review.reviewId && clickedReview[1]}
+                updateReview={updateReview}
+              />
             ))}
-            <ReviewForm newReview={newReview} />
+            <ReviewForm addNewReview={addNewReview} />
           </>
         ) : null}
       </div>

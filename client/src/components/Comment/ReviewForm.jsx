@@ -24,12 +24,12 @@ function RiviewForm(props) {
     const newReview = {
       reviewId: Math.random().toString(36).substr(2, 9),
       reviewName: name,
-      reviewCreatedAt: new Date().toLocaleDateString,
+      reviewCreatedAt: new Date().toLocaleString(),
       reviewContent: text,
       reviewStars: clickedRadioBtn,
     };
 
-    props.newReview(newReview);
+    props.addNewReview(newReview);
     setName("");
     setEmail("");
     setText("");
