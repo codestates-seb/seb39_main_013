@@ -45,7 +45,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          IMAGE_BUCKET: ${{ IMAGE_BUCKET }}
+          IMAGE_BUCKET: ${{ secrets.IMAGE_BUCKET }}
     # gradle 권한  
     - name: Change mode gradle
       run: chmod +x gradlew
