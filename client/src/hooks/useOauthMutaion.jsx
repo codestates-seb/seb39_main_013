@@ -8,6 +8,9 @@ export default function useOauthMutaion() {
     onSuccess: (data) => {
       console.log("query success :", data);
     },
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   return { refetch, isError, isLoading };

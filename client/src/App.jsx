@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
-
 import PrivateRoute from "./utils/PrivateRoute";
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
@@ -71,7 +70,6 @@ function App() {
         <ToastContainer position="top-center" draggable />
       </BrowserRouter>
       <GlobalStyled />
-      {/* <GlobalFonts /> */}
     </div>
   );
 }

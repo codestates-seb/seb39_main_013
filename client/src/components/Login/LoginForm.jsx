@@ -10,6 +10,7 @@ import useLoginMutation from "../../hooks/useLoginMutation";
 import useOauthMutaion from "../../hooks/useOauthMutaion";
 import useAuthorize from "../../hooks/useAuthorize";
 import { authorizeToken } from "../../api";
+import Loading from "../Commons/Loading";
 
 export default function LoginForm() {
   const [loginValue, setLoginValue] = useState({
@@ -43,6 +44,10 @@ export default function LoginForm() {
 
   if (loginAction.isSuccess) {
     navigate("/");
+  }
+
+  if (loginAction.isLoading) {
+    return <Loading />;
   }
 
   return (
