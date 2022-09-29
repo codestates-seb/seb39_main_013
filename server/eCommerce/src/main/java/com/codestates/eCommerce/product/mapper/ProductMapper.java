@@ -5,13 +5,17 @@ import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
 import com.codestates.eCommerce.product.dto.ResponseDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProductMapper {
 
+
     Product toEntity(RequestDto.Patch post);
+//    @Mapping(source = "post.size", target = "size")
     Product toEntity(RequestDto.Post post);
     Product toEntity(ProductDto ProductDto);
     ProductDto toProductDto(Product product);

@@ -17,29 +17,29 @@ public class ProductDto {
 
     private Long productId;
     private Long brandId;
+    private String brandName;
     private String majorClass;
-    private String subClass;
     private String name;
     private Integer price;
     private Integer stock;
     private String color;
+    private String size;
     private List<String> thumbImages;
     private List<String> contentsImages;
 
     @QueryProjection
-    public ProductDto(Long productId, Long brandId, String majorClass, String subClass, String name, Integer price, Integer stock, String color, List<String> thumbImages, List<String> contentsImages) {
+    public ProductDto(Long productId, Long brandId, String brandName, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentsImages) {
         this.productId = productId;
         this.brandId = brandId;
+        this.brandName = brandName;
         this.majorClass = majorClass;
-        this.subClass = subClass;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.color = color;
+        this.size = size;
         this.thumbImages = thumbImages;
         this.contentsImages = contentsImages;
     }
-
-
 }
 
