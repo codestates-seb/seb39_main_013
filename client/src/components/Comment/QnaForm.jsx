@@ -35,7 +35,7 @@ function QnaForm(props) {
     <Container>
       <div className="QnaBox">
         <div className="Qna-title">
-          <h3>ADD QnA</h3>
+          <p>ADD QnA</p>
         </div>
         <form onSubmit={submitNewComment}>
           <div className="Qna-options">
@@ -81,6 +81,10 @@ const Container = styled.div`
       justify-content: center;
       font-weight: bold;
       padding: 20px 0;
+      p {
+        font-size: 24px;
+        font-weight: bold;
+      }
     }
     .Qna-options {
       display: flex;
@@ -104,7 +108,7 @@ const Container = styled.div`
         background-color: #f1f1f1;
         border-radius: 5px;
         border: none;
-        font-size: 17px;
+        font-size: 14px;
         padding: 5px 5px;
       }
     }
