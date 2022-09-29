@@ -1,7 +1,6 @@
 package com.codestates.eCommerce.product.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -21,12 +20,13 @@ public class ProductHistory extends BaseEntity {
     private Long productHistoryId;
     private Long productId;
     private Long brandId;
+    private String brandName;
     private String majorClass;
-    private String subClass;
     private String name;
     private Integer price;
     private Integer stock;
     private String color;
+    private String size;
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private List<String> thumbImages = new ArrayList<>();
@@ -38,12 +38,13 @@ public class ProductHistory extends BaseEntity {
         ProductHistory productHistory = new ProductHistory();
         productHistory.setProductId(product.getProductId());
         productHistory.setBrandId(product.getBrandId());
+        productHistory.setBrandName(product.getBrandName());
         productHistory.setMajorClass(product.getMajorClass());
-        productHistory.setSubClass(product.getSubClass());
         productHistory.setName(product.getName());
         productHistory.setPrice(product.getPrice());
         productHistory.setStock(product.getStock());
         productHistory.setColor(product.getColor());
+        productHistory.setSize(product.getSize());
         productHistory.setThumbImages(product.getThumbImages());
         productHistory.setContentImages(product.getContentImages());
         return productHistory;

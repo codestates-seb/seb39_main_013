@@ -30,12 +30,13 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .select(new QProductDto(
                     product.productId,
                     product.brandId,
+                    product.brandName,
                     product.majorClass,
-                    product.subClass,
                     product.name,
                     product.price,
                     product.stock,
                     product.color,
+                    product.size,
                     product.thumbImages,
                     product.contentImages
                 ))
@@ -43,7 +44,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(
                     brandIdEq(condition.getBrandId()),
                     majorClassEq(condition.getMajorClass()),
-                    subClassEq(condition.getSubClass()),
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
                     priceGoe(condition.getPriceMin()),
@@ -59,11 +59,11 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(
                     brandIdEq(condition.getBrandId()),
                     majorClassEq(condition.getMajorClass()),
-                    subClassEq(condition.getSubClass()),
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
                     priceGoe(condition.getPriceMin()),
                     priceLoe(condition.getPriceMax()),
+                    sizeGt(condition.getMajorClass(), condition.getSize()),
                     stockLoe(condition.getStock())
                 )
                 .fetch().size();
@@ -77,10 +77,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     private BooleanExpression majorClassEq(String majorClass) {
         return hasText(majorClass) ? product.majorClass.eq(majorClass) : null;
-    }
-
-    private BooleanExpression subClassEq(String subClass) {
-        return hasText(subClass) ? product.subClass.eq(subClass) : null;
     }
 
     private BooleanExpression nameContains(String name) {
@@ -101,6 +97,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     private BooleanExpression stockLoe(Integer stock) {
         return stock != null ? product.stock.loe(stock) : null;
+    }
+
+    private BooleanExpression sizeGt(String majorClass , String size) {
+        return hasText(majorClass) && hasText(size) ? product.size.castToNum(Integer.class).gt(Integer.parseInt(size)) : null;
     }
 
     private BooleanExpression productIdGt(Long lastProductId) {
