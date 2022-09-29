@@ -11,7 +11,6 @@ export default function useAuthorize() {
     retry: false,
     enabled: false,
     cacheTime: 0,
-    staleTime: 10000,
     onSuccess: (data) => {
       console.log("success");
       console.log(data);

@@ -4,9 +4,7 @@ import React, { memo } from "react";
 import styled from "styled-components";
 import ImageUploader from "react-images-upload";
 import { useMutation } from "react-query";
-import { axiosInstance } from "../../api/axiosInstance";
 import { imageRegisterFn } from "../../api";
-// import axios from "axios";
 
 export default memo(function ImageSelector(props) {
   const { mutate, data, isSuccess, isLoading } = useMutation((value) =>
@@ -19,16 +17,13 @@ export default memo(function ImageSelector(props) {
     console.log("img change", e[0], typeof e);
   };
 
-  console.log("render!");
   if (isSuccess) {
     console.log(data);
     props.changeHandler([data.data]);
-    // props.changeHandler({ target: { name: props.name, value: [data] } });
   }
 
   return (
     <Container>
-      {isLoading && <div>Loading</div>}
       <span>{props.label}</span>
       <InputImage
         imgExtension={[".jpg", ".gif", ".png", ".gif", ".webp", ".jpeg"]}

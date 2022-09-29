@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
@@ -23,6 +23,12 @@ export default function LoginForm() {
   const oauthLoginAction = useOauthMutaion();
   const authToken = useAuthorize();
 
+  useEffect(() => {
+    // if (loginAction.isSuccess) {
+    //   navigate("/");
+    // }
+  }, [loginAction.isSuccess]);
+
   const inputChangeHandler = (e) => {
     setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
   };
@@ -42,11 +48,7 @@ export default function LoginForm() {
     authToken.refetch();
   };
 
-  if (loginAction.isSuccess) {
-    navigate("/");
-  }
-
-  if (loginAction.isLoading) {
+  if (loginAction.isLoading || oauthLoginAction.isLoading) {
     return <Loading />;
   }
 

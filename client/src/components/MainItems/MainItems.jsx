@@ -8,14 +8,14 @@ import ItemCard from "../Commons/ItemCard";
 function MainItems(props) {
   return (
     <Container mode={props.mode}>
-      {props.productList.map((v) => {
+      {props.productList.data.map((v) => {
         return (
           <ItemCard
-            key={v.id}
-            id={v.id}
-            productImg={v.productImg}
-            brand={v.brand}
-            title={v.title}
+            key={v.product_id}
+            id={v.product_id}
+            productImg={v.thumb_images[0]}
+            brand={v.brand_name}
+            title={v.name}
             price={v.price}
           />
         );

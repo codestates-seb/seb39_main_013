@@ -1,33 +1,30 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
-import { productData } from "../../constance";
 import Comments from "../Comment/Comments";
 import AdditionalInfo from "./AdditionalInfo";
 import ProductDetailOrder from "./ProductDetailOrder";
-import { useParams } from "react-router-dom";
 
-export default function ProductDetailForm() {
-  const params = useParams();
-  const productInfo = productData.filter((v) => v.id === params.id);
-  console.log(productInfo);
+export default function ProductDetailForm(props) {
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
-          <img src={productInfo[0].productImg} alt="img" />
+          <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
         <ProductDetailOrder
-          id={productInfo[0].id}
-          title={productInfo[0].title}
-          price={productInfo[0].price}
-          subTitle={productInfo[0].brand}
-          option={productInfo[0].option}
-          maxQuantity={productInfo[0].quantity}
+          id={props.dataInfo.product_id}
+          title={props.dataInfo.name}
+          price={props.dataInfo.price}
+          subTitle={props.dataInfo.brand_name}
+          color={props.dataInfo.color}
+          size={props.dataInfo.size}
+          maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
       <Comments />
-      <AdditionalInfo contentImg={productInfo[0].contentImg} />
+      <AdditionalInfo contentImg={props.dataInfo.content_images} />
     </Container>
   );
 }

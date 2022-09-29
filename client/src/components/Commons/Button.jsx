@@ -3,7 +3,6 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 export default function Button(props) {
-  console.log("button :", !props.disable);
   return (
     <Container
       disabled={!props.disable}

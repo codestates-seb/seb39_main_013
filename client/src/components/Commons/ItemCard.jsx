@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Price from "./Price";
 
 // eslint-disable-next-line
 function ItemCard(props) {
@@ -20,7 +21,7 @@ function ItemCard(props) {
     <Container>
       <Link to={`/detail/${props.id}`}>
         <ItemCardImg className="ItemCard-Image">
-          <img src={props.productImg} alt="" />
+          <img src={props.productImg} alt="product_img" />
           {isClicked ? ( //
             <AiFillHeart onClick={handleClicked} className="ItemCard-Heart" />
           ) : (
@@ -33,7 +34,7 @@ function ItemCard(props) {
         <div className="ItemCard-Explain">
           <TextBox brandName>{props.brand}</TextBox>
           <TextBox>{props.title}</TextBox>
-          <TextBox>{props.price}</TextBox>
+          <Price price={props.price} />
         </div>
       </Link>
     </Container>
@@ -70,6 +71,7 @@ const Container = styled.div`
     align-items: center;
     gap: 8px;
     margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

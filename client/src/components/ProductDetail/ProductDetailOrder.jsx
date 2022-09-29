@@ -17,7 +17,7 @@ export default function ProductDetailOrder(props) {
     totalPrice: Number(props.price) * Number(quantity),
     size,
     name: props.title,
-    color: props.option.color,
+    color: props.color,
   };
 
   console.log(orderData);
@@ -32,8 +32,8 @@ export default function ProductDetailOrder(props) {
       <OrderFormBody
         setSize={setSize}
         setQuantity={setQuantity}
-        sizeList={props.option.size}
-        color={props.option.color}
+        sizeList={[props.size]}
+        color={props.color}
         maxQuantity={props.maxQuantity}
       />
       <OrderFormFooter />

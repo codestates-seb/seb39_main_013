@@ -20,7 +20,7 @@ export const oauthLoginFn = async () => {
   const res = await axiosInstance.get(
     "http://ec2-43-200-81-43.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
   );
-  console.log("oath :", res);
+  
   return res;
 };
 
@@ -30,7 +30,7 @@ export const authorizeToken = async () => {
   console.log('token :', token);
   const res = await authAxios.get("/api/v1/members/user", {
     headers: {
-      authorization: 'Bearer' + token
+      authorization: token
     }
   });
   console.log('res :', res);
@@ -48,6 +48,16 @@ export const imageRegisterFn = async (formData) => {
 }
 
 export const productRegisterFn = async (registerInfo) => {
-    const res = axiosInstance.post('/api/v1/products', registerInfo);
+    const res = await axiosInstance.post('/api/v1/products', registerInfo);
     return res;
 } 
+
+export const getProductItems = async () => {
+  const res = await axiosInstance.get('/api/v1/products?page=0&pageSize=40&brandName=Stussy');
+  return res;
+}
+
+export const getProductOne = async (id) => {
+  const res = await axiosInstance.get(`/api/v1/products/${id}`);
+  return res.data.data;
+}

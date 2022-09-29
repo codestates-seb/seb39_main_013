@@ -1,21 +1,30 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Category from "../components/Category/Category";
 import CommentCategory from "../components/Commons/CommentCategory";
+import Loading from "../components/Commons/Loading";
 import MainBanner from "../components/Main/MainBanner";
 import MainTextBanner from "../components/Main/MainTextBanner";
 import MainItems from "../components/MainItems/MainItems";
 import { productData } from "../constance";
+import useGetProductItems from "../hooks/useGetProductItems";
 
 export default function MainPage() {
+  const testGetData = useGetProductItems();
+
+  if (testGetData.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Container>
       <MainBanner />
       <MainTextBanner />
       <Category />
       <ListTitle>TRENDING ITEMS</ListTitle>
-      <MainItems productList={productData} mode={"main"} />
+      <MainItems productList={testGetData.data.data} mode={"main"} />
     </Container>
   );
 }
