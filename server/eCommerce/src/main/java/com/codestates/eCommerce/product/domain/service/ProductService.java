@@ -26,6 +26,7 @@ public class ProductService {
     public void decreaseStock(Long productId, Integer quantity) {
        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("해당 상품은 없습니다."));
        product.decreaseStock(quantity);
+       productRepository.save(product);
        //더티체킹
     }
 
