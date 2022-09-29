@@ -25,7 +25,7 @@ function Comment(props) {
 
   return (
     <Container>
-      <div className="comment">
+      <div className={"comment " + (props.active ? "activated" : null)}>
         <div className="comment-image-container">
           <img src="/user-icon.png"></img>
         </div>
@@ -60,6 +60,8 @@ function Comment(props) {
                   reply={reply}
                   key={reply.answerId}
                   deleteAnswer={props.deleteAnswer}
+                  updateAnswer={props.updateAnswer}
+                  initialText={reply.answerContent}
                 />
               ))
             : null}
@@ -103,6 +105,11 @@ const Container = styled.div`
     border-bottom: 1px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
     margin-top: 20px;
+  }
+
+  .activated {
+    border: 3px solid rgba(29, 29, 29, 0.5);
+    border-radius: 5px;
   }
 
   .comment-image-container {

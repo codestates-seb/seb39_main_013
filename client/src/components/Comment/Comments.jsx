@@ -99,14 +99,14 @@ function Comments() {
   const [clickedReview, setClickedReview] = useState([null, false]);
   //리스트의 0번 인덱스틑 현재 클릭된 리뷰의 번호이다.
   //리스트의 1번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
+  const [clickedAnser, setClickedAnswer] = useState(null, false);
+  //같은 로직으로 answer적용
 
-  console.log(clickedQuestion);
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
   const [clickedCategory, setClickedCategory] = useState(categoryItemList[0]);
   const [dummyData, setDummyData] = useState(testData);
   const [dummyData2, setDummyData2] = useState(testData2);
   const [dummyData3, setDummyData3] = useState(testData3);
-  console.log(dummyData);
 
   const addComment = (newComment) => {
     setDummyData([...dummyData, newComment]);
@@ -126,20 +126,26 @@ function Comments() {
 
   const deleteQuestion = (questionId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
-    const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
-    setDummyData(updatedDummyData);
-    const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
-    setDummyData2(updatedDummyData2);
+    if (window.confirm("정말로 해당 질문을 삭제하시겠습니까?")) {
+      const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
+      setDummyData(updatedDummyData);
+      const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
+      setDummyData2(updatedDummyData2);
+    }
   };
 
   const deleteAnswer = (answerId) => {
-    const updatedDummyData2 = dummyData2.filter((answer) => answer.answerId !== answerId);
-    setDummyData2(updatedDummyData2);
+    if (window.confirm("정말로 해당 답변을 삭제하시겠습니까?")) {
+      const updatedDummyData2 = dummyData2.filter((answer) => answer.answerId !== answerId);
+      setDummyData2(updatedDummyData2);
+    }
   };
 
   const deleteReview = (reviewId) => {
-    const updatedDummyData3 = dummyData3.filter((review) => review.reviewId !== reviewId);
-    setDummyData3(updatedDummyData3);
+    if (window.confirm("정말로 해당 리뷰를 삭제하시겠습니까?")) {
+      const updatedDummyData3 = dummyData3.filter((review) => review.reviewId !== reviewId);
+      setDummyData3(updatedDummyData3);
+    }
   };
 
   const updateQuestion = (questionId, text) => {
@@ -166,15 +172,23 @@ function Comments() {
     setClickedReview(reviewId, false);
   };
 
-  const updateAnswer = (answerId, text) => {};
+  const updateAnswer = (answerId, text) => {
+    const updatedDummyData2 = dummyData2.map((answerId) => {
+      if (answerId.answerId === answerId) {
+        return { ...answerId, answerContent: text };
+      }
+      return answer;
+    });
+
+    setDummyData2(updatedDummyData2);
+    setClickedAnswer(answerId, false);
+  };
 
   console.log("dummyData1 =>>>>>>");
   console.log(dummyData);
   console.log("dummyData2 =>>>>>>");
   console.log(dummyData2);
-  const editComment = (questionId, answerId) => {
-    //questionId나 answerId에 맞추어서 수정해준다.
-  };
+
   // category 컴포넌트에서 item을 고르는 경우에는 내려준setCateogry로 클릭된 상태를 바꿔준다.
   // category의 상태에 맞추어서 보여줄지 안보여줄지를 결정한다.
 
@@ -227,6 +241,7 @@ function Comments() {
 
 const Container = styled.div`
   width: 100%;
+  padding-top: 40px;
 `;
 
 export default Comments;

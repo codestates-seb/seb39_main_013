@@ -109,7 +109,7 @@ const Container = styled.div`
       padding: 3px 20px;
       color: black;
       font-weight: bolder;
-      background-color: rgba(0, 255, 98, 0.87);
+
       font-size: 16px;
       margin-left: 10px;
       border-radius: 5px;

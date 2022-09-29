@@ -15,6 +15,7 @@ function ReplyComment(props) {
               <div className="ReaplyComment-content-top__left">
                 <div className="replyComment-author">{props.reply.answerName}</div>
                 <div className="replyComment-CreatedAt">{props.reply.answerCreatedAt}</div>
+                <button onClick={() => props.updateAnswer(props.reply.answerId)}>답변 수정하기</button>
                 <button onClick={() => props.deleteAnswer(props.reply.answerId)}>답변 삭제하기</button>
               </div>
             </div>
@@ -69,6 +70,14 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         flex: auto;
+        button {
+          margin: 0 5px;
+          padding: 3px 7px;
+          font-size: 14px;
+          border: none;
+          outline: none;
+          border-radius: 5px;
+        }
 
         .replyComment-author {
           font-weight: bold;
@@ -78,9 +87,6 @@ const Container = styled.div`
           font-size: 16px;
           margin-left: 10px;
           opacity: 0.7;
-        }
-        button {
-          margin: 0 10px;
         }
       }
     }
