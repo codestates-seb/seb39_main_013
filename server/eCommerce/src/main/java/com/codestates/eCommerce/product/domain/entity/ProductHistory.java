@@ -18,7 +18,9 @@ import java.util.List;
 public class ProductHistory extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productHistoryId;
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
     private Long brandId;
     private String brandName;
     private String majorClass;
@@ -36,7 +38,7 @@ public class ProductHistory extends BaseEntity {
 
     public static ProductHistory create(Product product) {
         ProductHistory productHistory = new ProductHistory();
-        productHistory.setProductId(product.getProductId());
+        productHistory.setProduct(product);
         productHistory.setBrandId(product.getBrandId());
         productHistory.setBrandName(product.getBrandName());
         productHistory.setMajorClass(product.getMajorClass());
