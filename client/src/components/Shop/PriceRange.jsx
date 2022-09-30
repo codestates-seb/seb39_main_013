@@ -3,6 +3,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Commons/Button";
 
+/**
+ *
+ * @fix apply 시 두 params 동시 적용 필요
+ *
+ */
+
 export default function PriceRange(props) {
   const [price, setPrice] = useState({
     priceMin: 0,

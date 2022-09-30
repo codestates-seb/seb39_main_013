@@ -2,8 +2,9 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { categoryList } from "../../constance";
 
 export default function CategorySelector(props) {
@@ -30,9 +31,7 @@ export default function CategorySelector(props) {
         {categoryArray.map((v) => {
           return (
             <li key={v.id} onClick={() => categoryClickHandler(v.mainCategory)}>
-              <MainCategory to={`category=${v.mainCategory}`}>
-                {v.mainCategory}
-              </MainCategory>
+              <MainCategory>{v.mainCategory}</MainCategory>
             </li>
           );
         })}
@@ -57,11 +56,16 @@ const CategoryWrapper = styled.ul`
   gap: 12px;
 `;
 
-const MainCategory = styled.button`
+const MainCategory = styled(NavLink)`
   border: none;
   background-color: transparent;
   font-size: 18px;
   color: black;
+
+  &:active {
+    color: #2d7df4;
+    font-size: 20px;
+  }
 `;
 
 // const SubCategory = styled.div`
