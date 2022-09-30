@@ -9,8 +9,7 @@ import lombok.*;
 
 @Getter @Setter
 @AllArgsConstructor
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderProductDto {
     private Long orderProductId;

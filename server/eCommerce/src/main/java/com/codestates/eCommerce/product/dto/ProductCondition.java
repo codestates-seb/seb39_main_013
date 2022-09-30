@@ -2,6 +2,8 @@ package com.codestates.eCommerce.product.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @NoArgsConstructor
