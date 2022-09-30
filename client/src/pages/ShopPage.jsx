@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MainItems from "../components/MainItems/MainItems";
 import ShopFilter from "../components/Shop/ShopFilter";
@@ -8,20 +8,29 @@ import { dummyColor, productData } from "../constance/index";
 import SubBanner from "../components/SubBanner/Subbanner";
 
 export default function ShopPage() {
-  const [color, setColor] = useState("");
+  const [params, setParams] = useState({
+    majorClass: "",
+    color: "",
+    priceMax: 10000000,
+    priceMin: 0,
+  });
 
-  const setColorHandler = (value) => {
-    setColor(value);
+  const urlParams = {
+    page: 0,
+    pageSize: 20,
+    ...params,
   };
+
+  console.log("params :", urlParams);
   return (
     <Container>
       <SubBanner
         imgUrl={`${process.env.PUBLIC_URL}/assets/images/shop_sub_banner.png`}
       />
       <ShopWrapper>
-        <ShopFilter dummyColor={dummyColor} setColorHandler={setColorHandler} />
+        <ShopFilter dummyColor={dummyColor} setParams={setParams} />
         <ItemsWrapper>
-          <MainItems productList={productData} mode={"shop"} />
+          <MainItems params={urlParams} mode={"shop"} />
         </ItemsWrapper>
       </ShopWrapper>
     </Container>

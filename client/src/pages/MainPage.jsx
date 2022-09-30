@@ -1,22 +1,17 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Category from "../components/Category/Category";
-import CommentCategory from "../components/Commons/CommentCategory";
-import Loading from "../components/Commons/Loading";
 import MainBanner from "../components/Main/MainBanner";
 import MainTextBanner from "../components/Main/MainTextBanner";
 import MainItems from "../components/MainItems/MainItems";
-import { productData } from "../constance";
-import useGetProductItems from "../hooks/useGetProductItems";
 
 export default function MainPage() {
-  const testGetData = useGetProductItems();
-
-  if (testGetData.isLoading) {
-    return <Loading />;
-  }
+  const urlParams = {
+    page: 0,
+    pageSize: 20,
+    majorClass: "신발",
+  };
 
   return (
     <Container>
@@ -24,7 +19,7 @@ export default function MainPage() {
       <MainTextBanner />
       <Category />
       <ListTitle>TRENDING ITEMS</ListTitle>
-      <MainItems productList={testGetData.data.data} mode={"main"} />
+      <MainItems params={urlParams} mode={"main"} />
     </Container>
   );
 }

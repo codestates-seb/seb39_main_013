@@ -1,20 +1,19 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import {
-  Link,
-  NavLink,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { categoryList } from "../../constance";
 
-export default function CategorySelector() {
+export default function CategorySelector(props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isClick, setIsClick] = useState("");
   const categoryArray = categoryList;
+
+  useEffect(() => {
+    props.changeHandler({ target: { name: "majorClass", value: isClick } });
+  }, [isClick]);
 
   const categoryClickHandler = (name) => {
     if (name === isClick) {
@@ -24,9 +23,6 @@ export default function CategorySelector() {
     }
   };
 
-  // const location = useLocation();
-  // console.log(location);
-
   return (
     <Container>
       <p>Category</p>
@@ -34,18 +30,9 @@ export default function CategorySelector() {
         {categoryArray.map((v) => {
           return (
             <li key={v.id} onClick={() => categoryClickHandler(v.mainCategory)}>
-              <MainCategory>{v.mainCategory}</MainCategory>
-              {v.mainCategory === isClick && (
-                <SubCategory>
-                  {v.subCategory.map((value) => {
-                    return (
-                      <Link to={`?category=${v.mainCategory}`} key={value}>
-                        {value}
-                      </Link>
-                    );
-                  })}
-                </SubCategory>
-              )}
+              <MainCategory to={`category=${v.mainCategory}`}>
+                {v.mainCategory}
+              </MainCategory>
             </li>
           );
         })}
@@ -74,34 +61,35 @@ const MainCategory = styled.button`
   border: none;
   background-color: transparent;
   font-size: 18px;
-`;
-
-const SubCategory = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px 4px;
   color: black;
-
-  a {
-    opacity: 0.6;
-    animation: 0.2s ease-in-out smoothAppear;
-    font-size: 1rem;
-    color: black;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  @keyframes smoothAppear {
-    0% {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 `;
+
+// const SubCategory = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   padding: 12px 4px;
+//   color: black;
+
+//   a {
+//     opacity: 0.6;
+//     animation: 0.2s ease-in-out smoothAppear;
+//     font-size: 1rem;
+//     color: black;
+
+//     &:hover {
+//       opacity: 1;
+//     }
+//   }
+
+//   @keyframes smoothAppear {
+//     0% {
+//       opacity: 0;
+//       transform: translateY(-10px);
+//     }
+//     100% {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+//   }
+// `;

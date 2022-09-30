@@ -1,14 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 // eslint-disable-next-line
+import React from "react";
 import styled from "styled-components";
+import useGetProductItems from "../../hooks/useGetProductItems";
 import ItemCard from "../Commons/ItemCard";
+import Loading from "../Commons/Loading";
 
 // eslint-disable-next-line
 function MainItems(props) {
+  const getDataList = useGetProductItems(props.params);
+
+  if (getDataList.isLoading) {
+    return <Loading />;
+  }
   return (
     <Container mode={props.mode}>
-      {props.productList.data.map((v) => {
+      {getDataList.data.data.map((v) => {
         return (
           <ItemCard
             key={v.product_id}
