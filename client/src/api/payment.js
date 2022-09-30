@@ -3,7 +3,7 @@ export const paymentClickHandler = () => {
     pg: "kakaopay",
     pay_method: "card",
     merchant_uid: `mid_${new Date().getTime()}`,
-    name: "이니시스 테스트용",
+    name: "stateMall-payment",
     amount: 100,
     buyer_email: "eju2003@gmail.com",
     buyer_name: "이재형",
