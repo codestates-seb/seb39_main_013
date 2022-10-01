@@ -2,8 +2,10 @@ package com.codestates.eCommerce.security.config;
 
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.member.mapper.MemberMapper;
+import com.codestates.eCommerce.security.jwt.CustomAccessDeniedHandler;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
+import com.codestates.eCommerce.security.jwt.JwtFilter;
 import com.codestates.eCommerce.security.oauth.OAuth2FailureHandler;
 import com.codestates.eCommerce.security.oauth.OAuth2SuccessHandler;
 import com.codestates.eCommerce.security.oauth.PrincipalOauth2UserService;
@@ -35,6 +37,8 @@ public class SecurityConfig {
     private final OAuth2SuccessHandler successHandler;
     private final OAuth2FailureHandler failureHandler;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final JwtFilter jwtFilter;
     private final MemberMapper mapper;
 
     @Bean
@@ -52,8 +56,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/v1/carts/**",
-                        "/api/v1/bookmarks/**"
-//                        "/api/v1/members/{member-id}/**"
+                        "/api/v1/bookmarks/**",
+                        "/api/v1/members/{member-id}/**"
                 )
                 .authenticated()
 
@@ -61,6 +65,11 @@ public class SecurityConfig {
 //                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
 //                .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
                 .anyRequest().permitAll();
+//                .and()
+//                .exceptionHandling()
+//                .accessDeniedHandler(accessDeniedHandler)
+//                .authenticationEntryPoint(restAuthenticationEntryPoint);
+//                .and().addFilterBefore(jwtFilter, JwtAuthenticationFilter.class);
 //                .and()
 
 //                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)

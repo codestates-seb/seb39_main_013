@@ -17,7 +17,7 @@ public class Member extends BaseEntity {
     private String phone;
     private String nickname;
     private String homeAddress;
-    private String companyAddress;
+    private String zipcode;
     private String birthday;
     private String provider;
     private String providerId;
