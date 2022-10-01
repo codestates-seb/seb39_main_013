@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
 export default function ColorSelector(props) {
@@ -45,12 +45,6 @@ export default function ColorSelector(props) {
           );
         })}
       </SelectorWrapper>
-      <input
-        type={"color"}
-        value={colors}
-        name={props.name}
-        onInput={(e) => console.log("change")}
-      />
     </Container>
   );
 }
@@ -89,7 +83,7 @@ const ColorBox = styled.div`
   height: 18px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  border: ${(props) => (props.checked ? "3px solid #2D7DF4" : "none")};
+  border: ${(props) => props.checked && "3px solid #2D7DF4"};
   border-radius: ${(props) => (props.checked ? "2px" : "none")};
   transition: 0.04s;
   background-color: ${(props) => props.color || "#fff"};

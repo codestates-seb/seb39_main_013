@@ -13,5 +13,11 @@ export default function AdditionalInfo(props) {
 }
 
 const Container = styled.section`
+  width: 100%;
+  /* max-width: 960px; */
   padding: 156px;
+
+  img {
+    width: 100%;
+  }
 `;

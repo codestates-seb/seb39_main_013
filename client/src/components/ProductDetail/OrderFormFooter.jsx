@@ -32,6 +32,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 16px;
   padding: 16px 0;
+  border-bottom: 1px solid #d4d4d4;
 `;
 
 const InfoWrapper = styled.div`

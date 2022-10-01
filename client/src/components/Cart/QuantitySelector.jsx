@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -7,11 +7,16 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 export default function QuantitySelector(props) {
   const [quantity, setQuantity] = useState(props.productQuantity);
 
+  useEffect(() => {
+    props.setQuantity(quantity);
+  }),
+    [quantity];
+
   const quantityPlusHandler = () => {
-    quantity <= 999 ? setQuantity((prev) => prev + 1) : null;
+    quantity < props.maxQuantity ? setQuantity((prev) => prev + 1) : null;
   };
   const quantityMinusHandler = () => {
-    quantity > 0 ? setQuantity((prev) => prev - 1) : null;
+    quantity > 1 ? setQuantity((prev) => prev - 1) : null;
   };
 
   return (
@@ -28,10 +33,12 @@ export default function QuantitySelector(props) {
 }
 
 const Container = styled.div`
+  width: 100%;
+  max-width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background-color: #ececec;
   padding: 4px 8px;
   color: #878787;
@@ -43,5 +50,8 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  svg {
+    stroke-width: 3;
   }
 `;

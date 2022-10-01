@@ -15,6 +15,7 @@ export default function AddressForm() {
       <DaumPostcode
         onSearch={searchAddressHandler}
         onComplete={getAddressHandler}
+        autoClose={false}
       />
     </div>
   );

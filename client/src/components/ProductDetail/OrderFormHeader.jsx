@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FaWonSign } from "react-icons/fa";
+import Price from "../Commons/Price";
 
 export default function OrderFormHeader(props) {
   return (
@@ -12,7 +13,7 @@ export default function OrderFormHeader(props) {
       </TitleBox>
       <PriceBox>
         <FaWonSign />
-        <span>{props.price}</span>
+        <Price price={props.price} />
       </PriceBox>
     </Container>
   );

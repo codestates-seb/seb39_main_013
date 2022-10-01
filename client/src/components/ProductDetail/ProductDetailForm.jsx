@@ -1,31 +1,27 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import Comments from "../Comment/Comments";
 
 import ProductDetailOrder from "./ProductDetailOrder";
 
-const dummyData = {
-  title: "Nike Dunk High Retro Championship White",
-  subTitle: "나이키 덩크 하이 레트로 챔피언쉽 화이트",
-  price: "223000",
-  image: "https://kream-phinf.pstatic.net/MjAyMjA2MTVfNjUg/MDAxNjU1MjgxMTg3MDQ3.yu9lhOD2ymol3F34Ou3Bkxex2FF3WfVzxKc8HgkNdjUg.BHhRmo3Vn5juLe9RnOVecap5GUZ3PK0hLme4AzRJ4BMg.JPEG/a_23c64f2c02ec423db4ec0a9f67960d3d.jpg?type=l_webp",
-  option: {
-    size: [245, 250, 255, 260, 265, 270, 275],
-    color: "#5898F9",
-  },
-  contentImg: ["https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-1.jpg", "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-2-m.jpg"],
-  quantity: 9,
-};
-
-export default function ProductDetailForm() {
+export default function ProductDetailForm(props) {
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
-          <img src={dummyData.image} alt="img" />
+          <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
-        <ProductDetailOrder title={dummyData.title} price={dummyData.price} subTitle={dummyData.subTitle} option={dummyData.option} />
+        <ProductDetailOrder
+          id={props.dataInfo.product_id}
+          title={props.dataInfo.name}
+          price={props.dataInfo.price}
+          subTitle={props.dataInfo.brand_name}
+          color={props.dataInfo.color}
+          size={props.dataInfo.size}
+          maxQuantity={props.dataInfo.stock}
+        />
       </OrderWrapper>
       <Comments />
     </Container>
@@ -43,8 +39,10 @@ const Container = styled.section`
 `;
 
 const ImageWrapper = styled.div`
+  width: 100%;
   max-width: 620px;
   img {
+    width: 100%;
     max-width: 620px;
     object-fit: cover;
   }
@@ -56,4 +54,10 @@ const OrderWrapper = styled.div`
   grid-column-gap: 40px;
   border-bottom: 1px solid #d4d4d4;
   padding-bottom: 80px;
+
+  @media screen and (max-width: 1280px) {
+    place-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+  }
 `;

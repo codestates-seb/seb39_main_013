@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
@@ -10,18 +10,24 @@ import useLoginMutation from "../../hooks/useLoginMutation";
 import useOauthMutaion from "../../hooks/useOauthMutaion";
 import useAuthorize from "../../hooks/useAuthorize";
 import { authorizeToken } from "../../api";
+import Loading from "../Commons/Loading";
 
 export default function LoginForm() {
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: "",
   });
-  const googleClientID = process.env.REACT_APP_CLIENT_ID;
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const loginAction = useLoginMutation(loginValue);
   const oauthLoginAction = useOauthMutaion();
   const authToken = useAuthorize();
+
+  useEffect(() => {
+    // if (loginAction.isSuccess) {
+    //   navigate("/");
+    // }
+  }, [loginAction.isSuccess]);
 
   const inputChangeHandler = (e) => {
     setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
@@ -41,6 +47,10 @@ export default function LoginForm() {
     e.preventDefault();
     authToken.refetch();
   };
+
+  if (loginAction.isLoading || oauthLoginAction.isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

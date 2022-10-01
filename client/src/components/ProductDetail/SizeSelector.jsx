@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 
 export default function SizeSelector(props) {
-  const [selectItem, setSelectItem] = useState(0);
+  const [selectItem, setSelectItem] = useState(props.size[0]);
 
+  useEffect(() => {
+    props.setSize(selectItem);
+  }, [selectItem]);
   const settings = {
     focusOnSelect: true,
     slidesToShow: 3,

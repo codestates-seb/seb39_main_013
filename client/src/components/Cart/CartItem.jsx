@@ -1,16 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import QuantitySelector from "./QuantitySelector";
 import { FaWonSign } from "react-icons/fa";
 import DeleteButton from "../Commons/DeleteButton";
 import { Link } from "react-router-dom";
+import Price from "../Commons/Price";
 
 export default function CartItem(props) {
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    props.setTotalPrice((prev) => (prev += quantity * props.price));
+  }, [quantity]);
   return (
     <Container>
       <ItemProfile>
-        <Link to="/detail">
+        <Link to={`/detail/${props.id}`}>
           <ImageWrapper>
             <img src={props.itemImg} alt="productImg" />
           </ImageWrapper>
@@ -21,34 +28,25 @@ export default function CartItem(props) {
         </Link>
       </ItemProfile>
       <ItemOptions>
-        {props.option.map((v, i) => {
-          return (
-            <OptionWrapper
-              key={v.id}
-              border={
-                i !== props.option.length - 1 && props.option.length !== 0
-                  ? "bottom"
-                  : "top"
-              }
-            >
-              <div>
-                <span>
-                  {v.size} / {v.color}
-                </span>
-                <QuantitySelector productQuantity={v.quantity} />
-              </div>
-              <span>
-                <FaWonSign />
-                {props.price}
-              </span>
-            </OptionWrapper>
-          );
-        })}
+        <OptionWrapper>
+          <div>
+            <span>{props.option.size[0]}</span>
+            <QuantitySelector
+              setQuantity={setQuantity}
+              productQuantity={1}
+              maxQuantity={props.maxQuantity}
+            />
+          </div>
+          <span>
+            <FaWonSign />
+            <Price price={props.price} />
+          </span>
+        </OptionWrapper>
       </ItemOptions>
       <TotalPrice>
         <div>
           <FaWonSign />
-          203939
+          <Price price={props.price * quantity} />
         </div>
         <DeleteButton />
       </TotalPrice>
@@ -143,7 +141,6 @@ const OptionWrapper = styled.div`
     font-size: 14px;
     svg {
       fill: #656565;
-      margin-bottom: 4px;
     }
   }
 `;

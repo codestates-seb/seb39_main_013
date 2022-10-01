@@ -37,6 +37,10 @@ const Container = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 64px;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 999;
 `;
 
 const LogoBox = styled.div`

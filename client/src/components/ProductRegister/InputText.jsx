@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { memo } from "react";
 import styled, { css } from "styled-components";
 import { BiWon } from "react-icons/bi";
 
-export default function InputText(props) {
+export default memo(function InputText(props) {
   return (
     <Container>
       <Label require={props.require} htmlFor={props.name}>
@@ -21,7 +21,7 @@ export default function InputText(props) {
       </InputWrapper>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   display: flex;

@@ -1,13 +1,20 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import styled, { css } from "styled-components";
 import { categoryList } from "../../constance";
 
-export default function CategorySelector() {
+export default function CategorySelector(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isClick, setIsClick] = useState("");
   const categoryArray = categoryList;
+
+  useEffect(() => {
+    props.changeHandler({ target: { name: "majorClass", value: isClick } });
+  }, [isClick]);
 
   const categoryClickHandler = (name) => {
     if (name === isClick) {
@@ -25,13 +32,6 @@ export default function CategorySelector() {
           return (
             <li key={v.id} onClick={() => categoryClickHandler(v.mainCategory)}>
               <MainCategory>{v.mainCategory}</MainCategory>
-              {v.mainCategory === isClick && (
-                <SubCategory>
-                  {v.subCategory.map((value, idx) => {
-                    return <div key={idx}>{value}</div>;
-                  })}
-                </SubCategory>
-              )}
             </li>
           );
         })}
@@ -56,31 +56,44 @@ const CategoryWrapper = styled.ul`
   gap: 12px;
 `;
 
-const MainCategory = styled.button`
+const MainCategory = styled(NavLink)`
   border: none;
   background-color: transparent;
-  font-size: 1rem;
-`;
+  font-size: 18px;
+  color: black;
 
-const SubCategory = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px 4px;
-
-  div {
-    animation: 0.2s ease-in-out smoothAppear;
-    font-size: 14px;
-  }
-
-  @keyframes smoothAppear {
-    0% {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  &:active {
+    color: #2d7df4;
+    font-size: 20px;
   }
 `;
+
+// const SubCategory = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   padding: 12px 4px;
+//   color: black;
+
+//   a {
+//     opacity: 0.6;
+//     animation: 0.2s ease-in-out smoothAppear;
+//     font-size: 1rem;
+//     color: black;
+
+//     &:hover {
+//       opacity: 1;
+//     }
+//   }
+
+//   @keyframes smoothAppear {
+//     0% {
+//       opacity: 0;
+//       transform: translateY(-10px);
+//     }
+//     100% {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+//   }
+// `;
