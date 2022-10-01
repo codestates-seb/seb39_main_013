@@ -1,6 +1,8 @@
 package com.codestates.eCommerce.product.domain.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
+import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.product.domain.listener.ProductEntityListener;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.*;
@@ -57,6 +59,7 @@ public class Product extends BaseEntity {
         this.stock += quantity;
     }
     public void decreaseStock(int quantity) {
+        if (this.stock < quantity) throw new BusinessLogicException(ExceptionCode.NOT_ENOUGH_STOCK);
         this.stock -= quantity;
     }
 

@@ -21,8 +21,8 @@ public class OrderController {
 
     @PreAuthorize("hasRole('ROLE_MEMBER')")
     @PostMapping("/cart")
-    public ResponseEntity<?> cartOrder(@RequestBody OrderRequestDto dto, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        ResponseDto responseDto = appOrderService.placeOrder(principalDetails.getMember(),dto);
+    public ResponseEntity<?> cartOrder(@RequestBody OrderRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseDto responseDto = appOrderService.placeOrder(principalDetails.getMember(),requestDto);
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
     @GetMapping("/hello")

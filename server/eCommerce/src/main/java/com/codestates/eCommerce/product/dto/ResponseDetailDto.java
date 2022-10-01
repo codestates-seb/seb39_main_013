@@ -1,19 +1,21 @@
 package com.codestates.eCommerce.product.dto;
 
+import com.codestates.eCommerce.product.VO.SizeInfo;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
-
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ResponseDto {
-    private Long productId;
+@ToString
+public class ResponseDetailDto {
+    private List<SizeInfo> info;
     private Long brandId;
     private String brandName;
     private String majorClass;
@@ -21,7 +23,6 @@ public class ResponseDto {
     private Integer price;
     private Integer stock;
     private String color;
-    private String size;
     private List<String> thumbImages;
     private List<String> contentsImages;
 }

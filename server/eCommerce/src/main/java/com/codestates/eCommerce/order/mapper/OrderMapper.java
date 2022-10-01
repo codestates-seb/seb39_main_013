@@ -4,7 +4,7 @@ import com.codestates.eCommerce.order.domain.entity.OrderProduct;
 import com.codestates.eCommerce.order.dto.OrderResponseDto;
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
-import com.codestates.eCommerce.product.dto.ProductDto;
+import com.codestates.eCommerce.order.enums.ProductOrderStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -29,6 +29,10 @@ public interface OrderMapper {
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setProductId(productInfo.getProductId());
         orderProduct.setProductQuantity(productInfo.getQuantity());
+        orderProduct.setProductPrice(productInfo.getPrice());
+        orderProduct.setProductColor(productInfo.getColor());
+        orderProduct.setProductSize(productInfo.getSize());
+        orderProduct.setProductOrderStatus(ProductOrderStatus.ORDERED);
         return orderProduct;
     }
 

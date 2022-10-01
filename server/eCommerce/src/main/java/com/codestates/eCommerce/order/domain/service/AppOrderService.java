@@ -32,14 +32,13 @@ public class AppOrderService {
     public ResponseDto placeOrder(Member member, OrderRequestDto reqOrderDto){
         //카드에 담긴걸 줌누
         //
-        Order order = orderMapper.toOrderEntity(reqOrderDto);       //서비스dto 개념
-        order.setBuyerId(member.getMemberId());                     //리팩토링 필요
-        Order createOrder = orderService.createOrder(member.getMemberId(),order);   //
-        order.getOrderProducts().forEach(pd -> System.out.println(pd.getProductId()));
-
+        Order order = orderMapper.toOrderEntity(reqOrderDto);
+        order.setBuyerId(member.getMemberId());
+        Order createOrder = orderService.createOrder(member.getMemberId(),order);
         order.getOrderProducts().forEach(pd ->
-                productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));
-        //카트에있는거 지우기
+                productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
+        /** Todo 카트에있는거 지우기 */
+
         OrderResponseDto resOrderServiceDto = orderMapper.toOrderResponseDto(order);
 
         return new ResponseDto(resOrderServiceDto);

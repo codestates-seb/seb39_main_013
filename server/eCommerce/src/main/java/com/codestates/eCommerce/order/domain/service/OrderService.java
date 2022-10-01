@@ -2,6 +2,7 @@ package com.codestates.eCommerce.order.domain.service;
 
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.domain.repository.OrderRepository;
+import com.codestates.eCommerce.order.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class OrderService {
     public Order createOrder(Long memberId, Order reqOrder){
 //        Order order = Order.createOrder(memberId, reqOrder.getOrderProducts(),reqOrder.getBuyerAddress());
         reqOrder.setBuyerId(memberId);
+        reqOrder.setOrderStatus(OrderStatus.ORDERED);
         return orderRepository.save(reqOrder);
 
     }

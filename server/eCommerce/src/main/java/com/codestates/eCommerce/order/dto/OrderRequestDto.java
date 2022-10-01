@@ -24,8 +24,13 @@ public class OrderRequestDto {
 
     @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     @Setter @Getter
+    @AllArgsConstructor
     public static class ProductInfo {
-        Long productId;
-        Integer quantity;
+        private Long productId;
+        private Integer quantity;
+        private Integer price;
+        private String color;
+        private String size;
+
     }
 }

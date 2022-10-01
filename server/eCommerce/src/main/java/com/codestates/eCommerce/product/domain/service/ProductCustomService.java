@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -17,5 +19,9 @@ public class ProductCustomService {
     public Page<ProductDto> getProductPage(int page, int size, ProductCondition condition) {
     //        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
         return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
+    }
+
+    public List<ProductDto> getProduct(String name) {
+        return productRepositoryCustom.getProduct(name);
     }
 }

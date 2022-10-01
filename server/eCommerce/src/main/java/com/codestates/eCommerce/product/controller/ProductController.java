@@ -3,16 +3,15 @@ package com.codestates.eCommerce.product.controller;
 import com.codestates.eCommerce.common.dto.MultiResponseDto;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
-import com.codestates.eCommerce.product.dto.ProductDto;
-import com.codestates.eCommerce.product.dto.RequestDto;
-import com.codestates.eCommerce.product.dto.ResponseDto;
-import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -35,10 +34,15 @@ public class ProductController {
         ResponseDto responseDto = appProductSerivce.getProduct(productId);
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.OK);
     }
+    @GetMapping("/")
+    public ResponseEntity<?> getProductByName(@RequestParam("name") String name) {
+        ResponseDetailDto responseDto = appProductSerivce.getProduct(name);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity<?> getProductPage(ProductCondition productCondition) {
-        Page<ProductDto> responseProductPage = appProductSerivce.getProductPage(productCondition.getPage(),productCondition.getPageSize(),productCondition);
+        Page<ResponseDto> responseProductPage = appProductSerivce.getProductPage(productCondition.getPage(),productCondition.getPageSize(),productCondition);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage),HttpStatus.OK);
     }
 
