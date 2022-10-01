@@ -10,14 +10,16 @@ import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class OrderDto {
+public class OrderResponseDto {
     private Long orderId;
-    private Long memberId;      //aggregate
+    private Long buyerId;      //aggregate
     private List<OrderProductDto> orderProducts = new ArrayList<>();
-    private String orderAddress;
-    private String memo;
+    private String buyerAddress;
+    private String buyerName;
+    private String buyerPostcode;
+    private String buyerTel;
+    private String merchantUid;
     private OrderStatus orderStatus;
     private int totalPrice;
 

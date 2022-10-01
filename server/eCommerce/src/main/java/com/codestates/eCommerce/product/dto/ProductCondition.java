@@ -1,10 +1,8 @@
 package com.codestates.eCommerce.product.dto;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
-import org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy;
+
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -12,17 +10,19 @@ import org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductCondition {
 
-    int page;
-    int pageSize;
+    private int page;
+    private int pageSize;
     private Long brandId;
     private String brandName;
     private String majorClass;
     private String name;
-    private Integer priceMax;
-    private Integer priceMin;
+    private Integer maxPrice = 10000000;
+    private Integer minPrice;
     private String color;
     private Integer stock;
     private String size;
 
-
+    public void setPage(int page) {
+        this.page = page-1;
+    }
 }

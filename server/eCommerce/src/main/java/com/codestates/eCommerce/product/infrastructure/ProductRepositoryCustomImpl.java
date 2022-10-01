@@ -24,7 +24,25 @@ import static org.springframework.util.StringUtils.hasText;
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    //전체 상품중
+    @Override
+    public List<ProductDto> getProduct(String name) {
+        return queryFactory
+                .select(new QProductDto(
+                        product.productId,
+                        product.brandId,
+                        product.brandName,
+                        product.majorClass,
+                        product.name,
+                        product.price,
+                        product.stock,
+                        product.color,
+                        product.size,
+                        product.thumbImages,
+                        product.contentImages
+                ))
+                .from(product)
+                .where(product.name.eq(name)).fetch();
+    }
     public Page<ProductDto> searchPageSimple(Pageable pageable, ProductCondition condition) {
         List<ProductDto> content = queryFactory
                 .select(new QProductDto(
@@ -47,8 +65,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     majorClassEq(condition.getMajorClass()),
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
-                    priceGoe(condition.getPriceMin()),
-                    priceLoe(condition.getPriceMax()),
+                    priceGoe(condition.getMinPrice()),
+                    priceLoe(condition.getMaxPrice()),
                     stockLoe(condition.getStock())
                 )
                 .offset(pageable.getOffset())
@@ -63,8 +81,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     majorClassEq(condition.getMajorClass()),
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
-                    priceGoe(condition.getPriceMin()),
-                    priceLoe(condition.getPriceMax()),
+                    priceGoe(condition.getMinPrice()),
+                    priceLoe(condition.getMaxPrice()),
                     sizeGt(condition.getMajorClass(), condition.getSize()),
                     stockLoe(condition.getStock())
                 )
@@ -73,6 +91,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return new PageImpl<>(content,pageable,total);
     }
 
+    /* 조건 */
     private BooleanExpression brandIdEq(Long brandId) {
         return brandId!=null ? product.brandId.eq(brandId) : null;
     }

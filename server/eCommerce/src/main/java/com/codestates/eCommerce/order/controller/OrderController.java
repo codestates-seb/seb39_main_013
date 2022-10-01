@@ -1,12 +1,15 @@
 package com.codestates.eCommerce.order.controller;
 
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
-import com.codestates.eCommerce.order.dto.RequestDto;
+import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.ResponseDto;
 import com.codestates.eCommerce.order.domain.service.AppOrderService;
+import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,18 +19,12 @@ public class OrderController {
 
     private final AppOrderService appOrderService;
 
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @PostMapping("/cart")
-    public ResponseEntity<?> cartOrder(@RequestBody RequestDto dto){
-        ResponseDto responseDto = appOrderService.placeOrder(dto.toOrderDto());
+    public ResponseEntity<?> cartOrder(@RequestBody OrderRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseDto responseDto = appOrderService.placeOrder(principalDetails.getMember(),requestDto);
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
-//    @PostMapping("{product-id}")
-//    public ResponseEntity postOrder(@RequestParam ) {
-//
-//    }
-    //    @GetMapping("/{order-id}")
-    //    public ResponseEntity<?> getOrder(@PathVariable ){
-    //   }
     @GetMapping("/hello")
     public String hello(){
         return "hello";

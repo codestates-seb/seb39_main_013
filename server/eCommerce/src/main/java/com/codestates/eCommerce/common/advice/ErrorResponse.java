@@ -1,6 +1,7 @@
 package com.codestates.eCommerce.common.advice;
 
 import com.codestates.eCommerce.common.exception.ExceptionCode;
+import com.codestates.eCommerce.common.exception.product.ProductExceptionCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,10 @@ public class ErrorResponse {
 
     public static ErrorResponse of(HttpStatus httpStatus, String message) {
         return new ErrorResponse(httpStatus.value(), message);
+    }
+    /* 상품 */
+    public static ErrorResponse of(Long productId ,Integer stock, ProductExceptionCode productExceptionCode) {
+        return new ErrorResponse(productExceptionCode.getStatus(), "[productId: "+ productId + ", stock: " + stock + " ] "+ productExceptionCode.getMessage());
     }
 
     @Getter

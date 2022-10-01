@@ -1,6 +1,8 @@
 package com.codestates.eCommerce.common.advice;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
+import com.codestates.eCommerce.order.domain.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,16 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler
     public ResponseEntity handleBusinessLogicException(BusinessLogicException e) {
         final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
+
+        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
+                .getStatus()));
+    }
+
+    /**  상품 */
+    @ExceptionHandler
+    public ResponseEntity handleProductBusinessException(ProductBusinessExcepion e) {
+
+        final ErrorResponse response = ErrorResponse.of(e.getProductId(), e.getStock(), e.getExceptionCode());
 
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
                 .getStatus()));
