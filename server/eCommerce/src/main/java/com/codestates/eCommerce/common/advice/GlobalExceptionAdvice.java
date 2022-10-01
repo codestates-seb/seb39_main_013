@@ -52,16 +52,16 @@ public class GlobalExceptionAdvice {
         return response;
     }
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleHttpMessageNotReadableException(
-            HttpMessageNotReadableException e) {
-
-        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
-                "Required request body is missing");
-
-        return response;
-    }
+//    @ExceptionHandler
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ErrorResponse handleHttpMessageNotReadableException(
+//            HttpMessageNotReadableException e) {
+//
+//        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
+//                "Required request body is missing");
+//
+//        return response;
+//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

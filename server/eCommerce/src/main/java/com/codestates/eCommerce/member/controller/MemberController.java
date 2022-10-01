@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.member.controller;
 
+import com.codestates.eCommerce.bookmark.service.BookmarkService;
 import com.codestates.eCommerce.member.dto.MemberDto;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.mapper.MemberMapper;
