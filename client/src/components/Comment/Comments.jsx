@@ -3,6 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
+import AdditionalInfo from "../ProductDetail/AdditionalInfo";
+import ReviewForm from "./ReviewForm";
 
 import { useState } from "react";
 import ReviewComment from "./ReviewComment";
@@ -33,28 +35,28 @@ let testData = [
 
 let testData2 = [
   {
-    answerId: 1,
+    answerId: 101,
     parentQuestion: 1,
     answerName: "포키포키포키",
     answerCreatedAt: "2022. 9. 26. 오후 8:53:26",
     answerContent: "답변 내용1",
   },
   {
-    answerId: 2,
+    answerId: 102,
     parentQuestion: 2,
     answerName: "포키포키포키2",
     answerCreatedAt: "2022. 9. 27. 오후 8:53:26",
     answerContent: "답변 내용2",
   },
   {
-    answerId: 3,
+    answerId: 103,
     parentQuestion: 3,
     answerName: "포키포키포키3",
     answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
     answerContent: "답변 내용3",
   },
   {
-    answerId: 4,
+    answerId: 104,
     parentQuestion: 2,
     answerName: "포키포키포키5",
     answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
@@ -62,23 +64,23 @@ let testData2 = [
   },
 ];
 
-let dummyData3 = [
+let testData3 = [
   {
-    reviewId: 1,
+    reviewId: 1001,
     reviewName: "리뷰리뷰리뷰1",
     reviewCreatedAt: "2022. 9. 26. 오후 8:53:26",
     reviewContent: "리뷰의 내용1",
     reviewStars: 4,
   },
   {
-    reviewId: 2,
+    reviewId: 1002,
     reviewName: "리뷰리뷰리뷰2",
     reviewCreatedAt: "2022. 9. 27. 오후 8:53:26",
     reviewContent: "리뷰의 내용2",
     reviewStars: 3,
   },
   {
-    reviewId: 3,
+    reviewId: 1003,
     reviewName: "리뷰리뷰리뷰3",
     reviewCreatedAt: "2022. 9. 28. 오후 8:53:26",
     reviewContent: "리뷰의 내용3",
@@ -90,13 +92,21 @@ function Comments() {
   const getReplies = (questionId) => {
     return dummyData2.filter((item) => item.parentQuestion === questionId);
   };
-  const [clickedQuestion, setClickedQuestion] = useState([null, null]);
-  console.log(clickedQuestion);
-  const [clickedCategory, setClickedCategory] = useState(1);
+  const [clickedQuestion, setClickedQuestion] = useState([null, false, false]);
+  //리스트의 0번 인덱스는 현재 클릭된 질문의 번호이다.
+  //리스트의 1번 인덱스는 isReplying을 결정한다. boolean값으로 저장한다.
+  //리스트의 2번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
+  const [clickedReview, setClickedReview] = useState([null, false]);
+  //리스트의 0번 인덱스틑 현재 클릭된 리뷰의 번호이다.
+  //리스트의 1번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
+  const [clickedAnser, setClickedAnswer] = useState(null, false);
+  //같은 로직으로 answer적용
+
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
+  const [clickedCategory, setClickedCategory] = useState(categoryItemList[0]);
   const [dummyData, setDummyData] = useState(testData);
   const [dummyData2, setDummyData2] = useState(testData2);
-  console.log(dummyData);
+  const [dummyData3, setDummyData3] = useState(testData3);
 
   const addComment = (newComment) => {
     setDummyData([...dummyData, newComment]);
@@ -109,21 +119,76 @@ function Comments() {
     return;
   };
 
+  const addNewReview = (newReview) => {
+    setDummyData3([...dummyData3, newReview]);
+    return;
+  };
+
   const deleteQuestion = (questionId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
-    const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
+    if (window.confirm("정말로 해당 질문을 삭제하시겠습니까?")) {
+      const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
+      setDummyData(updatedDummyData);
+      const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
+      setDummyData2(updatedDummyData2);
+    }
+  };
+
+  const deleteAnswer = (answerId) => {
+    if (window.confirm("정말로 해당 답변을 삭제하시겠습니까?")) {
+      const updatedDummyData2 = dummyData2.filter((answer) => answer.answerId !== answerId);
+      setDummyData2(updatedDummyData2);
+    }
+  };
+
+  const deleteReview = (reviewId) => {
+    if (window.confirm("정말로 해당 리뷰를 삭제하시겠습니까?")) {
+      const updatedDummyData3 = dummyData3.filter((review) => review.reviewId !== reviewId);
+      setDummyData3(updatedDummyData3);
+    }
+  };
+
+  const updateQuestion = (questionId, text) => {
+    const updatedDummyData = dummyData.map((question) => {
+      if (question.questionId === questionId) {
+        return { ...question, questionContent: text };
+      }
+      return question;
+    });
+
     setDummyData(updatedDummyData);
-    const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
-    setDummyData2(updatedDummyData);
+    setClickedQuestion([questionId, false, false]);
+  };
+
+  const updateReview = (reviewId, text, clickedRadioBtn) => {
+    const updatedDummyData3 = dummyData3.map((review) => {
+      if (review.reviewId === reviewId) {
+        return { ...review, reviewContent: text, reviewStars: clickedRadioBtn };
+      }
+      return review;
+    });
+
+    setDummyData3(updatedDummyData3);
+    setClickedReview(reviewId, false);
+  };
+
+  const updateAnswer = (answerId, text) => {
+    const updatedDummyData2 = dummyData2.map((answerId) => {
+      if (answerId.answerId === answerId) {
+        return { ...answerId, answerContent: text };
+      }
+      return answer;
+    });
+
+    setDummyData2(updatedDummyData2);
+    setClickedAnswer(answerId, false);
   };
 
   console.log("dummyData1 =>>>>>>");
   console.log(dummyData);
   console.log("dummyData2 =>>>>>>");
   console.log(dummyData2);
-  const editComment = (questionId, answerId) => {
-    //questionId나 answerId에 맞추어서 수정해준다.
-  };
+
   // category 컴포넌트에서 item을 고르는 경우에는 내려준setCateogry로 클릭된 상태를 바꿔준다.
   // category의 상태에 맞추어서 보여줄지 안보여줄지를 결정한다.
 
@@ -131,32 +196,44 @@ function Comments() {
     <Container>
       <div>
         <CommentCategory setClickedCategory={setClickedCategory} name={categoryItemList} />
+        {clickedCategory === categoryItemList[0] ? <AdditionalInfo contentImg={["https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-1.jpg", "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-2-m.jpg"]} /> : null}
         {clickedCategory === categoryItemList[2] ? (
           <>
             {dummyData.map((comment) => (
               <Comment
                 active={clickedQuestion[0] === comment.questionId} //
                 isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]}
+                isEditing={clickedQuestion[0] === comment.questionId && clickedQuestion[2]}
                 setClickedQuestion={setClickedQuestion}
                 item={comment}
                 replies={getReplies(comment.questionId)}
                 key={comment.questionId}
                 addReplyComment={addReplyComment}
                 deleteQuestion={deleteQuestion}
-                editComment={editComment}
+                updateQuestion={updateQuestion}
+                deleteAnswer={deleteAnswer}
+                updateAnswer={updateAnswer}
               />
             ))}
             <QnaForm addComment={addComment} />
           </>
         ) : null}
 
-        {clickedCategory === categoryItemList[1]
-          ? dummyData3.map(
-              (
-                review //
-              ) => <ReviewComment key={review.reviewId} review={review} />
-            )
-          : null}
+        {clickedCategory === categoryItemList[1] ? (
+          <>
+            {dummyData3.map((review) => (
+              <ReviewComment //
+                key={review.reviewId}
+                review={review}
+                deleteReview={deleteReview}
+                setClickedReview={setClickedReview}
+                isEditing={clickedReview[0] === review.reviewId && clickedReview[1]}
+                updateReview={updateReview}
+              />
+            ))}
+            <ReviewForm addNewReview={addNewReview} />
+          </>
+        ) : null}
       </div>
     </Container>
   );
@@ -164,6 +241,7 @@ function Comments() {
 
 const Container = styled.div`
   width: 100%;
+  padding-top: 40px;
 `;
 
 export default Comments;
