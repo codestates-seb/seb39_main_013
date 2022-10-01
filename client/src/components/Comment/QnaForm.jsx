@@ -20,7 +20,7 @@ function QnaForm(props) {
     const newComment = {
       questionId: Math.random().toString(36).substr(2, 9),
       questionName: name,
-      questionCreatedAt: new Date().toLocaleDateString,
+      questionCreatedAt: new Date().toLocaleString(),
       questionContent: text,
     };
     props.addComment(newComment);

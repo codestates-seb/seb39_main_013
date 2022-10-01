@@ -53,7 +53,7 @@ function UpdateReviewForm(props) {
           >
             취소
           </button>
-          <button type="submit" onClick={() => props.updateReview(props.reviewId, text, clickedRadioBtn)}>
+          <button type="button" onClick={() => props.updateReview(props.reviewId, text, clickedRadioBtn)}>
             수정
           </button>
         </div>

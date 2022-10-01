@@ -5,90 +5,33 @@ import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
 import AdditionalInfo from "../ProductDetail/AdditionalInfo";
 import ReviewForm from "./ReviewForm";
+import { dataQuestions } from "./dataQuestions";
+import { dataReviews } from "./dataReviews";
+import { dataAnswers } from "./dataAnswers";
 
 import { useState } from "react";
 import ReviewComment from "./ReviewComment";
 import QnaForm from "./QnaForm";
-let testData = [
-  {
-    questionId: 1,
-    questionName: "하키하키하키",
-    questionCreatedAt: "2022. 9. 25. 오후 8:53:26",
-    questionContent: "Comment의 내용1",
-    questionStars: 1,
-  },
-  {
-    questionId: 2,
-    questionName: "하키하키하키2",
-    questionCreatedAt: "2022. 9. 26. 오후 8:53:26",
-    questionContent: "Comment의 내용2",
-    questionStars: 4,
-  },
-  {
-    questionId: 3,
-    questionName: "하키하키하키3",
-    questionCreatedAt: "2022. 9. 27. 오후 8:53:26",
-    questionContent: "Comment의 내용3",
-    questionStars: 5,
-  },
-];
-
-let testData2 = [
-  {
-    answerId: 101,
-    parentQuestion: 1,
-    answerName: "포키포키포키",
-    answerCreatedAt: "2022. 9. 26. 오후 8:53:26",
-    answerContent: "답변 내용1",
-  },
-  {
-    answerId: 102,
-    parentQuestion: 2,
-    answerName: "포키포키포키2",
-    answerCreatedAt: "2022. 9. 27. 오후 8:53:26",
-    answerContent: "답변 내용2",
-  },
-  {
-    answerId: 103,
-    parentQuestion: 3,
-    answerName: "포키포키포키3",
-    answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
-    answerContent: "답변 내용3",
-  },
-  {
-    answerId: 104,
-    parentQuestion: 2,
-    answerName: "포키포키포키5",
-    answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
-    answerContent: "답변 내용5",
-  },
-];
-
-let testData3 = [
-  {
-    reviewId: 1001,
-    reviewName: "리뷰리뷰리뷰1",
-    reviewCreatedAt: "2022. 9. 26. 오후 8:53:26",
-    reviewContent: "리뷰의 내용1",
-    reviewStars: 4,
-  },
-  {
-    reviewId: 1002,
-    reviewName: "리뷰리뷰리뷰2",
-    reviewCreatedAt: "2022. 9. 27. 오후 8:53:26",
-    reviewContent: "리뷰의 내용2",
-    reviewStars: 3,
-  },
-  {
-    reviewId: 1003,
-    reviewName: "리뷰리뷰리뷰3",
-    reviewCreatedAt: "2022. 9. 28. 오후 8:53:26",
-    reviewContent: "리뷰의 내용3",
-    reviewStars: 5,
-  },
-];
+import { useEffect } from "react";
 
 function Comments() {
+  useEffect(() => {
+    if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
+      localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
+      localStorage.setItem("dataAnswers", JSON.stringify(dataAnswers));
+      localStorage.setItem("dataReviews", JSON.stringify(dataReviews));
+      setDummyData(JSON.parse(localStorage.getItem("dataQuestions")));
+      setDummyData2(JSON.parse(localStorage.getItem("dataAnswers")));
+      setDummyData3(JSON.parse(localStorage.getItem("dataReviews")));
+    } else {
+      setDummyData(JSON.parse(localStorage.getItem("dataQuestions")));
+      setDummyData2(JSON.parse(localStorage.getItem("dataAnswers")));
+      setDummyData3(JSON.parse(localStorage.getItem("dataReviews")));
+    }
+  }, []);
+
+  //이미 localStorage에 저장이 되어있다면 해당 아이들을 가져온다.
+
   const getReplies = (questionId) => {
     return dummyData2.filter((item) => item.parentQuestion === questionId);
   };
@@ -104,84 +47,110 @@ function Comments() {
 
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
   const [clickedCategory, setClickedCategory] = useState(categoryItemList[0]);
-  const [dummyData, setDummyData] = useState(testData);
-  const [dummyData2, setDummyData2] = useState(testData2);
-  const [dummyData3, setDummyData3] = useState(testData3);
+  const [dummyData, setDummyData] = useState(null);
+  const [dummyData2, setDummyData2] = useState(null);
+  const [dummyData3, setDummyData3] = useState(null);
+
+  console.log(dummyData);
+
+  //state안에 localstorage에 들어있는 것을 가져왔다. 그렇다면 함수 안에있는 것도 설정을 바꾸어 주어야 한다.
 
   const addComment = (newComment) => {
-    setDummyData([...dummyData, newComment]);
+    setDummyData((curr) => {
+      const newDummyData = [...curr, newComment];
+      localStorage.removeItem("dataQuestions");
+      localStorage.setItem("dataQuestions", JSON.stringify(newDummyData));
+      return newDummyData;
+    }); //set 함수를 이용해서 동기적으로 동작하게 만든다.
+
     return;
   };
 
   const addReplyComment = (newReply) => {
     //질문에 대한 답변을 추가해준다.
-    setDummyData2([...dummyData2, newReply]);
-    return;
+    setDummyData2((curr) => {
+      const newDummyData2 = [...curr, newReply];
+      localStorage.removeItem("dataAnswers");
+      localStorage.setItem("dataAnswers", JSON.stringify(newDummyData2));
+      return newDummyData2;
+    });
   };
 
   const addNewReview = (newReview) => {
-    setDummyData3([...dummyData3, newReview]);
+    setDummyData3((curr) => {
+      const newDummyData3 = [...curr, newReview];
+      localStorage.removeItem("dataReviews");
+      localStorage.setItem("dataReviews", JSON.stringify(newDummyData3));
+      return newDummyData3;
+    });
+
     return;
-  };
+  }; //setDummyData3([...dummyData3, newReview]);
 
   const deleteQuestion = (questionId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
     if (window.confirm("정말로 해당 질문을 삭제하시겠습니까?")) {
-      const updatedDummyData = dummyData.filter((question) => question.questionId !== questionId);
-      setDummyData(updatedDummyData);
-      const updatedDummyData2 = dummyData2.filter((answer) => answer.parentQuestion !== questionId);
-      setDummyData2(updatedDummyData2);
+      const updatedQuestions = dummyData.filter((question) => question.questionId !== questionId);
+      setDummyData(() => {
+        localStorage.removeItem("dataQuestions");
+        localStorage.setItem("dataQuestions", JSON.stringify(updatedQuestions));
+        return updatedQuestions;
+      });
     }
   };
 
   const deleteAnswer = (answerId) => {
     if (window.confirm("정말로 해당 답변을 삭제하시겠습니까?")) {
-      const updatedDummyData2 = dummyData2.filter((answer) => answer.answerId !== answerId);
-      setDummyData2(updatedDummyData2);
+      const updatedAnswers = dummyData2.filter((answer) => answer.answerId !== answerId);
+      setDummyData2(() => {
+        localStorage.removeItem("dataAnswers");
+        localStorage.setItem("dataAnswers", JSON.stringify(updatedAnswers));
+        return updatedAnswers;
+      });
     }
   };
 
   const deleteReview = (reviewId) => {
     if (window.confirm("정말로 해당 리뷰를 삭제하시겠습니까?")) {
-      const updatedDummyData3 = dummyData3.filter((review) => review.reviewId !== reviewId);
-      setDummyData3(updatedDummyData3);
+      const updatedReviews = dummyData3.filter((review) => review.reviewId !== reviewId);
+      setDummyData3(() => {
+        localStorage.removeItem("dataReviews");
+        localStorage.setItem("dataReviews", JSON.stringify(updatedReviews));
+        return updatedReviews;
+      });
     }
   };
 
   const updateQuestion = (questionId, text) => {
-    const updatedDummyData = dummyData.map((question) => {
+    const updatedQuestions = dummyData.map((question) => {
       if (question.questionId === questionId) {
         return { ...question, questionContent: text };
       }
       return question;
     });
 
-    setDummyData(updatedDummyData);
-    setClickedQuestion([questionId, false, false]);
+    setDummyData(() => {
+      localStorage.removeItem("dataQuestions");
+      localStorage.setItem("dataQuestions", JSON.stringify(updatedQuestions));
+      setClickedQuestion([questionId, false, false]);
+      return updatedQuestions;
+    });
   };
 
   const updateReview = (reviewId, text, clickedRadioBtn) => {
-    const updatedDummyData3 = dummyData3.map((review) => {
+    const updatedReview = dummyData3.map((review) => {
       if (review.reviewId === reviewId) {
         return { ...review, reviewContent: text, reviewStars: clickedRadioBtn };
       }
       return review;
     });
 
-    setDummyData3(updatedDummyData3);
-    setClickedReview(reviewId, false);
-  };
-
-  const updateAnswer = (answerId, text) => {
-    const updatedDummyData2 = dummyData2.map((answerId) => {
-      if (answerId.answerId === answerId) {
-        return { ...answerId, answerContent: text };
-      }
-      return answer;
+    setDummyData3(() => {
+      localStorage.removeItem("dataReviews");
+      localStorage.setItem("dataReviews", JSON.stringify(updatedReview));
+      setClickedReview([null, false]);
+      return updatedReview;
     });
-
-    setDummyData2(updatedDummyData2);
-    setClickedAnswer(answerId, false);
   };
 
   console.log("dummyData1 =>>>>>>");
@@ -199,7 +168,7 @@ function Comments() {
         {clickedCategory === categoryItemList[0] ? <AdditionalInfo contentImg={["https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-1.jpg", "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-2-m.jpg"]} /> : null}
         {clickedCategory === categoryItemList[2] ? (
           <>
-            {dummyData.map((comment) => (
+            {dummyData?.map((comment) => (
               <Comment
                 active={clickedQuestion[0] === comment.questionId} //
                 isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]}
@@ -212,7 +181,6 @@ function Comments() {
                 deleteQuestion={deleteQuestion}
                 updateQuestion={updateQuestion}
                 deleteAnswer={deleteAnswer}
-                updateAnswer={updateAnswer}
               />
             ))}
             <QnaForm addComment={addComment} />
@@ -221,7 +189,7 @@ function Comments() {
 
         {clickedCategory === categoryItemList[1] ? (
           <>
-            {dummyData3.map((review) => (
+            {dummyData3?.map((review) => (
               <ReviewComment //
                 key={review.reviewId}
                 review={review}
