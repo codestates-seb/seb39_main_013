@@ -7,7 +7,6 @@ public enum ExceptionCode {
     MEMBER_EXISTS(409, "Member exists"),
     CART_NOT_FOUND(404, "Cart not found"),
     BOOKMARK_NOT_FOUND(404, "Bookmark not found"),
-    NOT_ENOUGH_STOCK(422,"주문량이 남아있는 재고보다 많습니다."),
     PRODUCT_NOT_FOUND(404, "Coffee not found");
 //    PRODUCT_EXISTS(409, "Coffee Code exists"),
 //    ORDER_NOT_FOUND(404, "Order not found"),

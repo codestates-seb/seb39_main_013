@@ -23,5 +23,4 @@ public class OrderResponseDto {
     private OrderStatus orderStatus;
     private int totalPrice;
 
-
 }

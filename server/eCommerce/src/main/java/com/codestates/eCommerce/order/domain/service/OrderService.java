@@ -17,6 +17,7 @@ public class OrderService {
     public Order createOrder(Long memberId, Order reqOrder){
 //        Order order = Order.createOrder(memberId, reqOrder.getOrderProducts(),reqOrder.getBuyerAddress());
         reqOrder.setBuyerId(memberId);
+        reqOrder.setTotalPrice();
         reqOrder.setOrderStatus(OrderStatus.ORDERED);
         return orderRepository.save(reqOrder);
 
@@ -24,6 +25,6 @@ public class OrderService {
 
     //주문취소는 일괄 취소와 한상품 주문취소로 나뉘어야할거같음
     public void cancelOrderProduct(){
-
+        cancelOrderProduct();
     }
 }

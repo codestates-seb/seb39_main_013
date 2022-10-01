@@ -16,9 +16,9 @@ import java.util.List;
 @Transactional
 public class ProductCustomService {
     private final ProductRepositoryCustom productRepositoryCustom;
-    public Page<ProductDto> getProductPage(int page, int size, ProductCondition condition) {
+    public Page<ProductDto> getProductPage(int page, int pageSize, ProductCondition condition) {
     //        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
-        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
+        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,pageSize), condition);
     }
 
     public List<ProductDto> getProduct(String name) {

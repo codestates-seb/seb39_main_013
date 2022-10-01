@@ -1,6 +1,8 @@
 package com.codestates.eCommerce.common.advice;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
+import com.codestates.eCommerce.order.domain.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,8 @@ public class GlobalExceptionAdvice {
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
                 .getStatus()));
     }
+
+
 
     // todo 확인 필요
     @ExceptionHandler

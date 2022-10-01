@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class ProductController {
     /** Todo 관리자만 상품에 대한 등록 수정이 가능하다
      * 상품등록시엔 상품에대한 정보를 기입해야한다.
     * */
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> postProduct(@RequestBody RequestDto.Post product) {
         ResponseDto responseDto = appProductSerivce.postProduct(product);
