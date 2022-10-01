@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 public interface MemberMapper {
     Member postToMember(MemberDto.Post post);
 
-    MemberDto.Response memberToResponse(Member member);
+    Member patchToMember(MemberDto.Patch patch);
 
+    MemberDto.Response memberToResponse(Member member);
 }

@@ -8,6 +8,7 @@ import com.codestates.eCommerce.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +35,21 @@ public class MemberController {
         Member member = service.findMember(memberId);
         MemberDto.Response response = mapper.memberToResponse(member);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
+    @PatchMapping("{member-id}")
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
+                                      @Valid @RequestBody MemberDto.Patch patch) {
+        patch.setMemberId(memberId);
+        Member member = mapper.patchToMember(patch);
+        memberId = service.updateMember(member);
+        return new ResponseEntity<>(memberId, HttpStatus.CREATED);
+    }
+
+    // test URI
+    @Secured("ROLE_MEMBER")
+    @GetMapping("/user")
+    public String user() {
+        return "user";
     }
 }

@@ -2,9 +2,13 @@ package com.codestates.eCommerce.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,15 +39,28 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // header 가 있는지 확인
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
+//            response.sendError(HttpStatus.UNAUTHORIZED.value());
             chain.doFilter(request, response);
             return;
         }
 
         // JWT 토큰을 검증해서 정상적인사용자인지 확인
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
-        String email =
-                JWT.require(Algorithm.HMAC512("SECRET")) // SECRET 값 설정
-                        .build().verify(jwtToken).getClaim("email").asString();
+        String email = null;
+
+
+        try {
+            email =
+                    JWT.require(Algorithm.HMAC512("SECRET")) // SECRET 값 설정
+                            .build().verify(jwtToken).getClaim("email").asString();
+
+        } catch (TokenExpiredException e) {
+            response.sendError(HttpStatus.GONE.value());
+            return;
+        }
+
+
+
 
         if (email != null) {
             Optional<Member> optionalMember = repository.findByEmail(email);

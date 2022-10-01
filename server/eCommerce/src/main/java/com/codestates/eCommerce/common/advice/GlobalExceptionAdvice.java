@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.common.advice;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
 import com.codestates.eCommerce.order.domain.service.OrderService;
@@ -43,15 +44,14 @@ public class GlobalExceptionAdvice {
                 .getStatus()));
     }
 
-    /**  상품 */
-    @ExceptionHandler
-    public ResponseEntity handleProductBusinessException(ProductBusinessExcepion e) {
 
-        final ErrorResponse response = ErrorResponse.of(e.getProductId(), e.getStock(), e.getExceptionCode());
+//    @ExceptionHandler
+//    @ResponseStatus(HttpStatus.GONE)
+//    public ErrorResponse handleTokenExpiredException(TokenExpiredException e) {
+//        final ErrorResponse response = ErrorResponse.of(HttpStatus.GONE);
+//        return response;
+//    }
 
-        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
-                .getStatus()));
-    }
 
     // todo 확인 필요
     @ExceptionHandler
