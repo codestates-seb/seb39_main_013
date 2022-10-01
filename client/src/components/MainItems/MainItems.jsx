@@ -18,8 +18,8 @@ function MainItems(props) {
     <Container mode={props.mode}>
       {getDataList.data.data.map((v) => {
         let favorite = false;
-        const fa = getFavoriteData.data.map((v) => v.product.product_id);
-        if (fa.includes(v.product_id)) {
+        const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
+        if (fa && fa.includes(v.product_id)) {
           favorite = true;
         }
         return (
