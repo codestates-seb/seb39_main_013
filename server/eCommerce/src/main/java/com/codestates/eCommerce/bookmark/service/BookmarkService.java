@@ -19,17 +19,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class BookmarkService {
     private final BookmarkRepository repository;
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
-
-    public BookmarkService(BookmarkRepository repository, ProductRepository productRepository, ProductMapper productMapper) {
-        this.repository = repository;
-        this.productRepository = productRepository;
-        this.productMapper = productMapper;
-    }
 
     public void createBookmark(Bookmark bookmark) {
         repository.save(bookmark);
@@ -40,7 +34,6 @@ public class BookmarkService {
         List<Bookmark> bookmarks = repository.findAllByMemberId(memberId);
 
         List<BookmarkDto.Response> response = new ArrayList<>();
-//        List<Product> response = new ArrayList<>();
         for (Bookmark bookmark : bookmarks) {
             Optional<Product> optionalProduct = productRepository.findById(bookmark.getProductId());
             Product product = optionalProduct.get();
@@ -49,8 +42,6 @@ public class BookmarkService {
             response.add(bookmarkResponse);
         }
         return response;
-
-//        return bookmarks;
     }
 
     public void deleteBookmark(long bookmarkId) {
