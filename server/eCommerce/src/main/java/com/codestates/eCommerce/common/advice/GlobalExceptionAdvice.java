@@ -43,7 +43,15 @@ public class GlobalExceptionAdvice {
                 .getStatus()));
     }
 
+    /**  상품 */
+    @ExceptionHandler
+    public ResponseEntity handleProductBusinessException(ProductBusinessExcepion e) {
 
+        final ErrorResponse response = ErrorResponse.of(e.getProductId(), e.getStock(), e.getExceptionCode());
+
+        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
+                .getStatus()));
+    }
 
     // todo 확인 필요
     @ExceptionHandler
