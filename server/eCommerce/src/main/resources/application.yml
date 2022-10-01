@@ -1,0 +1,35 @@
+spring:
+#    defer-datasource-initialization : true
+#  sql:
+#    init:
+#      mode: always
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: "${security.google.client-id}"
+            client-secret: "${security.google.client-secret}"
+            scope:
+            - email
+            - profile
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+
+---
+
+spring:
+  profiles:
+    active: prod
+
+---
+
+spring:
+  profiles:
+    active: local
+
+---
