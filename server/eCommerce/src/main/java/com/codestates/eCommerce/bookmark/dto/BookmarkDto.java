@@ -1,20 +1,22 @@
 package com.codestates.eCommerce.bookmark.dto;
 
+import com.codestates.eCommerce.product.dto.ResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.validation.constraints.NotBlank;
+import lombok.NoArgsConstructor;
 
 public class BookmarkDto {
-    @Getter @AllArgsConstructor
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
-        @NotBlank
         private Long productId;
     }
 
-    @Getter @AllArgsConstructor
+    @Getter
+    @AllArgsConstructor
     public static class Response {
         private Long bookmarkId;
-        private Long productId;
+        private ResponseDto product;
     }
 }

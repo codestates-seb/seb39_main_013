@@ -34,11 +34,14 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
-                .formLogin().disable() // todo: oauth 로그인시 해제필요?
+                .formLogin().disable()
                 .httpBasic().disable()
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/v1/carts/**").authenticated()
+                .antMatchers("/api/v1/bookmarks/**").authenticated()
+                .antMatchers("/api/v1/members/{member-id}/**").authenticated()
 //                .antMatchers("/api/v1/members/user/**").access("hasRole('ROLE_MEMBER') or hasRole('MANAGER')")
 //                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
 //                .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
