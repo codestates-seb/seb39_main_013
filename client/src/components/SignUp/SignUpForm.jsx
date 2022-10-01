@@ -5,6 +5,7 @@ import SignInput from "../Commons/SignInput";
 import SignButton from "../Commons/SignButton";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import useSignUpMutation from "../../hooks/useSignUpMutation";
+import { useDaumPostcodePopup } from "react-daum-postcode";
 
 export default function SignUpForm() {
   const [signUpValue, setSignUpValue] = useState({
@@ -13,6 +14,12 @@ export default function SignUpForm() {
     password: "",
     phone: "",
   });
+  const open = useDaumPostcodePopup();
+
+  const postCodeHandler = (e) => {
+    e.preventDefault();
+    open();
+  };
 
   const signUpAction = useSignUpMutation(signUpValue);
 
@@ -78,6 +85,7 @@ export default function SignUpForm() {
           이미 계정이 있으십니까? <Link to={"/login"}>Login</Link>
         </span>
       </MiddleWrapper>
+      <button onClick={(e) => postCodeHandler(e)}>address</button>
     </Container>
   );
 }

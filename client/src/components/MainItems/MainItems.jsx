@@ -11,12 +11,13 @@ import Loading from "../Commons/Loading";
 function MainItems(props) {
   const getFavoriteData = useGetFavoriteItem();
   const getDataList = useGetProductItems(props.params);
+
   if (getDataList.isLoading || getFavoriteData.isLoading) {
     return <Loading />;
   }
   return (
     <Container mode={props.mode}>
-      {getDataList.data.data.map((v) => {
+      {getDataList?.data?.data.map((v) => {
         let favorite = false;
         const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
         if (fa && fa.includes(v.product_id)) {

@@ -13,7 +13,7 @@ export default function MyPageIconBox() {
     <Container>
       <IconBox>
         <li>
-          <Icons to="/">
+          <Icons to="/mypage/favorite">
             <FaHeart />
             <span>찜한상품</span>
           </Icons>

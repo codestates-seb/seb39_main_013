@@ -53,7 +53,7 @@ function App() {
             />
             <Route path="/shop/*" element={<ShopPage />} />
             <Route
-              path="/mypage"
+              path="/mypage/*"
               element={
                 <PrivateRoute isLogin={isLogin} component={<MyPage />} />
               }

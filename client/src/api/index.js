@@ -100,11 +100,15 @@ export const getCartData = async () => {
 
 export const getFavoriteItem = async () => {
   const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v1/bookmarks', {
+  let res;
+  try { res = await axiosInstance.get('/api/v1/bookmarks', {
     headers: {
       Authorization: token
     }
   })
+  }catch(err) {
+    return;
+  }
 
   return res.data.data;
 }

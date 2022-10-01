@@ -1,8 +1,15 @@
 import { AxiosError } from "axios";
+import Cookies from "js-cookie";
 import { MutationCache, QueryCache, QueryClient } from "react-query";
 import { toast } from "react-toastify";
+import { persistor } from "../redux/store";
 
-export const errorHandler = (error) => {
+export const errorHandler = async (error) => {
+  if (error.response.status === 410) {
+    Cookies.remove("authorization");
+    await persistor.purge();
+    return;
+  }
   if (error instanceof AxiosError) {
     if (!error.response?.data) {
       toast.error(error.message);
