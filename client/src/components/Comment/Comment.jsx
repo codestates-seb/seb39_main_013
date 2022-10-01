@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { MdOutlineModeComment } from "react-icons/md";
 import ReplyComment from "./ReplyComment";
 import ReplyCommentForm from "./ReplyCommentForm";
+import UpdateCommentForm from "./UpdateCommentForm";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 //특정 질문을 클릭하면 아래에 이에 관한 답변이 나와야 한다.
 //특정 질문을 클릭하면 상위컴포넌트에서 상태를 관리해 주어야 한다. commetId중에 현재 클릭된 아이를 저장할 수 있어야 한다.
@@ -17,13 +19,13 @@ import { useSelector } from "react-redux";
 //배열로 만든다 [clickedId, isReplying]으로 만든다.
 
 function Comment(props) {
-  const stars = "⭐".repeat(Number(props.item.questionStars));
   const isLogin = useSelector((state) => state.user.isLogin);
-  const deleteQuestion = () => {};
+  const [textToggle, setTextToggle] = useState(false);
+  const [replyToggle, setReplyToggle] = useState(false);
 
   return (
     <Container>
-      <div className="comment">
+      <div className={"comment " + (props.active ? "activated" : null)}>
         <div className="comment-image-container">
           <img src="/user-icon.png"></img>
         </div>
@@ -32,32 +34,19 @@ function Comment(props) {
             <div className="comment-content-top">
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
-                <div className="comment-CreatedAt">
-                  {props.item.questionCreatedAt}
-                </div>
-                <button
-                  onClick={() => props.deleteQuestion(props.item.questionId)}
-                >
-                  질문 삭제하기
-                </button>
+
+                <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
+                <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정하기</button>
+                <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제하기</button>
               </div>
             </div>
             <div className="comment-content_bottom">
-              <div
-                className="comment-text"
-                onClick={() =>
-                  props.setClickedQuestion([props.item.questionId, false])
-                }
-              >
+              <div className="comment-text" onClick={() => props.setClickedQuestion([props.item.questionId, false, false])}>
                 {props.item.questionContent}
               </div>
               <div className="comment-replyIconBox">
-                <button
-                  onClick={() =>
-                    props.setClickedQuestion([props.item.questionId, true])
-                  }
-                  className="comment-replyIcon"
-                >
+                <button onClick={() => props.setClickedQuestion([props.item.questionId, true, false])} className="comment-replyIcon">
+
                   <MdOutlineModeComment className="replyIcon" />
                 </button>
               </div>
@@ -69,7 +58,13 @@ function Comment(props) {
         <div className="replyBox">
           {props.replies.length > 0
             ? props.replies.map((reply) => (
-                <ReplyComment reply={reply} key={reply.answerId} />
+                <ReplyComment //
+                  reply={reply}
+                  key={reply.answerId}
+                  deleteAnswer={props.deleteAnswer}
+                  updateAnswer={props.updateAnswer}
+                  initialText={reply.answerContent}
+                />
               ))
             : null}
         </div>
@@ -78,6 +73,14 @@ function Comment(props) {
         <ReplyCommentForm
           addReplyComment={props.addReplyComment} //
           replyparent={props.item}
+        />
+      ) : null}
+      {props.isEditing ? (
+        <UpdateCommentForm //
+          updateQuestion={props.updateQuestion}
+          initialText={props.item.questionContent}
+          questionId={props.item.questionId}
+          setClickedQuestion={props.setClickedQuestion}
         />
       ) : null}
     </Container>
@@ -101,9 +104,14 @@ const Container = styled.div`
     width: 100%;
     max-width: 836px;
     height: auto;
-    border-bottom: 2px solid rgba(124, 124, 124, 0.5);
+    border-bottom: 1px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
     margin-top: 20px;
+  }
+
+  .activated {
+    border: 3px solid rgba(29, 29, 29, 0.5);
+    border-radius: 5px;
   }
 
   .comment-image-container {
@@ -138,11 +146,27 @@ const Container = styled.div`
           margin: 0 10px;
           opacity: 0.7;
         }
+
+        button {
+          margin: 0 3px;
+          padding: 3px 7px;
+          font-size: 14px;
+          border: none;
+          outline: none;
+          border-radius: 5px;
+          &:nth-child(3) {
+            background-color: rgba(0, 255, 98, 0.87);
+          }
+          &:nth-child(4) {
+            background-color: rgba(255, 93, 93, 0.87);
+          }
+        }
       }
     }
     .comment-content_bottom {
       .comment-text {
         height: auto;
+        cursor: pointer;
       }
       .comment-replyIconBox {
         display: flex;
