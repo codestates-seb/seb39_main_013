@@ -6,15 +6,12 @@ import com.codestates.eCommerce.bookmark.mapper.BookmarkMapper;
 import com.codestates.eCommerce.bookmark.service.BookmarkService;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -28,7 +25,6 @@ public class BookmarkController {
     @PostMapping
     private ResponseEntity postBookmark(@RequestBody BookmarkDto.Post post,
                                         @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println("post ==================================== " + post);
         Bookmark bookmark = mapper.postToBookmark(post);
         bookmark.setMemberId(principalDetails.getMember().getMemberId());
         bookmarkService.createBookmark(bookmark);

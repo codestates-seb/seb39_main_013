@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.member.controller;
 
+import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.member.dto.MemberDto;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.mapper.MemberMapper;
@@ -32,6 +33,6 @@ public class MemberController {
     public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
         Member member = service.findMember(memberId);
         MemberDto.Response response = mapper.memberToResponse(member);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 }

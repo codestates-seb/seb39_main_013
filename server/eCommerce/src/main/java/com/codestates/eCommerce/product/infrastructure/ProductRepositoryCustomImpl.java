@@ -43,6 +43,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .from(product)
                 .where(
                     brandIdEq(condition.getBrandId()),
+                    brandNameContains(condition.getBrandName()),
                     majorClassEq(condition.getMajorClass()),
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
@@ -58,6 +59,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .selectFrom(product)
                 .where(
                     brandIdEq(condition.getBrandId()),
+                    brandNameContains(condition.getBrandName()),
                     majorClassEq(condition.getMajorClass()),
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
@@ -82,6 +84,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     private BooleanExpression nameContains(String name) {
         return hasText(name) ? product.name.contains(name) : null;
     }
+
+    private BooleanExpression brandNameContains(String brandName) {return hasText(brandName) ? product.brandName.contains(brandName) : null;}
 
     private BooleanExpression colorEq(String color) {
         return hasText(color) ? product.color.eq(color) : null;

@@ -21,6 +21,8 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+    @OneToMany(mappedBy = "product")
+    private List<ProductHistory> productHistories;
     private Long brandId;
     private String brandName;
     private String majorClass;

@@ -31,7 +31,7 @@ public class CartController {
         Cart cart = mapper.postToCart(post);
         cart.setMemberId(principalDetails.getMember().getMemberId());
         Long cartId = service.createCart(cart);
-        return new ResponseEntity<>(new SingleResponseDto<>(cartId), HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping

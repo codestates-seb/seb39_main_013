@@ -191,4 +191,4 @@
 --"2022-09-29 23:55:54.189995","2022-09-29 23:55:54.189995");
 --
 --
---INSERT INTO MEMBER(member_id, email, height, weight, name, point, role) VALUES (2, "clover@gmail.com", 0, 0, "지영민", 0, "ROLE_MEMBER");
+INSERT INTO MEMBER(member_id, email, height, weight, name, point, role) VALUES (1, "clover@gmail.com", 0, 0, "지영민", 0, "ROLE_MEMBER");
