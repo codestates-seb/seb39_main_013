@@ -16,8 +16,8 @@ public class ProductCondition {
     private String brandName;
     private String majorClass;
     private String name;
-    private Integer priceMax = 10000000;
-    private Integer priceMin;
+    private Integer maxPrice;
+    private Integer minPrice;
     private String color;
     private Integer stock;
     private String size;
