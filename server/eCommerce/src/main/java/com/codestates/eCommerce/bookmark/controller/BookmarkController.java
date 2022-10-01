@@ -31,18 +31,6 @@ public class BookmarkController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @PostMapping
-//    private ResponseEntity postBookmark(@RequestParam(value = "productId") long productId,
-//                                        @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//        System.out.println(productId);
-//        Bookmark bookmark = new Bookmark();
-//        bookmark.setProductId(productId);
-//        bookmark.setMemberId(principalDetails.getMember().getMemberId());
-//        System.out.println(bookmark);
-//        service.createBookmark(bookmark);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
-
     @GetMapping
     public ResponseEntity getBookmarks(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long memberId = principalDetails.getMember().getMemberId();
