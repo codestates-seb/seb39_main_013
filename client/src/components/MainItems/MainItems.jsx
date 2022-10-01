@@ -2,20 +2,26 @@
 // eslint-disable-next-line
 import React from "react";
 import styled from "styled-components";
+import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import useGetProductItems from "../../hooks/useGetProductItems";
 import ItemCard from "../Commons/ItemCard";
 import Loading from "../Commons/Loading";
 
 // eslint-disable-next-line
 function MainItems(props) {
+  const getFavoriteData = useGetFavoriteItem();
   const getDataList = useGetProductItems(props.params);
-
-  if (getDataList.isLoading) {
+  if (getDataList.isLoading || getFavoriteData.isLoading) {
     return <Loading />;
   }
   return (
     <Container mode={props.mode}>
       {getDataList.data.data.map((v) => {
+        let favorite = false;
+        const fa = getFavoriteData.data.map((v) => v.product.product_id);
+        if (fa.includes(v.product_id)) {
+          favorite = true;
+        }
         return (
           <ItemCard
             key={v.product_id}
@@ -24,6 +30,7 @@ function MainItems(props) {
             brand={v.brand_name}
             title={v.name}
             price={v.price}
+            favorite={favorite}
           />
         );
       })}

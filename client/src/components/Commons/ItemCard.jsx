@@ -6,16 +6,25 @@ import styled, { css } from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Price from "./Price";
+import useAddFavoriteItem from "../../hooks/useAddFavoriteItem";
+import Loading from "./Loading";
 
 // eslint-disable-next-line
 function ItemCard(props) {
   const [isClicked, setIsClicked] = useState(props.favorite);
-
+  const addFavoriteAction = useAddFavoriteItem({ productId: props.id });
   const handleClicked = (e) => {
     e.preventDefault();
     setIsClicked((curr) => !curr);
-    //추후에 post요청을 통하여 찜한 목록에 post요청 필요.
+
+    if (!props.favorite) {
+      addFavoriteAction.mutate();
+    }
   };
+
+  if (addFavoriteAction.isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

@@ -30,7 +30,7 @@ export default function CartItem(props) {
       <ItemOptions>
         <OptionWrapper>
           <div>
-            <span>{props.option.size[0]}</span>
+            <span>{props.size}</span>
             <QuantitySelector
               setQuantity={setQuantity}
               productQuantity={1}

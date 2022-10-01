@@ -30,7 +30,7 @@ export const authorizeToken = async () => {
   console.log("token :", token);
   const res = await authAxios.get("/api/v1/members/user", {
     headers: {
-      authorization: token,
+      Authorization: token,
     },
   });
   console.log("res :", res);
@@ -63,3 +63,48 @@ export const getProductOne = async (id) => {
   const res = await axiosInstance.get(`/api/v1/products/${id}`);
   return res.data.data;
 };
+
+export const addCartItem = async (body) => {
+  const token = Cookie.get("authorization");
+  console.log("token :", token);
+ 
+  const res = await axiosInstance.post('/api/v1/carts', body, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  
+  return res; 
+}
+
+export const addFavoriteItem = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.post('/api/v1/bookmarks', id, {
+    headers: {
+      Authorization: token
+    }
+  });
+  return res;
+}
+
+export const getCartData = async () => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/carts', {
+    headers: {
+      Authorization: token
+    }
+  })
+
+  return res.data.data;
+}
+
+export const getFavoriteItem = async () => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/bookmarks', {
+    headers: {
+      Authorization: token
+    }
+  })
+
+  return res.data.data;
+}

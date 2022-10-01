@@ -7,14 +7,18 @@ import { FaWonSign } from "react-icons/fa";
 import Button from "../Commons/Button";
 import Price from "../Commons/Price";
 import { cartData } from "../../constance";
+import useGetCartDataQuery from "../../hooks/useGetCartDataQuery";
+import { memo } from "react";
 
 /**
  *
  * @returns totalPrice 로직 변경 필요
  */
 
-export default function CartForm() {
+export default memo(function CartForm() {
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const getCartData = useGetCartDataQuery();
   return (
     <Container>
       <FormHeader>
@@ -23,21 +27,22 @@ export default function CartForm() {
         <MenuBox>TOTAL</MenuBox>
       </FormHeader>
       <FormBody>
-        {cartData.map((v) => {
-          return (
-            <CartItem
-              key={v.id}
-              id={v.id}
-              itemImg={v.productImg}
-              brandName={v.brand}
-              itemTitle={v.title}
-              option={v.option}
-              price={v.price}
-              maxQuantity={v.quantity}
-              setTotalPrice={setTotalPrice}
-            />
-          );
-        })}
+        {getCartData?.data &&
+          getCartData.data.map((v) => {
+            return (
+              <CartItem
+                key={v.cartId}
+                id={v.product.product_id}
+                itemImg={v.product.thumb_images[0]}
+                price={v.product.price}
+                maxQuantity={v.product.stock}
+                brandName={v.product.brand_name}
+                itemTitle={v.product.name}
+                size={v.product.size}
+                setTotalPrice={setTotalPrice}
+              />
+            );
+          })}
       </FormBody>
       <FormFooter>
         <button>
@@ -55,7 +60,7 @@ export default function CartForm() {
       <Button>ORDER NOW</Button>
     </Container>
   );
-}
+});
 
 /**
  * flex로 정가운데 고정 시 max-width width 100%로 전체 공간 잡기

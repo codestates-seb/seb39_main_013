@@ -8,6 +8,8 @@ import styled from "styled-components";
 import Button from "../Commons/Button";
 import { AiOutlineHeart } from "react-icons/ai";
 import OrderInfo from "./OrderInfo";
+import useAddCartMutaion from "../../hooks/useAddCartMutaion";
+import Loading from "../Commons/Loading";
 
 export default function ProductDetailOrder(props) {
   const [quantity, setQuantity] = useState(1);
@@ -20,7 +22,20 @@ export default function ProductDetailOrder(props) {
     color: props.color,
   };
 
-  console.log(orderData);
+  const addCartAction = useAddCartMutaion({
+    productId: props.id,
+    productQuantity: quantity,
+    isWanted: true,
+  });
+
+  const addCartItemHandler = (e) => {
+    e.preventDefault();
+    addCartAction.mutate();
+  };
+
+  if (addCartAction.isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container>
@@ -39,7 +54,9 @@ export default function ProductDetailOrder(props) {
       <OrderFormFooter />
       <OrderInfo orderData={orderData} />
       <ButtonWrapper>
-        <Button disable={true}>ADD TO CART</Button>
+        <Button disable={true} onClick={addCartItemHandler}>
+          ADD TO CART
+        </Button>
         <Button disable={true} mode="apply">
           BUY NOW
         </Button>
