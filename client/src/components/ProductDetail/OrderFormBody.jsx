@@ -9,7 +9,7 @@ export default function OrderFormBody(props) {
     <Container>
       <SizeWrapper>
         <span>SIZE</span>
-        <SizeSelector size={props.sizeList} />
+        <SizeSelector setSize={props.setSize} size={props.sizeList} />
       </SizeWrapper>
       <SubWrapper>
         <div>
@@ -18,7 +18,11 @@ export default function OrderFormBody(props) {
         </div>
         <div>
           <span>Quantity</span>
-          <QuantitySelector productQuantity={1} />
+          <QuantitySelector
+            setQuantity={props.setQuantity}
+            productQuantity={1}
+            maxQuantity={props.maxQuantity}
+          />
         </div>
       </SubWrapper>
     </Container>
@@ -41,8 +45,10 @@ const Container = styled.div`
 const SubWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
-  gap: 126px;
+  /* gap: 160px; */
+
   > div {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 16px;

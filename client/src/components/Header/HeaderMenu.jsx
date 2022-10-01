@@ -5,9 +5,11 @@ import { BsCart2 } from "react-icons/bs";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { persistor } from "../../redux/store";
+import Cookies from "js-cookie";
 
 const HeaderMenu = (props) => {
   const logoutHandler = async () => {
+    Cookies.remove("authorization");
     await persistor.purge();
   };
 

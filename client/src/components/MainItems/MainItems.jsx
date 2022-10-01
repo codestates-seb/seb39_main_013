@@ -1,20 +1,28 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 // eslint-disable-next-line
+import React from "react";
 import styled from "styled-components";
+import useGetProductItems from "../../hooks/useGetProductItems";
 import ItemCard from "../Commons/ItemCard";
+import Loading from "../Commons/Loading";
 
 // eslint-disable-next-line
 function MainItems(props) {
+  const getDataList = useGetProductItems(props.params);
+
+  if (getDataList.isLoading) {
+    return <Loading />;
+  }
   return (
     <Container mode={props.mode}>
-      {props.productList.map((v) => {
+      {getDataList.data.data.map((v) => {
         return (
           <ItemCard
-            key={v.id}
-            productImg={v.productImg}
-            brand={v.brand}
-            title={v.title}
+            key={v.product_id}
+            id={v.product_id}
+            productImg={v.thumb_images[0]}
+            brand={v.brand_name}
+            title={v.name}
             price={v.price}
           />
         );
@@ -24,7 +32,7 @@ function MainItems(props) {
 }
 
 const Container = styled.div`
-  margin-top: 64px;
+  margin-top: 48px;
   display: grid;
   grid-template-columns: ${(props) =>
     props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};
@@ -38,6 +46,12 @@ const Container = styled.div`
   */
   @media screen and (max-width: 1280px) {
     grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
   }
 `;
 

@@ -5,27 +5,27 @@ import styled from "styled-components";
 import Button from "../Commons/Button";
 import ColorSelector from "../ProductRegister/ColorSelector";
 import CategorySelector from "./CategorySelector";
+import PriceRange from "./PriceRange";
 
 export default function ShopFilter(props) {
-  const filterHandler = () => {};
+  const setParamsHandler = (e) => {
+    props.setParams((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
 
   return (
     <Container>
-      <CategorySelector />
+      <CategorySelector changeHandler={setParamsHandler} />
       <ColorSelector
         colorList={props.dummyColor}
         fontSize={"22px"}
-        changeHandler={filterHandler}
+        changeHandler={setParamsHandler}
         name={"color"}
       />
       <PriceSelector>
         <p>Price</p>
-        <InputWrapper>
-          <input type="text" placeholder="Min" />
-          <span>to</span>
-          <input type="text" placeholder="Max" />
-        </InputWrapper>
-        <Button mode={"apply"}>Apply</Button>
+        <PriceRange changeHander={setParamsHandler} />
       </PriceSelector>
     </Container>
   );
@@ -44,26 +44,5 @@ const PriceSelector = styled.div`
     font-weight: 700;
     margin-bottom: 1rem;
     font-size: 22px;
-  }
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
-
-  input {
-    font-weight: 600;
-    width: 100%;
-    border: 2px solid #e5e8eb;
-    border-radius: 10px;
-    height: 40px;
-    padding: 0 8px;
-    outline: none;
-
-    &:focus {
-      border-color: #77b7f6;
-    }
   }
 `;

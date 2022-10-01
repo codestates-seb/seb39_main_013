@@ -34,6 +34,7 @@ function Comment(props) {
             <div className="comment-content-top">
               <div className="comment-content-top__left">
                 <div className="comment-author">{props.item.questionName}</div>
+
                 <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
                 <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정하기</button>
                 <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제하기</button>
@@ -45,6 +46,7 @@ function Comment(props) {
               </div>
               <div className="comment-replyIconBox">
                 <button onClick={() => props.setClickedQuestion([props.item.questionId, true, false])} className="comment-replyIcon">
+
                   <MdOutlineModeComment className="replyIcon" />
                 </button>
               </div>

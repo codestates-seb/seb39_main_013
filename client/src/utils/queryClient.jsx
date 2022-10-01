@@ -6,6 +6,7 @@ export const errorHandler = (error) => {
   if (error instanceof AxiosError) {
     if (!error.response?.data) {
       toast.error(error.message);
+      return;
     }
 
     if (error.response?.data.error) {

@@ -5,9 +5,6 @@ import { useDispatch } from "react-redux";
 import { loginFn } from "../api";
 import { setUser } from "../redux/reducer/userSlice";
 
-/**
- * login data redux 설정하기
- */
 export default function useLoginMutation(value) {
   const dispatch = useDispatch();
 
@@ -15,7 +12,14 @@ export default function useLoginMutation(value) {
     () => loginFn(value),
     {
       retry: false,
-      onSuccess: (data) => console.log(data),
+      onSuccess: async (res) =>
+        dispatch(
+          setUser({
+            name: res.data.data.name,
+            email: res.data.data.email,
+            isLogin: true,
+          })
+        ),
     }
   );
 

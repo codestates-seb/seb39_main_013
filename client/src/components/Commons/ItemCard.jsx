@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import Price from "./Price";
 
 // eslint-disable-next-line
 function ItemCard(props) {
@@ -18,20 +19,22 @@ function ItemCard(props) {
 
   return (
     <Container>
-      <Link to="/detail">
-        <ImageWrapper>
-          <ItemCardImg className="ItemCard-Image" img={props.productImg}>
-            {isClicked ? ( //
-              <AiFillHeart onClick={handleClicked} className="ItemCard-Heart" />
-            ) : (
-              <AiOutlineHeart onClick={handleClicked} className="ItemCard-Heart" />
-            )}
-          </ItemCardImg>
-        </ImageWrapper>
+      <Link to={`/detail/${props.id}`}>
+        <ItemCardImg className="ItemCard-Image">
+          <img src={props.productImg} alt="product_img" />
+          {isClicked ? ( //
+            <AiFillHeart onClick={handleClicked} className="ItemCard-Heart" />
+          ) : (
+            <AiOutlineHeart
+              onClick={handleClicked}
+              className="ItemCard-Heart"
+            />
+          )}
+        </ItemCardImg>
         <div className="ItemCard-Explain">
           <TextBox brandName>{props.brand}</TextBox>
           <TextBox>{props.title}</TextBox>
-          <TextBox>{props.price}</TextBox>
+          <Price price={props.price} />
         </div>
       </Link>
     </Container>
@@ -41,11 +44,10 @@ function ItemCard(props) {
 const Container = styled.div`
   width: 100%;
   max-width: 290px;
-  height: 380px;
+  max-height: 380px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border: 2px solid red;
 
   a {
     text-decoration: none;
@@ -57,6 +59,7 @@ const Container = styled.div`
     margin: 0 1rem 1rem 0;
     z-index: 100;
     color: #ff696a;
+    position: absolute;
   }
 
   .ItemCard-Explain {
@@ -68,12 +71,8 @@ const Container = styled.div`
     align-items: center;
     gap: 8px;
     margin-top: 8px;
+    font-size: 14px;
   }
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  height: 190%;
 `;
 
 const ItemCardImg = styled.div`
@@ -82,12 +81,15 @@ const ItemCardImg = styled.div`
   align-items: flex-end;
   border-radius: 10px;
   width: 100%;
-  height: 100%;
-  background-image: url(${(props) => props.img});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #f6eeed;
+  max-height: 290px;
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 10px;
+  }
 `;
 
 const TextBox = styled.p`
