@@ -5,6 +5,11 @@ import { paymentClickHandler } from "../api/payment";
 import CartForm from "../components/Cart/CartForm";
 import SubBanner from "../components/SubBanner/Subbanner";
 
+/**
+ *
+ * @returns 가격, 상품이름, 사이즈, 브랜드
+ */
+
 export default function CartPage() {
   return (
     <Container>

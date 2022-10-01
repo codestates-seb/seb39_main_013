@@ -8,6 +8,11 @@ import Button from "../Commons/Button";
 import Price from "../Commons/Price";
 import { cartData } from "../../constance";
 
+/**
+ *
+ * @returns totalPrice 로직 변경 필요
+ */
+
 export default function CartForm() {
   const [totalPrice, setTotalPrice] = useState(0);
   return (
