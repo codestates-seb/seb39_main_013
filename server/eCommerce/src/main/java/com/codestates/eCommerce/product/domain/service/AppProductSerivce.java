@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.function.Function;
+
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +34,21 @@ public class AppProductSerivce {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDto> getProductPage(int page, int size ,ProductCondition productCondition) {
-        return productCustomService.getProductPage(page,size, productCondition);
+    public ResponseDetailDto getProduct(String name){
+        List<ProductDto> product = productCustomService.getProduct(name);
+        ProductDetailDto productDetailDto = productMapper.toProductDetailDto(product);
+        return  productMapper.toResponseDetailDto(productDetailDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ResponseDto> getProductPage(int page, int size ,ProductCondition productCondition) {
+        Page<ProductDto> pageProductDtos = productCustomService.getProductPage(page,size, productCondition);
+        return pageProductDtos.map(new Function<ProductDto, ResponseDto>() {
+            @Override
+            public ResponseDto apply(ProductDto productDto) {
+                return productMapper.toResponseDto(productDto);
+            }
+        });
     }
 
     public ResponseDto updateProduct(Long productId, RequestDto.Patch requestDto) {

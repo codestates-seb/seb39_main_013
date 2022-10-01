@@ -13,7 +13,7 @@ import lombok.Setter;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ResponseDto {
 
-    private OrderDto orderDto;
+    private OrderResponseDto orderResponseDto;
 //    private Long orderId;
 //    private Long memberId;
 //    private String orderStatus;

@@ -2,6 +2,8 @@ package com.codestates.eCommerce.common.advice;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
+import com.codestates.eCommerce.order.domain.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +44,14 @@ public class GlobalExceptionAdvice {
                 .getStatus()));
     }
 
+
 //    @ExceptionHandler
 //    @ResponseStatus(HttpStatus.GONE)
 //    public ErrorResponse handleTokenExpiredException(TokenExpiredException e) {
 //        final ErrorResponse response = ErrorResponse.of(HttpStatus.GONE);
 //        return response;
 //    }
+
 
     // todo 확인 필요
     @ExceptionHandler
