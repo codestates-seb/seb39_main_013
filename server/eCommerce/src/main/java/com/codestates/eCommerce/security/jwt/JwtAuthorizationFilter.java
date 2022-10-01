@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,6 +36,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // header 가 있는지 확인
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
+//            response.sendError(HttpStatus.UNAUTHORIZED.value());
             chain.doFilter(request, response);
             return;
         }
