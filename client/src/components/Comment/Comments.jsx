@@ -13,8 +13,15 @@ import { useState } from "react";
 import ReviewComment from "./ReviewComment";
 import QnaForm from "./QnaForm";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function Comments() {
+  const userInfo = useSelector((state) => state.user);
+
+  const userName = userInfo.name;
+  const userEmail = userInfo.email;
+  const UserIsLogin = userInfo.isLogin;
+
   useEffect(() => {
     if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
       localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
@@ -50,8 +57,6 @@ function Comments() {
   const [dummyData, setDummyData] = useState(null);
   const [dummyData2, setDummyData2] = useState(null);
   const [dummyData3, setDummyData3] = useState(null);
-
-  console.log(dummyData);
 
   //state안에 localstorage에 들어있는 것을 가져왔다. 그렇다면 함수 안에있는 것도 설정을 바꾸어 주어야 한다.
 
@@ -153,11 +158,6 @@ function Comments() {
     });
   };
 
-  console.log("dummyData1 =>>>>>>");
-  console.log(dummyData);
-  console.log("dummyData2 =>>>>>>");
-  console.log(dummyData2);
-
   // category 컴포넌트에서 item을 고르는 경우에는 내려준setCateogry로 클릭된 상태를 바꿔준다.
   // category의 상태에 맞추어서 보여줄지 안보여줄지를 결정한다.
 
@@ -181,9 +181,18 @@ function Comments() {
                 deleteQuestion={deleteQuestion}
                 updateQuestion={updateQuestion}
                 deleteAnswer={deleteAnswer}
+                commentEmail={comment.questionEmail}
+                userName={userName}
+                userEmail={userEmail}
+                userIsLogin={UserIsLogin}
               />
             ))}
-            <QnaForm addComment={addComment} />
+            <QnaForm //
+              addComment={addComment}
+              userName={userName}
+              userEmail={userEmail}
+              userIsLogin={UserIsLogin}
+            />
           </>
         ) : null}
 
@@ -197,9 +206,17 @@ function Comments() {
                 setClickedReview={setClickedReview}
                 isEditing={clickedReview[0] === review.reviewId && clickedReview[1]}
                 updateReview={updateReview}
+                userName={userName}
+                userEmail={userEmail}
+                UserIsLogin={UserIsLogin}
               />
             ))}
-            <ReviewForm addNewReview={addNewReview} />
+            <ReviewForm //
+              addNewReview={addNewReview}
+              userName={userName}
+              userEmail={userEmail}
+              UserIsLogin={UserIsLogin}
+            />
           </>
         ) : null}
       </div>

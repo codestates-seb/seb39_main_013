@@ -72,7 +72,7 @@ function RiviewForm(props) {
             <input key="emailInput" className="inputForm" name={"Email"} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="review-content">
-            <textarea value={text} onChange={(e) => setText(e.target.value)} required placeholder="리뷰를 작성해주세요." />
+            <textarea value={text} onChange={(e) => setText(e.target.value)} required placeholder="리뷰를 작성해주세요. 로그인 하여야 작성이 가능합니다." />
           </div>
           <div className="submitBox">
             <button type="submit">Submit</button>
