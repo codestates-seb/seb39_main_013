@@ -24,5 +24,5 @@ public class ResponseDetailDto {
     private Integer stock;
     private String color;
     private List<String> thumbImages;
-    private List<String> contentsImages;
+    private List<String> contentImages;
 }

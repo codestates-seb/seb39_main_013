@@ -25,9 +25,9 @@ public class ProductDetailDto {
     private String color;
     private List<SizeInfo> info;
     private List<String> thumbImages;
-    private List<String> contentsImages;
+    private List<String> contentImages;
 
-    public ProductDetailDto(Long brandId, String brandName, String majorClass, String name, Integer price, Integer stock, String color, List<SizeInfo> info, List<String> thumbImages, List<String> contentsImages) {
+    public ProductDetailDto(Long brandId, String brandName, String majorClass, String name, Integer price, Integer stock, String color, List<SizeInfo> info, List<String> thumbImages, List<String> contentImages) {
         this.brandId = brandId;
         this.brandName = brandName;
         this.majorClass = majorClass;
@@ -37,6 +37,6 @@ public class ProductDetailDto {
         this.color = color;
         this.info = info;
         this.thumbImages = thumbImages;
-        this.contentsImages = contentsImages;
+        this.contentImages = contentImages;
     }
 }
