@@ -1,17 +1,21 @@
 import { useQuery } from "react-query";
 import { getFavoriteItem } from "../api";
+import { persistor } from "../redux/store";
 
 export default function useGetFavoriteItem() {
-  const { data, isLoading, refetch } = useQuery(
+  // const queryClient = useQueryClient();
+  const { data, isLoading, refetch, isError } = useQuery(
     ["getFavoriteData"],
     getFavoriteItem,
     {
       retry: 1,
       enabled: false,
-      onSuccess: (data) => console.log("favorite :", data),
-      onError: (err) => console.log(err),
+      onError: async (err) => {
+        await persistor.purge();
+        console.log(err);
+      },
     }
   );
 
-  return { data, isLoading, refetch };
+  return { data, isLoading, refetch, isError };
 }

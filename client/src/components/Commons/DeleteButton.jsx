@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import { TiDelete } from "react-icons/ti";
 
-export default function DeleteButton() {
+export default function DeleteButton(props) {
   return (
-    <Container>
+    <Container onClick={(e) => props.onClick(e)}>
       <TiDelete />
     </Container>
   );

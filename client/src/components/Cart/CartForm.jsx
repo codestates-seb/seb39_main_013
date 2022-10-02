@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import { HiOutlineX } from "react-icons/hi";
 import { FaWonSign } from "react-icons/fa";
 import Button from "../Commons/Button";
 import Price from "../Commons/Price";
-import { cartData } from "../../constance";
 import useGetCartDataQuery from "../../hooks/useGetCartDataQuery";
 import { memo } from "react";
+import Loading from "../Commons/Loading";
+
+import { useSelector } from "react-redux";
+import useOrderCartItems from "../../hooks/useOrderCartItems";
 
 /**
  *
@@ -17,8 +20,31 @@ import { memo } from "react";
 
 export default memo(function CartForm() {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [paymentData, setPaymentData] = useState({});
+  const userInfo = useSelector((state) => state.user);
 
   const getCartData = useGetCartDataQuery();
+  console.log(getCartData.data);
+  const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
+
+  useEffect(() => {
+    setPaymentData({
+      pg: "kakaopay",
+      pay_method: "card",
+      merchant_uid: `mid_${new Date().getTime()}`,
+      name: "stateMall-payment",
+      amount: totalPrice,
+      buyer_email: userInfo.email,
+      buyer_name: userInfo.name,
+      buyer_tel: userInfo.phone,
+      buyer_addr: userInfo.address,
+      buyer_postcode: userInfo.postcode,
+    });
+  }, [totalPrice]);
+
+  if (getCartData.isLoading) {
+    return <Loading />;
+  }
   return (
     <Container>
       <FormHeader>
@@ -40,6 +66,7 @@ export default memo(function CartForm() {
                 itemTitle={v.product.name}
                 size={v.product.size}
                 setTotalPrice={setTotalPrice}
+                cartId={v.cartId}
               />
             );
           })}
@@ -57,7 +84,9 @@ export default memo(function CartForm() {
           </span>
         </SubTotal>
       </FormFooter>
-      <Button>ORDER NOW</Button>
+      <Button disable={true} onClick={orderCartAction.mutate}>
+        ORDER NOW
+      </Button>
     </Container>
   );
 });

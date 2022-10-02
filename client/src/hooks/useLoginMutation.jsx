@@ -12,11 +12,15 @@ export default function useLoginMutation(value) {
     () => loginFn(value),
     {
       retry: false,
-      onSuccess: async (res) =>
+      onSuccess: (res) =>
         dispatch(
           setUser({
+            id: res.data.data.memberId,
             name: res.data.data.name,
             email: res.data.data.email,
+            phone: res.data.data.phone,
+            address: res.data.data.homeAddress,
+            postcode: res.data.data.zipcode,
             isLogin: true,
           })
         ),

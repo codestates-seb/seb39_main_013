@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // eslint-disable-next-line
 import styled, { css } from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -8,21 +8,30 @@ import { Link } from "react-router-dom";
 import Price from "./Price";
 import useAddFavoriteItem from "../../hooks/useAddFavoriteItem";
 import Loading from "./Loading";
+import useDeleteFavorite from "../../hooks/useDeleteFavorite";
 
 // eslint-disable-next-line
 function ItemCard(props) {
   const [isClicked, setIsClicked] = useState(props.favorite);
   const addFavoriteAction = useAddFavoriteItem({ productId: props.id });
+  const deleteFavoriteAction = useDeleteFavorite(props.favoriteId);
+
+  useEffect(() => {
+    setIsClicked(props.favorite);
+  }, [props.favorite]);
+
   const handleClicked = (e) => {
     e.preventDefault();
     setIsClicked((curr) => !curr);
 
     if (!props.favorite) {
       addFavoriteAction.mutate();
+    } else if (props.favorite) {
+      deleteFavoriteAction.mutate();
     }
   };
 
-  if (addFavoriteAction.isLoading) {
+  if (addFavoriteAction.isLoading || deleteFavoriteAction.isLoading) {
     return <Loading />;
   }
 
@@ -31,7 +40,7 @@ function ItemCard(props) {
       <Link to={`/detail/${props.id}`}>
         <ItemCardImg className="ItemCard-Image">
           <img src={props.productImg} alt="product_img" />
-          {isClicked ? ( //
+          {isClicked ? (
             <AiFillHeart onClick={handleClicked} className="ItemCard-Heart" />
           ) : (
             <AiOutlineHeart

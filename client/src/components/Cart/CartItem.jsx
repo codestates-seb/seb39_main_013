@@ -7,13 +7,21 @@ import { FaWonSign } from "react-icons/fa";
 import DeleteButton from "../Commons/DeleteButton";
 import { Link } from "react-router-dom";
 import Price from "../Commons/Price";
+import useDeleteCartData from "../../hooks/useDeleteCartData";
 
 export default function CartItem(props) {
   const [quantity, setQuantity] = useState(1);
+  const deleteCartItemAction = useDeleteCartData(props.cartId);
 
   useEffect(() => {
     props.setTotalPrice((prev) => (prev += quantity * props.price));
   }, [quantity]);
+
+  const deleteCartHandler = (e) => {
+    e.preventDefault();
+    deleteCartItemAction.mutate();
+  };
+
   return (
     <Container>
       <ItemProfile>
@@ -48,7 +56,7 @@ export default function CartItem(props) {
           <FaWonSign />
           <Price price={props.price * quantity} />
         </div>
-        <DeleteButton />
+        <DeleteButton onClick={deleteCartHandler} />
       </TotalPrice>
     </Container>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import Loading from "../Commons/Loading";
 import styled from "styled-components";
@@ -6,6 +6,10 @@ import ItemCard from "../Commons/ItemCard";
 
 export default function MyFavoriteList() {
   const getFavoriteData = useGetFavoriteItem();
+
+  useEffect(() => {
+    getFavoriteData.refetch();
+  }, []);
 
   if (getFavoriteData.isLoading) {
     return <Loading />;
@@ -15,6 +19,7 @@ export default function MyFavoriteList() {
   return (
     <Container>
       {getFavoriteData?.data?.map((v) => {
+        console.log(v);
         return (
           <ItemCard
             key={v.product.product_id}
@@ -24,6 +29,7 @@ export default function MyFavoriteList() {
             title={v.product.name}
             price={v.product.price}
             favorite={true}
+            favoriteId={v.bookmarkId}
           />
         );
       })}

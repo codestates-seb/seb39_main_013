@@ -1,33 +1,43 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
 import SignInput from "../Commons/SignInput";
-import { useDispatch } from "react-redux";
 import useLoginMutation from "../../hooks/useLoginMutation";
-import useOauthMutaion from "../../hooks/useOauthMutaion";
-import useAuthorize from "../../hooks/useAuthorize";
-import { authorizeToken } from "../../api";
 import Loading from "../Commons/Loading";
+import { emailValidation, passwordValidation } from "../../utils/validation";
 
 export default function LoginForm() {
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: "",
   });
-
+  const [isValid, setIsValid] = useState(false);
+  const [inputValid, setInputValid] = useState(false);
   const navigate = useNavigate();
   const loginAction = useLoginMutation(loginValue);
-  const oauthLoginAction = useOauthMutaion();
-  const authToken = useAuthorize();
 
   useEffect(() => {
     if (loginAction.isSuccess) {
       navigate("/");
     }
   }, [loginAction.isSuccess]);
+
+  useEffect(() => {
+    let valid = true;
+    for (let i in loginValue) {
+      if (!loginValue[i]) {
+        valid = false;
+        break;
+      }
+    }
+    if (!valid || !inputValid) {
+      setIsValid(false);
+    } else if (valid && inputValid) {
+      setIsValid(true);
+    }
+  }, [loginValue, inputValid]);
 
   const inputChangeHandler = (e) => {
     setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
@@ -38,17 +48,7 @@ export default function LoginForm() {
     loginAction.mutate();
   };
 
-  const oauthActionHandler = (e) => {
-    e.preventDefault();
-    oauthLoginAction.refetch();
-  };
-
-  const tokenAuth = (e) => {
-    e.preventDefault();
-    authToken.refetch();
-  };
-
-  if (loginAction.isLoading || oauthLoginAction.isLoading) {
+  if (loginAction.isLoading) {
     return <Loading />;
   }
 
@@ -60,6 +60,10 @@ export default function LoginForm() {
         text={"Input your Email"}
         type={"email"}
         changeHandler={inputChangeHandler}
+        onBlur={emailValidation}
+        value={loginValue.email}
+        errorMassage={"이메일 형식을 지켜주세요."}
+        setValid={setInputValid}
       />
       <SignInput
         name={"password"}
@@ -67,9 +71,17 @@ export default function LoginForm() {
         text={"Input your Password"}
         type={"password"}
         changeHandler={inputChangeHandler}
+        onBlur={passwordValidation}
+        value={loginValue.password}
+        errorMassage={"비밀번호는 6자리 이상을 입력해주세요."}
+        setValid={setInputValid}
       />
       <MiddleWrapper>
-        <SignButton mode={"login"} onClickHandler={loginActionHandler}>
+        <SignButton
+          mode={"login"}
+          onClickHandler={loginActionHandler}
+          disabled={isValid}
+        >
           Login
         </SignButton>
         <SignMenuWrapper>
@@ -84,11 +96,6 @@ export default function LoginForm() {
           </div>
         </SignMenuWrapper>
       </MiddleWrapper>
-      {/* <GoogleLogin clientId={googleClientID} onSuccess={googleAuthOnSuccess} /> */}
-      <SignButton onClickHandler={oauthActionHandler}>
-        Login with Google
-      </SignButton>
-      <SignButton onClickHandler={tokenAuth}>Authrize</SignButton>
     </Container>
   );
 }

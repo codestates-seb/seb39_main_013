@@ -1,8 +1,16 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { memo, useState } from "react";
 import styled from "styled-components";
 
-export default function SignInput(props) {
+export default memo(function SignInput(props) {
+  const [check, setCheck] = useState(true);
+
+  const checkValidate = (value) => {
+    const isValidate = props.onBlur(value);
+    props.setValid(isValidate);
+    setCheck(isValidate);
+  };
+
   return (
     <Container>
       <label htmlFor={props.name}>{props.label}</label>
@@ -13,11 +21,13 @@ export default function SignInput(props) {
           placeholder={props.text}
           name={props.name}
           onChange={(e) => props.changeHandler(e)}
+          onBlur={() => checkValidate(props.value)}
         />
       </InputWrapper>
+      {!check && <ErrorMassage>{props.errorMassage}</ErrorMassage>}
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 100%;
@@ -37,4 +47,9 @@ const InputWrapper = styled.div`
     outline: none;
     line-height: 1.2rem;
   }
+`;
+
+const ErrorMassage = styled.span`
+  color: #eb5252;
+  font-size: 14px;
 `;
