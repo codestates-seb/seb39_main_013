@@ -41,7 +41,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                         product.contentImages
                 ))
                 .from(product)
-                .where(product.name.eq(name)).fetch();
+                .where(product.name.eq(name))
+                .fetch();
     }
     public Page<ProductDto> searchPageSimple(Pageable pageable, ProductCondition condition) {
         List<ProductDto> content = queryFactory
@@ -59,6 +60,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     product.contentImages
                 ))
                 .from(product)
+                .groupBy(product.name)
                 .where(
                     brandIdEq(condition.getBrandId()),
                     brandNameContains(condition.getBrandName()),
