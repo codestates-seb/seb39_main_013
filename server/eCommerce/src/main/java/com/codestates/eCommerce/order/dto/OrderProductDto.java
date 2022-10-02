@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderProductDto {
@@ -19,4 +19,15 @@ public class OrderProductDto {
     private String productSize;
     private String productColor;
     private ProductOrderStatus productOrderStatus;
+
+    @QueryProjection
+    public OrderProductDto(Long orderProductId, Long productId, Integer productQuantity, Integer productPrice, String productSize, String productColor, ProductOrderStatus productOrderStatus) {
+        this.orderProductId = orderProductId;
+        this.productId = productId;
+        this.productQuantity = productQuantity;
+        this.productPrice = productPrice;
+        this.productSize = productSize;
+        this.productColor = productColor;
+        this.productOrderStatus = productOrderStatus;
+    }
 }

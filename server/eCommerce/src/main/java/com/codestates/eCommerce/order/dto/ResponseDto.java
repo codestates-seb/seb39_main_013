@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class ResponseDto {
+public class ResponseDto<T> {
 
-    private OrderResponseDto orderResponseDto;
+    private T orderResponseDto;
 //    private Long orderId;
 //    private Long memberId;
 //    private String orderStatus;

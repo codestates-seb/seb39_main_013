@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.product.infrastructure;
+package com.codestates.eCommerce.product.domain.repository;
 
 import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
 import com.codestates.eCommerce.product.dto.ProductCondition;

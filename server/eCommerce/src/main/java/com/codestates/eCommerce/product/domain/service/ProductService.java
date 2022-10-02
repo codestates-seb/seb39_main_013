@@ -4,16 +4,20 @@ import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepository;
+import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ProductService {
 
@@ -41,6 +45,14 @@ public class ProductService {
         Product findProduct = findVerifiedProduct(productId);
         validateCheckAndUpdate(requestDto, findProduct);
         return findProduct;
+    }
+    public Page<ProductDto> getProductPage(int page, int pageSize, ProductCondition condition) {
+        //        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
+        return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
+    }
+
+    public List<ProductDto> getProduct(String name) {
+        return productRepository.getProduct(name);
     }
 
     private static void validateCheckAndUpdate(RequestDto.Patch requestDto, Product findProduct) {

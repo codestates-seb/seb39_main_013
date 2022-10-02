@@ -8,13 +8,13 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
-@NoArgsConstructor
+@Getter
+@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderResponseDto {
     private Long orderId;
     private Long buyerId;      //aggregate
-    private List<OrderProductDto> orderProducts = new ArrayList<>();
+    private List<OrderProductDto> orderProducts ;
     private String buyerAddress;
     private String buyerName;
     private String buyerPostcode;
