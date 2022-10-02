@@ -23,7 +23,8 @@ function RiviewForm(props) {
     e.preventDefault();
     const newReview = {
       reviewId: Math.random().toString(36).substr(2, 9),
-      reviewName: name,
+      reviewName: props.username,
+      reviewEmail: props.userEmail,
       reviewCreatedAt: new Date().toLocaleString(),
       reviewContent: text,
       reviewStars: clickedRadioBtn,
@@ -68,8 +69,8 @@ function RiviewForm(props) {
             </label>
           </div>
           <div className="review-inputInfo">
-            <input key="nameInput" className="inputForm" name={"Name"} type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-            <input key="emailInput" className="inputForm" name={"Email"} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input key="nameInput" className="inputForm" name={"Name"} type="text" placeholder="Name" value={props.userName} onChange={(e) => setName(e.target.value)} required readOnly />
+            <input key="emailInput" className="inputForm" name={"Email"} type="email" placeholder="Email" value={props.userEmail} onChange={(e) => setEmail(e.target.value)} required readOnly />
           </div>
           <div className="review-content">
             <textarea value={text} onChange={(e) => setText(e.target.value)} required placeholder="리뷰를 작성해주세요. 로그인 하여야 작성이 가능합니다." />

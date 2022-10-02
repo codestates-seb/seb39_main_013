@@ -31,8 +31,12 @@ function ReviewComment(props) {
               <div className="reviewComment-content-top__left">
                 <div className="reviewComment-author">{props.review.reviewName}</div>
                 <div className="reviewComment-CreatedAt">{props.review.reviewCreatedAt}</div>
-                <button onClick={() => props.setClickedReview([props.review.reviewId, true])}>리뷰 수정하기</button>
-                <button onClick={() => props.deleteReview(props.review.reviewId)}>리뷰 삭제하기</button>
+                {props.UserIsLogin && props.userEmail === props.review.reviewEmail ? ( //
+                  <button onClick={() => props.setClickedReview([props.review.reviewId, true])}>리뷰 수정하기</button>
+                ) : null}
+                {props.UserIsLogin && props.userEmail === props.review.reviewEmail ? ( //
+                  <button onClick={() => props.deleteReview(props.review.reviewId)}>리뷰 삭제하기</button>
+                ) : null}
               </div>
               <div className="reviewComment-content-top__right">
                 <div>{renderStars(Number(props.review.reviewStars))}</div>
