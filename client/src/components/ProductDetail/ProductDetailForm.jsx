@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import Comments from "../Comment/Comments";
+import AdditionalInfo from "./AdditionalInfo";
 
 import ProductDetailOrder from "./ProductDetailOrder";
 
@@ -23,7 +24,8 @@ export default function ProductDetailForm(props) {
           maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
-      <Comments />
+      <AdditionalInfo contentImg={props.dataInfo.content_images} />
+      {/* <Comments /> */}
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import useGetProductItems from "../../hooks/useGetProductItems";
@@ -9,8 +10,15 @@ import Loading from "../Commons/Loading";
 
 // eslint-disable-next-line
 function MainItems(props) {
+  const userInfo = useSelector((state) => state.user);
   const getFavoriteData = useGetFavoriteItem();
   const getDataList = useGetProductItems(props.params);
+
+  useEffect(() => {
+    if (userInfo.isLogin) {
+      getFavoriteData.refetch();
+    }
+  }, [userInfo]);
 
   if (getDataList.isLoading || getFavoriteData.isLoading) {
     return <Loading />;

@@ -38,6 +38,7 @@ const Container = styled.section`
     props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};
   grid-column-gap: 40px;
   grid-row-gap: 64px;
+  place-items: center;
   width: 100%;
   max-width: 1280px;
 

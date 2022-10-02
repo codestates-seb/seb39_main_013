@@ -24,9 +24,9 @@ export default function LoginForm() {
   const authToken = useAuthorize();
 
   useEffect(() => {
-    // if (loginAction.isSuccess) {
-    //   navigate("/");
-    // }
+    if (loginAction.isSuccess) {
+      navigate("/");
+    }
   }, [loginAction.isSuccess]);
 
   const inputChangeHandler = (e) => {
