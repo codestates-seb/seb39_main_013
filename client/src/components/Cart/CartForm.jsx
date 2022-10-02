@@ -24,7 +24,6 @@ export default memo(function CartForm() {
 
   const getCartData = useGetCartDataQuery();
   const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
-  console.log("data :", orderCartAction.data);
   useEffect(() => {
     setPaymentData({
       pg: "kakaopay",
@@ -41,8 +40,10 @@ export default memo(function CartForm() {
   }, [totalPrice]);
 
   const clickHander = () => {
-    orderCartAction.mutate();
-    console.log(orderCartAction.data);
+    const resAPI = orderCartAction.api();
+    if (resAPI) {
+      orderCartAction.mutate();
+    }
   };
 
   if (getCartData.isLoading || orderCartAction.isLoading) {
