@@ -36,7 +36,7 @@ public interface ProductMapper {
         productDetailDto.setPrice(productDtos.get(0).getPrice());
         productDetailDto.setColor(productDtos.get(0).getColor());
         productDetailDto.setThumbImages(productDtos.get(0).getThumbImages());
-        productDetailDto.setContentsImages(productDtos.get(0).getContentsImages());
+        productDetailDto.setContentImages(productDtos.get(0).getContentImages());
         return productDetailDto;
     }
 }
