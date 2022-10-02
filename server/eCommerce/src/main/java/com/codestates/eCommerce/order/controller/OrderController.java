@@ -26,7 +26,6 @@ public class OrderController {
     @PostMapping("/cart")
     public ResponseEntity<?> cartOrder(@RequestBody OrderRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseDto responseDto = appOrderService.placeOrder(principalDetails.getMember(),requestDto);
-        log.info("logggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
 

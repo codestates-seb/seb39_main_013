@@ -36,13 +36,26 @@ public class MemberService {
         return member;
     }
 
+    public Long updateMember(Member member) {
+        Member findMember = findVerifiedMember(member.getMemberId());
+
+        Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(passwordEncoder.encode(password)));
+        Optional.ofNullable(member.getName()).ifPresent(name -> findMember.setName(name));
+        Optional.ofNullable(member.getPhone()).ifPresent(phone -> findMember.setPhone(phone));
+        Optional.ofNullable(member.getHomeAddress()).ifPresent(homeAddress -> findMember.setHomeAddress(homeAddress));
+        Optional.ofNullable(member.getZipcode()).ifPresent(zipcode -> findMember.setZipcode(zipcode));
+        Optional.ofNullable(member.getProfileImage()).ifPresent(profileImage -> findMember.setProfileImage(profileImage));
+
+        return member.getMemberId();
+    }
+
     private Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = repository.findById(memberId);
         Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return member;
     }
-
     // 기존에 가입된 회원인지 검증(email)
+
     public void verifyExistsMember(String email) {
         Optional<Member> optionalMember = repository.findByEmail(email);
         if (optionalMember.isPresent()) {

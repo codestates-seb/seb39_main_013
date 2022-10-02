@@ -53,4 +53,5 @@ public class ProductController {
         ResponseDto responseDto = appProductSerivce.updateProduct(productId,requestDto);
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.ACCEPTED);
     }
+
 }
