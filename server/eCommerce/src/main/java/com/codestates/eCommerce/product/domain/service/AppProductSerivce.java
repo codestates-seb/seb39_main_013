@@ -18,7 +18,6 @@ import java.util.function.Function;
 public class AppProductSerivce {
 
     private final ProductService productService;
-    private final ProductCustomService productCustomService;
     private final ProductMapper productMapper;
 
     public ResponseDto postProduct(RequestDto.Post requestDto) {
@@ -35,14 +34,14 @@ public class AppProductSerivce {
 
     @Transactional(readOnly = true)
     public ResponseDetailDto getProduct(String name){
-        List<ProductDto> product = productCustomService.getProduct(name);
+        List<ProductDto> product = productService.getProduct(name);
         ProductDetailDto productDetailDto = productMapper.toProductDetailDto(product);
         return  productMapper.toResponseDetailDto(productDetailDto);
     }
 
     @Transactional(readOnly = true)
     public Page<ResponseDto> getProductPage(int page, int size ,ProductCondition productCondition) {
-        Page<ProductDto> pageProductDtos = productCustomService.getProductPage(page,size, productCondition);
+        Page<ProductDto> pageProductDtos = productService.getProductPage(page,size, productCondition);
         return pageProductDtos.map(new Function<ProductDto, ResponseDto>() {
             @Override
             public ResponseDto apply(ProductDto productDto) {
