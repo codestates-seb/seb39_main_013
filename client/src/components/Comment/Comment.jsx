@@ -62,6 +62,8 @@ function Comment(props) {
                   deleteAnswer={props.deleteAnswer}
                   updateAnswer={props.updateAnswer}
                   initialText={reply.answerContent}
+                  userEmail={props.userEmail}
+                  userIsLogin={props.userIsLogin}
                 />
               ))
             : null}
@@ -71,6 +73,8 @@ function Comment(props) {
         <ReplyCommentForm
           addReplyComment={props.addReplyComment} //
           replyparent={props.item}
+          userName={props.userName}
+          userEmail={props.userEmail}
         />
       ) : null}
       {props.isEditing ? (

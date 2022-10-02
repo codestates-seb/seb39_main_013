@@ -11,7 +11,8 @@ function ReplyCommentForm(props) {
     const newReply = {
       answerId: Math.random().toString(36).substr(2, 9),
       parentQuestion: props.replyparent.questionId,
-      answerName: "답변자이당...",
+      answerName: props.userName,
+      answerEmail: props.userEmail,
       answerCreatedAt: new Date().toLocaleDateString(),
       answerContent: text,
     };
@@ -26,7 +27,7 @@ function ReplyCommentForm(props) {
       <form className="replyComment-box" onSubmit={handleSubmit}>
         <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
         <div className="replyComment-submitBox">
-          <button type="submit">Submit</button>
+          <button type="submit">답변하기</button>
         </div>
       </form>
     </Container>
