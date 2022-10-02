@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.order.domain.service;
 
+import com.codestates.eCommerce.cart.service.CartService;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
@@ -21,6 +22,7 @@ public class AppOrderService {
 
     private final OrderMapper orderMapper;
     private final OrderProductMapper orderProductMapper;
+    private final CartService cartService;
     private final OrderService orderService;
     private final ProductService productService;
 
@@ -33,14 +35,16 @@ public class AppOrderService {
         //카드에 담긴걸 줌누
         //
         Order order = orderMapper.toOrderEntity(reqOrderDto);
+
         order.setBuyerId(member.getMemberId());
         Order createOrder = orderService.createOrder(member.getMemberId(),order);
-        createOrder.getOrderProducts().forEach(pd ->
-                productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
-        /** Todo 카트에있는거 지우기 */
+
+        createOrder.getOrderProducts().forEach(pd -> productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
+
+        cartService.deleteCartBy(member.getMemberId()); //카트 비우기
+
 
         OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
-
         return new ResponseDto(orderResponseDto);
     }
 

@@ -54,4 +54,8 @@ public class CartService {
         Cart cart = optionalCart.orElseThrow(() -> new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
         return cart;
     }
+
+    public void deleteCartBy(Long userId){
+        repository.deleteByMemberId(userId);
+    }
 }

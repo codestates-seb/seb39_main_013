@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Table(
         name="product",
         uniqueConstraints={
@@ -23,6 +23,7 @@ import java.util.List;
                 )
         }
 )
+@Entity
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor

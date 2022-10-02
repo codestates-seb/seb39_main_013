@@ -7,6 +7,7 @@ import com.codestates.eCommerce.order.domain.service.AppOrderService;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.Generated;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {
 
     private final AppOrderService appOrderService;
