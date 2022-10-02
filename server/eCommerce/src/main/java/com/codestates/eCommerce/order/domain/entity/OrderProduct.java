@@ -8,9 +8,8 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter @Builder
+@Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class OrderProduct extends BaseEntity {
     @Id
@@ -34,6 +33,9 @@ public class OrderProduct extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ProductOrderStatus productOrderStatus;
 
+    public void setOrder(Order order){
+        this.order = order;
+    }
 //    //생성 메서드
 //    public static OrderProduct createOrderProduct(Long productId, Integer productQuantity, Integer productPrice, String productSize, String productColor) {
 //        OrderProduct orderProduct = new OrderProduct();

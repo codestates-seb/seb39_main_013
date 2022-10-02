@@ -8,11 +8,11 @@ import com.codestates.eCommerce.order.mapper.OrderProductMapper;
 import com.codestates.eCommerce.order.mapper.OrderMapper;
 import com.codestates.eCommerce.order.dto.ResponseDto;
 import com.codestates.eCommerce.product.domain.service.ProductService;
-import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,12 +35,18 @@ public class AppOrderService {
         Order order = orderMapper.toOrderEntity(reqOrderDto);
         order.setBuyerId(member.getMemberId());
         Order createOrder = orderService.createOrder(member.getMemberId(),order);
-        order.getOrderProducts().forEach(pd ->
+        createOrder.getOrderProducts().forEach(pd ->
                 productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
         /** Todo 카트에있는거 지우기 */
 
-        OrderResponseDto resOrderServiceDto = orderMapper.toOrderResponseDto(order);
+        OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
 
-        return new ResponseDto(resOrderServiceDto);
+        return new ResponseDto(orderResponseDto);
+    }
+
+    public ResponseDto getOrderInfo(Member member) {
+        List<Order> order = orderService.getOrderByQueryDSL(member.getMemberId());
+        List<OrderResponseDto> orderResponseDto = orderMapper.toOrderResponseDtoList(order);
+        return new ResponseDto(orderResponseDto);
     }
 }

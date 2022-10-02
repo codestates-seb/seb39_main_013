@@ -5,6 +5,7 @@ import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.ResponseDto;
 import com.codestates.eCommerce.order.domain.service.AppOrderService;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,13 @@ public class OrderController {
     @PostMapping("/cart")
     public ResponseEntity<?> cartOrder(@RequestBody OrderRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseDto responseDto = appOrderService.placeOrder(principalDetails.getMember(),requestDto);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    @GetMapping("/info")
+    public ResponseEntity<?> getOrder(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseDto responseDto = appOrderService.getOrderInfo(principalDetails.getMember());
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
     @GetMapping("/hello")
