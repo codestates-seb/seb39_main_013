@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const userInfo = useSelector((state) => state.user);
-  console.log("inner header :", userInfo);
-
   return (
     <Container>
       <SearchBar />

@@ -31,7 +31,6 @@ function MainItems(props) {
     return <Loading />;
   }
 
-  console.log("render ===========================================");
   return (
     <Container mode={props.mode}>
       {getDataList?.data?.data.map((v) => {

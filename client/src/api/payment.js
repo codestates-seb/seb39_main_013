@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { useQueryClient } from "react-query";
 import { orderCartItems } from ".";
 
 export const paymentClickHandler = (data, productInfo) => {
@@ -19,12 +21,13 @@ export const paymentClickHandler = (data, productInfo) => {
             "quantity" : v.productQuantity,
             "price" : v.product.price,
             "size" : v.product.size,
-            "color" : v.product.color 
+            "color" : v.product.color
           }
         })
     }
-      // console.log('success!! :' ,res);
-      orderCartItems(body)
+    const response = orderCartItems(body);
+    console.log('res :', response);
+    return response;
     } else {
       console.log("payment Error!!!" + error_msg);
     }
@@ -32,10 +35,3 @@ export const paymentClickHandler = (data, productInfo) => {
   window.IMP?.request_pay(data, reqPayment);
 };
 
-// { 
-//   "product_id" : 3,
-//   "quantity" : 2,
-//   "price" : 1000,
-//   "size" : 105,
-//   "color" : "red"
-// },

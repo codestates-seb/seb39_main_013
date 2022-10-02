@@ -1,14 +1,15 @@
-import { useMutation } from "react-query";
+/* eslint-disable no-unused-vars */
+import { useMutation, useQueryClient } from "react-query";
+import { orderCartItems } from "../api";
 import { paymentClickHandler } from "../api/payment";
 
 export default function useOrderCartItems(payment, productData) {
-  const { mutate } = useMutation(
+  const { mutate, data, isLoading } = useMutation(
     () => paymentClickHandler(payment, productData),
     {
       retry: false,
-      onSuccess: (data) => console.log(data),
     }
   );
 
-  return { mutate };
+  return { mutate, data, isLoading };
 }

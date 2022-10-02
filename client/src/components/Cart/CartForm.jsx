@@ -9,7 +9,6 @@ import Price from "../Commons/Price";
 import useGetCartDataQuery from "../../hooks/useGetCartDataQuery";
 import { memo } from "react";
 import Loading from "../Commons/Loading";
-
 import { useSelector } from "react-redux";
 import useOrderCartItems from "../../hooks/useOrderCartItems";
 
@@ -24,9 +23,8 @@ export default memo(function CartForm() {
   const userInfo = useSelector((state) => state.user);
 
   const getCartData = useGetCartDataQuery();
-  console.log(getCartData.data);
   const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
-
+  console.log("data :", orderCartAction.data);
   useEffect(() => {
     setPaymentData({
       pg: "kakaopay",
@@ -42,9 +40,15 @@ export default memo(function CartForm() {
     });
   }, [totalPrice]);
 
-  if (getCartData.isLoading) {
+  const clickHander = () => {
+    orderCartAction.mutate();
+    console.log(orderCartAction.data);
+  };
+
+  if (getCartData.isLoading || orderCartAction.isLoading) {
     return <Loading />;
   }
+
   return (
     <Container>
       <FormHeader>
@@ -84,7 +88,7 @@ export default memo(function CartForm() {
           </span>
         </SubTotal>
       </FormFooter>
-      <Button disable={true} onClick={orderCartAction.mutate}>
+      <Button disable={true} onClick={clickHander}>
         ORDER NOW
       </Button>
     </Container>

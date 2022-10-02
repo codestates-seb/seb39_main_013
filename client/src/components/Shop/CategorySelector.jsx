@@ -1,17 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { categoryList } from "../../constance";
 
-export default function CategorySelector(props) {
-  const [searchParams, setSearchParams] = useSearchParams();
+export default memo(function CategorySelector(props) {
   const [isClick, setIsClick] = useState("");
   const categoryArray = categoryList;
-
   useEffect(() => {
     props.changeHandler({ target: { name: "majorClass", value: isClick } });
   }, [isClick]);
@@ -31,14 +28,16 @@ export default function CategorySelector(props) {
         {categoryArray.map((v) => {
           return (
             <li key={v.id} onClick={() => categoryClickHandler(v.mainCategory)}>
-              <MainCategory>{v.mainCategory}</MainCategory>
+              <MainCategory active={v.mainCategory === isClick}>
+                {v.mainCategory}
+              </MainCategory>
             </li>
           );
         })}
       </CategoryWrapper>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   display: flex;
@@ -53,19 +52,34 @@ const Container = styled.div`
 const CategoryWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 `;
 
-const MainCategory = styled(NavLink)`
+const MainCategory = styled.button`
   border: none;
+  width: 100%;
   background-color: transparent;
   font-size: 18px;
   color: black;
+  text-align: left;
+  position: relative;
+  transition: 0.5s;
+  padding: 8px;
+  border-radius: 8px;
 
-  &:active {
-    color: #2d7df4;
-    font-size: 20px;
+  &:hover {
+    background: transparent;
+    box-shadow: inset 300px 0 0 0 #2d7df4;
+    color: white;
   }
+
+  ${(props) =>
+    props.active &&
+    css`
+      background: transparent;
+      box-shadow: inset 300px 0 0 0 #2d7df4;
+      color: white;
+    `}
 `;
 
 // const SubCategory = styled.div`

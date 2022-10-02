@@ -15,13 +15,34 @@ function CommentCategory(props) {
   return (
     <Container>
       <div className="Banner-Items">
-        <button href="#" id={props.name[0]} onClick={handleClicked} className={"Banner-Item " + (btnActive === props.name[0] ? "active" : "")}>
+        <button
+          href="#"
+          id={props.name[0]}
+          onClick={handleClicked}
+          className={
+            "Banner-Item " + (btnActive === props.name[0] ? "active" : "")
+          }
+        >
           {props.name[0]}
         </button>
-        <button href="#" id={props.name[1]} onClick={handleClicked} className={"Banner-Item " + (btnActive === props.name[1] ? "active" : "")}>
+        <button
+          href="#"
+          id={props.name[1]}
+          onClick={handleClicked}
+          className={
+            "Banner-Item " + (btnActive === props.name[1] ? "active" : "")
+          }
+        >
           {props.name[1]}
         </button>
-        <button href="#" id={props.name[2]} onClick={handleClicked} className={"Banner-Item " + (btnActive === props.name[2] ? "active" : "")}>
+        <button
+          href="#"
+          id={props.name[2]}
+          onClick={handleClicked}
+          className={
+            "Banner-Item " + (btnActive === props.name[2] ? "active" : "")
+          }
+        >
           {props.name[2]}
         </button>
       </div>

@@ -9,9 +9,19 @@ import PriceRange from "./PriceRange";
 
 export default function ShopFilter(props) {
   const setParamsHandler = (e) => {
-    props.setParams((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    if (e.name === "price") {
+      props.setParams((prev) => {
+        return {
+          ...prev,
+          priceMin: Number(e.value.priceMin),
+          priceMax: Number(e.value.priceMax),
+        };
+      });
+    } else {
+      props.setParams((prev) => {
+        return { ...prev, [e.target.name]: e.target.value };
+      });
+    }
   };
 
   return (

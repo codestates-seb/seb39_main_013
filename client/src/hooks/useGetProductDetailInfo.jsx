@@ -7,7 +7,6 @@ export default function useGetProductDetailInfo(params) {
     () => getProductDetailInfo(params),
     {
       retry: 1,
-      onSuccess: (data) => console.log(data),
     }
   );
 
