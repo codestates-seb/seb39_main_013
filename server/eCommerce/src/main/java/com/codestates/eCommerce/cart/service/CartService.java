@@ -55,7 +55,7 @@ public class CartService {
         return cart;
     }
 
-    public void deleteCartBy(Long userId){
+    public void deleteCartByMemberId(Long userId){
         repository.deleteByMemberId(userId);
     }
 }

@@ -50,4 +50,10 @@ public class CartController {
         service.deleteCart(cartId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping("/member")
+    public ResponseEntity deleteCartByUserId(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        service.deleteCartByMemberId(principalDetails.getMember().getMemberId());
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
