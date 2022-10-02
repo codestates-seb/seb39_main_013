@@ -1,0 +1,91 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+plugins {
+	id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id 'java'
+}
+
+group = 'com.codestates'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/libs-milestone'}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+	implementation 'mysql:mysql-connector-java'
+	implementation 'com.auth0:java-jwt:4.0.0'
+	compileOnly 'org.projectlombok:lombok'
+//	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	//aws
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
+	//querydsl 추가
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+
+	// db json타입 넣기
+	implementation 'com.vladmihalcea:hibernate-types-52:2.19.2'
+}
+
+
+//dependencyManagement {
+//	imports {
+//		mavenBom 'org.springframework.cloud:spring-cloud-aws:2.2.6.RELEASE'
+//	}
+//}
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+// querydsl 컴파일 시 사용할 옵션 설정
+compileQuerydsl{
+	options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
+}
+// JPA 사용여부 및 사용 경로 설정
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+// build시 사용할 sourceSet 추가 설정
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+//ext {
+//	set('springCloudVersion', "2021.0.3")
+//}
+//dependencyManagement {
+//	imports {
+//		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+//	}
+//}
