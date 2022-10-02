@@ -74,10 +74,13 @@ function QnaForm(props) {
               onChange={(e) => setText(e.target.value)}
               required
               placeholder="질문을 작성해주세요. 로그인 하여야 작성이 가능합니다."
+              readOnly={!props.userIsLogin}
             />
           </div>
           <div className="submitBox">
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={!props.userIsLogin}>
+              Submit
+            </button>
           </div>
         </form>
       </div>
