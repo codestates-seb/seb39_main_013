@@ -9,7 +9,6 @@ function UpdateReviewForm(props) {
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
   const renderStars = (num) => [...Array(num)].map((num) => renderStar());
   const [clickedRadioBtn, setClickedRadioBtn] = useState(String(props.initialStars));
-  console.log(typeof clickedRadioBtn);
 
   return (
     <Container>

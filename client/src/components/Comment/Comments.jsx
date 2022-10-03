@@ -5,9 +5,6 @@ import CommentCategory from "../Commons/CommentCategory";
 import Comment from "./Comment";
 import AdditionalInfo from "../ProductDetail/AdditionalInfo";
 import ReviewForm from "./ReviewForm";
-import { dataQuestions } from "./dataQuestions";
-import { dataReviews } from "./dataReviews";
-import { dataAnswers } from "./dataAnswers";
 
 import { useState } from "react";
 import ReviewComment from "./ReviewComment";
@@ -38,7 +35,6 @@ function Comments(props) {
         return review.productId === props.productId;
       })
     );
-    console.log("실행");
   }, []);
 
   //이미 localStorage에 저장이 되어있다면 해당 아이들을 가져온다.
@@ -53,8 +49,8 @@ function Comments(props) {
   const [clickedReview, setClickedReview] = useState([null, false]);
   //리스트의 0번 인덱스틑 현재 클릭된 리뷰의 번호이다.
   //리스트의 1번 인덱스는 isEditing을 결정한다. boolean값으로 저장한다.
-  const [clickedAnser, setClickedAnswer] = useState(null, false);
-  //같은 로직으로 answer적용
+  //const [clickedAnser, setClickedAnswer] = useState(null, false);
+  //같은 로직으로 answer적용 answer는 후순위로 미뤄놨음
 
   const categoryItemList = ["Additional Info", "Reviews", "QnA"];
   const [clickedCategory, setClickedCategory] = useState(categoryItemList[0]);
@@ -90,9 +86,9 @@ function Comments(props) {
   const addNewReview = (newReview) => {
     setDummyData3((curr) => {
       const newDummyData3 = [...curr, newReview];
-      const newDataAReviews = [...JSON.parse(localStorage.getItem("dataReviewss")), newReview];
+      const newDataReviews = [...JSON.parse(localStorage.getItem("dataReviews")), newReview];
       localStorage.removeItem("dataReviews");
-      localStorage.setItem("dataReviews", JSON.stringify(newDataAReviews));
+      localStorage.setItem("dataReviews", JSON.stringify(newDataReviews));
       return newDummyData3;
     });
 
@@ -103,9 +99,11 @@ function Comments(props) {
     //questionId 나 answerId에 맞추어서 삭제해준다.
     if (window.confirm("정말로 해당 질문을 삭제하시겠습니까?")) {
       const updatedQuestions = dummyData.filter((question) => question.questionId !== questionId);
+      let newDataQuestions = JSON.parse(localStorage.getItem("dataQuestions"));
+      newDataQuestions = newDataQuestions.filter((question) => question.questionId !== questionId);
       setDummyData(() => {
         localStorage.removeItem("dataQuestions");
-        localStorage.setItem("dataQuestions", JSON.stringify(updatedQuestions));
+        localStorage.setItem("dataQuestions", JSON.stringify(newDataQuestions));
         return updatedQuestions;
       });
     }
@@ -114,9 +112,11 @@ function Comments(props) {
   const deleteAnswer = (answerId) => {
     if (window.confirm("정말로 해당 답변을 삭제하시겠습니까?")) {
       const updatedAnswers = dummyData2.filter((answer) => answer.answerId !== answerId);
+      let newDataAnswers = JSON.parse(localStorage.getItem("dataAnswers"));
+      newDataAnswers = newDataAnswers.filter((answer) => answer.answerId !== answerId);
       setDummyData2(() => {
         localStorage.removeItem("dataAnswers");
-        localStorage.setItem("dataAnswers", JSON.stringify(updatedAnswers));
+        localStorage.setItem("dataAnswers", JSON.stringify(newDataAnswers));
         return updatedAnswers;
       });
     }
@@ -125,15 +125,24 @@ function Comments(props) {
   const deleteReview = (reviewId) => {
     if (window.confirm("정말로 해당 리뷰를 삭제하시겠습니까?")) {
       const updatedReviews = dummyData3.filter((review) => review.reviewId !== reviewId);
+      let newDataReviews = JSON.parse(localStorage.getItem("dataReviews"));
+      newDataReviews = newDataReviews.filter((review) => review.reviewId !== reviewId);
       setDummyData3(() => {
         localStorage.removeItem("dataReviews");
-        localStorage.setItem("dataReviews", JSON.stringify(updatedReviews));
+        localStorage.setItem("dataReviews", JSON.stringify(newDataReviews));
         return updatedReviews;
       });
     }
   };
 
   const updateQuestion = (questionId, text) => {
+    let newDataQuestions = JSON.parse(localStorage.getItem("dataQuestions"));
+    newDataQuestions = newDataQuestions.map((question) => {
+      if (question.questionId === questionId) {
+        return { ...question, questionContent: text };
+      }
+      return question;
+    });
     const updatedQuestions = dummyData.map((question) => {
       if (question.questionId === questionId) {
         return { ...question, questionContent: text };
@@ -143,13 +152,20 @@ function Comments(props) {
 
     setDummyData(() => {
       localStorage.removeItem("dataQuestions");
-      localStorage.setItem("dataQuestions", JSON.stringify(updatedQuestions));
+      localStorage.setItem("dataQuestions", JSON.stringify(newDataQuestions));
       setClickedQuestion([questionId, false, false]);
       return updatedQuestions;
     });
   };
 
   const updateReview = (reviewId, text, clickedRadioBtn) => {
+    let newDataReviews = JSON.parse(localStorage.getItem("dataReviews"));
+    newDataReviews = newDataReviews.map((review) => {
+      if (review.reviewId === reviewId) {
+        return { ...review, reviewContent: text, reviewStars: clickedRadioBtn };
+      }
+      return review;
+    });
     const updatedReview = dummyData3.map((review) => {
       if (review.reviewId === reviewId) {
         return { ...review, reviewContent: text, reviewStars: clickedRadioBtn };
@@ -159,7 +175,7 @@ function Comments(props) {
 
     setDummyData3(() => {
       localStorage.removeItem("dataReviews");
-      localStorage.setItem("dataReviews", JSON.stringify(updatedReview));
+      localStorage.setItem("dataReviews", JSON.stringify(newDataReviews));
       setClickedReview([null, false]);
       return updatedReview;
     });

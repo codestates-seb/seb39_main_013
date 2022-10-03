@@ -4,17 +4,9 @@ import styled from "styled-components";
 
 /* eslint-disable */
 function QnaForm(props) {
-  const handleSubmit = () => {
-    //qnaId와 name, email을 넣어서 api에 객체를 전달해준다.
-  };
-  console.log("QNA FORM", props.productId);
-
-  const [qnaData, setQnaData] = useState(null); //주어진 자료를 기초로 텍스트가 변경될 때 textarea에 있는 아이를 추가해준다.
-
   const [text, setText] = useState("");
   const [name, setName] = useState(props.userName);
   const [email, setEmail] = useState(props.userEmail);
-  const isTextareaDisabled = text.length === 0;
 
   const submitNewComment = (e) => {
     e.preventDefault();
@@ -31,9 +23,7 @@ function QnaForm(props) {
     setEmail("");
     setText("");
   };
-  console.log(text);
-  console.log(name);
-  console.log(email);
+
   return (
     <Container>
       <div className="QnaBox">

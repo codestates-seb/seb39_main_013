@@ -2,10 +2,8 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import Button from "../Commons/Button";
 
 function ReplyCommentForm(props) {
-  console.log("답변 폼", props.productId);
   const [text, setText] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,15 +13,13 @@ function ReplyCommentForm(props) {
       parentQuestion: props.replyparent.questionId,
       answerName: props.userName,
       answerEmail: props.userEmail,
-      answerCreatedAt: new Date().toLocaleDateString(),
+      answerCreatedAt: new Date().toLocaleString(),
       answerContent: text,
     };
     props.addReplyComment(newReply);
     setText("");
   };
 
-  console.log(props.replyparent);
-  console.log(props.addReplyComment);
   return (
     <Container>
       <form className="replyComment-box" onSubmit={handleSubmit}>

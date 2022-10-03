@@ -7,14 +7,9 @@ function RiviewForm(props) {
   const handleSubmit = () => {
     //qnaId와 name, email을 넣어서 api에 객체를 전달해준다.
   };
-  console.log("리뷰 폼", props.productId);
-
-  const [qnaData, setQnaData] = useState(null); //주어진 자료를 기초로 텍스트가 변경될 때 textarea에 있는 아이를 추가해준다.
 
   const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const isTextareaDisabled = text.length === 0;
+
   const [clickedRadioBtn, setClickedRadioBtn] = useState("5");
 
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
@@ -25,7 +20,7 @@ function RiviewForm(props) {
     const newReview = {
       productId: props.productId,
       reviewId: Math.random().toString(36).substr(2, 9),
-      reviewName: props.username,
+      reviewName: props.userName,
       reviewEmail: props.userEmail,
       reviewCreatedAt: new Date().toLocaleString(),
       reviewContent: text,
@@ -33,11 +28,9 @@ function RiviewForm(props) {
     };
 
     props.addNewReview(newReview);
-    setName("");
-    setEmail("");
+
     setText("");
   };
-  console.log(text);
 
   return (
     <Container>

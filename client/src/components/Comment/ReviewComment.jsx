@@ -15,7 +15,6 @@ import UpdateReviewForm from "./UpdateReviewForm";
 //배열로 만든다 [clickedId, isReplying]으로 만든다.
 
 function ReviewComment(props) {
-  //"⭐".repeat(Number(props.review.reviewStars));
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
   const renderStars = (num) => [...Array(num)].map((num) => renderStar()); //이부분에서 start를 맵으로 뿌리기 대문에 key값 관련 이슈가 생긴다. 하지만 동작하는 부분에서 전혀 문제가 없기 때문에 고려해봐야한다. 일
   //일단은 랜덤한 키를 주는 것으로 해결.
