@@ -2,6 +2,7 @@ package com.codestates.eCommerce.common.advice;
 
 import com.codestates.eCommerce.common.config.matterMost.NotificationManager;
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
-import java.util.Enumeration;
+
+import static com.codestates.eCommerce.common.config.matterMost.MatterMostHelper.getParams;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
@@ -33,16 +35,6 @@ public class GlobalExceptionAdvice {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private String getParams(HttpServletRequest req) {
-        StringBuilder params = new StringBuilder();
-        Enumeration<String> keys = req.getParameterNames();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            params.append("- ").append(key).append(" : ").append(req.getParameter(key)).append("/n");
-        }
-
-        return params.toString();
-    }
 
 
     @ExceptionHandler
@@ -57,35 +49,34 @@ public class GlobalExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleConstraintViolationException(ConstraintViolationException e) {
         final ErrorResponse response = ErrorResponse.of(e.getConstraintViolations());
-
+        notificationManager.sendNotification(e);
         return response;
     }
 
     @ExceptionHandler
     public ResponseEntity handleBusinessLogicException(BusinessLogicException e) {
         final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
-
+        notificationManager.sendNotification(e);
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
                 .getStatus()));
     }
 
+    @ExceptionHandler
+    public ResponseEntity productBusinessLoginException(ProductBusinessExcepion e) {
+        final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
+        notificationManager.sendNotification(e);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
+                .getStatus()));
 
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.GONE)
-//    public ErrorResponse handleTokenExpiredException(TokenExpiredException e) {
-//        final ErrorResponse response = ErrorResponse.of(HttpStatus.GONE);
-//        return response;
-//    }
+    }
 
-
-    // todo 확인 필요
     @ExceptionHandler
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ErrorResponse handleHttpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException e) {
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED);
-
+        notificationManager.sendNotification(e);
         return response;
     }
 
@@ -96,6 +87,7 @@ public class GlobalExceptionAdvice {
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
                 "Required request body is missing");
+        notificationManager.sendNotification(e);
 
         return response;
     }
@@ -104,22 +96,11 @@ public class GlobalExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMissingServletRequestParameterException(
             MissingServletRequestParameterException e) {
-
         final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
                 e.getMessage());
-
+        notificationManager.sendNotification(e);
         return response;
     }
 
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ErrorResponse handleException(Exception e) {
-//        log.error("# handle Exception", e);
-//        // TODO 애플리케이션의 에러는 에러 로그를 로그에 기록하고, 관리자에게 이메일이나 카카오 톡,
-//        //  슬랙 등으로 알려주는 로직이 있는게 좋습니다.
-//
-//        final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//        return response;
-//    }
+
 }
