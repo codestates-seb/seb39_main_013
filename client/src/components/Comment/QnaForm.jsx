@@ -19,8 +19,7 @@ function QnaForm(props) {
       questionContent: text,
     };
     props.addComment(newComment);
-    setName("");
-    setEmail("");
+
     setText("");
   };
 

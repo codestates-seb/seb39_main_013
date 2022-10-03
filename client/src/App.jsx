@@ -18,7 +18,7 @@ import { dataReviews } from "./components/Comment/dataReviews";
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
-  console.log("첫페이지인가");
+
   useEffect(() => {
     if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
       //처음에 로컬 스토리지가 없는 경우에

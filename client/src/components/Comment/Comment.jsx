@@ -126,7 +126,7 @@ const Container = styled.div`
   }
 
   .comment-right-part {
-    flex: auto;
+    flex: 100%;
     .comment-content-top {
       display: flex;
 
@@ -164,6 +164,7 @@ const Container = styled.div`
       }
     }
     .comment-content_bottom {
+      word-break: break-all;
       .comment-text {
         height: auto;
         cursor: pointer;
