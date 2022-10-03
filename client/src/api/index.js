@@ -1,5 +1,6 @@
 import { authAxios, axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
+import { queryClient } from "../utils/queryClient";
 
 
 export const signUpFn = async (payload) => {
@@ -112,8 +113,7 @@ export const getFavoriteItem = async () => {
       Authorization: token
     }
   })
-  
-  console.log('inner axios :', res)
+
   return res.data.data;
 }
 
@@ -144,6 +144,6 @@ export const orderCartItems = async (body) => {
     headers: {
       Authorization: token,
     }
-  });
+  }).then(() => {queryClient.refetchQueries(["getCartData"])});
   return res;
 }

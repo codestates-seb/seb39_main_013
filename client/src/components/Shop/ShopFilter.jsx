@@ -13,8 +13,8 @@ export default function ShopFilter(props) {
       props.setParams((prev) => {
         return {
           ...prev,
-          priceMin: Number(e.value.priceMin),
-          priceMax: Number(e.value.priceMax),
+          minPrice: Number(e.value.priceMin),
+          maxPrice: Number(e.value.priceMax),
         };
       });
     } else {

@@ -40,14 +40,15 @@ export default memo(function CartForm() {
   }, [totalPrice]);
 
   const clickHander = () => {
-    const resAPI = orderCartAction.api();
-    if (resAPI) {
-      orderCartAction.mutate();
-    }
+    orderCartAction.mutate();
   };
 
   if (getCartData.isLoading || orderCartAction.isLoading) {
     return <Loading />;
+  }
+
+  if (orderCartAction.isSuccess) {
+    console.log("isSuccess");
   }
 
   return (
