@@ -19,9 +19,9 @@ export default function MyPageIconBox() {
           </Icons>
         </li>
         <li>
-          <Icons to="/">
+          <Icons to="/mypage/orders">
             <FiTruck />
-            <span>구매내역</span>
+            <span>주문내역</span>
           </Icons>
         </li>
         <li>

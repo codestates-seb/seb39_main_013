@@ -18,19 +18,24 @@ import useOrderCartItems from "../../hooks/useOrderCartItems";
  */
 
 export default memo(function CartForm() {
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState({});
+  const [calcPrice, setCalcPrice] = useState(0);
   const [paymentData, setPaymentData] = useState({});
   const userInfo = useSelector((state) => state.user);
-
   const getCartData = useGetCartDataQuery();
   const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
+
+  useEffect(() => {
+    setCalcPrice(Object.values(totalPrice).reduce((a, c) => (a += c), 0));
+  }, [totalPrice]);
+
   useEffect(() => {
     setPaymentData({
       pg: "kakaopay",
       pay_method: "card",
       merchant_uid: `mid_${new Date().getTime()}`,
       name: "stateMall-payment",
-      amount: totalPrice,
+      amount: calcPrice,
       buyer_email: userInfo.email,
       buyer_name: userInfo.name,
       buyer_tel: userInfo.phone,
@@ -82,7 +87,7 @@ export default memo(function CartForm() {
           <span>Subtotal</span>
           <span>
             <FaWonSign />
-            <Price price={totalPrice} />
+            <Price price={calcPrice} />
           </span>
         </SubTotal>
       </FormFooter>

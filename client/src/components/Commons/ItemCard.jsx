@@ -32,10 +32,6 @@ function ItemCard(props) {
     }
   };
 
-  if (addFavoriteAction.isLoading) {
-    return <Loading />;
-  }
-
   return (
     <Container>
       <Link to={`/detail/${props.id}`}>

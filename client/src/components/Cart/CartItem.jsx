@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import QuantitySelector from "./QuantitySelector";
 import { FaWonSign } from "react-icons/fa";
@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 import Price from "../Commons/Price";
 import useDeleteCartData from "../../hooks/useDeleteCartData";
 
-export default function CartItem(props) {
+export default memo(function CartItem(props) {
   const [quantity, setQuantity] = useState(1);
   const deleteCartItemAction = useDeleteCartData(props.cartId);
 
   useEffect(() => {
-    props.setTotalPrice((prev) => (prev += quantity * props.price));
+    props.setTotalPrice((prev) => {
+      return { ...prev, [props.cartId]: props.price * quantity };
+    });
   }, [quantity]);
 
   const deleteCartHandler = (e) => {
@@ -60,7 +62,7 @@ export default function CartItem(props) {
       </TotalPrice>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 100%;

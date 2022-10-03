@@ -147,3 +147,13 @@ export const orderCartItems = async (body) => {
   }).then(() => {queryClient.refetchQueries(["getCartData"])});
   return res;
 }
+
+export const getOrderList = async () => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/orders/info', {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+}
