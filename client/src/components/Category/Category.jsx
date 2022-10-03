@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { categoryImage } from "../../constance/bannerImage";
+import { mobile, tablet } from "../../utils/styleTheme";
 
 function Category() {
   return (
@@ -48,6 +49,15 @@ const Conatainer = styled.div`
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-gap: 1rem;
+
+    @media ${tablet} {
+      grid-gap: 8px;
+    }
+
+    @media ${mobile} {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 
@@ -142,6 +152,7 @@ const CategoryCard = styled(Link)`
       background-size: cover;
       background-repeat: no-repeat;
     `}
+  
 
   &:hover {
     opacity: 1;

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import useGetProductItems from "../../hooks/useGetProductItems";
+import { desktop, mobile, tablet } from "../../utils/styleTheme";
 import ItemCard from "../Commons/ItemCard";
 import Loading from "../Commons/Loading";
 import NoItems from "../Commons/NoItems";
@@ -70,16 +71,22 @@ const Container = styled.div`
   width: 100%;
   max-width: 1280px;
 
-  /**  
-  * props와 중첩되어도 우선순위로 적용가능
-  */
-  @media screen and (max-width: 1280px) {
+  @media ${desktop} {
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
+    grid-column-gap: 28px;
+    grid-row-gap: 56px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media ${tablet} {
     grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    grid-column-gap: 16px;
+    grid-row-gap: 32px;
+  }
+
+  @media ${mobile} {
+    grid-template-columns: 1fr;
     place-items: center;
   }
 `;

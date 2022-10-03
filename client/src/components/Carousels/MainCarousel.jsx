@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { mainBanner } from "../../constance/bannerImage";
+import { tablet } from "../../utils/styleTheme";
 
 export default function MainCarousel() {
   // eslint-disable-next-line no-unused-vars
@@ -62,6 +63,10 @@ const Container = styled.section`
   justify-content: center;
   position: relative;
   margin-bottom: 56px;
+
+  @media ${tablet} {
+    display: none;
+  }
 
   @keyframes slide {
     from {
