@@ -42,9 +42,11 @@ public class BookmarkController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{bookmark-id}")
-    public ResponseEntity deleteBookmark(@PathVariable("bookmark-id") @Positive long bookmarkId) {
-        bookmarkService.deleteBookmark(bookmarkId);
+    @DeleteMapping("/{product-id}")
+    public ResponseEntity deleteBookmark(@PathVariable("product-id") @Positive long productId,
+                                         @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long memberId = principalDetails.getMember().getMemberId();
+        bookmarkService.deleteBookmark(memberId, productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

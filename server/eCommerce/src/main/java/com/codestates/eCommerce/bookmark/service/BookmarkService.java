@@ -44,8 +44,9 @@ public class BookmarkService {
         return response;
     }
 
-    public void deleteBookmark(long bookmarkId) {
-        Bookmark bookmark = findVerifiedBookmark(bookmarkId);
+    public void deleteBookmark(long memberId, long productId) {
+        Bookmark bookmark = repository.findByMemberIdProductId(memberId, productId);
+//        Bookmark bookmark = findVerifiedBookmark(bookmarkId);
         repository.delete(bookmark);
     }
 
