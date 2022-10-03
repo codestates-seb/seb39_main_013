@@ -15,8 +15,12 @@ function ReplyComment(props) {
               <div className="ReaplyComment-content-top__left">
                 <div className="replyComment-author">{props.reply.answerName}</div>
                 <div className="replyComment-CreatedAt">{props.reply.answerCreatedAt}</div>
-                <button onClick={() => props.updateAnswer(props.reply.answerId)}>답변 수정하기</button>
-                <button onClick={() => props.deleteAnswer(props.reply.answerId)}>답변 삭제하기</button>
+                {props.userIsLogin && props.userEmail === props.reply.answerEmail ? ( //
+                  <button onClick={() => props.updateAnswer(props.reply.answerId)}>답변 수정하기</button>
+                ) : null}
+                {props.userIsLogin && props.userEmail === props.reply.answerEmail ? ( //
+                  <button onClick={() => props.deleteAnswer(props.reply.answerId)}>답변 삭제하기</button>
+                ) : null}
               </div>
             </div>
             <div className="ReaplyComment-content_bottom">

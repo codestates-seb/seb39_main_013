@@ -18,9 +18,23 @@ import ProductRegisterPage from "./pages/ProductRegisterPage";
 import ShopPage from "./pages/ShopPage";
 import MyPage from "./pages/MyPage";
 import CartPage from "./pages/CartPage";
+import { dataQuestions } from "./components/Comment/dataQuestions";
+import { dataReviews } from "./components/Comment/dataReviews";
+import { dataAnswers } from "./components/Comment/dataAnswers";
+import { useEffect } from "react";
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
+  console.log("첫페이지인가");
+  useEffect(() => {
+    if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
+      //처음에 로컬 스토리지가 없는 경우에
+      localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
+      localStorage.setItem("dataAnswers", JSON.stringify(dataAnswers));
+      localStorage.setItem("dataReviews", JSON.stringify(dataReviews));
+    }
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -29,41 +43,13 @@ function App() {
         <MainContainer>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route
-              path="/login"
-              element={
-                <PrivateRoute isLogin={isLogin} component={<LoginPage />} />
-              }
-            />
-            <Route
-              path="/signup"
-              element={
-                <PrivateRoute isLogin={isLogin} component={<SignUpPage />} />
-              }
-            />
+            <Route path="/login" element={<PrivateRoute isLogin={isLogin} component={<LoginPage />} />} />
+            <Route path="/signup" element={<PrivateRoute isLogin={isLogin} component={<SignUpPage />} />} />
             <Route path="/detail/:id" element={<ProductDetailPage />} />
-            <Route
-              path="/product-register"
-              element={
-                <PrivateRoute
-                  isLogin={isLogin}
-                  component={<ProductRegisterPage />}
-                />
-              }
-            />
+            <Route path="/product-register" element={<PrivateRoute isLogin={isLogin} component={<ProductRegisterPage />} />} />
             <Route path="/shop/*" element={<ShopPage />} />
-            <Route
-              path="/mypage"
-              element={
-                <PrivateRoute isLogin={isLogin} component={<MyPage />} />
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <PrivateRoute isLogin={isLogin} component={<CartPage />} />
-              }
-            />
+            <Route path="/mypage" element={<PrivateRoute isLogin={isLogin} component={<MyPage />} />} />
+            <Route path="/cart" element={<PrivateRoute isLogin={isLogin} component={<CartPage />} />} />
           </Routes>
         </MainContainer>
         <Footer />

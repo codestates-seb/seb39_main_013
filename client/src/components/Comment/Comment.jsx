@@ -5,7 +5,7 @@ import { MdOutlineModeComment } from "react-icons/md";
 import ReplyComment from "./ReplyComment";
 import ReplyCommentForm from "./ReplyCommentForm";
 import UpdateCommentForm from "./UpdateCommentForm";
-import { useSelector } from "react-redux";
+
 import { useState } from "react";
 
 //특정 질문을 클릭하면 아래에 이에 관한 답변이 나와야 한다.
@@ -19,10 +19,6 @@ import { useState } from "react";
 //배열로 만든다 [clickedId, isReplying]으로 만든다.
 
 function Comment(props) {
-  const isLogin = useSelector((state) => state.user.isLogin);
-  const [textToggle, setTextToggle] = useState(false);
-  const [replyToggle, setReplyToggle] = useState(false);
-
   return (
     <Container>
       <div className={"comment " + (props.active ? "activated" : null)}>
@@ -36,8 +32,8 @@ function Comment(props) {
                 <div className="comment-author">{props.item.questionName}</div>
 
                 <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
-                <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정하기</button>
-                <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제하기</button>
+                {props.userIsLogin && props.userEmail === props.commentEmail ? <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정하기</button> : null}
+                {props.userIsLogin && props.userEmail === props.commentEmail ? <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제하기</button> : null}
               </div>
             </div>
             <div className="comment-content_bottom">
@@ -46,7 +42,6 @@ function Comment(props) {
               </div>
               <div className="comment-replyIconBox">
                 <button onClick={() => props.setClickedQuestion([props.item.questionId, true, false])} className="comment-replyIcon">
-
                   <MdOutlineModeComment className="replyIcon" />
                 </button>
               </div>
@@ -64,6 +59,8 @@ function Comment(props) {
                   deleteAnswer={props.deleteAnswer}
                   updateAnswer={props.updateAnswer}
                   initialText={reply.answerContent}
+                  userEmail={props.userEmail}
+                  userIsLogin={props.userIsLogin}
                 />
               ))
             : null}
@@ -73,6 +70,9 @@ function Comment(props) {
         <ReplyCommentForm
           addReplyComment={props.addReplyComment} //
           replyparent={props.item}
+          userName={props.userName}
+          userEmail={props.userEmail}
+          productId={props.productId}
         />
       ) : null}
       {props.isEditing ? (
