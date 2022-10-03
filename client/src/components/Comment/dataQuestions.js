@@ -1,5 +1,6 @@
 export const dataQuestions = [
   {
+    productId: 21,
     questionId: 1,
     questionName: "하키(HAKI)",
     questionEmail: "soonhak1212@gmail.com",
@@ -7,6 +8,7 @@ export const dataQuestions = [
     questionContent: "하키의 질문1",
   },
   {
+    productId: 21,
     questionId: 2,
     questionName: "하키(HAKI)",
     questionEmail: "soonhak1212@gmail.com",
@@ -14,10 +16,27 @@ export const dataQuestions = [
     questionContent: "하키의 질문2",
   },
   {
+    productId: 21,
     questionId: 3,
     questionName: "포키(POKI)",
     questionEmail: "soonhak1212@naver.com",
     questionCreatedAt: "2022. 9. 27. 오후 8:53:26",
     questionContent: "포키의 질문3",
+  },
+  {
+    productId: 41,
+    questionId: 4,
+    questionName: "포키(POKI)",
+    questionEmail: "soonhak1212@naver.com",
+    questionCreatedAt: "2022. 9. 27. 오후 8:53:26",
+    questionContent: "41번 상품에 대한 포키의 질문",
+  },
+  {
+    productId: 41,
+    questionId: 5,
+    questionName: "하키(POKI)",
+    questionEmail: "soonhak1212@gmail.com",
+    questionCreatedAt: "2022. 9. 27. 오후 8:53:26",
+    questionContent: "41번 상품에 대한 하키의 질문",
   },
 ];

@@ -7,6 +7,7 @@ function QnaForm(props) {
   const handleSubmit = () => {
     //qnaId와 name, email을 넣어서 api에 객체를 전달해준다.
   };
+  console.log("QNA FORM", props.productId);
 
   const [qnaData, setQnaData] = useState(null); //주어진 자료를 기초로 텍스트가 변경될 때 textarea에 있는 아이를 추가해준다.
 
@@ -18,6 +19,7 @@ function QnaForm(props) {
   const submitNewComment = (e) => {
     e.preventDefault();
     const newComment = {
+      productId: props.productId,
       questionId: Math.random().toString(36).substr(2, 9),
       questionName: name,
       questionEmail: email,

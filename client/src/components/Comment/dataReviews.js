@@ -1,5 +1,6 @@
 export const dataReviews = [
   {
+    productId: 21,
     reviewId: 1001,
     reviewName: "하키(HAKI)",
     reviewEmail: "soonhak1212@gmail.com",
@@ -8,6 +9,7 @@ export const dataReviews = [
     reviewStars: 4,
   },
   {
+    productId: 21,
     reviewId: 1002,
     reviewName: "하키(HAKI)",
     reviewEmail: "soonhak1212@gmail.com",
@@ -16,11 +18,30 @@ export const dataReviews = [
     reviewStars: 3,
   },
   {
+    productId: 21,
     reviewId: 1003,
     reviewName: "포키(POKI)",
     reviewEmail: "soonhak1212@naver.com",
     reviewCreatedAt: "2022. 9. 28. 오후 8:53:26",
     reviewContent: "포키의 리뷰3",
     reviewStars: 5,
+  },
+  {
+    productId: 41,
+    reviewId: 1004,
+    reviewName: "포키(POKI)",
+    reviewEmail: "soonhak1212@naver.com",
+    reviewCreatedAt: "2022. 9. 28. 오후 8:53:26",
+    reviewContent: "41번 상품에 대한 포키의 리뷰",
+    reviewStars: 2,
+  },
+  {
+    productId: 41,
+    reviewId: 1005,
+    reviewName: "하키(HAKI)",
+    reviewEmail: "soonhak1212@gmail.com",
+    reviewCreatedAt: "2022. 9. 27. 오후 8:53:26",
+    reviewContent: "41번 상품에 대한 하키의 리뷰",
+    reviewStars: 3,
   },
 ];

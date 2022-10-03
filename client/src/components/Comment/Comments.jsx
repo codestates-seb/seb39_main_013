@@ -15,26 +15,30 @@ import QnaForm from "./QnaForm";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-function Comments() {
+function Comments(props) {
   const userInfo = useSelector((state) => state.user);
 
   const userName = userInfo.name;
   const userEmail = userInfo.email;
   const UserIsLogin = userInfo.isLogin;
-
+  //app에서 localStorage를 설정했기 때문에 get으로만 가져오면 된다.
   useEffect(() => {
-    if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
-      localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
-      localStorage.setItem("dataAnswers", JSON.stringify(dataAnswers));
-      localStorage.setItem("dataReviews", JSON.stringify(dataReviews));
-      setDummyData(JSON.parse(localStorage.getItem("dataQuestions")));
-      setDummyData2(JSON.parse(localStorage.getItem("dataAnswers")));
-      setDummyData3(JSON.parse(localStorage.getItem("dataReviews")));
-    } else {
-      setDummyData(JSON.parse(localStorage.getItem("dataQuestions")));
-      setDummyData2(JSON.parse(localStorage.getItem("dataAnswers")));
-      setDummyData3(JSON.parse(localStorage.getItem("dataReviews")));
-    }
+    setDummyData(
+      JSON.parse(localStorage.getItem("dataQuestions")).filter((question) => {
+        return question.productId === props.productId;
+      })
+    );
+    setDummyData2(
+      JSON.parse(localStorage.getItem("dataAnswers")).filter((answer) => {
+        return answer.productId === props.productId;
+      })
+    );
+    setDummyData3(
+      JSON.parse(localStorage.getItem("dataReviews")).filter((review) => {
+        return review.productId === props.productId;
+      })
+    );
+    console.log("실행");
   }, []);
 
   //이미 localStorage에 저장이 되어있다면 해당 아이들을 가져온다.
@@ -63,8 +67,9 @@ function Comments() {
   const addComment = (newComment) => {
     setDummyData((curr) => {
       const newDummyData = [...curr, newComment];
+      const newDataQuestions = [...JSON.parse(localStorage.getItem("dataQuestions")), newComment];
       localStorage.removeItem("dataQuestions");
-      localStorage.setItem("dataQuestions", JSON.stringify(newDummyData));
+      localStorage.setItem("dataQuestions", JSON.stringify(newDataQuestions));
       return newDummyData;
     }); //set 함수를 이용해서 동기적으로 동작하게 만든다.
 
@@ -75,8 +80,9 @@ function Comments() {
     //질문에 대한 답변을 추가해준다.
     setDummyData2((curr) => {
       const newDummyData2 = [...curr, newReply];
+      const newDataAnswers = [...JSON.parse(localStorage.getItem("dataAnswers")), newReply];
       localStorage.removeItem("dataAnswers");
-      localStorage.setItem("dataAnswers", JSON.stringify(newDummyData2));
+      localStorage.setItem("dataAnswers", JSON.stringify(newDataAnswers));
       return newDummyData2;
     });
   };
@@ -84,8 +90,9 @@ function Comments() {
   const addNewReview = (newReview) => {
     setDummyData3((curr) => {
       const newDummyData3 = [...curr, newReview];
+      const newDataAnswers = [...JSON.parse(localStorage.getItem("dataReviewss")), newReview];
       localStorage.removeItem("dataReviews");
-      localStorage.setItem("dataReviews", JSON.stringify(newDummyData3));
+      localStorage.setItem("dataReviews", JSON.stringify(newDataAnswers));
       return newDummyData3;
     });
 
@@ -185,6 +192,7 @@ function Comments() {
                 userName={userName}
                 userEmail={userEmail}
                 userIsLogin={UserIsLogin}
+                productId={props.productId}
               />
             ))}
             <QnaForm //
@@ -192,6 +200,7 @@ function Comments() {
               userName={userName}
               userEmail={userEmail}
               userIsLogin={UserIsLogin}
+              productId={props.productId}
             />
           </>
         ) : null}
@@ -216,6 +225,7 @@ function Comments() {
               userName={userName}
               userEmail={userEmail}
               UserIsLogin={UserIsLogin}
+              productId={props.productId}
             />
           </>
         ) : null}

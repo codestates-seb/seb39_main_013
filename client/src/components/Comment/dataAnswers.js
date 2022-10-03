@@ -1,5 +1,6 @@
 export const dataAnswers = [
   {
+    productId: 21,
     answerId: 101,
     parentQuestion: 1,
     answerName: "하키(HAKI)",
@@ -8,6 +9,7 @@ export const dataAnswers = [
     answerContent: "답변 내용1",
   },
   {
+    productId: 21,
     answerId: 102,
     parentQuestion: 2,
     answerName: "하키(HAKI)",
@@ -16,6 +18,7 @@ export const dataAnswers = [
     answerContent: "답변 내용2",
   },
   {
+    productId: 21,
     answerId: 103,
     parentQuestion: 3,
     answerName: "포키(POKI)",
@@ -24,11 +27,30 @@ export const dataAnswers = [
     answerContent: "답변 내용3",
   },
   {
+    productId: 21,
     answerId: 104,
     parentQuestion: 2,
     answerName: "포키(POKI)",
     answerEmail: "soonhak1212@naver.com",
     answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
     answerContent: "답변 내용5",
+  },
+  {
+    productId: 41,
+    answerId: 105,
+    parentQuestion: 5,
+    answerName: "포키(POKI)",
+    answerEmail: "soonhak1212@naver.com",
+    answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
+    answerContent: "41번 상품에 대한 포키의 답변",
+  },
+  {
+    productId: 41,
+    answerId: 106,
+    parentQuestion: 4,
+    answerName: "하키(POKI)",
+    answerEmail: "soonhak1212@gmail.com",
+    answerCreatedAt: "2022. 9. 28. 오후 8:53:26",
+    answerContent: "41번 상품에 대한 하키의 답변",
   },
 ];

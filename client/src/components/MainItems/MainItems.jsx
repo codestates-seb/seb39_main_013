@@ -16,16 +16,7 @@ function MainItems(props) {
   return (
     <Container mode={props.mode}>
       {getDataList.data.data.map((v) => {
-        return (
-          <ItemCard
-            key={v.product_id}
-            id={v.product_id}
-            productImg={v.thumb_images[0]}
-            brand={v.brand_name}
-            title={v.name}
-            price={v.price}
-          />
-        );
+        return <ItemCard key={v.product_id} id={v.product_id} productImg={v.thumb_images[0]} brand={v.brand_name} title={v.name} price={v.price} />;
       })}
     </Container>
   );
@@ -34,8 +25,7 @@ function MainItems(props) {
 const Container = styled.div`
   margin-top: 48px;
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};
+  grid-template-columns: ${(props) => (props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)")};
   grid-column-gap: 40px;
   grid-row-gap: 64px;
   width: 100%;

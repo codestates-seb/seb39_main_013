@@ -5,7 +5,7 @@ import { MdOutlineModeComment } from "react-icons/md";
 import ReplyComment from "./ReplyComment";
 import ReplyCommentForm from "./ReplyCommentForm";
 import UpdateCommentForm from "./UpdateCommentForm";
-import { useSelector } from "react-redux";
+
 import { useState } from "react";
 
 //특정 질문을 클릭하면 아래에 이에 관한 답변이 나와야 한다.
@@ -19,9 +19,6 @@ import { useState } from "react";
 //배열로 만든다 [clickedId, isReplying]으로 만든다.
 
 function Comment(props) {
-  const [textToggle, setTextToggle] = useState(false);
-  const [replyToggle, setReplyToggle] = useState(false);
-
   return (
     <Container>
       <div className={"comment " + (props.active ? "activated" : null)}>
@@ -75,6 +72,7 @@ function Comment(props) {
           replyparent={props.item}
           userName={props.userName}
           userEmail={props.userEmail}
+          productId={props.productId}
         />
       ) : null}
       {props.isEditing ? (

@@ -5,10 +5,12 @@ import styled from "styled-components";
 import Button from "../Commons/Button";
 
 function ReplyCommentForm(props) {
+  console.log("답변 폼", props.productId);
   const [text, setText] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     const newReply = {
+      productId: props.productId,
       answerId: Math.random().toString(36).substr(2, 9),
       parentQuestion: props.replyparent.questionId,
       answerName: props.userName,

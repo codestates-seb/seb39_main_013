@@ -7,13 +7,15 @@ import Comments from "../Comment/Comments";
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default function ProductDetailForm(props) {
+  console.log("데이터가 나온다.", props.dataInfo.product_id);
+
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
-        <ProductDetailOrder
+        <ProductDetailOrder //
           id={props.dataInfo.product_id}
           title={props.dataInfo.name}
           price={props.dataInfo.price}
@@ -23,7 +25,7 @@ export default function ProductDetailForm(props) {
           maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
-      <Comments />
+      <Comments productId={props.dataInfo.product_id} />
     </Container>
   );
 }
