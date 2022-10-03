@@ -14,7 +14,6 @@ export default function MyFavoriteList() {
   if (getFavoriteData.isLoading) {
     return <Loading />;
   }
-  console.log(getFavoriteData.data);
 
   return (
     <Container>

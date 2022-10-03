@@ -26,7 +26,9 @@ export default memo(function CartForm() {
   const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
 
   useEffect(() => {
-    setCalcPrice(Object.values(totalPrice).reduce((a, c) => (a += c), 0));
+    setCalcPrice(
+      Number(Object.values(totalPrice).reduce((a, c) => (a += c), 0))
+    );
   }, [totalPrice]);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default memo(function CartForm() {
       buyer_addr: userInfo.address,
       buyer_postcode: userInfo.postcode,
     });
-  }, [totalPrice]);
+  }, [totalPrice, calcPrice]);
 
   const clickHander = () => {
     orderCartAction.mutate();

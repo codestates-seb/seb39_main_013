@@ -155,5 +155,5 @@ export const getOrderList = async () => {
       Authorization: token,
     }
   });
-  return res;
+  return res.data.data;
 }
