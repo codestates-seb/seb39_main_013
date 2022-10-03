@@ -90,9 +90,9 @@ function Comments(props) {
   const addNewReview = (newReview) => {
     setDummyData3((curr) => {
       const newDummyData3 = [...curr, newReview];
-      const newDataAnswers = [...JSON.parse(localStorage.getItem("dataReviewss")), newReview];
+      const newDataAReviews = [...JSON.parse(localStorage.getItem("dataReviewss")), newReview];
       localStorage.removeItem("dataReviews");
-      localStorage.setItem("dataReviews", JSON.stringify(newDataAnswers));
+      localStorage.setItem("dataReviews", JSON.stringify(newDataAReviews));
       return newDummyData3;
     });
 
