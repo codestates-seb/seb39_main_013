@@ -6,6 +6,10 @@ export default function Loading() {
 }
 
 const Container = styled.article`
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  width: 100%;
+  height: 100%;
 `;

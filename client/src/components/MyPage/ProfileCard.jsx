@@ -23,11 +23,13 @@ export default function ProfileCard() {
 }
 
 const Container = styled.section`
-  border: 1px solid #242424;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
   padding: 30px 56px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 24px;
 
   > div {
     display: flex;

@@ -7,7 +7,7 @@ export default function Button(props) {
     <Container
       disabled={!props.disable}
       mode={props?.mode}
-      onClick={(e) => props.onClick(e)}
+      onClick={props.onClick}
     >
       {props.children}
     </Container>

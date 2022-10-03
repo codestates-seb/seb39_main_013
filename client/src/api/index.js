@@ -1,5 +1,7 @@
-import { authAxios, axiosInstance } from "./axiosInstance";
+import { axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
+import { queryClient } from "../utils/queryClient";
+
 
 export const signUpFn = async (payload) => {
   const res = await axiosInstance.post("/api/v1/members", payload);
@@ -8,7 +10,7 @@ export const signUpFn = async (payload) => {
 
 export const loginFn = async (payload) => {
   const res = await axiosInstance.post("/login", payload);
-
+  console.log(res);
   if (res?.headers) {
     Cookie.set("authorization", res.headers["authorization"]);
   }
@@ -16,21 +18,13 @@ export const loginFn = async (payload) => {
   return res;
 };
 
-export const oauthLoginFn = async () => {
-  const res = await axiosInstance.get(
-    "http://ec2-43-200-81-43.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
-  );
 
-  return res;
-};
 
 export const authorizeToken = async () => {
-  console.log("on Auth");
   const token = Cookie.get("authorization");
-  console.log("token :", token);
-  const res = await authAxios.get("/api/v1/members/user", {
+  const res = await axiosInstance.get("/api/v1/members/user", {
     headers: {
-      authorization: token,
+      Authorization: token,
     },
   });
   console.log("res :", res);
@@ -63,3 +57,97 @@ export const getProductOne = async (id) => {
   const res = await axiosInstance.get(`/api/v1/products/${id}`);
   return res.data.data;
 };
+
+export const addCartItem = async (body) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.post('/api/v1/carts', body, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  
+  return res; 
+}
+
+export const deleteCartItem = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.delete(`/api/v1/carts/${id}`, {
+    headers: {
+      Authorization: token
+    }
+  });
+  return res;
+}
+
+export const addFavoriteItem = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.post('/api/v1/bookmarks', id, {
+    headers: {
+      Authorization: token
+    }
+  });
+  return res;
+}
+
+export const getCartData = async () => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/carts', {
+    headers: {
+      Authorization: token
+    }
+  })
+
+  return res.data.data;
+}
+
+export const getFavoriteItem = async () => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/bookmarks', {
+    headers: {
+      Authorization: token
+    }
+  })
+
+  return res.data.data;
+}
+
+export const getProductDetailInfo = async (params) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/products/', {
+    headers: {
+      Authorization: token,
+      params: params
+    }
+  });
+  return res;
+}
+
+export const deleteFavoriteItem = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.delete(`/api/v1/bookmarks/${id}`, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+} 
+
+export const orderCartItems = async (body) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.post('/api/v1/orders/cart', body, {
+    headers: {
+      Authorization: token,
+    }
+  }).then(() => {queryClient.refetchQueries(["getCartData"])});
+  return res;
+}
+
+export const getOrderList = async () => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get('/api/v1/orders/info', {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res.data.data;
+}

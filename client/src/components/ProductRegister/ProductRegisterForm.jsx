@@ -18,9 +18,9 @@ export default function ProductRegisterForm() {
     brand_name: "",
     price: "",
     major_class: "",
-    sub_class: "스니커즈",
     stock: 0,
     color: "",
+    size: "90",
   });
 
   const [thumbImage, setThumbImage] = useState([]);

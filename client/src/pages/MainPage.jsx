@@ -9,8 +9,7 @@ import MainItems from "../components/MainItems/MainItems";
 export default function MainPage() {
   const urlParams = {
     page: 1,
-    pageSize: 20,
-    majorClass: "신발",
+    pageSize: 8,
   };
 
   return (

@@ -6,12 +6,8 @@ export default function useGetProductItems(params) {
     ["getItems", params],
     () => getProductItems(params),
     {
-      // enabled: false,
       retry: 1,
       staleTime: 0,
-      onSuccess: (data) => {
-        console.log("query success :", data);
-      },
     }
   );
 

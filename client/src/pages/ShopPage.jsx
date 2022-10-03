@@ -16,12 +16,11 @@ export default function ShopPage() {
   });
 
   const urlParams = {
-    page: 0,
+    page: 1,
     pageSize: 20,
     ...params,
   };
 
-  console.log("params :", urlParams);
   return (
     <Container>
       <SubBanner

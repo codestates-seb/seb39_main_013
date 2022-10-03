@@ -1,7 +1,10 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import AddressForm from "../components/Address/AddressForm";
+import MyFavoriteList from "../components/MyPage/MyFavoriteList";
+import MyOrderList from "../components/MyPage/MyOrderList";
 import MyPageIconBox from "../components/MyPage/MyPageIconBox";
+import MyPaymentList from "../components/MyPage/MyPaymentList";
 import ProfileCard from "../components/MyPage/ProfileCard";
 
 export default function MyPage() {
@@ -10,7 +13,12 @@ export default function MyPage() {
       <ContentsWrapper>
         <ProfileCard />
         <MyPageIconBox />
-        <AddressForm />
+        <Routes>
+          <Route index element={<MyFavoriteList />} />
+          <Route path="favorite" element={<MyFavoriteList />} />
+          <Route path="orders" element={<MyOrderList />} />
+          <Route path="payment" element={<MyPaymentList />} />
+        </Routes>
       </ContentsWrapper>
     </Container>
   );

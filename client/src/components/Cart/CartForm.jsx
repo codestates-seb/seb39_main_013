@@ -1,20 +1,54 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import { HiOutlineX } from "react-icons/hi";
 import { FaWonSign } from "react-icons/fa";
 import Button from "../Commons/Button";
 import Price from "../Commons/Price";
-import { cartData } from "../../constance";
+import useGetCartDataQuery from "../../hooks/useGetCartDataQuery";
+import { memo } from "react";
+import Loading from "../Commons/Loading";
+import { useSelector } from "react-redux";
+import useOrderCartItems from "../../hooks/useOrderCartItems";
 
-/**
- *
- * @returns totalPrice 로직 변경 필요
- */
+export default memo(function CartForm() {
+  const [totalPrice, setTotalPrice] = useState({});
+  const [calcPrice, setCalcPrice] = useState(0);
+  const [paymentData, setPaymentData] = useState({});
+  const userInfo = useSelector((state) => state.user);
+  const getCartData = useGetCartDataQuery();
+  const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
 
-export default function CartForm() {
-  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    setCalcPrice(
+      Number(Object.values(totalPrice).reduce((a, c) => (a += c), 0))
+    );
+  }, [totalPrice]);
+
+  useEffect(() => {
+    setPaymentData({
+      pg: "kakaopay",
+      pay_method: "card",
+      merchant_uid: `mid_${new Date().getTime()}`,
+      name: "stateMall-payment",
+      amount: calcPrice,
+      buyer_email: userInfo.email,
+      buyer_name: userInfo.name,
+      buyer_tel: userInfo.phone,
+      buyer_addr: userInfo.address,
+      buyer_postcode: userInfo.postcode,
+    });
+  }, [totalPrice, calcPrice]);
+
+  const clickHander = () => {
+    orderCartAction.mutate();
+  };
+
+  if (getCartData.isLoading || orderCartAction.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Container>
       <FormHeader>
@@ -23,21 +57,23 @@ export default function CartForm() {
         <MenuBox>TOTAL</MenuBox>
       </FormHeader>
       <FormBody>
-        {cartData.map((v) => {
-          return (
-            <CartItem
-              key={v.id}
-              id={v.id}
-              itemImg={v.productImg}
-              brandName={v.brand}
-              itemTitle={v.title}
-              option={v.option}
-              price={v.price}
-              maxQuantity={v.quantity}
-              setTotalPrice={setTotalPrice}
-            />
-          );
-        })}
+        {getCartData?.data &&
+          getCartData.data.map((v) => {
+            return (
+              <CartItem
+                key={v.cartId}
+                id={v.product.product_id}
+                itemImg={v.product.thumb_images[0]}
+                price={v.product.price}
+                maxQuantity={v.product.stock}
+                brandName={v.product.brand_name}
+                itemTitle={v.product.name}
+                size={v.product.size}
+                setTotalPrice={setTotalPrice}
+                cartId={v.cartId}
+              />
+            );
+          })}
       </FormBody>
       <FormFooter>
         <button>
@@ -48,14 +84,16 @@ export default function CartForm() {
           <span>Subtotal</span>
           <span>
             <FaWonSign />
-            <Price price={totalPrice} />
+            <Price price={calcPrice} />
           </span>
         </SubTotal>
       </FormFooter>
-      <Button>ORDER NOW</Button>
+      <Button disable={true} onClick={clickHander}>
+        ORDER NOW
+      </Button>
     </Container>
   );
-}
+});
 
 /**
  * flex로 정가운데 고정 시 max-width width 100%로 전체 공간 잡기

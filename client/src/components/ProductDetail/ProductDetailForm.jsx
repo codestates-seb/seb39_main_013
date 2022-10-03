@@ -3,11 +3,11 @@
 import React from "react";
 import styled from "styled-components";
 import Comments from "../Comment/Comments";
+import AdditionalInfo from "./AdditionalInfo";
 
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default function ProductDetailForm(props) {
-  console.log("데이터가 나온다.", props.dataInfo.product_id);
 
   return (
     <Container>
@@ -25,7 +25,7 @@ export default function ProductDetailForm(props) {
           maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
-      <Comments productId={props.dataInfo.product_id} />
+      <AdditionalInfo contentImg={props.dataInfo.content_images} />
     </Container>
   );
 }

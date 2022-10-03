@@ -8,10 +8,7 @@ export default function useGetItem(id) {
     {
       // enabled: false,
       retry: 1,
-      staleTime: Infinity,
-      onSuccess: (data) => {
-        console.log("query success :", data);
-      },
+      staleTime: 1000 * 60 * 30,
     }
   );
   return { data, isLoading };

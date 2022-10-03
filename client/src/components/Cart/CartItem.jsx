@@ -1,19 +1,29 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import QuantitySelector from "./QuantitySelector";
 import { FaWonSign } from "react-icons/fa";
 import DeleteButton from "../Commons/DeleteButton";
 import { Link } from "react-router-dom";
 import Price from "../Commons/Price";
+import useDeleteCartData from "../../hooks/useDeleteCartData";
 
-export default function CartItem(props) {
+export default memo(function CartItem(props) {
   const [quantity, setQuantity] = useState(1);
+  const deleteCartItemAction = useDeleteCartData(props.cartId);
 
   useEffect(() => {
-    props.setTotalPrice((prev) => (prev += quantity * props.price));
+    props.setTotalPrice((prev) => {
+      return { ...prev, [props.cartId]: props.price * quantity };
+    });
   }, [quantity]);
+
+  const deleteCartHandler = (e) => {
+    e.preventDefault();
+    deleteCartItemAction.mutate();
+  };
+
   return (
     <Container>
       <ItemProfile>
@@ -30,7 +40,7 @@ export default function CartItem(props) {
       <ItemOptions>
         <OptionWrapper>
           <div>
-            <span>{props.option.size[0]}</span>
+            <span>{props.size}</span>
             <QuantitySelector
               setQuantity={setQuantity}
               productQuantity={1}
@@ -48,11 +58,11 @@ export default function CartItem(props) {
           <FaWonSign />
           <Price price={props.price * quantity} />
         </div>
-        <DeleteButton />
+        <DeleteButton onClick={deleteCartHandler} />
       </TotalPrice>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 100%;

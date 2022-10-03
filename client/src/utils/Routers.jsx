@@ -29,7 +29,7 @@ export const routerList = [
   },
   {
     id: 4,
-    path: "/detail",
+    path: "/detail/:id",
     isPrivate: false,
     element: <ProductDetailPage />,
   },
@@ -41,13 +41,13 @@ export const routerList = [
   },
   {
     id: 6,
-    path: "/shop",
+    path: "/shop/*",
     isPrivate: false,
     element: <ShopPage />,
   },
   {
     id: 7,
-    path: "/mypage",
+    path: "/mypage/*",
     isPrivate: true,
     element: <MyPage />,
   },

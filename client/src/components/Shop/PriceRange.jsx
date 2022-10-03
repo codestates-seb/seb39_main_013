@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -21,26 +22,31 @@ export default function PriceRange(props) {
     });
   };
 
-  const applyPriceHandler = () => {};
+  const applyPriceHandler = () => {
+    props.changeHander({
+      name: "price",
+      value: price,
+    });
+  };
 
   return (
     <>
       <InputWrapper>
         <input
           name={"priceMin"}
-          type="text"
+          type={"number"}
           placeholder="Min"
           onChange={(e) => inputChangeHandler(e)}
         />
         <span>to</span>
         <input
           name={"priceMax"}
-          type="text"
+          type={"number"}
           placeholder="Max"
           onChange={(e) => inputChangeHandler(e)}
         />
       </InputWrapper>
-      <Button disable={true} mode={"apply"}>
+      <Button disable={true} mode={"apply"} onClick={applyPriceHandler}>
         Apply
       </Button>
     </>
@@ -65,5 +71,11 @@ const InputWrapper = styled.div`
     &:focus {
       border-color: #77b7f6;
     }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;

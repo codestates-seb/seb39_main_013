@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaHeart, FaRegCommentAlt, FaRegAddressCard } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FiTruck } from "react-icons/fi";
-import { BsQuestionOctagon } from "react-icons/bs";
+import { MdPayment } from "react-icons/md";
 
 export default function MyPageIconBox() {
   /**
@@ -13,27 +13,27 @@ export default function MyPageIconBox() {
     <Container>
       <IconBox>
         <li>
-          <Icons to="/">
-            <FaHeart />
+          <Icons to="/mypage/favorite">
+            <FaHeart fill="#ff3251" />
             <span>찜한상품</span>
           </Icons>
         </li>
         <li>
-          <Icons to="/">
+          <Icons to="/mypage/orders">
             <FiTruck />
-            <span>구매내역</span>
+            <span>주문내역</span>
+          </Icons>
+        </li>
+        <li>
+          <Icons to="/mypage/payment">
+            <MdPayment />
+            <span>결제내역</span>
           </Icons>
         </li>
         <li>
           <Icons to="/">
             <FaRegCommentAlt />
             <span>리뷰내역</span>
-          </Icons>
-        </li>
-        <li>
-          <Icons to="/">
-            <BsQuestionOctagon />
-            <span>FAQ</span>
           </Icons>
         </li>
         <li>
@@ -50,6 +50,7 @@ export default function MyPageIconBox() {
 const Container = styled.section`
   background-color: #f6f6f6;
   border-radius: 10px;
+  margin-bottom: 32px;
 `;
 
 const IconBox = styled.ul`

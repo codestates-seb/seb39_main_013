@@ -1,22 +1,55 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import useGetProductItems from "../../hooks/useGetProductItems";
 import ItemCard from "../Commons/ItemCard";
 import Loading from "../Commons/Loading";
 
 // eslint-disable-next-line
 function MainItems(props) {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const userInfo = useSelector((state) => state.user);
+  const getFavoriteData = useGetFavoriteItem();
   const getDataList = useGetProductItems(props.params);
 
-  if (getDataList.isLoading) {
+  useEffect(() => {
+    if (userInfo.isLogin && !getFavoriteData.isError) {
+      getFavoriteData.refetch();
+      setIsFavorite(true);
+    }
+
+    if (!userInfo.isLogin) {
+      setIsFavorite(false);
+    }
+  }, [userInfo.isLogin, getFavoriteData.isError]);
+
+  if (getDataList.isLoading || getFavoriteData.isLoading) {
     return <Loading />;
   }
   return (
     <Container mode={props.mode}>
-      {getDataList.data.data.map((v) => {
-        return <ItemCard key={v.product_id} id={v.product_id} productImg={v.thumb_images[0]} brand={v.brand_name} title={v.name} price={v.price} />;
+      {getDataList?.data?.data.map((v) => {
+        let favorite = false;
+        const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
+        if (isFavorite && fa.includes(v.product_id)) {
+          favorite = true;
+        }
+
+        return (
+          <ItemCard
+            key={v.product_id}
+            id={v.product_id}
+            productImg={v.thumb_images[0]}
+            brand={v.brand_name}
+            title={v.name}
+            price={v.price}
+            favorite={favorite}
+          />
+        );
       })}
     </Container>
   );
@@ -47,4 +80,3 @@ const Container = styled.div`
 
 export default MainItems;
 
-//한 라인에 4개씩 넣는다.

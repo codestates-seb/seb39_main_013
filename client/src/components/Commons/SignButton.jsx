@@ -4,7 +4,11 @@ import styled, { css } from "styled-components";
 
 export default function SIgnButton(props) {
   return (
-    <Container mode={props.mode} onClick={props.onClickHandler}>
+    <Container
+      disabled={!props.disabled}
+      mode={props.mode}
+      onClick={props.onClickHandler}
+    >
       {props.children}
     </Container>
   );
@@ -19,6 +23,7 @@ const Container = styled.button`
   border: none;
   border-radius: 6px;
   padding: 14px;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   ${(props) =>
     props.mode === "login" &&
     css`
