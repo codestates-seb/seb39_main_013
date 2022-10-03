@@ -14,6 +14,7 @@ import lombok.*;
 public class OrderProductDto {
     private Long orderProductId;
     private Long productId;
+    private String productName;
     private Integer productQuantity;
     private Integer productPrice;
     private String productSize;
@@ -21,9 +22,10 @@ public class OrderProductDto {
     private ProductOrderStatus productOrderStatus;
 
     @QueryProjection
-    public OrderProductDto(Long orderProductId, Long productId, Integer productQuantity, Integer productPrice, String productSize, String productColor, ProductOrderStatus productOrderStatus) {
+    public OrderProductDto(Long orderProductId, Long productId,String productName, Integer productQuantity, Integer productPrice, String productSize, String productColor, ProductOrderStatus productOrderStatus) {
         this.orderProductId = orderProductId;
         this.productId = productId;
+        this.productName = productName;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
         this.productSize = productSize;
