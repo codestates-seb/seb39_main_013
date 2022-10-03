@@ -18,8 +18,8 @@ public class CorsConfig {
         config.addAllowedOriginPattern("*"); //모든 ip 응답허용
         config.addAllowedHeader("*"); //모든 Header 응답허용
         config.addAllowedMethod("*"); //모든 Http Request Method 응답허용
-        config.addExposedHeader("AccessToken");
-        config.addExposedHeader("RefreshToken");
+        config.addExposedHeader("Authorization");
+//        config.addExposedHeader("RefreshToken");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
