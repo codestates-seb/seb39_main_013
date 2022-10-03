@@ -3,6 +3,7 @@ import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import Loading from "../Commons/Loading";
 import styled from "styled-components";
 import ItemCard from "../Commons/ItemCard";
+import NoItems from "../Commons/NoItems";
 
 export default function MyFavoriteList() {
   const getFavoriteData = useGetFavoriteItem();
@@ -13,6 +14,10 @@ export default function MyFavoriteList() {
 
   if (getFavoriteData.isLoading) {
     return <Loading />;
+  }
+
+  if (!getFavoriteData.data.length) {
+    return <NoItems shopLink={true} />;
   }
 
   return (
@@ -45,9 +50,6 @@ const Container = styled.section`
   width: 100%;
   max-width: 1280px;
 
-  /**  
-  * props와 중첩되어도 우선순위로 적용가능
-  */
   @media screen and (max-width: 1280px) {
     grid-template-columns: repeat(3, 1fr);
     place-items: center;

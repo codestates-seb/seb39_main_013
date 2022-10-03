@@ -8,6 +8,7 @@ import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import useGetProductItems from "../../hooks/useGetProductItems";
 import ItemCard from "../Commons/ItemCard";
 import Loading from "../Commons/Loading";
+import NoItems from "../Commons/NoItems";
 
 // eslint-disable-next-line
 function MainItems(props) {
@@ -28,7 +29,11 @@ function MainItems(props) {
   }, [userInfo.isLogin, getFavoriteData.isError]);
 
   if (getDataList.isLoading || getFavoriteData.isLoading) {
-    return <Loading />;
+    return <Loading active={true} />;
+  }
+
+  if (!getDataList.data.data.length) {
+    return <NoItems />;
   }
   return (
     <Container mode={props.mode}>
@@ -58,7 +63,8 @@ function MainItems(props) {
 const Container = styled.div`
   margin-top: 48px;
   display: grid;
-  grid-template-columns: ${(props) => (props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)")};
+  grid-template-columns: ${(props) =>
+    props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};
   grid-column-gap: 40px;
   grid-row-gap: 64px;
   width: 100%;
@@ -79,4 +85,3 @@ const Container = styled.div`
 `;
 
 export default MainItems;
-

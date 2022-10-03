@@ -97,6 +97,7 @@ const ItemCardImg = styled.div`
   border-radius: 10px;
   width: 100%;
   max-height: 290px;
+  background-color: #ebf0f5;
 
   img {
     object-fit: contain;

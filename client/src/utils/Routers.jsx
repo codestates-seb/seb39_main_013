@@ -3,6 +3,7 @@ import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import MyPage from "../pages/MyPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
 import ProductRegisterPage from "../pages/ProductRegisterPage";
 import ShopPage from "../pages/ShopPage";
@@ -56,5 +57,11 @@ export const routerList = [
     path: "/cart",
     isPrivate: true,
     element: <CartPage />,
+  },
+  {
+    id: 9,
+    path: "*",
+    isPrivate: false,
+    element: <NotFoundPage />,
   },
 ];

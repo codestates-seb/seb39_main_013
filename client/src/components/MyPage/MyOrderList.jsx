@@ -3,6 +3,7 @@ import useGetOrderList from "../../hooks/useGetOrderList";
 import Loading from "../Commons/Loading";
 import styled from "styled-components";
 import OrderItem from "./OrderItem";
+import NoItems from "../Commons/NoItems";
 
 export default function MyOrderList() {
   const getOrderList = useGetOrderList();
@@ -10,7 +11,11 @@ export default function MyOrderList() {
   if (getOrderList.isLoading) {
     return <Loading />;
   }
-  console.log(getOrderList.data);
+
+  if (!getOrderList.data.order_response_dto.length) {
+    return <NoItems shopLink={true} />;
+  }
+
   return (
     <Container>
       <FormHeader>
