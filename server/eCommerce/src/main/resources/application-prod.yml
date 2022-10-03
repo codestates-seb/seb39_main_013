@@ -31,10 +31,10 @@ cloud:
 notification:
   mattermost:
     enabled: true # mmSender를 사용할 지 여부, false면 알림이 오지 않는다
-    webhook-url: ${ MATTERMOST_URL } # 위의 Webhook URL을 기입
+    webhook-url: $ { mattermost-url }  # 위의 Webhook URL을 기입
     channel: statemall # 기본 설정한 채널이 아닌 다른 채널로 보내고 싶을 때 기입한다
     pretext: 안녕하세요 에러가 생겨 죄송합니다! # attachments의 상단에 나오게 되는 일반 텍스트 문자
-    color: skyblue # attachment에 왼쪽 사이드 컬러. default=red
+    color:  # attachment에 왼쪽 사이드 컬러. default=red
     author-name: 김수보 # attachment의 상단에 나오는 이름
     author-icon:  http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg # author-icon 왼쪽에 나올 아이콘의 url링크
     footer: # attachment에 하단에 나올 부분. default=현재 시간

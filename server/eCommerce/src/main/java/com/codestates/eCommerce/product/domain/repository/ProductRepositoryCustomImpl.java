@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.product.domain.repository;
 
+import com.codestates.eCommerce.bookmark.entity.QBookmark;
 import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
 import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductDto;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.codestates.eCommerce.bookmark.entity.QBookmark.bookmark;
 import static com.codestates.eCommerce.product.domain.entity.QProduct.product;
 
 import static org.springframework.util.StringUtils.hasText;
@@ -38,7 +40,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                         product.color,
                         product.size,
                         product.thumbImages,
-                        product.contentImages
+                        product.contentImages,
+                        bookmark.bookmarkId
                 ))
                 .from(product)
                 .where(product.name.eq(name))
@@ -57,10 +60,12 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     product.color,
                     product.size,
                     product.thumbImages,
-                    product.contentImages
+                    product.contentImages,
+                    bookmark.memberId
                 ))
                 .from(product)
-                .groupBy(product.name)
+                .leftJoin(bookmark)
+                .on(bookmark.productId.eq(product.productId)) //,bookmark.memberId.eq(memberId)
                 .where(
                     brandIdEq(condition.getBrandId()),
                     brandNameContains(condition.getBrandName()),
@@ -71,12 +76,15 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     priceLoe(condition.getMaxPrice()),
                     stockLoe(condition.getStock())
                 )
+                .groupBy(product.name)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())//페이지 사이즈
                 .fetch();
 
         int total = queryFactory
                 .selectFrom(product)
+                .leftJoin(bookmark)
+                .on(bookmark.productId.eq(product.productId))
                 .where(
                     brandIdEq(condition.getBrandId()),
                     brandNameContains(condition.getBrandName()),
@@ -93,7 +101,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return new PageImpl<>(content,pageable,total);
     }
 
-    /* 조건 */
     private BooleanExpression brandIdEq(Long brandId) {
         return brandId!=null ? product.brandId.eq(brandId) : null;
     }

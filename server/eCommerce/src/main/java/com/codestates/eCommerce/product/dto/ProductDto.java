@@ -26,9 +26,10 @@ public class ProductDto {
     private String size;
     private List<String> thumbImages;
     private List<String> contentImages;
+    private Long memberId;
 
     @QueryProjection
-    public ProductDto(Long productId, Long brandId, String brandName, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentImages) {
+    public ProductDto(Long productId, Long brandId, String brandName, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentImages,Long memberId) {
         this.productId = productId;
         this.brandId = brandId;
         this.brandName = brandName;
@@ -40,6 +41,7 @@ public class ProductDto {
         this.size = size;
         this.thumbImages = thumbImages;
         this.contentImages = contentImages;
+        this.memberId = memberId;
     }
 }
 
