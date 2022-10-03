@@ -17,12 +17,19 @@ export default function MyOrderList() {
       <FormHeader>
         <MenuBox>PRODUCT NAME</MenuBox>
         <MenuBox>OPTION</MenuBox>
-        <MenuBox>TOTAL</MenuBox>
+        <MenuBox>STATUS</MenuBox>
       </FormHeader>
-      {getOrderList?.data.order_response_dto.map((v) => {
-        return <OrderItem key={v.order_id} orderStatus={v.order_status} />;
-      })}
-      <FormBody></FormBody>
+      <FormBody>
+        {getOrderList?.data.order_response_dto.map((v) => {
+          return (
+            <OrderItem
+              key={v.order_id}
+              orderStatus={v.order_status}
+              products={v.order_products}
+            />
+          );
+        })}
+      </FormBody>
     </Container>
   );
 }
