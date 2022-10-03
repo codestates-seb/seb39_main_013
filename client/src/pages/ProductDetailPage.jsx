@@ -15,7 +15,9 @@ export default function ProductDetailPage() {
   }
   return (
     <Container>
-      <ProductDetailForm dataInfo={getItem.data} />
+      <ProductDetailForm //
+        dataInfo={getItem.data}
+      />
     </Container>
   );
 }

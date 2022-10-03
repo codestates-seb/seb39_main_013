@@ -4,23 +4,18 @@ import styled from "styled-components";
 
 /* eslint-disable */
 function QnaForm(props) {
-  const handleSubmit = () => {
-    //qnaId와 name, email을 넣어서 api에 객체를 전달해준다.
-  };
-
-  const [qnaData, setQnaData] = useState(null); //주어진 자료를 기초로 텍스트가 변경될 때 textarea에 있는 아이를 추가해준다.
-
   const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const isTextareaDisabled = text.length === 0;
+  const [name, setName] = useState(props.userName);
+  const [email, setEmail] = useState(props.userEmail);
 
   const submitNewComment = (e) => {
     e.preventDefault();
     const newComment = {
+      productId: props.productId,
       questionId: Math.random().toString(36).substr(2, 9),
       questionName: name,
-      questionCreatedAt: new Date().toLocaleDateString,
+      questionEmail: email,
+      questionCreatedAt: new Date().toLocaleString(),
       questionContent: text,
     };
     props.addComment(newComment);
@@ -28,9 +23,7 @@ function QnaForm(props) {
     setEmail("");
     setText("");
   };
-  console.log(text);
-  console.log(name);
-  console.log(email);
+
   return (
     <Container>
       <div className="QnaBox">
@@ -46,14 +39,40 @@ function QnaForm(props) {
             </label>
           </div>
           <div className="Qna-inputInfo">
-            <input className="inputForm" name={"Name"} type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-            <input className="inputForm" name={"Email"} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              className="inputForm" //
+              name={"Name"}
+              type="text"
+              placeholder="Name"
+              value={props.userName}
+              onChange={(e) => setName(e.target.value)}
+              required
+              readOnly
+            />
+            <input //
+              className="inputForm"
+              name={"Email"}
+              type="email"
+              placeholder="Email"
+              value={props.userEmail}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              readOnly
+            />
           </div>
           <div className="Qna-content">
-            <textarea value={text} onChange={(e) => setText(e.target.value)} required />
+            <textarea //
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              required
+              placeholder="질문을 작성해주세요. 로그인 하여야 작성이 가능합니다."
+              readOnly={!props.userIsLogin}
+            />
           </div>
           <div className="submitBox">
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={!props.userIsLogin}>
+              Submit
+            </button>
           </div>
         </form>
       </div>

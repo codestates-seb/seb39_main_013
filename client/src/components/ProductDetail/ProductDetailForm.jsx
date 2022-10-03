@@ -8,13 +8,14 @@ import AdditionalInfo from "./AdditionalInfo";
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default function ProductDetailForm(props) {
+
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
-        <ProductDetailOrder
+        <ProductDetailOrder //
           id={props.dataInfo.product_id}
           title={props.dataInfo.name}
           price={props.dataInfo.price}
@@ -25,7 +26,6 @@ export default function ProductDetailForm(props) {
         />
       </OrderWrapper>
       <AdditionalInfo contentImg={props.dataInfo.content_images} />
-      {/* <Comments /> */}
     </Container>
   );
 }

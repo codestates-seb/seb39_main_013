@@ -9,7 +9,6 @@ function UpdateReviewForm(props) {
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
   const renderStars = (num) => [...Array(num)].map((num) => renderStar());
   const [clickedRadioBtn, setClickedRadioBtn] = useState(String(props.initialStars));
-  console.log(typeof clickedRadioBtn);
 
   return (
     <Container>
@@ -53,7 +52,7 @@ function UpdateReviewForm(props) {
           >
             취소
           </button>
-          <button type="submit" onClick={() => props.updateReview(props.reviewId, text, clickedRadioBtn)}>
+          <button type="button" onClick={() => props.updateReview(props.reviewId, text, clickedRadioBtn)}>
             수정
           </button>
         </div>

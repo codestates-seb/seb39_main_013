@@ -58,8 +58,7 @@ function MainItems(props) {
 const Container = styled.div`
   margin-top: 48px;
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};
+  grid-template-columns: ${(props) => (props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)")};
   grid-column-gap: 40px;
   grid-row-gap: 64px;
   width: 100%;
@@ -81,4 +80,3 @@ const Container = styled.div`
 
 export default MainItems;
 
-//한 라인에 4개씩 넣는다.

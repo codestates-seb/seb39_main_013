@@ -8,12 +8,8 @@ function RiviewForm(props) {
     //qnaId와 name, email을 넣어서 api에 객체를 전달해준다.
   };
 
-  const [qnaData, setQnaData] = useState(null); //주어진 자료를 기초로 텍스트가 변경될 때 textarea에 있는 아이를 추가해준다.
-
   const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const isTextareaDisabled = text.length === 0;
+
   const [clickedRadioBtn, setClickedRadioBtn] = useState("5");
 
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
@@ -22,19 +18,19 @@ function RiviewForm(props) {
   const submitNewReview = (e) => {
     e.preventDefault();
     const newReview = {
+      productId: props.productId,
       reviewId: Math.random().toString(36).substr(2, 9),
-      reviewName: name,
+      reviewName: props.userName,
+      reviewEmail: props.userEmail,
       reviewCreatedAt: new Date().toLocaleString(),
       reviewContent: text,
       reviewStars: clickedRadioBtn,
     };
 
     props.addNewReview(newReview);
-    setName("");
-    setEmail("");
+
     setText("");
   };
-  console.log(text);
 
   return (
     <Container>
@@ -68,11 +64,11 @@ function RiviewForm(props) {
             </label>
           </div>
           <div className="review-inputInfo">
-            <input key="nameInput" className="inputForm" name={"Name"} type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-            <input key="emailInput" className="inputForm" name={"Email"} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input key="nameInput" className="inputForm" name={"Name"} type="text" placeholder="Name" value={props.userName} onChange={(e) => setName(e.target.value)} required readOnly />
+            <input key="emailInput" className="inputForm" name={"Email"} type="email" placeholder="Email" value={props.userEmail} onChange={(e) => setEmail(e.target.value)} required readOnly />
           </div>
           <div className="review-content">
-            <textarea value={text} onChange={(e) => setText(e.target.value)} required placeholder="리뷰를 작성해주세요." />
+            <textarea value={text} onChange={(e) => setText(e.target.value)} required placeholder="리뷰를 작성해주세요. 로그인 하여야 작성이 가능합니다." />
           </div>
           <div className="submitBox">
             <button type="submit">Submit</button>

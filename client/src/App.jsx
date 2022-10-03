@@ -10,11 +10,20 @@ import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./utils/PrivateRoute";
-
 import { routerList } from "./utils/Routers";
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
+  console.log("첫페이지인가");
+  useEffect(() => {
+    if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
+      //처음에 로컬 스토리지가 없는 경우에
+      localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
+      localStorage.setItem("dataAnswers", JSON.stringify(dataAnswers));
+      localStorage.setItem("dataReviews", JSON.stringify(dataReviews));
+    }
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>

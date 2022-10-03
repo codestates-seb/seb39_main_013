@@ -2,31 +2,30 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import Button from "../Commons/Button";
 
 function ReplyCommentForm(props) {
   const [text, setText] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     const newReply = {
+      productId: props.productId,
       answerId: Math.random().toString(36).substr(2, 9),
       parentQuestion: props.replyparent.questionId,
-      answerName: "답변자이당...",
-      answerCreatedAt: new Date().toLocaleDateString(),
+      answerName: props.userName,
+      answerEmail: props.userEmail,
+      answerCreatedAt: new Date().toLocaleString(),
       answerContent: text,
     };
     props.addReplyComment(newReply);
     setText("");
   };
 
-  console.log(props.replyparent);
-  console.log(props.addReplyComment);
   return (
     <Container>
       <form className="replyComment-box" onSubmit={handleSubmit}>
         <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
         <div className="replyComment-submitBox">
-          <button type="submit">Submit</button>
+          <button type="submit">답변하기</button>
         </div>
       </form>
     </Container>
