@@ -19,6 +19,7 @@ export const paymentClickHandler = (data, productInfo) => {
           return {
             "product_id" : v.product.product_id,
             "quantity" : v.productQuantity,
+            "product_name": v.product.name,
             "price" : v.product.price,
             "size" : v.product.size,
             "color" : v.product.color

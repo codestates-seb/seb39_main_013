@@ -21,6 +21,7 @@ export default function useLoginMutation(value) {
             phone: res.data.data.phone,
             address: res.data.data.homeAddress,
             postcode: res.data.data.zipcode,
+            profileImg: res.data.data.profileImage,
             isLogin: true,
           })
         ),

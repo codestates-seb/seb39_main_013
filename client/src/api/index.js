@@ -1,4 +1,4 @@
-import { authAxios, axiosInstance } from "./axiosInstance";
+import { axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
 import { queryClient } from "../utils/queryClient";
 
@@ -10,7 +10,7 @@ export const signUpFn = async (payload) => {
 
 export const loginFn = async (payload) => {
   const res = await axiosInstance.post("/login", payload);
-
+  console.log(res);
   if (res?.headers) {
     Cookie.set("authorization", res.headers["authorization"]);
   }
@@ -18,17 +18,11 @@ export const loginFn = async (payload) => {
   return res;
 };
 
-export const oauthLoginFn = async () => {
-  const res = await axiosInstance.get(
-    "http://ec2-43-200-81-43.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google"
-  );
 
-  return res;
-};
 
 export const authorizeToken = async () => {
   const token = Cookie.get("authorization");
-  const res = await authAxios.get("/api/v1/members/user", {
+  const res = await axiosInstance.get("/api/v1/members/user", {
     headers: {
       Authorization: token,
     },

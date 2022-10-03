@@ -11,7 +11,6 @@ export default function MyOrderList() {
     return <Loading />;
   }
 
-  console.log(getOrderList.data);
   return (
     <Container>
       <FormHeader>

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function OrderItem(props) {
-  console.log(props.products);
   return (
     <>
       {props.products.map((v) => {
@@ -24,11 +23,11 @@ export default function OrderItem(props) {
                   <span>{v.product_quantity} 개</span>
                   <span>{v.product_size} size</span>
                 </div>
-                <span>
-                  <span>{v.product_order_status}</span>
-                </span>
               </OptionWrapper>
             </ItemOptions>
+            <OrderStatus>
+              <span>{v.product_order_status}</span>
+            </OrderStatus>
           </Container>
         );
       })}
@@ -63,15 +62,6 @@ const ItemProfile = styled.div`
     font-size: 1rem;
     color: #525252;
     font-weight: 600;
-  }
-`;
-
-const ImageWrapper = styled.div`
-  img {
-    border-radius: 10px;
-    width: 126px;
-    height: 126px;
-    object-fit: cover;
   }
 `;
 
@@ -128,4 +118,14 @@ const OptionWrapper = styled.div`
       fill: #656565;
     }
   }
+`;
+
+const OrderStatus = styled.div`
+  flex: 0.8;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  justify-content: space-between;
 `;

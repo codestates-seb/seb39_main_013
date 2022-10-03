@@ -12,11 +12,6 @@ import Loading from "../Commons/Loading";
 import { useSelector } from "react-redux";
 import useOrderCartItems from "../../hooks/useOrderCartItems";
 
-/**
- *
- * @returns totalPrice 로직 변경 필요
- */
-
 export default memo(function CartForm() {
   const [totalPrice, setTotalPrice] = useState({});
   const [calcPrice, setCalcPrice] = useState(0);
