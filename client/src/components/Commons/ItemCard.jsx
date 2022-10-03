@@ -9,12 +9,13 @@ import Price from "./Price";
 import useAddFavoriteItem from "../../hooks/useAddFavoriteItem";
 import Loading from "./Loading";
 import useDeleteFavorite from "../../hooks/useDeleteFavorite";
+import { memo } from "react";
 
 // eslint-disable-next-line
 function ItemCard(props) {
   const [isClicked, setIsClicked] = useState(props.favorite);
   const addFavoriteAction = useAddFavoriteItem({ productId: props.id });
-  const deleteFavoriteAction = useDeleteFavorite(props.favoriteId);
+  const deleteFavoriteAction = useDeleteFavorite(props.id);
 
   useEffect(() => {
     setIsClicked(props.favorite);
@@ -31,7 +32,7 @@ function ItemCard(props) {
     }
   };
 
-  if (addFavoriteAction.isLoading || deleteFavoriteAction.isLoading) {
+  if (addFavoriteAction.isLoading) {
     return <Loading />;
   }
 

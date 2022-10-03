@@ -47,10 +47,6 @@ export default memo(function CartForm() {
     return <Loading />;
   }
 
-  if (orderCartAction.isSuccess) {
-    console.log("isSuccess");
-  }
-
   return (
     <Container>
       <FormHeader>

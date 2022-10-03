@@ -6,7 +6,7 @@ export default function useAddFavoriteItem(id) {
   const { mutate, isLoading } = useMutation(() => addFavoriteItem(id), {
     retry: false,
     onSuccess: () => {
-      return queryClient.invalidateQueries(["getFavoriteData"]);
+      return queryClient.refetchQueries(["getFavoriteData"]);
     },
   });
 

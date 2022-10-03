@@ -30,7 +30,6 @@ function MainItems(props) {
   if (getDataList.isLoading || getFavoriteData.isLoading) {
     return <Loading />;
   }
-
   return (
     <Container mode={props.mode}>
       {getDataList?.data?.data.map((v) => {

@@ -19,7 +19,6 @@ export default function MyFavoriteList() {
   return (
     <Container>
       {getFavoriteData?.data?.map((v) => {
-        console.log(v);
         return (
           <ItemCard
             key={v.product.product_id}
@@ -29,7 +28,6 @@ export default function MyFavoriteList() {
             title={v.product.name}
             price={v.product.price}
             favorite={true}
-            favoriteId={v.bookmarkId}
           />
         );
       })}
