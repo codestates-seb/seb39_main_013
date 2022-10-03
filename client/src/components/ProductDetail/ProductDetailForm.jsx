@@ -8,7 +8,6 @@ import AdditionalInfo from "./AdditionalInfo";
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default function ProductDetailForm(props) {
-
   return (
     <Container>
       <OrderWrapper>
@@ -25,7 +24,8 @@ export default function ProductDetailForm(props) {
           maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
-      <AdditionalInfo contentImg={props.dataInfo.content_images} />
+      <Comments productId={props.dataInfo.product_id} contentImg={props.dataInfo.content_images} />
+      {/* <AdditionalInfo contentImg={props.dataInfo.content_images} /> */}
     </Container>
   );
 }

@@ -188,7 +188,7 @@ function Comments(props) {
     <Container>
       <div>
         <CommentCategory setClickedCategory={setClickedCategory} name={categoryItemList} />
-        {clickedCategory === categoryItemList[0] ? <AdditionalInfo contentImg={["https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-1.jpg", "https://th3point.speedgabia.com/fluke/2022FW/FLT/flt709-1-2-m.jpg"]} /> : null}
+        {clickedCategory === categoryItemList[0] ? <AdditionalInfo contentImg={props.contentImg} /> : null}
         {clickedCategory === categoryItemList[2] ? (
           <>
             {dummyData?.map((comment) => (

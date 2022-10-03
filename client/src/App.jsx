@@ -11,6 +11,10 @@ import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./utils/PrivateRoute";
 import { routerList } from "./utils/Routers";
+import { useEffect } from "react";
+import { dataQuestions } from "./components/Comment/dataQuestions";
+import { dataAnswers } from "./components/Comment/dataAnswers";
+import { dataReviews } from "./components/Comment/dataReviews";
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -32,19 +36,7 @@ function App() {
         <MainContainer>
           <Routes>
             {routerList.map((v) => {
-              return (
-                <Route
-                  key={v.id}
-                  path={v.path}
-                  element={
-                    v.isPrivate ? (
-                      <PrivateRoute isLogin={isLogin} component={v.element} />
-                    ) : (
-                      v.element
-                    )
-                  }
-                />
-              );
+              return <Route key={v.id} path={v.path} element={v.isPrivate ? <PrivateRoute isLogin={isLogin} component={v.element} /> : v.element} />;
             })}
           </Routes>
         </MainContainer>
