@@ -2,17 +2,14 @@ package com.codestates.eCommerce.product.domain.service;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
-import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepository;
 import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
-import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -49,13 +46,8 @@ public class ProductService {
         validateCheckAndUpdate(requestDto, findProduct);
         return findProduct;
     }
-
-
-    public Page<ProductDto> getProductPage(Long memberId, ProductCondition condition) {
+    public Page<ProductDto> getProductPage(int page, int pageSize, ProductCondition condition) {
         //        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
-        int page = condition.getPage();
-        int pageSize = condition.getPageSize();
-        Page<ProductDto> p = productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
         return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
     }
 

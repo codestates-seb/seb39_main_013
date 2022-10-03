@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ResponseDto {
     private Long productId;
@@ -25,20 +24,4 @@ public class ResponseDto {
     private String size;
     private List<String> thumbImages;
     private List<String> contentImages;
-    private Boolean bookmark;
-
-    public ResponseDto(Long productId, Long brandId, String brandName, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentImages, Boolean isBookmark) {
-        this.productId = productId;
-        this.brandId = brandId;
-        this.brandName = brandName;
-        this.majorClass = majorClass;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-        this.color = color;
-        this.size = size;
-        this.thumbImages = thumbImages;
-        this.contentImages = contentImages;
-        this.bookmark = isBookmark;
-    }
 }

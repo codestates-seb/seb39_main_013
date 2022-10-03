@@ -2,8 +2,6 @@ package com.codestates.eCommerce.common.advice;
 
 import com.codestates.eCommerce.common.config.matterMost.NotificationManager;
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
-import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
-import com.codestates.eCommerce.common.exception.product.ProductExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,19 +25,12 @@ public class GlobalExceptionAdvice {
     private final NotificationManager notificationManager;
 
     /* MatterMost 외부 메세지 */
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity exceptionTest(Exception e, HttpServletRequest req) {
-//        e.printStackTrace();
-//        notificationManager.sendNotification(e, req.getRequestURI(), getParams(req));
-//
-//        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-
-    @ExceptionHandler(ProductBusinessExcepion.class)
-    public ResponseEntity productException(ProductBusinessExcepion e, HttpServletRequest req) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity exceptionTest(Exception e, HttpServletRequest req) {
         e.printStackTrace();
         notificationManager.sendNotification(e, req.getRequestURI(), getParams(req));
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(e.getExceptionCode().getStatus()));
+
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private String getParams(HttpServletRequest req) {
@@ -47,7 +38,7 @@ public class GlobalExceptionAdvice {
         Enumeration<String> keys = req.getParameterNames();
         while (keys.hasMoreElements()) {
             String key = keys.nextElement();
-            params.append("- ").append(key).append(" : ").append(req.getParameter(key)).append("\n");
+            params.append("- ").append(key).append(" : ").append(req.getParameter(key)).append("/n");
         }
 
         return params.toString();

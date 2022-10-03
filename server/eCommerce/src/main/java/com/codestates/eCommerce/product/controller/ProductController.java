@@ -4,14 +4,12 @@ import com.codestates.eCommerce.common.dto.MultiResponseDto;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
 import com.codestates.eCommerce.product.dto.*;
-import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,9 +43,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getProductPage(ProductCondition productCondition, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println(principalDetails.getMember());
-        Page<ResponseDto> responseProductPage = appProductSerivce.getProductPage(productCondition , principalDetails.getMember());
+    public ResponseEntity<?> getProductPage(ProductCondition productCondition) {
+        Page<ResponseDto> responseProductPage = appProductSerivce.getProductPage(productCondition.getPage(),productCondition.getPageSize(),productCondition);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage),HttpStatus.OK);
     }
 
@@ -56,6 +53,5 @@ public class ProductController {
         ResponseDto responseDto = appProductSerivce.updateProduct(productId,requestDto);
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.ACCEPTED);
     }
-
 
 }
