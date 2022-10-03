@@ -27,6 +27,7 @@ public interface OrderMapper {
     default OrderProduct productInfoToOrderProduct(OrderRequestDto.ProductInfo productInfo) {
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setProductId(productInfo.getProductId());
+        orderProduct.setProductName(productInfo.getProductName());
         orderProduct.setProductQuantity(productInfo.getQuantity());
         orderProduct.setProductPrice(productInfo.getPrice());
         orderProduct.setProductColor(productInfo.getColor());
