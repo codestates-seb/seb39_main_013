@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.security.config;
 
+import com.codestates.eCommerce.common.config.matterMost.NotificationManager;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.member.mapper.MemberMapper;
 import com.codestates.eCommerce.security.jwt.CustomAccessDeniedHandler;
@@ -18,12 +19,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
-import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
-import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
-import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -40,7 +36,7 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final JwtFilter jwtFilter;
     private final MemberMapper mapper;
-
+    private final NotificationManager notificationManager;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -92,7 +88,7 @@ public class SecurityConfig {
             builder
                     .addFilter(corsFilter)
                     .addFilter(new JwtAuthenticationFilter(authenticationManager, mapper))
-                    .addFilter(new JwtAuthorizationFilter(authenticationManager, repository));
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager, repository, notificationManager));
         }
     }
 }
