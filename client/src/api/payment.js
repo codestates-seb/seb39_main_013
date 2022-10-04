@@ -5,6 +5,7 @@ import { orderCartItems } from ".";
 export const paymentClickHandler = (data, productInfo) => {
   const IMP = window.IMP;
   IMP.init("imp15788743");
+  console.log('product :', productInfo)
 
   const reqPayment = (res) => {
     const { success, error_msg } = res;

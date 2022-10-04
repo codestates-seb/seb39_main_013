@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header/Header";
 import GlobalStyled from "./GlobalStyle";
 // import GlobalFonts from "./fonts/GlobalFonts";
@@ -18,9 +18,12 @@ import { dataReviews } from "./components/Comment/dataReviews";
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
-
   useEffect(() => {
-    if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
+    if (
+      !localStorage.getItem("dataQuestions") &&
+      !localStorage.getItem("dataAnswers") &&
+      !localStorage.getItem("dataReviews")
+    ) {
       //처음에 로컬 스토리지가 없는 경우에
       localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
       localStorage.setItem("dataAnswers", JSON.stringify(dataAnswers));

@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-key */
-/* eslint-disable no-unused-vars */
+
 import React, { memo, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { categoryList } from "../../constance";
 
@@ -81,33 +79,3 @@ const MainCategory = styled.button`
       color: white;
     `}
 `;
-
-// const SubCategory = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 8px;
-//   padding: 12px 4px;
-//   color: black;
-
-//   a {
-//     opacity: 0.6;
-//     animation: 0.2s ease-in-out smoothAppear;
-//     font-size: 1rem;
-//     color: black;
-
-//     &:hover {
-//       opacity: 1;
-//     }
-//   }
-
-//   @keyframes smoothAppear {
-//     0% {
-//       opacity: 0;
-//       transform: translateY(-10px);
-//     }
-//     100% {
-//       opacity: 1;
-//       transform: translateY(0);
-//     }
-//   }
-// `;

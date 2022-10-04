@@ -10,7 +10,7 @@ export default function MyOrderList() {
   if (getOrderList.isLoading) {
     return <Loading />;
   }
-
+  console.log(getOrderList.data);
   return (
     <Container>
       <FormHeader>

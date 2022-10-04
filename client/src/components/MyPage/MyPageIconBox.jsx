@@ -60,6 +60,12 @@ const IconBox = styled.ul`
 
   li {
     width: 100%;
+    transition: 0.5s;
+    &:hover {
+      background: transparent;
+      box-shadow: inset 300px 0 0 0 #87c2f5;
+      color: #d8d8d8;
+    }
   }
 `;
 
