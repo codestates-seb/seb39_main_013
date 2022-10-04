@@ -2,19 +2,28 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
+import useGetProductDetailInfo from "../../hooks/useGetProductDetailInfo";
 import Comments from "../Comment/Comments";
-import AdditionalInfo from "./AdditionalInfo";
-
+import Loading from "../Commons/Loading";
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default function ProductDetailForm(props) {
+  const getProductDetailInfo = useGetProductDetailInfo({
+    name: props.dataInfo.name,
+  });
+
+  if (getProductDetailInfo.isLoading) {
+    return <Loading />;
+  }
+  console.log(getProductDetailInfo.data);
+
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
-        <ProductDetailOrder //
+        <ProductDetailOrder
           id={props.dataInfo.product_id}
           title={props.dataInfo.name}
           price={props.dataInfo.price}
@@ -24,8 +33,10 @@ export default function ProductDetailForm(props) {
           maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
-      <Comments productId={props.dataInfo.product_id} contentImg={props.dataInfo.content_images} />
-      {/* <AdditionalInfo contentImg={props.dataInfo.content_images} /> */}
+      <Comments
+        productId={props.dataInfo.product_id}
+        contentImg={props.dataInfo.content_images}
+      />
     </Container>
   );
 }

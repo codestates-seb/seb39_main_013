@@ -47,6 +47,7 @@ export const productRegisterFn = async (registerInfo) => {
 };
 
 export const getProductItems = async (params) => {
+  console.log(params)
   const res = await axiosInstance.get(`/api/v1/products`, {
     params: { ...params },
   });
@@ -112,13 +113,7 @@ export const getFavoriteItem = async () => {
 }
 
 export const getProductDetailInfo = async (params) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v1/products/', {
-    headers: {
-      Authorization: token,
-      params: params
-    }
-  });
+  const res = await axiosInstance.get(`/api/v1/products/?name=${params.name}`);
   return res;
 }
 
@@ -150,4 +145,24 @@ export const getOrderList = async () => {
     }
   });
   return res.data.data;
+}
+
+export const patchUserInfo = async (body, id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.patch(`/api/v1/members/${id}`, body, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+}
+
+export const getUserData = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get(`/api/v1/members/${id}`, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
 }

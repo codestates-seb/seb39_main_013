@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import EditProfile from "../components/MyPage/EditProfile";
 import MyFavoriteList from "../components/MyPage/MyFavoriteList";
 import MyOrderList from "../components/MyPage/MyOrderList";
 import MyPageIconBox from "../components/MyPage/MyPageIconBox";
@@ -18,6 +19,7 @@ export default function MyPage() {
           <Route path="favorite" element={<MyFavoriteList />} />
           <Route path="orders" element={<MyOrderList />} />
           <Route path="payment" element={<MyPaymentList />} />
+          <Route path="edit" element={<EditProfile />} />
         </Routes>
       </ContentsWrapper>
     </Container>

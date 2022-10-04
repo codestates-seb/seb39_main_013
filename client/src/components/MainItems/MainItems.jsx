@@ -54,6 +54,7 @@ function MainItems(props) {
             title={v.name}
             price={v.price}
             favorite={favorite}
+            isLogin={userInfo.isLogin}
           />
         );
       })}

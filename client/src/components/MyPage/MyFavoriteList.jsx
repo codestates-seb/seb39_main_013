@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import Loading from "../Commons/Loading";
@@ -16,7 +17,7 @@ export default function MyFavoriteList() {
     return <Loading />;
   }
 
-  if (!getFavoriteData.data.length) {
+  if (getFavoriteData.isSuccess && !getFavoriteData.data.length) {
     return <NoItems shopLink={true} />;
   }
 

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ImageUploader from "react-images-upload";
 import { useMutation } from "react-query";
 import { imageRegisterFn } from "../../api";
+import Loading from "../Commons/Loading";
 
 export default memo(function ImageSelector(props) {
   const { mutate, data, isSuccess, isLoading } = useMutation((value) =>
@@ -13,12 +14,19 @@ export default memo(function ImageSelector(props) {
   const formData = new FormData();
 
   const imageChangeHandler = (e) => {
-    formData.append("data", e[0]);
-    console.log("img change", e[0], typeof e);
+    if (e[0] !== undefined) {
+      formData.append("data", e[0]);
+      mutate(formData);
+    } else {
+      return;
+    }
   };
 
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+
   if (isSuccess) {
-    console.log(data);
     props.changeHandler([data.data]);
   }
 
@@ -33,14 +41,6 @@ export default memo(function ImageSelector(props) {
         label={"Max file size: 5mb"}
         onChange={(e) => imageChangeHandler(e)}
       />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          mutate(formData);
-        }}
-      >
-        test
-      </button>
     </Container>
   );
 });
@@ -49,6 +49,7 @@ const Container = styled.div`
   display: flex;
   gap: 1rem;
   flex-direction: column;
+  width: 100%;
 
   span {
     font-size: 1rem;

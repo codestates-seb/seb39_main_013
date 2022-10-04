@@ -16,6 +16,8 @@ export default memo(function InputText(props) {
           type={props.type}
           id={props.name}
           placeholder={props.text}
+          value={props.value}
+          disabled={props.disabled}
         />
         {props.mode === "price" && <BiWon />}
       </InputWrapper>
@@ -27,6 +29,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 `;
 
 const Label = styled.label`

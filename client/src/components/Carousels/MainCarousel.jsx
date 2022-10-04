@@ -96,11 +96,11 @@ const Slider = styled.div`
 
 const CarouselArrow = styled.button`
   border: none;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.5);
   width: 48px;
   height: 48px;
   position: absolute;
-  border-radius: 10px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,5 +116,5 @@ const CarouselArrow = styled.button`
     fill: white;
   }
 
-  ${(props) => (props.prev ? "left: 10px" : "right: 10px")}
+  ${(props) => (props.prev ? "left: -20px" : "right: -20px")}
 `;

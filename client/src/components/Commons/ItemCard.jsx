@@ -23,6 +23,10 @@ function ItemCard(props) {
 
   const handleClicked = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    if (!props.isLogin) {
+      return;
+    }
     setIsClicked((curr) => !curr);
 
     if (!props.favorite) {
@@ -38,12 +42,13 @@ function ItemCard(props) {
         <ItemCardImg className="ItemCard-Image">
           <img src={props.productImg} alt="product_img" />
           {isClicked ? (
-            <AiFillHeart onClick={handleClicked} className="ItemCard-Heart" />
+            <button onClick={handleClicked}>
+              <AiFillHeart className="ItemCard-Heart" />
+            </button>
           ) : (
-            <AiOutlineHeart
-              onClick={handleClicked}
-              className="ItemCard-Heart"
-            />
+            <button onClick={handleClicked}>
+              <AiOutlineHeart className="ItemCard-Heart" />
+            </button>
           )}
         </ItemCardImg>
         <div className="ItemCard-Explain">
@@ -69,12 +74,17 @@ const Container = styled.div`
     color: black;
   }
 
-  .ItemCard-Heart {
-    font-size: 30px;
+  button {
+    position: absolute;
+    border: none;
+    background-color: transparent;
     margin: 0 1rem 1rem 0;
     z-index: 100;
+  }
+
+  .ItemCard-Heart {
+    font-size: 30px;
     color: #ff696a;
-    position: absolute;
   }
 
   .ItemCard-Explain {

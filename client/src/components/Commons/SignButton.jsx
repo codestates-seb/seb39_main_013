@@ -2,7 +2,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export default function SIgnButton(props) {
+export default function SignButton(props) {
   return (
     <Container
       disabled={!props.disabled}

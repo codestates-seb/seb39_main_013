@@ -4,7 +4,7 @@ import { persistor } from "../redux/store";
 
 export default function useGetFavoriteItem() {
   // const queryClient = useQueryClient();
-  const { data, isLoading, refetch, isError } = useQuery(
+  const { data, isLoading, refetch, isSuccess } = useQuery(
     ["getFavoriteData"],
     getFavoriteItem,
     {
@@ -17,5 +17,5 @@ export default function useGetFavoriteItem() {
     }
   );
 
-  return { data, isLoading, refetch, isError };
+  return { data, isLoading, refetch, isSuccess };
 }

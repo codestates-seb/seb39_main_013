@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
-import Button from "../Commons/Button";
 import ColorSelector from "../ProductRegister/ColorSelector";
 import CategorySelector from "./CategorySelector";
 import PriceRange from "./PriceRange";

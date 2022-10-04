@@ -14,7 +14,7 @@ export default function ProfileCard() {
         </ImageWrapper>
         <ProfileInfo>
           <span>NickName</span>
-          <Link to="/">프로필 수정</Link>
+          <Link to="edit">프로필 수정</Link>
         </ProfileInfo>
       </div>
       <span>일반회원</span>
@@ -71,5 +71,6 @@ const ProfileInfo = styled.div`
     border-radius: 8px;
     background-color: transparent;
     padding: 8px 1rem;
+    color: black;
   }
 `;
