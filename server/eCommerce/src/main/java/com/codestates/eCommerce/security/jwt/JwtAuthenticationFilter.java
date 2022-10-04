@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
         String jwtToken = JWT.create()
                 .withSubject(principalDetails.getUsername()) // 토큰 이름 설정
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 10)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
                 .withClaim("id", principalDetails.getMember().getMemberId())
                 .withClaim("email", principalDetails.getMember().getEmail())
                 .sign(Algorithm.HMAC512("SECRET"));// 고유한 시크릿 값 적용
