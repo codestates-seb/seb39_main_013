@@ -1,19 +1,17 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function ProfileCard() {
+export default function ProfileCard(props) {
   return (
     <Container>
       <div>
         <ImageWrapper>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv-xDIYOuEy1r-AOVNQi807ovbQJln9JwyCw&usqp=CAU"
-            alt="profileImg"
-          />
+          <img src={props.info.profileImg} alt="profileImg" />
         </ImageWrapper>
         <ProfileInfo>
-          <span>NickName</span>
+          <span>{props.info.name}</span>
           <Link to="edit">프로필 수정</Link>
         </ProfileInfo>
       </div>

@@ -218,7 +218,7 @@ export const mypageMenuList = [
 
   {
     id: 2,
-    link: "/mypage/favorite",
+    link: "/mypage/orders",
     text: "주문내역",
   },
 

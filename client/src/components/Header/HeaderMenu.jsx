@@ -24,7 +24,6 @@ const HeaderMenu = (props) => {
   const menuButtonHandler = () => {
     setIsClick((prev) => !prev);
   };
-
   return (
     <Container>
       <Wrapper hide={!isClick}>
@@ -39,10 +38,7 @@ const HeaderMenu = (props) => {
               <HideText>Logout</HideText>
             </button>
             <ProfileImage to="/mypage">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv-xDIYOuEy1r-AOVNQi807ovbQJln9JwyCw&usqp=CAU"
-                alt="profileImg"
-              />
+              <img src={props.info.profileImg} alt="profileImg" />
               <HideText>Profile</HideText>
             </ProfileImage>
           </>

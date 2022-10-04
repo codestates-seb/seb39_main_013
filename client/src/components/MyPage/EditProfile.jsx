@@ -7,6 +7,7 @@ import InputText from "../ProductRegister/InputText";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import usePatchUserData from "../../hooks/usePatchUserData";
 import Loading from "../Commons/Loading";
+import useGetUserInfo from "../../hooks/useGetUserInfo";
 
 export default function EditProfile() {
   const [profileImg, setProfileImg] = useState([]);
@@ -19,6 +20,7 @@ export default function EditProfile() {
 
   const userInfo = useSelector((state) => state.user);
   const open = useDaumPostcodePopup();
+  const updateUser = useGetUserInfo(userInfo.id);
   const patchUserData = usePatchUserData(
     {
       ...inputs,
@@ -68,7 +70,7 @@ export default function EditProfile() {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  if (patchUserData.isLoading) {
+  if (patchUserData.isLoading || updateUser.isLoading) {
     return <Loading />;
   }
 

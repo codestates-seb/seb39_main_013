@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { memo } from "react";
 import styled from "styled-components";
@@ -9,13 +10,13 @@ export default memo(function OrderInfo(props) {
     <Container>
       <div>
         <InfoTag>OPTIONS</InfoTag>
-        <span>{props.orderData.size}</span>
+        <span>{props.size}</span>
       </div>
       <div>
         <InfoTag>TOTAL PRICE</InfoTag>
         <TotalPriceWrapper>
           <FaWonSign />
-          <Price price={props.orderData.totalPrice} />
+          <Price price={props.totalPrice} />
         </TotalPriceWrapper>
       </div>
     </Container>

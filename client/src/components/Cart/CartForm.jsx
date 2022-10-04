@@ -10,7 +10,6 @@ import { memo } from "react";
 import Loading from "../Commons/Loading";
 import { useSelector } from "react-redux";
 import useOrderCartItems from "../../hooks/useOrderCartItems";
-import NoItems from "../Commons/NoItems";
 
 export default memo(function CartForm() {
   const [totalPrice, setTotalPrice] = useState({});
@@ -18,7 +17,11 @@ export default memo(function CartForm() {
   const [paymentData, setPaymentData] = useState({});
   const userInfo = useSelector((state) => state.user);
   const getCartData = useGetCartDataQuery();
-  const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
+  const orderCartAction = useOrderCartItems(
+    paymentData,
+    getCartData.data,
+    "cart"
+  );
 
   useEffect(() => {
     setCalcPrice(
@@ -39,7 +42,7 @@ export default memo(function CartForm() {
       buyer_addr: userInfo.address,
       buyer_postcode: userInfo.postcode,
     });
-  }, [totalPrice, calcPrice]);
+  }, [totalPrice, calcPrice, userInfo]);
 
   const clickHander = () => {
     orderCartAction.mutate();

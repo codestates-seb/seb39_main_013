@@ -18,6 +18,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
   max-width: 250px;
   border-bottom: 1px solid #565656;
   display: flex;

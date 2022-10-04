@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useQueryClient } from "react-query";
-import { orderCartItems } from ".";
+import { orderCartItems, orderPoductItem } from ".";
 
-export const paymentClickHandler = (data, productInfo) => {
+export const paymentClickHandler = (data, productInfo, mode) => {
   const IMP = window.IMP;
   IMP.init("imp15788743");
-  console.log('product :', productInfo)
-
+  
   const reqPayment = (res) => {
     const { success, error_msg } = res;
     if (success) {
@@ -18,16 +17,20 @@ export const paymentClickHandler = (data, productInfo) => {
         merchant_uid : res.merchant_uid,
         products : productInfo.map(v => {
           return {
-            "product_id" : v.product.product_id,
-            "quantity" : v.productQuantity,
-            "product_name": v.product.name,
-            "price" : v.product.price,
-            "size" : v.product.size,
-            "color" : v.product.color
+            "product_id" : mode === 'cart' ? v.product.product_id : v.product_id,
+            "quantity" : mode === 'cart' ? v.productQuantity : v.quantity,
+            "product_name": mode === 'cart' ? v.product.name : v.name,
+            "price" : mode === 'cart' ? v.product.price : v.totalPrice,
+            "size" : mode === 'cart' ? v.product.size : v.size,
+            "color" : mode === 'cart' ? v.product.color : v.color
           }
         })
-      } 
-      orderCartItems(body);
+      }
+      if(mode === 'cart') {
+        orderCartItems(body);
+      }else if(mode === 'product') {
+        orderPoductItem(body);
+      }
     }else {
       console.log("payment Error!!!" + error_msg);
     }

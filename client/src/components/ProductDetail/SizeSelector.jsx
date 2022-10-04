@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
+import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 
 export default function SizeSelector(props) {
-  const [selectItem, setSelectItem] = useState(props.size[0]);
-
+  const [selectItem, setSelectItem] = useState(props.size[0].size);
   useEffect(() => {
     props.setSize(selectItem);
   }, [selectItem]);
+
   const settings = {
     focusOnSelect: true,
     slidesToShow: 3,
@@ -25,20 +26,22 @@ export default function SizeSelector(props) {
 
   return (
     <Container>
+      <IoMdArrowDropleft />
       <SliderWrapper arrows={false} {...settings}>
-        {props.size.map((v, i) => {
+        {props.size.map((v) => {
           return (
-            <div key={i}>
+            <div key={v.product_id}>
               <SlideItem
-                selected={selectItem === v}
-                onClick={() => slideItemClickHandler(v)}
+                selected={selectItem === v.size}
+                onClick={() => slideItemClickHandler(v.size)}
               >
-                {v}
+                {v.size}
               </SlideItem>
             </div>
           );
         })}
       </SliderWrapper>
+      <IoMdArrowDropright />
     </Container>
   );
 }
@@ -47,6 +50,12 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: #49474c;
+  }
 `;
 
 const SliderWrapper = styled(Slider)`

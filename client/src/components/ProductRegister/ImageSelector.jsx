@@ -5,11 +5,16 @@ import styled from "styled-components";
 import ImageUploader from "react-images-upload";
 import { useMutation } from "react-query";
 import { imageRegisterFn } from "../../api";
+import { useEffect } from "react";
 
 export default memo(function ImageSelector(props) {
-  const { mutate, data, isSuccess, isLoading } = useMutation((value) =>
-    imageRegisterFn(value)
-  );
+  const { mutate, data } = useMutation((value) => imageRegisterFn(value));
+
+  useEffect(() => {
+    if (data) {
+      props.changeHandler([data.data]);
+    }
+  }, [data]);
 
   const formData = new FormData();
 
@@ -21,10 +26,6 @@ export default memo(function ImageSelector(props) {
       return;
     }
   };
-
-  if (isSuccess && data) {
-    props.changeHandler([data.data]);
-  }
 
   return (
     <Container>

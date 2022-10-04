@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import EditProfile from "../components/MyPage/EditProfile";
@@ -9,10 +10,11 @@ import MyPaymentList from "../components/MyPage/MyPaymentList";
 import ProfileCard from "../components/MyPage/ProfileCard";
 
 export default function MyPage() {
+  const userInfo = useSelector((state) => state.user);
   return (
     <Container>
       <ContentsWrapper>
-        <ProfileCard />
+        <ProfileCard info={userInfo} />
         <MyPageIconBox />
         <Routes>
           <Route index element={<MyFavoriteList />} />

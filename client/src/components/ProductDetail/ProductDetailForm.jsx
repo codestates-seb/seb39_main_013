@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import useGetProductDetailInfo from "../../hooks/useGetProductDetailInfo";
 import Comments from "../Comment/Comments";
 import Loading from "../Commons/Loading";
 import ProductDetailOrder from "./ProductDetailOrder";
 
-export default function ProductDetailForm(props) {
+export default memo(function ProductDetailForm(props) {
   const getProductDetailInfo = useGetProductDetailInfo({
     name: props.dataInfo.name,
   });
@@ -15,7 +15,6 @@ export default function ProductDetailForm(props) {
   if (getProductDetailInfo.isLoading) {
     return <Loading />;
   }
-  console.log(getProductDetailInfo.data);
 
   return (
     <Container>
@@ -31,6 +30,8 @@ export default function ProductDetailForm(props) {
           color={props.dataInfo.color}
           size={props.dataInfo.size}
           maxQuantity={props.dataInfo.stock}
+          data={props.dataInfo}
+          sizeList={getProductDetailInfo.data}
         />
       </OrderWrapper>
       <Comments
@@ -39,7 +40,7 @@ export default function ProductDetailForm(props) {
       />
     </Container>
   );
-}
+});
 
 const Container = styled.section`
   max-width: 1280px;

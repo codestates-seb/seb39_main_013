@@ -20,9 +20,9 @@ const Header = () => {
         </Link>
       </LogoBox>
       {userInfo.isLogin ? (
-        <HeaderMenu login={true} />
+        <HeaderMenu login={true} info={userInfo} />
       ) : (
-        <HeaderMenu login={false} />
+        <HeaderMenu login={false} info={userInfo} />
       )}
     </Container>
   );
