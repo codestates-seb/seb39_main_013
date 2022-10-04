@@ -74,7 +74,7 @@ const Container = styled.div`
     align-items: center;
     max-width: 836px;
     height: auto;
-    border-bottom: 2px solid rgba(124, 124, 124, 0.5);
+    border-bottom: 1px solid rgba(124, 124, 124, 0.5);
     box-sizing: border-box;
     padding-bottom: 7px;
   }
@@ -91,7 +91,7 @@ const Container = styled.div`
   }
 
   .reviewComment-right-part {
-    flex: auto;
+    flex: 100%;
     font-size: 16px;
     .reviewComment-content-top {
       display: flex;
@@ -131,12 +131,14 @@ const Container = styled.div`
         justify-content: end;
         align-items: center;
         padding-right: 5px;
-        color: yellow;
+        color: #ebdb03;
       }
     }
     .reviewComment-content_bottom {
       .reviewComment-text {
         height: auto;
+
+        word-break: break-all;
       }
     }
   }

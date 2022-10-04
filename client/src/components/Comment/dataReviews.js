@@ -1,6 +1,7 @@
 export const dataReviews = [
   {
     productId: 21,
+    productName: "Adidas Yeezy Boost 350 V2 Slate Core Black",
     reviewId: 1001,
     reviewName: "하키(HAKI)",
     reviewEmail: "soonhak1212@gmail.com",
@@ -10,6 +11,7 @@ export const dataReviews = [
   },
   {
     productId: 21,
+    productName: "Adidas Yeezy Boost 350 V2 Slate Core Black",
     reviewId: 1002,
     reviewName: "하키(HAKI)",
     reviewEmail: "soonhak1212@gmail.com",
@@ -19,6 +21,7 @@ export const dataReviews = [
   },
   {
     productId: 21,
+    productName: "Adidas Yeezy Boost 350 V2 Slate Core Black",
     reviewId: 1003,
     reviewName: "포키(POKI)",
     reviewEmail: "soonhak1212@naver.com",
@@ -28,6 +31,7 @@ export const dataReviews = [
   },
   {
     productId: 41,
+    productName: "New Balance 574 Heritage Orange Burst White",
     reviewId: 1004,
     reviewName: "포키(POKI)",
     reviewEmail: "soonhak1212@naver.com",
@@ -37,6 +41,7 @@ export const dataReviews = [
   },
   {
     productId: 41,
+    productName: "New Balance 574 Heritage Orange Burst White",
     reviewId: 1005,
     reviewName: "하키(HAKI)",
     reviewEmail: "soonhak1212@gmail.com",

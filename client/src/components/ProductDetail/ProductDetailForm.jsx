@@ -34,10 +34,9 @@ export default memo(function ProductDetailForm(props) {
           sizeList={getProductDetailInfo.data}
         />
       </OrderWrapper>
-      <Comments
-        productId={props.dataInfo.product_id}
-        contentImg={props.dataInfo.content_images}
-      />
+
+      <Comments productId={props.dataInfo.product_id} productName={props.dataInfo.name} contentImg={props.dataInfo.content_images} />
+
     </Container>
   );
 });

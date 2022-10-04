@@ -19,8 +19,7 @@ function QnaForm(props) {
       questionContent: text,
     };
     props.addComment(newComment);
-    setName("");
-    setEmail("");
+
     setText("");
   };
 
@@ -67,9 +66,11 @@ function QnaForm(props) {
               required
               placeholder="질문을 작성해주세요. 로그인 하여야 작성이 가능합니다."
               readOnly={!props.userIsLogin}
+              maxLength={400}
             />
           </div>
           <div className="submitBox">
+            <p>{text.length}/400</p>
             <button type="submit" disabled={!props.userIsLogin}>
               Submit
             </button>
