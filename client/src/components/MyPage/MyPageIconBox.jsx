@@ -1,47 +1,38 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaHeart, FaRegCommentAlt, FaRegAddressCard } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FiTruck } from "react-icons/fi";
 import { MdPayment } from "react-icons/md";
+import { mypageMenuList } from "../../constance";
 
 export default function MyPageIconBox() {
-  /**
-   * @IconBox 중첩 라우팅처리
-   */
+  const [isClick, setIsClick] = useState(1);
+  const icons = {
+    1: <FaHeart fill="#ff3251" />,
+    2: <FiTruck />,
+    3: <MdPayment />,
+    4: <FaRegCommentAlt />,
+  };
+  const menuList = mypageMenuList;
   return (
     <Container>
       <IconBox>
-        <li>
-          <Icons to="/mypage/favorite">
-            <FaHeart fill="#ff3251" />
-            <span>찜한상품</span>
-          </Icons>
-        </li>
-        <li>
-          <Icons to="/mypage/orders">
-            <FiTruck />
-            <span>주문내역</span>
-          </Icons>
-        </li>
-        <li>
-          <Icons to="/mypage/payment">
-            <MdPayment />
-            <span>결제내역</span>
-          </Icons>
-        </li>
-        <li>
-          <Icons to="/mypage/reviews">
-            <FaRegCommentAlt />
-            <span>리뷰내역</span>
-          </Icons>
-        </li>
-        <li>
-          <Icons to="/">
-            <FaRegAddressCard />
-            <span>주소록</span>
-          </Icons>
-        </li>
+        {menuList.map((v, i) => {
+          return (
+            <WrapperList
+              key={v.id}
+              active={v.id === isClick ? true : false}
+              onClick={() => setIsClick(v.id)}
+            >
+              <Icons to={v.link}>
+                {icons[i + 1]}
+                <span>{v.text}</span>
+              </Icons>
+            </WrapperList>
+          );
+        })}
       </IconBox>
     </Container>
   );
@@ -57,16 +48,18 @@ const IconBox = styled.ul`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+`;
 
-  li {
-    width: 100%;
-    transition: 0.5s;
-    &:hover {
-      background: transparent;
-      box-shadow: inset 300px 0 0 0 #87c2f5;
-      color: #d8d8d8;
-    }
+const WrapperList = styled.li`
+  width: 100%;
+  transition: 0.5s;
+  &:hover {
+    background: transparent;
+    box-shadow: inset 300px 0 0 0 #87c2f5;
+    color: #d8d8d8;
   }
+
+  background-color: ${(props) => (props.active ? "#87c2f5" : "transparent")};
 `;
 
 const Icons = styled(Link)`

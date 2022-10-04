@@ -3,7 +3,7 @@ import { getProductDetailInfo } from "../api";
 
 export default function useGetProductDetailInfo(params) {
   const { data, isLoading } = useQuery(
-    ["getProductDetailInfo"],
+    ["getProductDetailInfo", params],
     () => getProductDetailInfo(params),
     {
       retry: 1,

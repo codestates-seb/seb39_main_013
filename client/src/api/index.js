@@ -10,11 +10,10 @@ export const signUpFn = async (payload) => {
 
 export const loginFn = async (payload) => {
   const res = await axiosInstance.post("/login", payload);
-  console.log(res);
   if (res?.headers) {
     Cookie.set("authorization", res.headers["authorization"]);
   }
-  console.log("inner Index :", res);
+
   return res;
 };
 
@@ -27,7 +26,6 @@ export const authorizeToken = async () => {
       Authorization: token,
     },
   });
-  console.log("res :", res);
   return res;
 };
 
@@ -112,14 +110,8 @@ export const getFavoriteItem = async () => {
 }
 
 export const getProductDetailInfo = async (params) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v1/products/', {
-    headers: {
-      Authorization: token,
-      params: params
-    }
-  });
-  return res;
+  const res = await axiosInstance.get(`/api/v1/products/?name=${params.name}`);
+  return res.data.data;
 }
 
 export const deleteFavoriteItem = async (id) => {
@@ -150,4 +142,34 @@ export const getOrderList = async () => {
     }
   });
   return res.data.data;
+}
+
+export const patchUserInfo = async (body, id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.patch(`/api/v1/members/${id}`, body, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+}
+
+export const getUserData = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get(`/api/v1/members/${id}`, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+}
+
+export const orderPoductItem = async (body) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.post('/api/v1/orders/product', body, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
 }

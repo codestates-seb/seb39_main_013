@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BiSearch } from "react-icons/bi";
+import { mobile, tablet } from "../../utils/styleTheme";
 
 export default function SearchBar() {
   return (
@@ -18,6 +19,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
   max-width: 250px;
   border-bottom: 1px solid #565656;
   display: flex;
@@ -35,5 +37,13 @@ const Wrapper = styled.div`
   svg {
     width: 24px;
     height: 24px;
+  }
+
+  @media ${tablet} {
+    max-width: 100px;
+  }
+
+  @media ${mobile} {
+    max-width: 80px;
   }
 `;

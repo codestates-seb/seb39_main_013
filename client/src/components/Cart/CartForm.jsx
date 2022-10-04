@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CartItem from "./CartItem";
-import { HiOutlineX } from "react-icons/hi";
 import { FaWonSign } from "react-icons/fa";
 import Button from "../Commons/Button";
 import Price from "../Commons/Price";
@@ -18,7 +17,11 @@ export default memo(function CartForm() {
   const [paymentData, setPaymentData] = useState({});
   const userInfo = useSelector((state) => state.user);
   const getCartData = useGetCartDataQuery();
-  const orderCartAction = useOrderCartItems(paymentData, getCartData.data);
+  const orderCartAction = useOrderCartItems(
+    paymentData,
+    getCartData.data,
+    "cart"
+  );
 
   useEffect(() => {
     setCalcPrice(
@@ -39,7 +42,7 @@ export default memo(function CartForm() {
       buyer_addr: userInfo.address,
       buyer_postcode: userInfo.postcode,
     });
-  }, [totalPrice, calcPrice]);
+  }, [totalPrice, calcPrice, userInfo]);
 
   const clickHander = () => {
     orderCartAction.mutate();
@@ -76,10 +79,6 @@ export default memo(function CartForm() {
           })}
       </FormBody>
       <FormFooter>
-        <button>
-          <HiOutlineX />
-          Clear Shopping Cart
-        </button>
         <SubTotal>
           <span>Subtotal</span>
           <span>
@@ -94,10 +93,6 @@ export default memo(function CartForm() {
     </Container>
   );
 });
-
-/**
- * flex로 정가운데 고정 시 max-width width 100%로 전체 공간 잡기
- */
 
 const Container = styled.section`
   width: 100%;
@@ -144,7 +139,7 @@ const FormBody = styled.section`
 const FormFooter = styled.section`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 1rem 0;
   border-bottom: 1px solid #d4d4d4;

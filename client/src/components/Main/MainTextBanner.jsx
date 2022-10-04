@@ -2,6 +2,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { logoBanner } from "../../constance/bannerImage";
+import { desktop, mobile, tablet } from "../../utils/styleTheme";
 
 export default function MainTextBanner() {
   return (
@@ -22,6 +23,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 56px;
+
+  @media ${tablet} {
+    margin-top: 24px;
+  }
+
+  @media ${mobile} {
+    margin-top: 32px;
+  }
 
   div {
     display: flex;
@@ -44,6 +53,17 @@ const Container = styled.div`
       right: 0;
       bottom: 0;
     }
+    @media ${desktop} {
+      width: 50%;
+    }
+
+    @media ${tablet} {
+      width: 50%;
+    }
+
+    @media ${mobile} {
+      width: 100%;
+    }
   }
 `;
 
@@ -53,6 +73,10 @@ const TextWrapper = styled.span`
   letter-spacing: 8px;
   opacity: 1;
 
+  @media ${tablet} {
+    font-size: 40px;
+  }
+
   ${(props) =>
     props.sub &&
     css`
@@ -61,5 +85,9 @@ const TextWrapper = styled.span`
       /* opacity: 0.5; */
       color: #d8d8d8;
       letter-spacing: 4px;
+
+      @media ${tablet} {
+        font-size: 14px;
+      }
     `}
 `;

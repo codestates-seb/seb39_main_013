@@ -13,7 +13,7 @@ export default function OrderItem(props) {
             <ItemProfile>
               <Link to={`/detail/${v.product_id}`}>
                 <ItemTextWrapper>
-                  <span>product Title</span>
+                  <span>{v.product_name}</span>
                 </ItemTextWrapper>
               </Link>
             </ItemProfile>
@@ -91,12 +91,9 @@ const ItemOptions = styled.div`
 const OptionWrapper = styled.div`
   display: flex;
   max-width: 180px;
-  gap: 1rem;
   justify-content: space-between;
   border-bottom: ${(props) => props.border === "bottom" && "1px solid #d4d4d4"};
 
-  padding: ${(props) =>
-    props.border === "bottom" ? "0 0 1rem 0" : "1rem 0 0 0"};
   > div {
     display: flex;
     align-items: flex-start;

@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import ProductDetailForm from "../components/ProductDetail/ProductDetailForm";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
@@ -15,9 +14,7 @@ export default function ProductDetailPage() {
   }
   return (
     <Container>
-      <ProductDetailForm //
-        dataInfo={getItem.data}
-      />
+      <ProductDetailForm dataInfo={getItem.data} />
     </Container>
   );
 }

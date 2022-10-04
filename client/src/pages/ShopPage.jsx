@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MainItems from "../components/MainItems/MainItems";
 import ShopFilter from "../components/Shop/ShopFilter";
-import { dummyColor, productData } from "../constance/index";
+import { dummyColor } from "../constance/index";
 import SubBanner from "../components/SubBanner/Subbanner";
 
 export default function ShopPage() {

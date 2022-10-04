@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  // baseURL: "http://server.statemall.tk",
+  // baseURL: "https://server.statemall.tk",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });

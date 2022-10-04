@@ -1,26 +1,43 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OrderFormBody from "./OrderFormBody";
 import OrderFormFooter from "./OrderFormFooter";
 import OrderFormHeader from "./OrderFormHeader";
 import styled from "styled-components";
 import Button from "../Commons/Button";
-import { AiOutlineHeart } from "react-icons/ai";
 import OrderInfo from "./OrderInfo";
 import useAddCartMutaion from "../../hooks/useAddCartMutaion";
 import Loading from "../Commons/Loading";
+import { useSelector } from "react-redux";
+import { memo } from "react";
+import useOrderProductItem from "../../hooks/useOrderProductItem";
 
-export default function ProductDetailOrder(props) {
-  const [quantity, setQuantity] = useState(1);
+export default memo(function ProductDetailOrder(props) {
+  const [quantity, setQuantity] = useState(props.size);
   const [size, setSize] = useState(0);
+  const [totalPrice, setTotalPrice] = useState({});
+  const [paymentData, setPaymentData] = useState({});
 
-  const orderData = {
-    totalPrice: Number(props.price) * Number(quantity),
-    size,
-    name: props.title,
-    color: props.color,
-  };
+  const userInfo = useSelector((state) => state.user);
+  useEffect(() => {
+    setTotalPrice(Number(quantity) * Number(props.price));
+  }, [props.price, quantity]);
+
+  useEffect(() => {
+    setPaymentData({
+      pg: "kakaopay",
+      pay_method: "card",
+      merchant_uid: `mid_${new Date().getTime()}`,
+      name: "stateMall-payment",
+      amount: totalPrice,
+      buyer_email: userInfo.email,
+      buyer_name: userInfo.name,
+      buyer_tel: userInfo.phone,
+      buyer_addr: userInfo.address,
+      buyer_postcode: userInfo.postcode,
+    });
+  }, [totalPrice, userInfo]);
 
   const addCartAction = useAddCartMutaion({
     productId: props.id,
@@ -28,12 +45,23 @@ export default function ProductDetailOrder(props) {
     isWanted: true,
   });
 
+  const orderProductAction = useOrderProductItem(
+    paymentData,
+    [{ ...props.data, quantity, totalPrice, size }],
+    "product"
+  );
+
   const addCartItemHandler = (e) => {
     e.preventDefault();
     addCartAction.mutate();
   };
 
-  if (addCartAction.isLoading) {
+  const orderProductHandler = (e) => {
+    e.preventDefault();
+    orderProductAction.mutate();
+  };
+
+  if (addCartAction.isLoading || orderProductAction.isLoading) {
     return <Loading />;
   }
 
@@ -47,26 +75,27 @@ export default function ProductDetailOrder(props) {
       <OrderFormBody
         setSize={setSize}
         setQuantity={setQuantity}
-        sizeList={[props.size]}
+        sizeList={props.sizeList.info}
         color={props.color}
         maxQuantity={props.maxQuantity}
       />
       <OrderFormFooter />
-      <OrderInfo orderData={orderData} />
+      <OrderInfo totalPrice={totalPrice} size={size} />
       <ButtonWrapper>
-        <Button disable={true} onClick={addCartItemHandler}>
+        <Button disable={userInfo.isLogin} onClick={addCartItemHandler}>
           ADD TO CART
         </Button>
-        <Button disable={true} mode="apply">
+        <Button
+          disable={userInfo.isLogin}
+          mode="apply"
+          onClick={orderProductHandler}
+        >
           BUY NOW
         </Button>
-        <button>
-          <AiOutlineHeart width={24} height={24} />
-        </button>
       </ButtonWrapper>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   padding: 32px 24px;
@@ -79,15 +108,10 @@ const ButtonWrapper = styled.div`
   button {
     border-radius: 10px;
     flex: 1;
-    padding: 10px;
+    padding: 20px;
 
-    &:nth-child(3) {
-      flex: 0.3;
-      border: 2px solid #878787;
-    }
-    svg {
-      width: 24px;
-      height: 24px;
+    &:hover {
+      opacity: 0.7;
     }
   }
 `;

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { mainBanner } from "../../constance/bannerImage";
+import { tablet } from "../../utils/styleTheme";
+import useInterval from "../../hooks/useInterval";
 
 export default function MainCarousel() {
   // eslint-disable-next-line no-unused-vars
-  const [imgList, setImgList] = useState(mainBanner);
   const [imgNum, setImgNum] = useState(0);
+  const imgList = mainBanner;
 
   const slideRightHandle = () => {
     if (imgNum === imgList.length - 1) {
@@ -23,6 +25,7 @@ export default function MainCarousel() {
       setImgNum((prev) => prev - 1);
     }
   };
+  useInterval(slideRightHandle, 4000);
 
   return (
     <div>
@@ -63,6 +66,10 @@ const Container = styled.section`
   position: relative;
   margin-bottom: 56px;
 
+  @media ${tablet} {
+    display: none;
+  }
+
   @keyframes slide {
     from {
       flex-basis: 1000;
@@ -91,11 +98,11 @@ const Slider = styled.div`
 
 const CarouselArrow = styled.button`
   border: none;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.5);
   width: 48px;
   height: 48px;
   position: absolute;
-  border-radius: 10px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,5 +118,5 @@ const CarouselArrow = styled.button`
     fill: white;
   }
 
-  ${(props) => (props.prev ? "left: 10px" : "right: 10px")}
+  ${(props) => (props.prev ? "left: -20px" : "right: -20px")}
 `;

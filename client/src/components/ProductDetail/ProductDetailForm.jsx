@@ -1,20 +1,28 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
+import useGetProductDetailInfo from "../../hooks/useGetProductDetailInfo";
 import Comments from "../Comment/Comments";
-import AdditionalInfo from "./AdditionalInfo";
-
+import Loading from "../Commons/Loading";
 import ProductDetailOrder from "./ProductDetailOrder";
 
-export default function ProductDetailForm(props) {
+export default memo(function ProductDetailForm(props) {
+  const getProductDetailInfo = useGetProductDetailInfo({
+    name: props.dataInfo.name,
+  });
+
+  if (getProductDetailInfo.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
-        <ProductDetailOrder //
+        <ProductDetailOrder
           id={props.dataInfo.product_id}
           title={props.dataInfo.name}
           price={props.dataInfo.price}
@@ -22,13 +30,16 @@ export default function ProductDetailForm(props) {
           color={props.dataInfo.color}
           size={props.dataInfo.size}
           maxQuantity={props.dataInfo.stock}
+          data={props.dataInfo}
+          sizeList={getProductDetailInfo.data}
         />
       </OrderWrapper>
+
       <Comments productId={props.dataInfo.product_id} productName={props.dataInfo.name} contentImg={props.dataInfo.content_images} />
-      {/* <AdditionalInfo contentImg={props.dataInfo.content_images} /> */}
+
     </Container>
   );
-}
+});
 
 const Container = styled.section`
   max-width: 1280px;

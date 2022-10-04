@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { Link } from "react-router-dom";
 import { AiOutlineGithub } from "react-icons/ai";
-
+import { mobile, tablet } from "../../utils/styleTheme";
 
 function Footer() {
   return (
@@ -90,6 +90,19 @@ const Container = styled.footer`
 
   padding: 0 64px;
 
+  @media ${tablet} {
+    height: 140px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  @media ${mobile} {
+    height: 200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
 
   div {
     width: 100%;
@@ -131,11 +144,11 @@ const Container = styled.footer`
   }
 `;
 
-
 const GitLinkBox = styled.ul`
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 
   a {
     color: white;
@@ -150,6 +163,5 @@ const GitLinkBox = styled.ul`
     }
   }
 `;
-
 
 export default Footer;

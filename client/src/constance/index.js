@@ -1,3 +1,4 @@
+
 export const categoryList = [
   {
     id: 1,
@@ -206,4 +207,31 @@ export const cartData = [
     ],
     quantity: 9,
 },
+];
+
+export const mypageMenuList = [
+  {
+    id: 1,
+    link: "/mypage/favorite",
+    text: "찜한상품",
+  },
+
+  {
+    id: 2,
+    link: "/mypage/orders",
+    text: "주문내역",
+  },
+
+  {
+    id: 3,
+    link: "/mypage/payment",
+    text: "결제내역",
+  },
+
+  {
+    id: 4,
+    link: "/",
+    text: "리뷰내역",
+  },
+
 ];

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import HeaderMenu from "./HeaderMenu";
 import SearchBar from "./SearchBar";
 import { useSelector } from "react-redux";
+import { tablet } from "../../utils/styleTheme";
 
 const Header = () => {
   const userInfo = useSelector((state) => state.user);
@@ -20,9 +21,9 @@ const Header = () => {
         </Link>
       </LogoBox>
       {userInfo.isLogin ? (
-        <HeaderMenu login={true} />
+        <HeaderMenu login={true} info={userInfo} />
       ) : (
-        <HeaderMenu login={false} />
+        <HeaderMenu login={false} info={userInfo} />
       )}
     </Container>
   );
@@ -39,6 +40,10 @@ const Container = styled.header`
   top: 0;
   background-color: #fff;
   z-index: 999;
+
+  @media ${tablet} {
+    padding: 0 20px;
+  }
 `;
 
 const LogoBox = styled.div`

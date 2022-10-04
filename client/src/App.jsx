@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "./components/Header/Header";
 import GlobalStyled from "./GlobalStyle";
-// import GlobalFonts from "./fonts/GlobalFonts";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -11,10 +10,10 @@ import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./utils/PrivateRoute";
 import { routerList } from "./utils/Routers";
-import { useEffect } from "react";
 import { dataQuestions } from "./components/Comment/dataQuestions";
 import { dataAnswers } from "./components/Comment/dataAnswers";
 import { dataReviews } from "./components/Comment/dataReviews";
+import { mobile, tablet } from "./utils/styleTheme";
 
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -39,7 +38,19 @@ function App() {
         <MainContainer>
           <Routes>
             {routerList.map((v) => {
-              return <Route key={v.id} path={v.path} element={v.isPrivate ? <PrivateRoute isLogin={isLogin} component={v.element} /> : v.element} />;
+              return (
+                <Route
+                  key={v.id}
+                  path={v.path}
+                  element={
+                    v.isPrivate ? (
+                      <PrivateRoute isLogin={isLogin} component={v.element} />
+                    ) : (
+                      v.element
+                    )
+                  }
+                />
+              );
             })}
           </Routes>
         </MainContainer>
@@ -53,7 +64,14 @@ function App() {
 
 const MainContainer = styled.main`
   width: 100%;
-  /* font-family: "Noto Sans KR", sans-serif; */
+
+  @media ${tablet} {
+    padding: 0 40px 220px 40px;
+  }
+
+  @media ${mobile} {
+    padding: 0 20px 220px 20px;
+  }
 `;
 
 export default App;
