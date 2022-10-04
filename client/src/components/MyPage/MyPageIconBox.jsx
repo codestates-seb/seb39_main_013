@@ -31,7 +31,7 @@ export default function MyPageIconBox() {
           </Icons>
         </li>
         <li>
-          <Icons to="/">
+          <Icons to="/mypage/reviews">
             <FaRegCommentAlt />
             <span>리뷰내역</span>
           </Icons>

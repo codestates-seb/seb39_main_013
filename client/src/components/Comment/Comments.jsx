@@ -17,8 +17,9 @@ function Comments(props) {
 
   const userName = userInfo.name;
   const userEmail = userInfo.email;
-  const UserIsLogin = userInfo.isLogin;
+  const userIsLogin = userInfo.isLogin;
   //app에서 localStorage를 설정했기 때문에 get으로만 가져오면 된다.
+
   useEffect(() => {
     setDummyData(
       JSON.parse(localStorage.getItem("dataQuestions")).filter((question) => {
@@ -207,7 +208,7 @@ function Comments(props) {
                 commentEmail={comment.questionEmail}
                 userName={userName}
                 userEmail={userEmail}
-                userIsLogin={UserIsLogin}
+                userIsLogin={userIsLogin}
                 productId={props.productId}
               />
             ))}
@@ -215,7 +216,7 @@ function Comments(props) {
               addComment={addComment}
               userName={userName}
               userEmail={userEmail}
-              userIsLogin={UserIsLogin}
+              userIsLogin={userIsLogin}
               productId={props.productId}
             />
           </>
@@ -233,15 +234,16 @@ function Comments(props) {
                 updateReview={updateReview}
                 userName={userName}
                 userEmail={userEmail}
-                UserIsLogin={UserIsLogin}
+                UserIsLogin={userIsLogin}
               />
             ))}
             <ReviewForm //
               addNewReview={addNewReview}
               userName={userName}
               userEmail={userEmail}
-              UserIsLogin={UserIsLogin}
+              userIsLogin={userIsLogin}
               productId={props.productId}
+              productName={props.productName}
             />
           </>
         ) : null}

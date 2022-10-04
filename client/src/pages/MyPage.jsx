@@ -6,6 +6,7 @@ import MyOrderList from "../components/MyPage/MyOrderList";
 import MyPageIconBox from "../components/MyPage/MyPageIconBox";
 import MyPaymentList from "../components/MyPage/MyPaymentList";
 import ProfileCard from "../components/MyPage/ProfileCard";
+import MyReviews from "../components/MyPage/MyReviews";
 
 export default function MyPage() {
   return (
@@ -18,6 +19,7 @@ export default function MyPage() {
           <Route path="favorite" element={<MyFavoriteList />} />
           <Route path="orders" element={<MyOrderList />} />
           <Route path="payment" element={<MyPaymentList />} />
+          <Route path="reviews" element={<MyReviews />} />
         </Routes>
       </ContentsWrapper>
     </Container>

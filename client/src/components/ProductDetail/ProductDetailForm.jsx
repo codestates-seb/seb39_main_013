@@ -24,7 +24,7 @@ export default function ProductDetailForm(props) {
           maxQuantity={props.dataInfo.stock}
         />
       </OrderWrapper>
-      <Comments productId={props.dataInfo.product_id} contentImg={props.dataInfo.content_images} />
+      <Comments productId={props.dataInfo.product_id} productName={props.dataInfo.name} contentImg={props.dataInfo.content_images} />
       {/* <AdditionalInfo contentImg={props.dataInfo.content_images} /> */}
     </Container>
   );
