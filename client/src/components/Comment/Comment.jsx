@@ -129,7 +129,6 @@ const Container = styled.div`
     flex: 100%;
     .comment-content-top {
       display: flex;
-
       height: 50px;
 
       .comment-content-top__left {

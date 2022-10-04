@@ -97,7 +97,7 @@ const Container = styled.section`
 
     .reviewComment-content-top {
       display: flex;
-      padding-bottom 5px;
+      padding-bottom: 5px;
     }
     .reviewComment-content-top__left {
       display: flex;
