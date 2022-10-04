@@ -234,9 +234,4 @@ export const mypageMenuList = [
     text: "리뷰내역",
   },
 
-  {
-    id: 5,
-    link: "/",
-    text: "주소록",
-  },
 ];

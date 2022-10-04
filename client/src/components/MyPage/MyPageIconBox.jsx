@@ -14,7 +14,6 @@ export default function MyPageIconBox() {
     2: <FiTruck />,
     3: <MdPayment />,
     4: <FaRegCommentAlt />,
-    5: <FaRegAddressCard />,
   };
   const menuList = mypageMenuList;
   return (

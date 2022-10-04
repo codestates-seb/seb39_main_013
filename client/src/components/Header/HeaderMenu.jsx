@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { BsCart2 } from "react-icons/bs";
-import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import {
+  AiOutlineLogin,
+  AiOutlineLogout,
+  AiOutlineMenu,
+  AiOutlineClose,
+} from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { persistor } from "../../redux/store";
 import Cookies from "js-cookie";
@@ -55,7 +60,9 @@ const HeaderMenu = (props) => {
           </>
         )}
       </Wrapper>
-      <MenuButton onClick={menuButtonHandler}>test</MenuButton>
+      <MenuButton onClick={menuButtonHandler}>
+        {isClick ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
+      </MenuButton>
     </Container>
   );
 };
@@ -86,13 +93,16 @@ const Wrapper = styled.div`
         : css`
             display: flex;
             transition: opacity 0.2s ease-in-out;
+            box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px,
+              rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
+              rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
           `};
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 40px;
     padding: 1rem 8px;
-    background-color: #fdf6f0;
+    background-color: #f4f5f7;
     position: absolute;
     border-radius: 10px;
 
@@ -176,6 +186,8 @@ const ProfileImage = styled(Link)`
 
 const MenuButton = styled.button`
   display: none;
+  border: none;
+  background-color: transparent;
 
   @media ${tablet} {
     display: block;
