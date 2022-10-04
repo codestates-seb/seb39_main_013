@@ -24,7 +24,6 @@ export default function MyPage() {
           <Route path="payment" element={<MyPaymentList />} />
           <Route path="edit" element={<EditProfile />} />
           <Route path="reviews" element={<MyReviews />} />
-
         </Routes>
       </ContentsWrapper>
     </Container>

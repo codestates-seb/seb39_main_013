@@ -8,7 +8,9 @@ function RiviewForm(props) {
 
   const [clickedRadioBtn, setClickedRadioBtn] = useState("5");
 
-  const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
+  const renderStar = () => (
+    <AiFillStar key={Math.random().toString(36).substr(2, 9)} />
+  );
   const renderStars = (num) => [...Array(num)].map((num) => renderStar());
 
   const submitNewReview = (e) => {
@@ -40,29 +42,79 @@ function RiviewForm(props) {
             <p>Your Ratting</p>
 
             <label htmlFor="star1" key="star1">
-              <input type="radio" id="star1" value={1} checked={clickedRadioBtn === "1"} onChange={(e) => setClickedRadioBtn(e.target.value)} />
+              <input
+                type="radio"
+                id="star1"
+                value={1}
+                checked={clickedRadioBtn === "1"}
+                onChange={(e) => setClickedRadioBtn(e.target.value)}
+              />
               {renderStars(1)}
             </label>
             <label htmlFor="star2" key="star2">
-              <input type="radio" id="star2" value={2} checked={clickedRadioBtn === "2"} onChange={(e) => setClickedRadioBtn(e.target.value)} />
+              <input
+                type="radio"
+                id="star2"
+                value={2}
+                checked={clickedRadioBtn === "2"}
+                onChange={(e) => setClickedRadioBtn(e.target.value)}
+              />
               {renderStars(2)}
             </label>
             <label htmlFor="star3" key="star3">
-              <input type="radio" id="star3" value={3} checked={clickedRadioBtn === "3"} onChange={(e) => setClickedRadioBtn(e.target.value)} />
+              <input
+                type="radio"
+                id="star3"
+                value={3}
+                checked={clickedRadioBtn === "3"}
+                onChange={(e) => setClickedRadioBtn(e.target.value)}
+              />
               {renderStars(3)}
             </label>
             <label htmlFor="star4" key="star4">
-              <input type="radio" id="star4" value={4} checked={clickedRadioBtn === "4"} onChange={(e) => setClickedRadioBtn(e.target.value)} />
+              <input
+                type="radio"
+                id="star4"
+                value={4}
+                checked={clickedRadioBtn === "4"}
+                onChange={(e) => setClickedRadioBtn(e.target.value)}
+              />
               {renderStars(4)}
             </label>
             <label htmlFor="star5" key="star5">
-              <input type="radio" id="star5" value={5} checked={clickedRadioBtn === "5"} onChange={(e) => setClickedRadioBtn(e.target.value)} />
+              <input
+                type="radio"
+                id="star5"
+                value={5}
+                checked={clickedRadioBtn === "5"}
+                onChange={(e) => setClickedRadioBtn(e.target.value)}
+              />
               {renderStars(5)}
             </label>
           </div>
           <div className="review-inputInfo">
-            <input key="nameInput" className="inputForm" name={"Name"} type="text" placeholder="Name" value={props.userName} onChange={(e) => setName(e.target.value)} required readOnly />
-            <input key="emailInput" className="inputForm" name={"Email"} type="email" placeholder="Email" value={props.userEmail} onChange={(e) => setEmail(e.target.value)} required readOnly />
+            <input
+              key="nameInput"
+              className="inputForm"
+              name={"Name"}
+              type="text"
+              placeholder="Name"
+              value={props.userName}
+              onChange={(e) => setName(e.target.value)}
+              required
+              readOnly
+            />
+            <input
+              key="emailInput"
+              className="inputForm"
+              name={"Email"}
+              type="email"
+              placeholder="Email"
+              value={props.userEmail}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              readOnly
+            />
           </div>
           <div className="review-content">
             <textarea //
@@ -98,6 +150,7 @@ const Container = styled.div`
 
   .reviewBox {
     width: 70%;
+    margin-top: 48px;
     > div {
       margin: 10px 0;
     }

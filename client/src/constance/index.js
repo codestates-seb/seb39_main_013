@@ -230,7 +230,7 @@ export const mypageMenuList = [
 
   {
     id: 4,
-    link: "/",
+    link: "/mypage/reviews",
     text: "리뷰내역",
   },
 
