@@ -21,7 +21,7 @@ function MyReviews() {
     <Container>
       <FormHeader>
         <MenuBox>PRODUCT NAME</MenuBox>
-        <MenuBox>리뷰</MenuBox>
+        <MenuBox>REVIEW</MenuBox>
       </FormHeader>
       <FormBody>{reviews.length !== 0 ? reviews.map((review) => <ReviewItem key={review.reviewId} review={review} />) : <div>리뷰없음</div>}</FormBody>
     </Container>
@@ -52,13 +52,14 @@ const MenuBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 2px solid red;
 
   &:nth-child(1) {
-    flex: 1;
+    flex: 2;
+    justify-content: center;
   }
   &:nth-child(2) {
-    flex: 4;
+    flex: 8;
+    justify-content: center;
   }
 `;
 

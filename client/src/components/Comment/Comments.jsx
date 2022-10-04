@@ -19,6 +19,7 @@ function Comments(props) {
   const userEmail = userInfo.email;
   const userIsLogin = userInfo.isLogin;
   //app에서 localStorage를 설정했기 때문에 get으로만 가져오면 된다.
+
   useEffect(() => {
     setDummyData(
       JSON.parse(localStorage.getItem("dataQuestions")).filter((question) => {
@@ -242,6 +243,7 @@ function Comments(props) {
               userEmail={userEmail}
               userIsLogin={userIsLogin}
               productId={props.productId}
+              productName={props.productName}
             />
           </>
         ) : null}

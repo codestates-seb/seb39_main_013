@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 /* eslint-disable */
 function RiviewForm(props) {
-  const handleSubmit = () => {
-    //qnaId와 name, email을 넣어서 api에 객체를 전달해준다.
-  };
-
   const [text, setText] = useState("");
 
   const [clickedRadioBtn, setClickedRadioBtn] = useState("5");
@@ -19,6 +15,7 @@ function RiviewForm(props) {
     e.preventDefault();
     const newReview = {
       productId: props.productId,
+      productName: props.productName,
       reviewId: Math.random().toString(36).substr(2, 9),
       reviewName: props.userName,
       reviewEmail: props.userEmail,
@@ -74,9 +71,11 @@ function RiviewForm(props) {
               required
               placeholder="리뷰를 작성해주세요. 로그인 하여야 작성이 가능합니다."
               readOnly={!props.userIsLogin}
+              maxLength={400}
             />
           </div>
           <div className="submitBox">
+            <p>{text.length}/400</p>
             <button type="submit" disabled={!props.userIsLogin}>
               Submit
             </button>
@@ -120,7 +119,7 @@ const Container = styled.div`
       }
       label {
         margin: 0 5px;
-        color: yellow;
+        color: #ebdb03;
       }
     }
 

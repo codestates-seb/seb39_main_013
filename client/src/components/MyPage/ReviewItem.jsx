@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function ReviewItem(props) {
   const renderStar = () => <AiFillStar key={Math.random().toString(36).substr(2, 9)} />;
@@ -9,8 +10,11 @@ function ReviewItem(props) {
   return (
     <Container>
       <div className="productName">
-        <p>productName</p>
+        <Link to={`/detail/${props.review.productId}`}>
+          <p>{props.review.productName}</p>
+        </Link>
       </div>
+
       <div className="review">
         <div className="reviewComment">
           <div className="reviewComment-image-container">
@@ -40,19 +44,31 @@ const Container = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
-  border: 2px solid red;
+  height: 130px;
+
+  border-bottom: 1px solid rgba(124, 124, 124, 0.5);
 
   .productName {
-    flex: 1;
-    border: 2px solid blue;
+    flex: 2;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    a {
+      text-decoration: none;
+      color: black;
+
+      width: 100%;
+      padding: 0 5px;
+      display: block;
+    }
   }
   .review {
-    flex: 4;
-    border: 2px solid blue;
+    flex: 8;
+    width: 100%;
+    height: 110px;
+    display: flex;
   }
   .reviewComment {
     display: flex;
@@ -60,10 +76,9 @@ const Container = styled.section`
     align-items: center;
     max-width: 836px;
     height: auto;
-    border-bottom: 1px solid rgba(124, 124, 124, 0.5);
+
     box-sizing: border-box;
     padding: 7px 0;
-    border: 2px solid blue;
   }
   .reviewComment-image-container {
     img {
@@ -74,18 +89,17 @@ const Container = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid red;
   }
 
   .reviewComment-right-part {
-    flex: auto;
+    flex: 100%;
     font-size: 16px;
-    border: 2px solid black;
+
     .reviewComment-content-top {
       display: flex;
+      padding-bottom 5px;
     }
     .reviewComment-content-top__left {
-      border: 2px solid turquoise;
       display: flex;
       flex: auto;
       .reviewComment-author {
@@ -97,13 +111,23 @@ const Container = styled.section`
       }
     }
     .reviewComment-content-top__right {
-      border: 2px solid black;
       display: flex;
       flex: auto;
       justify-content: end;
       align-items: center;
       padding-right: 5px;
-      color: yellow;
+      color: #ebdb03;
+    }
+    .reviewComment-content_bottom {
+      .reviewComment-text {
+        height: auto;
+        word-break: break-all;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     }
   }
 `;

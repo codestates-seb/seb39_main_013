@@ -131,7 +131,7 @@ const Container = styled.div`
         justify-content: end;
         align-items: center;
         padding-right: 5px;
-        color: yellow;
+        color: #ebdb03;
       }
     }
     .reviewComment-content_bottom {
