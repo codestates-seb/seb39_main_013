@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { mainBanner } from "../../constance/bannerImage";
 import { tablet } from "../../utils/styleTheme";
+import useInterval from "../../hooks/useInterval";
 
 export default function MainCarousel() {
   // eslint-disable-next-line no-unused-vars
-  const [imgList, setImgList] = useState(mainBanner);
   const [imgNum, setImgNum] = useState(0);
+  const imgList = mainBanner;
 
   const slideRightHandle = () => {
     if (imgNum === imgList.length - 1) {
@@ -24,6 +25,7 @@ export default function MainCarousel() {
       setImgNum((prev) => prev - 1);
     }
   };
+  useInterval(slideRightHandle, 4000);
 
   return (
     <div>

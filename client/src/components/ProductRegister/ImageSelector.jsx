@@ -5,12 +5,12 @@ import styled from "styled-components";
 import ImageUploader from "react-images-upload";
 import { useMutation } from "react-query";
 import { imageRegisterFn } from "../../api";
-import Loading from "../Commons/Loading";
 
 export default memo(function ImageSelector(props) {
   const { mutate, data, isSuccess, isLoading } = useMutation((value) =>
     imageRegisterFn(value)
   );
+
   const formData = new FormData();
 
   const imageChangeHandler = (e) => {
@@ -22,11 +22,7 @@ export default memo(function ImageSelector(props) {
     }
   };
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-
-  if (isSuccess) {
+  if (isSuccess && data) {
     props.changeHandler([data.data]);
   }
 
@@ -37,6 +33,7 @@ export default memo(function ImageSelector(props) {
         imgExtension={[".jpg", ".gif", ".png", ".gif", ".webp", ".jpeg"]}
         maxFileSize={5242880}
         withPreview={true}
+        singleImage={true}
         buttonText={props.buttonText}
         label={"Max file size: 5mb"}
         onChange={(e) => imageChangeHandler(e)}
