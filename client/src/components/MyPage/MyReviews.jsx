@@ -15,8 +15,6 @@ function MyReviews() {
   let reviews = [];
   if (localStorage.getItem("dataReviews")) reviews = JSON.parse(localStorage.getItem("dataReviews")).filter((review) => review.reviewEmail === userEmail);
 
-  console.log("리뷰스", reviews.length);
-
   return (
     <Container>
       <FormHeader>
