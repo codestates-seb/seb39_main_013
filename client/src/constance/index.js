@@ -234,4 +234,10 @@ export const mypageMenuList = [
     text: "리뷰내역",
   },
 
+  {
+    id: 5,
+    link: '/product-register',
+    text: "상품등록"
+  }
+
 ];

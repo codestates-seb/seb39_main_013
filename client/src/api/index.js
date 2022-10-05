@@ -44,12 +44,7 @@ export const productRegisterFn = async (registerInfo) => {
   return res;
 };
 
-export const getProductItems = async (params) => {
-  const res = await axiosInstance.get(`/api/v1/products`, {
-    params: { ...params },
-  });
-  return res.data;
-};
+
 
 export const getProductOne = async (id) => {
   const res = await axiosInstance.get(`/api/v1/products/${id}`);
@@ -173,3 +168,11 @@ export const orderPoductItem = async (body) => {
   });
   return res;
 }
+
+export const getProductItems = async (param) => {
+  const res = await axiosInstance.get(`/api/v1/products`, {
+    params: param,
+  });
+
+  return res.data;
+};

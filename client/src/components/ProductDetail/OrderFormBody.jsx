@@ -34,7 +34,6 @@ const Container = styled.div`
   flex-direction: column;
   margin-top: 16px;
   gap: 16px;
-  /* border-bottom: 1px solid #d4d4d4; */
 
   span {
     font-size: 1rem;

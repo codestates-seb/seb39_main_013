@@ -1,15 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from "react-query";
 import { getProductItems } from "../api";
 
 export default function useGetProductItems(params) {
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isSuccess } = useQuery(
     ["getItems", params],
     () => getProductItems(params),
     {
       retry: 1,
-      staleTime: 0,
     }
   );
 
-  return { data, isLoading };
+  return { data, isLoading, isSuccess };
 }

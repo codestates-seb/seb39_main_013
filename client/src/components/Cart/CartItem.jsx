@@ -8,21 +8,26 @@ import DeleteButton from "../Commons/DeleteButton";
 import { Link } from "react-router-dom";
 import Price from "../Commons/Price";
 import useDeleteCartData from "../../hooks/useDeleteCartData";
+import Loading from "../Commons/Loading";
 
 export default memo(function CartItem(props) {
-  const [quantity, setQuantity] = useState(1);
-  const deleteCartItemAction = useDeleteCartData(props.cartId);
+  const [quantity, setQuantity] = useState(0);
+  const deleteCartItemAction = useDeleteCartData(props.cartId, setQuantity);
 
   useEffect(() => {
     props.setTotalPrice((prev) => {
       return { ...prev, [props.cartId]: props.price * quantity };
     });
-  }, [quantity]);
+  }, [quantity, props.cartId]);
 
   const deleteCartHandler = (e) => {
     e.preventDefault();
     deleteCartItemAction.mutate();
   };
+
+  if (deleteCartHandler.isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

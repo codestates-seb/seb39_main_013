@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FaHeart, FaRegCommentAlt, FaRegAddressCard } from "react-icons/fa";
+import { FaHeart, FaRegCommentAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FiTruck } from "react-icons/fi";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 import { mypageMenuList } from "../../constance";
 
@@ -14,6 +15,7 @@ export default function MyPageIconBox() {
     2: <FiTruck />,
     3: <MdPayment />,
     4: <FaRegCommentAlt />,
+    5: <AiOutlineAppstoreAdd />,
   };
   const menuList = mypageMenuList;
   return (

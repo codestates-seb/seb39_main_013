@@ -27,7 +27,7 @@ export default memo(function CartForm() {
     setCalcPrice(
       Number(Object.values(totalPrice).reduce((a, c) => (a += c), 0))
     );
-  }, [totalPrice]);
+  }, [totalPrice, getCartData.data]);
 
   useEffect(() => {
     setPaymentData({
@@ -87,7 +87,7 @@ export default memo(function CartForm() {
           </span>
         </SubTotal>
       </FormFooter>
-      <Button disable={true} onClick={clickHander}>
+      <Button disable={getCartData.data.length} onClick={clickHander}>
         ORDER NOW
       </Button>
     </Container>

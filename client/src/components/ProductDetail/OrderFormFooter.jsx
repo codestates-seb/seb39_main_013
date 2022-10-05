@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { MdOutlineVerified, MdGppGood } from "react-icons/md";
-// import { FiCheck } from "react-icons/fi";
 
 export default function OrderFormFooter() {
   return (

@@ -7,6 +7,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage: storageSession,
+  blacklist: ['modal']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

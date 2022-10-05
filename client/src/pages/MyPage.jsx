@@ -9,6 +9,7 @@ import MyPageIconBox from "../components/MyPage/MyPageIconBox";
 import MyPaymentList from "../components/MyPage/MyPaymentList";
 import ProfileCard from "../components/MyPage/ProfileCard";
 import MyReviews from "../components/MyPage/MyReviews";
+import DetailSkeleton from "../components/ProductDetail/DetailSkeleton";
 
 export default function MyPage() {
   const userInfo = useSelector((state) => state.user);
@@ -24,6 +25,7 @@ export default function MyPage() {
           <Route path="payment" element={<MyPaymentList />} />
           <Route path="edit" element={<EditProfile />} />
           <Route path="reviews" element={<MyReviews />} />
+          <Route path="test" element={<DetailSkeleton />} />
         </Routes>
       </ContentsWrapper>
     </Container>

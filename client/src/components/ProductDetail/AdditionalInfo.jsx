@@ -14,8 +14,7 @@ export default function AdditionalInfo(props) {
 
 const Container = styled.section`
   width: 100%;
-  /* max-width: 960px; */
-  padding: 156px;
+  padding: 20%;
 
   img {
     width: 100%;

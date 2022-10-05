@@ -10,6 +10,11 @@ function Footer() {
   return (
     <Container>
       <div className="Footer-Left">
+        <a href="https://github.com/codestates-seb/seb39_main_013">
+          project repository
+        </a>
+      </div>
+      <div className="Footer-Middle">
         <Link to="/">
           <img
             src={`${process.env.PUBLIC_URL}/assets/images/logo_demo02_white.svg`}
@@ -17,11 +22,7 @@ function Footer() {
           />
         </Link>
       </div>
-      <div className="Footer-Middle">
-        <a href="https://github.com/codestates-seb/seb39_main_013">
-          project repository
-        </a>
-      </div>
+
       <div className="Footer-Right">
         <GitLinkBox>
           <li>
@@ -111,7 +112,7 @@ const Container = styled.footer`
     justify-content: center;
   }
 
-  .Footer-Left {
+  .Footer-Middle {
     a {
       color: white;
     }
@@ -121,7 +122,7 @@ const Container = styled.footer`
     }
   }
 
-  .Footer-Middle {
+  .Footer-Left {
     a {
       text-decoration: none;
       color: white;

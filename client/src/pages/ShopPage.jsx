@@ -14,12 +14,18 @@ export default function ShopPage() {
     priceMax: 10000000,
     priceMin: 0,
   });
+  const [page, setPage] = useState(1);
+  const [changeList, setChangeList] = useState(false);
 
   const urlParams = {
-    page: 1,
-    pageSize: 20,
+    page,
+    pageSize: 6,
     ...params,
   };
+
+  useEffect(() => {
+    setPage(1);
+  }, [params]);
 
   return (
     <Container>
@@ -29,7 +35,12 @@ export default function ShopPage() {
       <ShopWrapper>
         <ShopFilter dummyColor={dummyColor} setParams={setParams} />
         <ItemsWrapper>
-          <MainItems params={urlParams} mode={"shop"} />
+          <MainItems
+            setPage={setPage}
+            params={urlParams}
+            mode={"shop"}
+            changeList={changeList}
+          />
         </ItemsWrapper>
       </ShopWrapper>
     </Container>
