@@ -40,7 +40,7 @@ public class AppOrderService {
         Order createOrder = orderService.createOrder(member.getMemberId(),order);
 
         createOrder.getOrderProducts().forEach(pd -> productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
-
+        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우
         OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
         return new ResponseDto(orderResponseDto);
     }
