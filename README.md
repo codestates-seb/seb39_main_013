@@ -4,7 +4,7 @@
 <br>
 ## SITE LINK & WIKI
 - STATE MALL https://www.statemall.tk/
-- WIKI https://github.com/codestates-seb/seb39_main_013.wiki.git
+- WIKI [https://github.com/codestates-seb/seb39_main_013.wiki.git](https://github.com/codestates-seb/seb39_main_013/wiki)
 <br>
 <br>
 
