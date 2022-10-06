@@ -20,7 +20,7 @@ export default function Skeleton(props) {
 const Container = styled.div`
   width: 100%;
   max-width: 290px;
-  max-height: 380px;
+  max-height: 390px;
   display: flex;
   flex-direction: column;
 
@@ -70,7 +70,6 @@ const SkeletonCardImg = styled.div`
   align-items: flex-end;
   border-radius: 10px;
   width: 100%;
-  height: 100%;
   height: 290px;
   min-height: 130px;
   overflow: hidden;

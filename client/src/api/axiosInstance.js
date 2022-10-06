@@ -9,7 +9,11 @@ export const axiosInstance = axios.create({
 
 axiosInstance.defaults.timeout = 5000;
 
-
-
-
-
+axiosInstance.interceptors.request.use(
+  (config) => {
+      return config;
+  },
+  (err) => {
+      return Promise.reject(err);
+  },
+);

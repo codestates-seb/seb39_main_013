@@ -3,7 +3,6 @@ import { getFavoriteItem } from "../api";
 import { persistor } from "../redux/store";
 
 export default function useGetFavoriteItem() {
-  // const queryClient = useQueryClient();
   const { data, isLoading, refetch, isSuccess } = useQuery(
     ["getFavoriteData"],
     getFavoriteItem,
