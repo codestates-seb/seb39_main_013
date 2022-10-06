@@ -1,5 +1,6 @@
 # STATE MALL
-![제목을-입력해주세요_-001 (3)](https://user-images.githubusercontent.com/51689628/194394122-dd82ecce-b3b3-4c0f-a2db-69b91b0baab5.png)
+![제목을-입력해주세요_-001 (3)](https://user-images.githubusercontent.com/51689628/194394569-5581ce7e-6d27-4755-a700-3cd958c9576f.png)
+
 
 ## TECH STACK
 ![Serverless Application Architecture](https://user-images.githubusercontent.com/51689628/194387436-f264f3fa-cd98-415b-b831-17094a988bd4.png)
