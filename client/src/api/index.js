@@ -126,6 +126,7 @@ export const orderCartItems = async (body) => {
       Authorization: token,
     }
   }).then(() => {queryClient.refetchQueries(["getCartData"])});
+  console.log(res);
   return res;
 }
 

@@ -20,10 +20,15 @@ export default memo(function CartForm() {
   const orderCartAction = useOrderCartItems(
     paymentData,
     getCartData.data,
-    "cart"
+    "cart",
+    setTotalPrice
   );
 
   useEffect(() => {
+    if (getCartData.data.length === 0) {
+      setCalcPrice(0);
+      return;
+    }
     setCalcPrice(
       Number(Object.values(totalPrice).reduce((a, c) => (a += c), 0))
     );

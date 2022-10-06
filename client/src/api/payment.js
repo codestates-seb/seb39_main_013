@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { useQueryClient } from "react-query";
 import { orderCartItems, orderPoductItem } from ".";
 
 export const paymentClickHandler = (data, productInfo, mode) => {
