@@ -1,11 +1,10 @@
 package com.codestates.eCommerce.order.controller;
 
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
+import com.codestates.eCommerce.order.domain.service.AppOrderService;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.ResponseDto;
-import com.codestates.eCommerce.order.domain.service.AppOrderService;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
-import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

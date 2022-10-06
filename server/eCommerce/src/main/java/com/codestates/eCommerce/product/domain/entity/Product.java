@@ -42,9 +42,10 @@ public class Product extends BaseEntity {
     private String name;
     private Integer price;
     private Integer stock;
-    private String color;
     @Column(name = "size")
     private String size;
+    private String color;
+
 
     @Type(type = "json")
     @Column(columnDefinition = "json")
