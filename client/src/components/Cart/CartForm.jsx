@@ -25,10 +25,11 @@ export default memo(function CartForm() {
   );
 
   useEffect(() => {
-    if (getCartData.data.length === 0) {
+    if (getCartData?.data?.length === 0) {
       setCalcPrice(0);
       return;
     }
+
     setCalcPrice(
       Number(Object.values(totalPrice).reduce((a, c) => (a += c), 0))
     );
@@ -66,7 +67,7 @@ export default memo(function CartForm() {
       </FormHeader>
       <FormBody>
         {getCartData?.data &&
-          getCartData.data.map((v) => {
+          getCartData?.data.map((v) => {
             return (
               <CartItem
                 key={v.cartId}

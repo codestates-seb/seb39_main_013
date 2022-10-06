@@ -22,7 +22,6 @@ export default memo(function ProductDetailForm(props) {
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
         <ProductDetailOrder
-          id={props.dataInfo.product_id}
           title={props.dataInfo.name}
           price={props.dataInfo.price}
           subTitle={props.dataInfo.brand_name}

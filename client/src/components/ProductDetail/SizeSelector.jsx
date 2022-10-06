@@ -10,7 +10,6 @@ export default function SizeSelector(props) {
   useEffect(() => {
     props.setSize(selectItem);
   }, [selectItem]);
-
   const settings = {
     focusOnSelect: true,
     slidesToShow: 3,

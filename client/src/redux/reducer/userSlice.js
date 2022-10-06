@@ -9,6 +9,7 @@ const initState = {
   postcode: '',
   phone: '',
   profileImg: '',
+  role: '',
   isLogin: false,
 };
 
@@ -24,6 +25,7 @@ export const userSlice = createSlice({
       state.postcode = action.payload.postcode;
       state.phone = action.payload.phone;
       state.profileImg = action.payload.profileImg;
+      state.role = action.payload.role
       state.isLogin = true;
     },
   },

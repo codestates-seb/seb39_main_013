@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import OrderFormBody from "./OrderFormBody";
@@ -18,12 +19,20 @@ export default memo(function ProductDetailOrder(props) {
   const [size, setSize] = useState(0);
   const [totalPrice, setTotalPrice] = useState({});
   const [paymentData, setPaymentData] = useState({});
+  const [sizeId, setSizeId] = useState();
   const [toLogin, setToLogin] = useState(false);
 
   const userInfo = useSelector((state) => state.user);
   useEffect(() => {
     setTotalPrice(Number(quantity) * Number(props.price));
   }, [props.price, quantity]);
+
+  useEffect(() => {
+    const setId = props.sizeList.info.filter((v) => v.size === size)[0];
+    if (setId) {
+      setSizeId(setId.product_id);
+    }
+  }, [size]);
 
   useEffect(() => {
     if (toLogin) {
@@ -50,7 +59,7 @@ export default memo(function ProductDetailOrder(props) {
   }, [totalPrice, userInfo]);
 
   const addCartAction = useAddCartMutaion({
-    productId: props.id,
+    productId: sizeId,
     productQuantity: quantity,
     isWanted: true,
   });

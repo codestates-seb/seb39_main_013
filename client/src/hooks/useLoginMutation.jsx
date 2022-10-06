@@ -23,6 +23,7 @@ export default function useLoginMutation(value) {
             address: res.data.data.homeAddress,
             postcode: res.data.data.zipcode,
             profileImg: res.data.data.profileImage || defaultUser,
+            role: res.data.data.role === "ROLE_MEMBER" ? "Member" : "Admin",
             isLogin: true,
           })
         ),

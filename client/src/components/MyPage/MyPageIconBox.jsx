@@ -7,9 +7,11 @@ import { FiTruck } from "react-icons/fi";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 import { mypageMenuList } from "../../constance";
+import { useSelector } from "react-redux";
 
 export default function MyPageIconBox() {
   const [isClick, setIsClick] = useState(1);
+  const userInfo = useSelector((state) => state.user);
   const icons = {
     1: <FaHeart fill="#ff3251" />,
     2: <FiTruck />,
@@ -22,6 +24,9 @@ export default function MyPageIconBox() {
     <Container>
       <IconBox>
         {menuList.map((v, i) => {
+          if (userInfo.role === "Member" && v.link === "/product-register") {
+            return;
+          }
           return (
             <WrapperList
               key={v.id}
