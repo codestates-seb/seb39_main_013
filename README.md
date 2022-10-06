@@ -1,6 +1,12 @@
 # STATE MALL
 ![제목을-입력해주세요_-001 (3)](https://user-images.githubusercontent.com/51689628/194394569-5581ce7e-6d27-4755-a700-3cd958c9576f.png)
-
+<br>
+<br>
+## SITE LINK & WIKI
+- STATE MALL https://www.statemall.tk/
+- WIKI https://github.com/codestates-seb/seb39_main_013.wiki.git
+<br>
+<br>
 
 ## TECH STACK
 ![Serverless Application Architecture](https://user-images.githubusercontent.com/51689628/194387436-f264f3fa-cd98-415b-b831-17094a988bd4.png)
@@ -88,18 +94,3 @@
 </div>
 </details>
 
-<style>
-wrapper{
-    color:red;
-}
-</style>
-
-
-<wrapper>
-    <span>
-        test
-    </span>
-    <span>
-        test
-    </span>
-</wrapper>
