@@ -88,4 +88,18 @@
 </div>
 </details>
 
+<style>
+wrapper{
+    color:red;
+}
+</style>
 
+
+<wrapper>
+    <span>
+        test
+    </span>
+    <span>
+        test
+    </span>
+</wrapper>
