@@ -29,11 +29,19 @@ public class OrderController {
     }
 
     @PreAuthorize("hasRole('ROLE_MEMBER')")
+    @PostMapping("/product")
+    public ResponseEntity<?> productOrder(@RequestBody OrderRequestDto requestDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseDto responseDto = appOrderService.placeOrder(principalDetails.getMember(),requestDto);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     @GetMapping("/info")
     public ResponseEntity<?> getOrder(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         ResponseDto responseDto = appOrderService.getOrderInfo(principalDetails.getMember());
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
+
     @GetMapping("/hello")
     public String hello(){
         return "hello";

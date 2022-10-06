@@ -41,9 +41,6 @@ public class AppOrderService {
 
         createOrder.getOrderProducts().forEach(pd -> productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
 
-        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우기
-
-
         OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
         return new ResponseDto(orderResponseDto);
     }
