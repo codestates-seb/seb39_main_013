@@ -20,14 +20,20 @@ export default memo(function CartForm() {
   const orderCartAction = useOrderCartItems(
     paymentData,
     getCartData.data,
-    "cart"
+    "cart",
+    setTotalPrice
   );
 
   useEffect(() => {
+    if (getCartData?.data?.length === 0) {
+      setCalcPrice(0);
+      return;
+    }
+
     setCalcPrice(
       Number(Object.values(totalPrice).reduce((a, c) => (a += c), 0))
     );
-  }, [totalPrice]);
+  }, [totalPrice, getCartData.data]);
 
   useEffect(() => {
     setPaymentData({
@@ -61,7 +67,7 @@ export default memo(function CartForm() {
       </FormHeader>
       <FormBody>
         {getCartData?.data &&
-          getCartData.data.map((v) => {
+          getCartData?.data.map((v) => {
             return (
               <CartItem
                 key={v.cartId}
@@ -87,7 +93,7 @@ export default memo(function CartForm() {
           </span>
         </SubTotal>
       </FormFooter>
-      <Button disable={true} onClick={clickHander}>
+      <Button disable={getCartData.data.length} onClick={clickHander}>
         ORDER NOW
       </Button>
     </Container>

@@ -8,21 +8,40 @@ import styled from "styled-components";
 import Button from "../Commons/Button";
 import OrderInfo from "./OrderInfo";
 import useAddCartMutaion from "../../hooks/useAddCartMutaion";
-import Loading from "../Commons/Loading";
 import { useSelector } from "react-redux";
 import { memo } from "react";
 import useOrderProductItem from "../../hooks/useOrderProductItem";
+import { useNavigate } from "react-router-dom";
+import useModal from "../../hooks/useModal";
 
 export default memo(function ProductDetailOrder(props) {
   const [quantity, setQuantity] = useState(props.size);
   const [size, setSize] = useState(0);
   const [totalPrice, setTotalPrice] = useState({});
   const [paymentData, setPaymentData] = useState({});
+  const [sizeId, setSizeId] = useState();
+  const [toLogin, setToLogin] = useState(false);
 
   const userInfo = useSelector((state) => state.user);
   useEffect(() => {
     setTotalPrice(Number(quantity) * Number(props.price));
   }, [props.price, quantity]);
+
+  useEffect(() => {
+    const setId = props.sizeList.info.filter((v) => v.size === size)[0];
+    if (setId) {
+      setSizeId(setId.product_id);
+    }
+  }, [size]);
+
+  useEffect(() => {
+    if (toLogin) {
+      navigate("/login");
+    }
+  }, [toLogin]);
+
+  const navigate = useNavigate();
+  const { openModal } = useModal();
 
   useEffect(() => {
     setPaymentData({
@@ -40,7 +59,7 @@ export default memo(function ProductDetailOrder(props) {
   }, [totalPrice, userInfo]);
 
   const addCartAction = useAddCartMutaion({
-    productId: props.id,
+    productId: sizeId,
     productQuantity: quantity,
     isWanted: true,
   });
@@ -53,16 +72,32 @@ export default memo(function ProductDetailOrder(props) {
 
   const addCartItemHandler = (e) => {
     e.preventDefault();
-    addCartAction.mutate();
+    openModal({
+      type: "orderModal",
+      props: {
+        text: "상품을 카트에 추가하시겠습니까?",
+        img: props.data.thumb_images[0],
+        action: addCartAction,
+        setState: setToLogin,
+      },
+    });
   };
 
   const orderProductHandler = (e) => {
     e.preventDefault();
-    orderProductAction.mutate();
+    openModal({
+      type: "orderModal",
+      props: {
+        text: "상품을 주문하시겠습니까?",
+        img: props.data.thumb_images[0],
+        action: orderProductAction,
+        setState: setToLogin,
+      },
+    });
   };
 
   if (addCartAction.isLoading || orderProductAction.isLoading) {
-    return <Loading />;
+    return;
   }
 
   return (
@@ -82,14 +117,10 @@ export default memo(function ProductDetailOrder(props) {
       <OrderFormFooter />
       <OrderInfo totalPrice={totalPrice} size={size} />
       <ButtonWrapper>
-        <Button disable={userInfo.isLogin} onClick={addCartItemHandler}>
+        <Button disable={true} onClick={addCartItemHandler}>
           ADD TO CART
         </Button>
-        <Button
-          disable={userInfo.isLogin}
-          mode="apply"
-          onClick={orderProductHandler}
-        >
+        <Button disable={true} mode="apply" onClick={orderProductHandler}>
           BUY NOW
         </Button>
       </ButtonWrapper>

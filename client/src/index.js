@@ -9,6 +9,7 @@ import { queryClient } from "./utils/queryClient";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from "styled-components";
 import { themeList } from "./utils/styleTheme";
+import ModalContainer from "./components/Commons/ModalContainer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={themeList}>
         <App />
+        <ModalContainer />
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </ThemeProvider>
       </PersistGate>

@@ -5,9 +5,11 @@ import Loading from "../Commons/Loading";
 import styled from "styled-components";
 import ItemCard from "../Commons/ItemCard";
 import NoItems from "../Commons/NoItems";
+import { useSelector } from "react-redux";
 
 export default function MyFavoriteList() {
   const getFavoriteData = useGetFavoriteItem();
+  const userInfo = useSelector((state) => state.user);
 
   useEffect(() => {
     getFavoriteData.refetch();
@@ -33,6 +35,7 @@ export default function MyFavoriteList() {
             title={v.product.name}
             price={v.product.price}
             favorite={true}
+            isLogin={userInfo.isLogin}
           />
         );
       })}

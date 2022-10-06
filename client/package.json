@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://server.statemall.tk",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
     "@tanstack/react-query": "^4.3.4",

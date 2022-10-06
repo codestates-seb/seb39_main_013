@@ -28,6 +28,7 @@ export const errorHandler = async (error) => {
   }
 
   toast.error("error!");
+  return;
 };
 
 export const queryClient = new QueryClient({

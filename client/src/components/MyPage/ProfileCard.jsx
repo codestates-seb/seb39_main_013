@@ -15,7 +15,7 @@ export default function ProfileCard(props) {
           <Link to="edit">프로필 수정</Link>
         </ProfileInfo>
       </div>
-      <span>일반회원</span>
+      <span>{props.info.role}</span>
     </Container>
   );
 }

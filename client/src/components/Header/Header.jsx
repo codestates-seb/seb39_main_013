@@ -39,7 +39,7 @@ const Container = styled.header`
   position: sticky;
   top: 0;
   background-color: #fff;
-  z-index: 999;
+  z-index: 200;
 
   @media ${tablet} {
     padding: 0 20px;

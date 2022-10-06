@@ -1,25 +1,32 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FaHeart, FaRegCommentAlt, FaRegAddressCard } from "react-icons/fa";
+import { FaHeart, FaRegCommentAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FiTruck } from "react-icons/fi";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 import { mypageMenuList } from "../../constance";
+import { useSelector } from "react-redux";
 
 export default function MyPageIconBox() {
   const [isClick, setIsClick] = useState(1);
+  const userInfo = useSelector((state) => state.user);
   const icons = {
     1: <FaHeart fill="#ff3251" />,
     2: <FiTruck />,
     3: <MdPayment />,
     4: <FaRegCommentAlt />,
+    5: <AiOutlineAppstoreAdd />,
   };
   const menuList = mypageMenuList;
   return (
     <Container>
       <IconBox>
         {menuList.map((v, i) => {
+          if (userInfo.role === "Member" && v.link === "/product-register") {
+            return;
+          }
           return (
             <WrapperList
               key={v.id}

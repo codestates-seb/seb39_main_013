@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { memo } from "react";
 import styled from "styled-components";
 import useGetProductDetailInfo from "../../hooks/useGetProductDetailInfo";
 import Comments from "../Comment/Comments";
-import Loading from "../Commons/Loading";
+import DetailSkeleton from "./DetailSkeleton";
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default memo(function ProductDetailForm(props) {
@@ -13,7 +12,7 @@ export default memo(function ProductDetailForm(props) {
   });
 
   if (getProductDetailInfo.isLoading) {
-    return <Loading />;
+    return <DetailSkeleton />;
   }
 
   return (
@@ -23,7 +22,6 @@ export default memo(function ProductDetailForm(props) {
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
         <ProductDetailOrder
-          id={props.dataInfo.product_id}
           title={props.dataInfo.name}
           price={props.dataInfo.price}
           subTitle={props.dataInfo.brand_name}
@@ -35,8 +33,11 @@ export default memo(function ProductDetailForm(props) {
         />
       </OrderWrapper>
 
-      <Comments productId={props.dataInfo.product_id} productName={props.dataInfo.name} contentImg={props.dataInfo.content_images} />
-
+      <Comments
+        productId={props.dataInfo.product_id}
+        productName={props.dataInfo.name}
+        contentImg={props.dataInfo.content_images}
+      />
     </Container>
   );
 });

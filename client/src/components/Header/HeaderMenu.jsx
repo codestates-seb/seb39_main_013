@@ -1,13 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { BsCart2 } from "react-icons/bs";
-import {
-  AiOutlineLogin,
-  AiOutlineLogout,
-  AiOutlineMenu,
-  AiOutlineClose,
-} from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { persistor } from "../../redux/store";
 import Cookies from "js-cookie";
@@ -35,11 +29,12 @@ const HeaderMenu = (props) => {
         {props.login ? (
           <>
             <Link to="/cart">
-              <BsCart2 />
               <HideText>Cart</HideText>
             </Link>
-            <button onClick={async () => await logoutHandler()}>
-              <AiOutlineLogout />
+            <button
+              className="header__link-login"
+              onClick={async () => await logoutHandler()}
+            >
               <HideText>Logout</HideText>
             </button>
             <ProfileImage to="/mypage">
@@ -50,11 +45,9 @@ const HeaderMenu = (props) => {
         ) : (
           <>
             <Link to="/cart">
-              <BsCart2 />
               <HideText>Cart</HideText>
             </Link>
-            <Link to="/login">
-              <AiOutlineLogin />
+            <Link to="/login" className="header__link-login">
               <HideText>Login</HideText>
             </Link>
           </>
@@ -113,7 +106,6 @@ const Wrapper = styled.div`
       padding: 8px 0;
       transition: 0.5s;
       border-radius: 8px;
-
       &:hover {
         background: transparent;
         box-shadow: inset 300px 0 0 0 #2d7df4;
@@ -135,12 +127,18 @@ const Wrapper = styled.div`
       padding: 8px 0;
       transition: 0.5s;
       border-radius: 8px;
+      color: black;
+      margin: 0;
 
       &:hover {
         background: transparent;
         box-shadow: inset 300px 0 0 0 #2d7df4;
         color: white;
       }
+    }
+    .header__link-login {
+      border: none !important;
+      border-radius: 8px !important;
     }
   }
 
@@ -151,6 +149,13 @@ const Wrapper = styled.div`
 
   a {
     color: #2d2d2d;
+    padding: 10px 24px;
+    font-size: 1rem;
+  }
+
+  .header__link-login {
+    border: 2px solid #c7c7c7;
+    border-radius: 30px;
   }
 
   button {
@@ -159,13 +164,17 @@ const Wrapper = styled.div`
     align-items: center;
     border: none;
     background-color: transparent;
+    padding: 10px 24px;
+    font-size: 1rem;
   }
 `;
 
 const ProfileImage = styled(Link)`
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   overflow: hidden;
+  padding: 0 !important;
+  margin-left: 8px;
 
   img {
     border-radius: 50%;
@@ -195,7 +204,6 @@ const MenuButton = styled.button`
 `;
 
 const HideText = styled.span`
-  display: none;
   @media ${tablet} {
     display: block;
   }
