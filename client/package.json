@@ -9,15 +9,26 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "gapi-script": "^1.2.0",
+    "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
+    "react-daum-postcode": "^3.1.1",
     "react-dom": "^18.2.0",
+    "react-google-login": "^5.2.2",
     "react-icons": "^4.4.0",
+    "react-images-upload": "^1.2.8",
+    "react-loading-overlay": "^1.0.1",
     "react-query": "^3.39.2",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.4",
+    "react-toastify": "^9.0.8",
+    "redux-persist": "^6.0.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
@@ -33,6 +44,9 @@
       "react-app/jest"
     ]
   },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -47,6 +61,7 @@
   },
   "devDependencies": {
     "eslint": "^8.23.1",
-    "eslint-plugin-react": "^7.31.8"
+    "eslint-plugin-react": "^7.31.8",
+    "react-error-overlay": "^6.0.9"
   }
 }
