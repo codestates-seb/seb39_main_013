@@ -45,7 +45,7 @@ const Container = styled.div`
         rgba(255, 255, 255, 0.5) 40%,
         rgba(255, 255, 255, 0) 70%
       );
-      animation: loading 1.4s infinite linear;
+      animation: loading 0.8s infinite linear;
     }
     overflow: hidden;
     position: relative;
@@ -88,7 +88,7 @@ const SkeletonCardImg = styled.div`
       rgba(255, 255, 255, 0.5) 40%,
       rgba(255, 255, 255, 0) 70%
     );
-    animation: loading 1.4s infinite linear;
+    animation: loading 0.8s infinite linear;
   }
 
   background-color: #ccc;
