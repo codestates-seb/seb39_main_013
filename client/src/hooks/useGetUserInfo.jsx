@@ -21,10 +21,10 @@ export default function useGetUserInfo(id) {
             address: res.data.data.homeAddress,
             postcode: res.data.data.zipcode,
             profileImg: res.data.data.profileImage,
+            role: res.data.data.role === "ROLE_ADMIN" ? "Admin" : "Member",
             isLogin: true,
           })
         );
-        console.log("query success");
       },
     }
   );
