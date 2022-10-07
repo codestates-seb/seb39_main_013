@@ -48,7 +48,7 @@ function MainItems(props) {
     );
   }
 
-  if (getDataList.isSuccess && getDataList.data.length === 0) {
+  if (getDataList.isSuccess && getDataList.data.data.length === 0) {
     return <NoItems />;
   }
 
