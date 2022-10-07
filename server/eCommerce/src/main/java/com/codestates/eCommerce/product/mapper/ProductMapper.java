@@ -4,6 +4,7 @@ import com.codestates.eCommerce.product.VO.SizeInfo;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.dto.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
@@ -25,7 +26,9 @@ public interface ProductMapper {
     ResponseDto toResponseDto(ProductDto productDto);
     //서비스 -> 컨트롤러
     List<ResponseDto> toResponseDtoList(List<ProductDto> productDto);
+
     ResponseDetailDto toResponseDetailDto(ProductDetailDto productDetailDto);
+
     default ProductDetailDto toProductDetailDto(List<ProductDto> productDtos) {
         ProductDetailDto productDetailDto = new ProductDetailDto();
         productDetailDto.setInfo(productDtos.stream().map(dto -> new SizeInfo(dto.getProductId(), dto.getSize(),dto.getStock())).collect(Collectors.toList()));
@@ -36,7 +39,7 @@ public interface ProductMapper {
         productDetailDto.setPrice(productDtos.get(0).getPrice());
         productDetailDto.setColor(productDtos.get(0).getColor());
         productDetailDto.setThumbImages(productDtos.get(0).getThumbImages());
-        productDetailDto.setContentsImages(productDtos.get(0).getContentsImages());
+        productDetailDto.setContentImages(productDtos.get(0).getContentImages());
         return productDetailDto;
     }
 }

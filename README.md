@@ -1,5 +1,6 @@
 # STATE MALL
 ![제목을-입력해주세요_-001 (3)](https://user-images.githubusercontent.com/51689628/194394569-5581ce7e-6d27-4755-a700-3cd958c9576f.png)
+
 <br>
 <br>
 ## SITE LINK & WIKI
@@ -7,6 +8,7 @@
 - ### WIKI 링크 : [https://github.com/codestates-seb/seb39_main_013.wiki.git](https://github.com/codestates-seb/seb39_main_013/wiki)
 <br>
 <br>
+
 
 ## TECH STACK
 ![Serverless Application Architecture](https://user-images.githubusercontent.com/51689628/194387436-f264f3fa-cd98-415b-b831-17094a988bd4.png)
@@ -93,4 +95,5 @@
   <img src="https://user-images.githubusercontent.com/51689628/194391800-803b05f8-c810-4abc-b879-cd7c4fa9340c.gif">
 </div>
 </details>
+
 

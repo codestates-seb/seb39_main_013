@@ -10,32 +10,38 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/carts")
+@Validated
 @RequiredArgsConstructor
 public class CartController {
     private final CartService service;
     private final CartMapper mapper;
 
     @PostMapping
-    public ResponseEntity postCart(@RequestBody CartDto.Post post,
+    public ResponseEntity postCart(@Valid @RequestBody CartDto.Post post,
                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Cart cart = mapper.postToCart(post);
         cart.setMemberId(principalDetails.getMember().getMemberId());
         Long cartId = service.createCart(cart);
-        return new ResponseEntity<>(new SingleResponseDto<>(cartId), HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity getCarts(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long memberId = principalDetails.getMember().getMemberId();
-        List<Cart> carts = service.findCarts(memberId);
-        List<CartDto.Response> response = mapper.cartsToResponses(carts);
+
+//        List<Cart> carts = service.findCarts(memberId);
+//        List<CartDto.Response> response = mapper.cartsToResponses(carts);
+
+        List<CartDto.Response> response = service.findCarts(memberId);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -43,5 +49,11 @@ public class CartController {
     public ResponseEntity deleteCart(@PathVariable("cart-id") @Positive long cartId) {
         service.deleteCart(cartId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/member")
+    public ResponseEntity deleteCartByUserId(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        service.deleteCartByMemberId(principalDetails.getMember().getMemberId());
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

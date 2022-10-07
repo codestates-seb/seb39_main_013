@@ -2,9 +2,12 @@ package com.codestates.eCommerce.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.codestates.eCommerce.common.config.matterMost.NotificationManager;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,14 +21,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+import static com.codestates.eCommerce.common.config.matterMost.MatterMostHelper.getParams;
+
 // 권한이나 인증이 필요한 특정 주소로 요청했을 경우 BasicAuthenticationFilter 를 거침
 // 권한이나 인증이 필요 없는 주소라면 이 필터를 거치지 않ㅇ므
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final MemberRepository repository;
+    private final NotificationManager notificationManager;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, MemberRepository repository) {
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, MemberRepository repository, NotificationManager notificationManager) {
         super(authenticationManager);
         this.repository = repository;
+        this.notificationManager = notificationManager;
     }
 
     // 인증이나 권한이 필요한 주소 요청시 해당 필터를 타게 됨
@@ -35,15 +42,30 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // header 가 있는지 확인
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
+//            response.sendError(HttpStatus.UNAUTHORIZED.value());
             chain.doFilter(request, response);
             return;
         }
 
         // JWT 토큰을 검증해서 정상적인사용자인지 확인
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
-        String email =
-                JWT.require(Algorithm.HMAC512("SECRET")) // SECRET 값 설정
-                        .build().verify(jwtToken).getClaim("email").asString();
+        String email = null;
+
+
+        try {
+            email =
+                    JWT.require(Algorithm.HMAC512("SECRET")) // SECRET 값 설정
+                            .build().verify(jwtToken).getClaim("email").asString();
+
+        } catch (TokenExpiredException e) {
+            notificationManager.sendNotification(e,request.getRequestURI(), getParams(request));
+
+            response.sendError(HttpStatus.GONE.value());
+            return;
+        }
+
+
+
 
         if (email != null) {
             Optional<Member> optionalMember = repository.findByEmail(email);
@@ -59,5 +81,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         chain.doFilter(request, response);
+//        super.doFilterInternal(request, response, chain);
     }
 }

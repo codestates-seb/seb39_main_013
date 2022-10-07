@@ -13,6 +13,16 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Table(
+        name="product",
+        uniqueConstraints={
+                @UniqueConstraint(
+                        name = "nameSize",
+                        columnNames={"name", "size"}
+                )
+        }
+)
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -28,11 +38,14 @@ public class Product extends BaseEntity {
     private Long brandId;
     private String brandName;
     private String majorClass;
+    @Column(name = "name")
     private String name;
     private Integer price;
     private Integer stock;
-    private String color;
+    @Column(name = "size")
     private String size;
+    private String color;
+
 
     @Type(type = "json")
     @Column(columnDefinition = "json")

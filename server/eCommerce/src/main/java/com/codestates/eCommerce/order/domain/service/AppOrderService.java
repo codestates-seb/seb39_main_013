@@ -1,18 +1,19 @@
 package com.codestates.eCommerce.order.domain.service;
 
+import com.codestates.eCommerce.cart.service.CartService;
 import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.OrderResponseDto;
-import com.codestates.eCommerce.order.mapper.OrderProductMapper;
-import com.codestates.eCommerce.order.mapper.OrderMapper;
 import com.codestates.eCommerce.order.dto.ResponseDto;
+import com.codestates.eCommerce.order.mapper.OrderMapper;
+import com.codestates.eCommerce.order.mapper.OrderProductMapper;
 import com.codestates.eCommerce.product.domain.service.ProductService;
-import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class AppOrderService {
 
     private final OrderMapper orderMapper;
     private final OrderProductMapper orderProductMapper;
+    private final CartService cartService;
     private final OrderService orderService;
     private final ProductService productService;
 
@@ -33,14 +35,19 @@ public class AppOrderService {
         //카드에 담긴걸 줌누
         //
         Order order = orderMapper.toOrderEntity(reqOrderDto);
+
         order.setBuyerId(member.getMemberId());
         Order createOrder = orderService.createOrder(member.getMemberId(),order);
-        order.getOrderProducts().forEach(pd ->
-                productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
-        /** Todo 카트에있는거 지우기 */
 
-        OrderResponseDto resOrderServiceDto = orderMapper.toOrderResponseDto(order);
+        createOrder.getOrderProducts().forEach(pd -> productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
+        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우
+        OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
+        return new ResponseDto(orderResponseDto);
+    }
 
-        return new ResponseDto(resOrderServiceDto);
+    public ResponseDto getOrderInfo(Member member) {
+        List<Order> order = orderService.getOrderByQueryDSL(member.getMemberId());
+        List<OrderResponseDto> orderResponseDto = orderMapper.toOrderResponseDtoList(order);
+        return new ResponseDto(orderResponseDto);
     }
 }

@@ -8,11 +8,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "ORDERS")
+@Entity
 @Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Table(name = "orders")
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +49,11 @@ public class Order extends BaseEntity {
                 .sum();
     }
 
-
-    public void addOrderProduct(OrderProduct orderProduct){
-        if (orderProducts!=null){
-            this.orderProducts.add(orderProduct);
-        }
+    public void addOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
+        orderProducts.forEach(od -> {od.setOrder(this);});
     }
+
 
     public void cancelOrderProduct(OrderProduct orderProduct) {
         this.orderProducts.remove(orderProduct);

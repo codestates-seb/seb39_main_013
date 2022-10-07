@@ -1,11 +1,8 @@
 package com.codestates.eCommerce.member.entity;
 
-import com.codestates.eCommerce.cart.entity.Cart;
 import com.codestates.eCommerce.common.BaseEntity;
 import lombok.*;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -14,14 +11,13 @@ import java.util.List;
 public class Member extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-    @Column(nullable = false)
     private String name;
     private String email;
     private String password;
     private String phone;
     private String nickname;
     private String homeAddress;
-    private String companyAddress;
+    private String zipcode;
     private String birthday;
     private String provider;
     private String providerId;
@@ -31,7 +27,8 @@ public class Member extends BaseEntity {
     private int weight;
     private String role;
 
-//    @OneToMany(mappedBy = "member")
+//    @OneToMany()
+//    @JoinColumn(name = "MEMBER_ID")
 //    private List<Cart> carts = new ArrayList<>();
 //    @Enumerated(value = EnumType.STRING)
 //    private MemberStatus memberStatus = MemberStatus.MEMBER;

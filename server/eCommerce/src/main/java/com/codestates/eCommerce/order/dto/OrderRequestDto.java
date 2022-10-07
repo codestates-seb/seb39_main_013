@@ -27,6 +27,7 @@ public class OrderRequestDto {
     @AllArgsConstructor
     public static class ProductInfo {
         private Long productId;
+        private String productName;
         private Integer quantity;
         private Integer price;
         private String color;
