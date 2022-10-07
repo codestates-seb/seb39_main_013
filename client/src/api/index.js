@@ -174,6 +174,5 @@ export const getProductItems = async (param) => {
   const res = await axiosInstance.get(`/api/v1/products`, {
     params: param,
   });
-
   return res.data;
 };

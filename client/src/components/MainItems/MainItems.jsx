@@ -13,9 +13,10 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 
 function MainItems(props) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [onLoading, setOnLoading] = useState(false);
   const userInfo = useSelector((state) => state.user);
   const getFavoriteData = useGetFavoriteItem();
-  const getDataList = useGetProductItems(props.params);
+  const getDataList = useGetProductItems(props.params, setOnLoading);
 
   useEffect(() => {
     if (userInfo.isLogin && !getFavoriteData.isError) {
@@ -39,10 +40,10 @@ function MainItems(props) {
     props.setPage((prev) => prev - 1);
   };
 
-  if (getDataList.isLoading || getFavoriteData.isLoading) {
+  if (getDataList.isLoading || getFavoriteData.isLoading || onLoading) {
     return (
       <Container mode={props.mode}>
-        <Skeleton size={8} />
+        <Skeleton size={6} />
       </Container>
     );
   }
@@ -54,7 +55,7 @@ function MainItems(props) {
   return (
     <>
       <Container mode={props.mode}>
-        {getDataList.data.data.map((datas) => {
+        {getDataList?.data?.data.map((datas) => {
           let favorite = false;
           const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
           if (isFavorite && fa.includes(datas.product_id)) {

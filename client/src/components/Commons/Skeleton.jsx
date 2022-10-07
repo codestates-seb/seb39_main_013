@@ -20,7 +20,7 @@ export default function Skeleton(props) {
 const Container = styled.div`
   width: 100%;
   max-width: 290px;
-  max-height: 380px;
+  max-height: 390px;
   display: flex;
   flex-direction: column;
 
@@ -45,7 +45,7 @@ const Container = styled.div`
         rgba(255, 255, 255, 0.5) 40%,
         rgba(255, 255, 255, 0) 70%
       );
-      animation: loading 1.4s infinite linear;
+      animation: loading 0.8s infinite linear;
     }
     overflow: hidden;
     position: relative;
@@ -70,7 +70,6 @@ const SkeletonCardImg = styled.div`
   align-items: flex-end;
   border-radius: 10px;
   width: 100%;
-  height: 100%;
   height: 290px;
   min-height: 130px;
   overflow: hidden;
@@ -89,7 +88,7 @@ const SkeletonCardImg = styled.div`
       rgba(255, 255, 255, 0.5) 40%,
       rgba(255, 255, 255, 0) 70%
     );
-    animation: loading 1.4s infinite linear;
+    animation: loading 0.8s infinite linear;
   }
 
   background-color: #ccc;
