@@ -26,7 +26,10 @@ export default memo(function CategorySelector(props) {
         {categoryArray.map((v) => {
           return (
             <li key={v.id} onClick={() => categoryClickHandler(v.mainCategory)}>
-              <MainCategory active={v.mainCategory === isClick}>
+              <MainCategory
+                className="check"
+                active={v.mainCategory === isClick}
+              >
                 {v.mainCategory}
               </MainCategory>
             </li>
@@ -61,20 +64,18 @@ const MainCategory = styled.button`
   color: black;
   text-align: left;
   position: relative;
-  transition: 0.5s;
   padding: 8px;
   border-radius: 8px;
 
   &:hover {
     background: transparent;
-    box-shadow: inset 300px 0 0 0 #2d7df4;
+    box-shadow: inset 220px 0 0 0 #2d7df4;
     color: white;
   }
 
   ${(props) =>
     props.active &&
     css`
-      background: transparent;
       box-shadow: inset 300px 0 0 0 #2d7df4;
       color: white;
     `}

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import { getProductItems } from "../api";
 
 export default function useGetProductItems(params, setFunction) {
@@ -7,11 +8,8 @@ export default function useGetProductItems(params, setFunction) {
     ["getItems", params],
     () => getProductItems(params),
     {
-      retry: 3,
+      retry: 1,
       staleTime: 1000 * 60 * 30,
-      onError: (err) => {
-        console.log(err);
-      },
       onSuccess: () => {
         setFunction(true);
         setTimeout(() => {

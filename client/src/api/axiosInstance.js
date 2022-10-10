@@ -7,13 +7,13 @@ export const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-axiosInstance.defaults.timeout = 5000;
+axiosInstance.defaults.timeout = 100;
 
 axiosInstance.interceptors.request.use(
   (config) => {
-      return config;
+    return config;
   },
   (err) => {
-      return Promise.reject(err);
-  },
+    return Promise.reject(err);
+  }
 );
