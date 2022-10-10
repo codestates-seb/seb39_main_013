@@ -48,10 +48,6 @@ export default function LoginForm() {
     loginAction.mutate();
   };
 
-  if (loginAction.isLoading) {
-    return <Loading />;
-  }
-
   return (
     <Container>
       <SignInput

@@ -1,14 +1,21 @@
 import { useQuery } from "react-query";
 import { getCartData } from "../api";
 // import React from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function useGetCartDataQuery() {
-  const navigate = useNavigate();
-  const { data, isLoading } = useQuery(["getCartData"], getCartData, {
-    retry: 1,
-    onError: () => navigate("/*"),
-  });
+export default function useGetCartDataQuery(setFunction) {
+  const { data, isLoading, isError, refetch, isSuccess } = useQuery(
+    ["getCartData"],
+    getCartData,
+    {
+      retry: 2,
+      onSuccess: () => {
+        setFunction(true);
+        setTimeout(() => {
+          setFunction(false);
+        }, 1200);
+      },
+    }
+  );
 
-  return { data, isLoading };
+  return { data, isLoading, isError, refetch, isSuccess };
 }

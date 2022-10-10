@@ -63,6 +63,12 @@ const SliderWrapper = styled(Slider)`
   .slick-arrow .slick-next {
     display: none;
   }
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const SlideItem = styled.button`
@@ -70,12 +76,14 @@ const SlideItem = styled.button`
   background-color: ${(props) => props.selected && "black"};
   border: none;
   background-color: transparent;
+  font-size: 1rem;
+  color: #49474c;
 
   ${(props) =>
     props.selected &&
     css`
       color: #2d7df4;
-      font-size: 1rem;
+      font-size: 18px;
       font-weight: 700;
     `}
 `;

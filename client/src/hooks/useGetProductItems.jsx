@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useQuery } from "react-query";
-import { toast } from "react-toastify";
 import { getProductItems } from "../api";
 
 export default function useGetProductItems(params, setFunction) {
-  const { data, isLoading, isSuccess, isError } = useQuery(
+  const { data, isLoading, isSuccess, isError, refetch } = useQuery(
     ["getItems", params],
     () => getProductItems(params),
     {
-      retry: 1,
+      retry: 2,
       staleTime: 1000 * 60 * 30,
       onSuccess: () => {
         setFunction(true);
@@ -19,5 +18,5 @@ export default function useGetProductItems(params, setFunction) {
     }
   );
 
-  return { data, isLoading, isSuccess, isError };
+  return { data, isLoading, isSuccess, isError, refetch };
 }

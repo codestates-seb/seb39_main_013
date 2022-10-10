@@ -40,7 +40,7 @@ const Conatainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 120px;
 
   .Category-Banner {
     width: 100%;

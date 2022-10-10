@@ -109,7 +109,10 @@ const Wrapper = styled.div`
       &:hover {
         background: transparent;
         box-shadow: inset 300px 0 0 0 #2d7df4;
-        color: white;
+
+        span {
+          color: white !important;
+        }
       }
     }
 
@@ -133,7 +136,10 @@ const Wrapper = styled.div`
       &:hover {
         background: transparent;
         box-shadow: inset 300px 0 0 0 #2d7df4;
-        color: white;
+
+        span {
+          color: white !important;
+        }
       }
     }
     .header__link-login {
@@ -154,7 +160,7 @@ const Wrapper = styled.div`
   }
 
   .header__link-login {
-    border: 2px solid #c7c7c7;
+    border: 3px solid #c7c7c7;
     border-radius: 30px;
   }
 
@@ -204,6 +210,8 @@ const MenuButton = styled.button`
 `;
 
 const HideText = styled.span`
+  font-weight: 600;
+  color: #49474c;
   @media ${tablet} {
     display: block;
   }
