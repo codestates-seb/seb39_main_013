@@ -21,6 +21,7 @@
 ![image](https://user-images.githubusercontent.com/51689628/194387671-813fa2f3-6d80-402e-a3bc-2cc3ee6fa660.png)
 
 ## PAGE MOVE
+글을 펼쳐 기능 상세 정보를 확인할 수 있습니다.
 <details>
 <summary>SHOP PAGE</summary>
 <div markdown="1">
