@@ -58,7 +58,7 @@ const Container = styled.div`
         rgba(255, 255, 255, 0.5) 40%,
         rgba(255, 255, 255, 0) 70%
       );
-      animation: loading 0.8s infinite linear;
+      animation: loading 1s infinite linear;
     }
     overflow: hidden;
     position: relative;

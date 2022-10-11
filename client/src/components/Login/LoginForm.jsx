@@ -5,7 +5,6 @@ import styled from "styled-components";
 import SignButton from "../Commons/SignButton";
 import SignInput from "../Commons/SignInput";
 import useLoginMutation from "../../hooks/useLoginMutation";
-import Loading from "../Commons/Loading";
 import { emailValidation, passwordValidation } from "../../utils/validation";
 
 export default function LoginForm() {
@@ -82,13 +81,8 @@ export default function LoginForm() {
         </SignButton>
         <SignMenuWrapper>
           <div>
+            이미 계정이 있으신가요?
             <Link to="/signup">회원가입</Link>
-          </div>
-          <div>
-            <a href="#">아이디 찾기</a>
-          </div>
-          <div>
-            <a href="#">비밀번호 찾기</a>
           </div>
         </SignMenuWrapper>
       </MiddleWrapper>
@@ -124,10 +118,12 @@ const SignMenuWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 8px;
 
     a {
-      font-size: 14px;
+      font-size: 1rem;
       color: black;
+      color: #2d7df4;
     }
   }
 `;

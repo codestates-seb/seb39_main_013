@@ -172,9 +172,9 @@ export default function SignUpForm() {
         >
           SignUp
         </SignButton>
-        <span>
+        <div>
           이미 계정이 있으십니까? <Link to={"/login"}>Login</Link>
-        </span>
+        </div>
       </MiddleWrapper>
     </Container>
   );
@@ -195,8 +195,16 @@ const MiddleWrapper = styled.div`
   align-items: center;
   gap: 1rem;
 
-  span {
-    font-size: 14px;
+  div {
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    a {
+      color: #2d7df4;
+    }
   }
 `;
 

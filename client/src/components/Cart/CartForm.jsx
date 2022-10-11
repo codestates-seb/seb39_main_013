@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import useOrderCartItems from "../../hooks/useOrderCartItems";
 import ErrorPage from "../Commons/ErrorPage";
 import CartItemSkeleton from "./CartItemSkeleton";
+import NoItems from "../Commons/NoItems";
 
 export default memo(function CartForm() {
   const [totalPrice, setTotalPrice] = useState({});
@@ -22,8 +23,7 @@ export default memo(function CartForm() {
   const orderCartAction = useOrderCartItems(
     paymentData,
     getCartData.data,
-    "cart",
-    setTotalPrice
+    "cart"
   );
 
   useEffect(() => {
@@ -63,6 +63,10 @@ export default memo(function CartForm() {
         retryAction={getCartData.refetch}
       />
     );
+  }
+
+  if (getCartData?.data?.length === 0) {
+    return <NoItems shopLink={true} />;
   }
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
@@ -6,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import { persistor } from "../../redux/store";
 import Cookies from "js-cookie";
 import { tablet } from "../../utils/styleTheme";
+import { useSelector } from "react-redux";
 
 const HeaderMenu = (props) => {
   const [isClick, setIsClick] = useState(false);
@@ -28,7 +30,7 @@ const HeaderMenu = (props) => {
       <Wrapper hide={!isClick}>
         {props.login ? (
           <>
-            <Link to="/cart">
+            <Link to="/cart" className="header__cart--items">
               <HideText>Cart</HideText>
             </Link>
             <button
@@ -44,7 +46,7 @@ const HeaderMenu = (props) => {
           </>
         ) : (
           <>
-            <Link to="/cart">
+            <Link to="/cart" className="header__cart--items">
               <HideText>Cart</HideText>
             </Link>
             <Link to="/login" className="header__link-login">
@@ -155,7 +157,7 @@ const Wrapper = styled.div`
 
   a {
     color: #2d2d2d;
-    padding: 10px 24px;
+    padding: 10px 16px;
     font-size: 1rem;
   }
 
@@ -173,6 +175,24 @@ const Wrapper = styled.div`
     padding: 10px 24px;
     font-size: 1rem;
   }
+
+  /* .header__cart--items {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ff3251;
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 14px;
+    }
+  } */
 `;
 
 const ProfileImage = styled(Link)`

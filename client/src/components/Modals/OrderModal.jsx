@@ -12,12 +12,12 @@ export default function OrderModal(props) {
     dispatch(closeModal());
   };
   const clickHandler = () => {
+    closeHandler();
     if (!userInfo.isLogin) {
       props.setState(true);
     } else {
       props.action.mutate();
     }
-    closeHandler();
   };
   return (
     <Container onClick={(e) => e.stopPropagation()}>

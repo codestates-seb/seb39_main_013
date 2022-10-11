@@ -68,15 +68,14 @@ const MainCategory = styled.button`
   border-radius: 8px;
 
   &:hover {
-    background: transparent;
-    box-shadow: inset 220px 0 0 0 #2d7df4;
+    background-color: #2d7df4;
     color: white;
   }
 
   ${(props) =>
     props.active &&
     css`
-      box-shadow: inset 300px 0 0 0 #2d7df4;
+      background-color: #2d7df4;
       color: white;
     `}
 `;
