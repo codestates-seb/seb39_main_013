@@ -26,6 +26,26 @@ export default function SignUpForm() {
   });
 
   useEffect(() => {
+    if (signUpValue.phone.length === 10) {
+      setSignUpValue((prev) => {
+        return {
+          ...prev,
+          phone: signUpValue.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    } else if (signUpValue.phone.length === 13) {
+      setSignUpValue((prev) => {
+        return {
+          ...prev,
+          phone: signUpValue.phone
+            .replace(/-/g, "")
+            .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    }
+  }, [signUpValue.phone]);
+
+  useEffect(() => {
     let valid = true;
     for (let i in signUpValue) {
       if (!signUpValue[i]) {
@@ -33,6 +53,7 @@ export default function SignUpForm() {
         break;
       }
     }
+
     if (!valid || !address || !postCode || !inputValid) {
       setIsValid(false);
     } else if (valid && address && postCode && inputValid) {

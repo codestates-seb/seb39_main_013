@@ -22,6 +22,7 @@ export default memo(function SignInput(props) {
           name={props.name}
           onChange={(e) => props.changeHandler(e)}
           onKeyUp={() => checkValidate(props.value)}
+          value={props.value}
         />
       </InputWrapper>
       {!check && <ErrorMassage>{props.errorMassage}</ErrorMassage>}
