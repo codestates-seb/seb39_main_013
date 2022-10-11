@@ -66,7 +66,7 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   .updateReview-box {
-    width: 100%;
+    width: 90%;
     max-width: 836px;
     display: flex;
     flex-direction: column;
@@ -75,12 +75,16 @@ const Container = styled.div`
     .review-options {
       display: flex;
       padding: 10px 0;
+      @media screen and (max-width: 482px) {
+        flex-direction: column;
+        font-size: 15px;
+      }
       p {
         margin-right: 10px;
       }
       label {
         margin: 0 5px;
-        color: yellow;
+        color: #ebdb03;
       }
     }
 

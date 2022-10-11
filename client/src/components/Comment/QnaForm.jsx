@@ -93,8 +93,12 @@ const Container = styled.div`
 
   .QnaBox {
     width: 70%;
+    transition: width 0.3s;
     > div {
       margin: 10px 0;
+    }
+    @media screen and (max-width: 758px) {
+      width: 90%;
     }
     .Qna-title {
       display: flex;
