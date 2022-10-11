@@ -24,7 +24,7 @@ export default function MyPageIconBox() {
     <Container>
       <IconBox>
         {menuList.map((v, i) => {
-          if (userInfo.role === "Member" && v.link === "/product-register") {
+          if (userInfo.role !== "Admin" && v.link === "/product-register") {
             return;
           }
           return (

@@ -3,15 +3,12 @@ import { useQuery } from "react-query";
 import { getProductItems } from "../api";
 
 export default function useGetProductItems(params, setFunction) {
-  const { data, isLoading, isSuccess, isError } = useQuery(
+  const { data, isLoading, isSuccess, isError, refetch } = useQuery(
     ["getItems", params],
     () => getProductItems(params),
     {
-      retry: 3,
+      retry: 2,
       staleTime: 1000 * 60 * 30,
-      onError: (err) => {
-        console.log(err);
-      },
       onSuccess: () => {
         setFunction(true);
         setTimeout(() => {
@@ -21,5 +18,5 @@ export default function useGetProductItems(params, setFunction) {
     }
   );
 
-  return { data, isLoading, isSuccess, isError };
+  return { data, isLoading, isSuccess, isError, refetch };
 }

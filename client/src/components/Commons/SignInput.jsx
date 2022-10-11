@@ -22,6 +22,7 @@ export default memo(function SignInput(props) {
           name={props.name}
           onChange={(e) => props.changeHandler(e)}
           onKeyUp={() => checkValidate(props.value)}
+          value={props.value}
         />
       </InputWrapper>
       {!check && <ErrorMassage>{props.errorMassage}</ErrorMassage>}
@@ -33,7 +34,11 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 20px;
+
+  label {
+    font-weight: 600;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -41,7 +46,7 @@ const InputWrapper = styled.div`
 
   input {
     width: 100%;
-    font-size: 14px;
+    font-size: 1rem;
     margin-bottom: 8px;
     border: none;
     outline: none;

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { orderCartItems, orderPoductItem } from ".";
 
-export const paymentClickHandler = (data, productInfo, mode) => {
+export const paymentClickHandler = (data, productInfo, mode, orderMethod) => {
   const IMP = window.IMP;
   IMP.init("imp15788743");
   
@@ -25,11 +24,9 @@ export const paymentClickHandler = (data, productInfo, mode) => {
           }
         })
       }
-      if(mode === 'cart') {
-        orderCartItems(body);
-      }else if(mode === 'product') {
-        orderPoductItem(body);
-      }
+
+      orderMethod(body);
+
     }else {
       console.log("payment Error!!!" + error_msg);
     }

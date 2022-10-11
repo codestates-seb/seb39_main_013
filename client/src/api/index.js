@@ -1,6 +1,6 @@
 import { axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
-import { queryClient } from "../utils/queryClient";
+// import { queryClient } from "../utils/queryClient";
 
 
 export const signUpFn = async (payload) => {
@@ -16,7 +16,6 @@ export const loginFn = async (payload) => {
 
   return res;
 };
-
 
 
 export const authorizeToken = async () => {
@@ -119,16 +118,7 @@ export const deleteFavoriteItem = async (id) => {
   return res;
 } 
 
-export const orderCartItems = async (body) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/orders/cart', body, {
-    headers: {
-      Authorization: token,
-    }
-  }).then(() => {queryClient.refetchQueries(["getCartData"])});
-  console.log(res);
-  return res;
-}
+
 
 export const getOrderList = async () => {
   const token = Cookie.get("authorization");
@@ -160,15 +150,7 @@ export const getUserData = async (id) => {
   return res;
 }
 
-export const orderPoductItem = async (body) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/orders/product', body, {
-    headers: {
-      Authorization: token,
-    }
-  });
-  return res;
-}
+
 
 export const getProductItems = async (param) => {
   const res = await axiosInstance.get(`/api/v1/products`, {

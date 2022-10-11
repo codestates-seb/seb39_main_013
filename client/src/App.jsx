@@ -55,7 +55,12 @@ function App() {
           </Routes>
         </MainContainer>
         <Footer />
-        <ToastContainer position="top-center" draggable />
+        <ToastContainer
+          position="top-center"
+          draggable
+          closeOnClick
+          autoClose={1000}
+        />
       </BrowserRouter>
       <GlobalStyled />
     </div>

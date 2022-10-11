@@ -36,4 +36,5 @@ const ListTitle = styled.span`
   font-weight: bold;
   letter-spacing: 4px;
   word-spacing: 4px;
+  margin-bottom: 24px;
 `;
