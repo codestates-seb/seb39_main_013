@@ -1,16 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { BiSearch } from "react-icons/bi";
 import { mobile, tablet } from "../../utils/styleTheme";
 import useSearch from "../../hooks/useSearch";
 import { debounce } from "lodash";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useState("");
+  const [inputFocus, setInputFocus] = useState(false);
   const getSearchItem = useSearch(keyword);
   const location = useLocation();
+  const searchRef = useRef();
 
   const updateQuery = useCallback(() => {
     getSearchItem.refetch();
@@ -22,11 +24,23 @@ export default function SearchBar() {
   };
 
   useEffect(() => {
+    function handleOutside(e) {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setInputFocus(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleOutside);
+    };
+  }, [searchRef]);
+
+  useEffect(() => {
     setKeyword("");
   }, [location.pathname]);
 
   useEffect(() => {
-    if (keyword.length > 2) {
+    if (keyword.length > 1) {
       delayQuery();
     }
     return delayQuery.cancel;
@@ -35,11 +49,15 @@ export default function SearchBar() {
   return (
     <Container>
       <Wrapper>
-        <input onChange={(e) => inputChangeHandler(e)} value={keyword} />
+        <input
+          onFocus={() => setInputFocus(true)}
+          onChange={(e) => inputChangeHandler(e)}
+          value={keyword}
+        />
         <BiSearch />
       </Wrapper>
       {getSearchItem?.data && (
-        <SearchKeyword>
+        <SearchKeyword ref={searchRef} isFocus={inputFocus}>
           <ul>
             {getSearchItem?.data?.map((v) => {
               return (
@@ -94,19 +112,24 @@ const Wrapper = styled.div`
 `;
 
 const SearchKeyword = styled.div`
+  width: 100%;
   position: absolute;
   top: 60px;
-  width: 100%;
   max-height: 200px;
-  max-width: 300px;
+  max-width: 460px;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #fff;
   padding: 16px;
   border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
-    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
-    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  display: ${(props) => (props.isFocus ? "block" : "none")};
+
+  @media ${tablet} {
+    max-width: 380px;
+  }
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -130,6 +153,7 @@ const SearchKeyword = styled.div`
   }
 
   li {
+    display: flex;
     width: 100%;
     margin-bottom: 10px;
     &:last-child {
