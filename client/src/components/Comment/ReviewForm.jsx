@@ -150,7 +150,14 @@ const Container = styled.div`
 
   .reviewBox {
     width: 70%;
+
+    transition: width 0.3s;
+    @media screen and (max-width: 758px) {
+      width: 90%;
+    }
+
     margin-top: 48px;
+
     > div {
       margin: 10px 0;
     }
@@ -167,6 +174,14 @@ const Container = styled.div`
     .review-options {
       display: flex;
       padding: 10px 0;
+      transition: font-size 1s;
+      @media screen and (max-width: 758px) {
+        font-size: 15px;
+      }
+      @media screen and (max-width: 482px) {
+        flex-direction: column;
+      }
+
       p {
         margin-right: 10px;
       }
