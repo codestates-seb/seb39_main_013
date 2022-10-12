@@ -2,7 +2,6 @@
 export const emailValidation = (value) => {
     const basicRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     const isBlank = value.trim().length > 0;
-    console.log(basicRegex.test(value) && isBlank)
     return basicRegex.test(value) && isBlank;
 }
 

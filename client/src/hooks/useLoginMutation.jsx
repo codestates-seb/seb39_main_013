@@ -3,6 +3,7 @@ import React from "react";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { loginFn } from "../api";
+import { defaultUser } from "../constance/bannerImage";
 import { setUser } from "../redux/reducer/userSlice";
 
 export default function useLoginMutation(value) {
@@ -21,7 +22,8 @@ export default function useLoginMutation(value) {
             phone: res.data.data.phone,
             address: res.data.data.homeAddress,
             postcode: res.data.data.zipcode,
-            profileImg: res.data.data.profileImage,
+            profileImg: res.data.data.profileImage || defaultUser,
+            role: res.data.data.role === "ROLE_MEMBER" ? "Member" : "Admin",
             isLogin: true,
           })
         ),

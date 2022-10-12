@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
-import Button from "../Commons/Button";
+import { tablet } from "../../utils/styleTheme";
 import ColorSelector from "../ProductRegister/ColorSelector";
 import CategorySelector from "./CategorySelector";
 import PriceRange from "./PriceRange";
 
-export default function ShopFilter(props) {
+export default memo(function ShopFilter(props) {
   const setParamsHandler = (e) => {
     if (e.name === "price") {
       props.setParams((prev) => {
@@ -39,7 +39,7 @@ export default function ShopFilter(props) {
       </PriceSelector>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 100%;
@@ -47,6 +47,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 48px;
+
+  @media ${tablet} {
+    padding: 28px 0;
+  }
 `;
 
 const PriceSelector = styled.div`

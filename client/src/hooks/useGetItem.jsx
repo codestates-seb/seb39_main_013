@@ -6,7 +6,6 @@ export default function useGetItem(id) {
     ["getItems", id],
     () => getProductOne(id),
     {
-      // enabled: false,
       retry: 1,
       staleTime: 1000 * 60 * 30,
     }

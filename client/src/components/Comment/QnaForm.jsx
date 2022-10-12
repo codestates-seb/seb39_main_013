@@ -33,7 +33,11 @@ function QnaForm(props) {
           <div className="Qna-options">
             <p>Your Ratting</p>
             <label>
-              <input className="Qna-options__checkBox" type="checkbox" id="isSecret" />
+              <input
+                className="Qna-options__checkBox"
+                type="checkbox"
+                id="isSecret"
+              />
               비공개
             </label>
           </div>
@@ -93,7 +97,11 @@ const Container = styled.div`
 
   .QnaBox {
     width: 70%;
+
     transition: width 0.3s;
+
+    margin-top: 48px;
+
     > div {
       margin: 10px 0;
     }

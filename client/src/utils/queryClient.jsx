@@ -5,29 +5,27 @@ import { toast } from "react-toastify";
 import { persistor } from "../redux/store";
 
 export const errorHandler = async (error) => {
-  if (error.response.status === 410) {
+  if (error.response?.status === 410) {
     Cookies.remove("authorization");
     await persistor.purge();
     return;
   }
+
   if (error instanceof AxiosError) {
     if (!error.response?.data) {
       toast.error(error.message);
       return;
-    }
-
-    if (error.response?.data.error) {
+    } else if (error.response?.data.error) {
       toast.error(error.response?.data.error);
       return;
-    }
-
-    if (error.response?.data.message) {
+    } else if (error.response?.data.message) {
       toast.error(error.response?.data.message);
       return;
     }
   }
 
   toast.error("error!");
+  return;
 };
 
 export const queryClient = new QueryClient({

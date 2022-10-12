@@ -1,20 +1,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import useGetProductItems from "../../hooks/useGetProductItems";
+import { desktop, mobile, tablet } from "../../utils/styleTheme";
 import ItemCard from "../Commons/ItemCard";
-import Loading from "../Commons/Loading";
+import NoItems from "../Commons/NoItems";
+import Skeleton from "../Commons/Skeleton";
+import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import ErrorPage from "../Commons/ErrorPage";
 
-// eslint-disable-next-line
 function MainItems(props) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [onLoading, setOnLoading] = useState(false);
   const userInfo = useSelector((state) => state.user);
   const getFavoriteData = useGetFavoriteItem();
-  const getDataList = useGetProductItems(props.params);
+  const getDataList = useGetProductItems(props.params, setOnLoading);
 
   useEffect(() => {
     if (userInfo.isLogin && !getFavoriteData.isError) {
@@ -27,56 +30,168 @@ function MainItems(props) {
     }
   }, [userInfo.isLogin, getFavoriteData.isError]);
 
-  if (getDataList.isLoading || getFavoriteData.isLoading) {
-    return <Loading />;
-  }
-  return (
-    <Container mode={props.mode}>
-      {getDataList?.data?.data.map((v) => {
-        let favorite = false;
-        const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
-        if (isFavorite && fa.includes(v.product_id)) {
-          favorite = true;
-        }
+  const nextButtonClickHandler = () => {
+    props.setPage((prev) => prev + 1);
+  };
 
-        return (
-          <ItemCard
-            key={v.product_id}
-            id={v.product_id}
-            productImg={v.thumb_images[0]}
-            brand={v.brand_name}
-            title={v.name}
-            price={v.price}
-            favorite={favorite}
-          />
-        );
-      })}
-    </Container>
+  const prevButtonClickHandler = () => {
+    if (props.params.page === 1) {
+      return;
+    }
+    props.setPage((prev) => prev - 1);
+  };
+
+  if (getDataList.isLoading || getFavoriteData.isLoading || onLoading) {
+    return (
+      <Container mode={props.mode}>
+        <Skeleton size={6} />
+      </Container>
+    );
+  }
+
+  if (getDataList.isSuccess && getDataList.data.data.length === 0) {
+    return <NoItems />;
+  }
+
+  if (getDataList.isError) {
+    return (
+      <ErrorPage
+        errorText={"Network Error"}
+        retryAction={getDataList.refetch}
+      />
+    );
+  }
+
+  return (
+    <>
+      <Container mode={props.mode}>
+        {getDataList.isSuccess &&
+          getDataList?.data?.data.map((datas) => {
+            let favorite = false;
+            const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
+            if (isFavorite && fa.includes(datas.product_id)) {
+              favorite = true;
+            }
+            return (
+              <ItemCard
+                key={datas.product_id}
+                id={datas.product_id}
+                productImg={datas.thumb_images[0]}
+                brand={datas.brand_name}
+                title={datas.name}
+                price={datas.price}
+                favorite={favorite}
+                isLogin={userInfo.isLogin}
+              />
+            );
+          })}
+      </Container>
+      <ButtonWrapper>
+        <div>
+          {props.params.page !== 1 && props.mode === "shop" && (
+            <button className="button__prev" onClick={prevButtonClickHandler}>
+              <MdArrowBackIosNew />
+              <span>Prev</span>
+            </button>
+          )}
+        </div>
+        <div>
+          {getDataList.data.data.length === props.params.pageSize &&
+            props.mode === "shop" && (
+              <button className="button__next" onClick={nextButtonClickHandler}>
+                <span>Next</span>
+                <MdArrowForwardIos />
+              </button>
+            )}
+        </div>
+      </ButtonWrapper>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   margin-top: 48px;
   display: grid;
-  grid-template-columns: ${(props) => (props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)")};
+  grid-template-columns: ${(props) =>
+    props.mode === "main" ? "repeat(4, 1fr)" : "repeat(3, 1fr)"};
   grid-column-gap: 40px;
   grid-row-gap: 64px;
   width: 100%;
   max-width: 1280px;
 
-  /**  
-  * props와 중첩되어도 우선순위로 적용가능
-  */
-  @media screen and (max-width: 1280px) {
+  @media ${desktop} {
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
+    grid-column-gap: 28px;
+    grid-row-gap: 56px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media ${tablet} {
     grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    grid-column-gap: 16px;
+    grid-row-gap: 32px;
+  }
+
+  @media ${mobile} {
+    grid-template-columns: 1fr;
     place-items: center;
   }
 `;
 
-export default MainItems;
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 
+  div {
+    flex: 1;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #cdcdcd;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 8px;
+    width: 100%;
+    max-width: 180px;
+    font-size: 1rem;
+    color: #2d7df4;
+    gap: 8px;
+    transition: 0.5s;
+
+    svg {
+      width: 34px;
+      height: 34px;
+      fill: #2d7df4;
+    }
+
+    &:hover {
+      background-color: #2d7df4;
+      color: white;
+      border: 2px solid #2d7df4;
+      svg {
+        fill: white;
+      }
+    }
+  }
+
+  .button__prev {
+    padding-right: 2rem;
+  }
+
+  .button__next {
+    padding-left: 2rem;
+  }
+`;
+
+export default MainItems;

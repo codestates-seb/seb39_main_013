@@ -7,14 +7,20 @@ import App from "./App";
 import store, { persistor } from "./redux/store";
 import { queryClient } from "./utils/queryClient";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { ThemeProvider } from "styled-components";
+import { themeList } from "./utils/styleTheme";
+import ModalContainer from "./components/Commons/ModalContainer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={themeList}>
         <App />
-    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        <ModalContainer />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        </ThemeProvider>
       </PersistGate>
     </Provider>
   </QueryClientProvider>

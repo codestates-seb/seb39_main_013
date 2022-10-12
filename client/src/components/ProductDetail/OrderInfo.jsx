@@ -9,13 +9,13 @@ export default memo(function OrderInfo(props) {
     <Container>
       <div>
         <InfoTag>OPTIONS</InfoTag>
-        <span>{props.orderData.size}</span>
+        <span>{props.size}</span>
       </div>
       <div>
         <InfoTag>TOTAL PRICE</InfoTag>
         <TotalPriceWrapper>
           <FaWonSign />
-          <Price price={props.orderData.totalPrice} />
+          <Price price={props.totalPrice} />
         </TotalPriceWrapper>
       </div>
     </Container>

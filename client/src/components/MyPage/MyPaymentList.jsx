@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import useGetOrderList from "../../hooks/useGetOrderList";
 import Loading from "../Commons/Loading";
+import NoItems from "../Commons/NoItems";
 import PaymentItem from "./PaymentItem";
 
 export default function MyPaymentList() {
@@ -9,6 +10,10 @@ export default function MyPaymentList() {
 
   if (getOrderList.isLoading) {
     return <Loading />;
+  }
+
+  if (!getOrderList.data.order_response_dto.length) {
+    return <NoItems shopLink={true} />;
   }
   return (
     <Container>
@@ -61,7 +66,7 @@ const MenuBox = styled.div`
   align-items: center;
 
   &:nth-child(1) {
-    flex: 1.3;
+    flex: 2;
   }
 
   &:nth-child(2) {

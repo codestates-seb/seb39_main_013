@@ -64,7 +64,10 @@ function Comments(props) {
   const addComment = (newComment) => {
     setDummyData((curr) => {
       const newDummyData = [...curr, newComment];
-      const newDataQuestions = [...JSON.parse(localStorage.getItem("dataQuestions")), newComment];
+      const newDataQuestions = [
+        ...JSON.parse(localStorage.getItem("dataQuestions")),
+        newComment,
+      ];
       localStorage.removeItem("dataQuestions");
       localStorage.setItem("dataQuestions", JSON.stringify(newDataQuestions));
       return newDummyData;
@@ -77,7 +80,10 @@ function Comments(props) {
     //질문에 대한 답변을 추가해준다.
     setDummyData2((curr) => {
       const newDummyData2 = [...curr, newReply];
-      const newDataAnswers = [...JSON.parse(localStorage.getItem("dataAnswers")), newReply];
+      const newDataAnswers = [
+        ...JSON.parse(localStorage.getItem("dataAnswers")),
+        newReply,
+      ];
       localStorage.removeItem("dataAnswers");
       localStorage.setItem("dataAnswers", JSON.stringify(newDataAnswers));
       return newDummyData2;
@@ -87,7 +93,10 @@ function Comments(props) {
   const addNewReview = (newReview) => {
     setDummyData3((curr) => {
       const newDummyData3 = [...curr, newReview];
-      const newDataReviews = [...JSON.parse(localStorage.getItem("dataReviews")), newReview];
+      const newDataReviews = [
+        ...JSON.parse(localStorage.getItem("dataReviews")),
+        newReview,
+      ];
       localStorage.removeItem("dataReviews");
       localStorage.setItem("dataReviews", JSON.stringify(newDataReviews));
       return newDummyData3;
@@ -99,9 +108,13 @@ function Comments(props) {
   const deleteQuestion = (questionId) => {
     //questionId 나 answerId에 맞추어서 삭제해준다.
     if (window.confirm("정말로 해당 질문을 삭제하시겠습니까?")) {
-      const updatedQuestions = dummyData.filter((question) => question.questionId !== questionId);
+      const updatedQuestions = dummyData.filter(
+        (question) => question.questionId !== questionId
+      );
       let newDataQuestions = JSON.parse(localStorage.getItem("dataQuestions"));
-      newDataQuestions = newDataQuestions.filter((question) => question.questionId !== questionId);
+      newDataQuestions = newDataQuestions.filter(
+        (question) => question.questionId !== questionId
+      );
       setDummyData(() => {
         localStorage.removeItem("dataQuestions");
         localStorage.setItem("dataQuestions", JSON.stringify(newDataQuestions));
@@ -112,9 +125,13 @@ function Comments(props) {
 
   const deleteAnswer = (answerId) => {
     if (window.confirm("정말로 해당 답변을 삭제하시겠습니까?")) {
-      const updatedAnswers = dummyData2.filter((answer) => answer.answerId !== answerId);
+      const updatedAnswers = dummyData2.filter(
+        (answer) => answer.answerId !== answerId
+      );
       let newDataAnswers = JSON.parse(localStorage.getItem("dataAnswers"));
-      newDataAnswers = newDataAnswers.filter((answer) => answer.answerId !== answerId);
+      newDataAnswers = newDataAnswers.filter(
+        (answer) => answer.answerId !== answerId
+      );
       setDummyData2(() => {
         localStorage.removeItem("dataAnswers");
         localStorage.setItem("dataAnswers", JSON.stringify(newDataAnswers));
@@ -125,9 +142,13 @@ function Comments(props) {
 
   const deleteReview = (reviewId) => {
     if (window.confirm("정말로 해당 리뷰를 삭제하시겠습니까?")) {
-      const updatedReviews = dummyData3.filter((review) => review.reviewId !== reviewId);
+      const updatedReviews = dummyData3.filter(
+        (review) => review.reviewId !== reviewId
+      );
       let newDataReviews = JSON.parse(localStorage.getItem("dataReviews"));
-      newDataReviews = newDataReviews.filter((review) => review.reviewId !== reviewId);
+      newDataReviews = newDataReviews.filter(
+        (review) => review.reviewId !== reviewId
+      );
       setDummyData3(() => {
         localStorage.removeItem("dataReviews");
         localStorage.setItem("dataReviews", JSON.stringify(newDataReviews));
@@ -188,15 +209,26 @@ function Comments(props) {
   return (
     <Container>
       <div>
-        <CommentCategory setClickedCategory={setClickedCategory} name={categoryItemList} />
-        {clickedCategory === categoryItemList[0] ? <AdditionalInfo contentImg={props.contentImg} /> : null}
+        <CommentCategory
+          setClickedCategory={setClickedCategory}
+          name={categoryItemList}
+        />
+        {clickedCategory === categoryItemList[0] ? (
+          <AdditionalInfo contentImg={props.contentImg} />
+        ) : null}
         {clickedCategory === categoryItemList[2] ? (
           <>
             {dummyData?.map((comment) => (
               <Comment
                 active={clickedQuestion[0] === comment.questionId} //
-                isReplying={clickedQuestion[0] === comment.questionId && clickedQuestion[1]}
-                isEditing={clickedQuestion[0] === comment.questionId && clickedQuestion[2]}
+                isReplying={
+                  clickedQuestion[0] === comment.questionId &&
+                  clickedQuestion[1]
+                }
+                isEditing={
+                  clickedQuestion[0] === comment.questionId &&
+                  clickedQuestion[2]
+                }
                 setClickedQuestion={setClickedQuestion}
                 item={comment}
                 replies={getReplies(comment.questionId)}
@@ -212,7 +244,7 @@ function Comments(props) {
                 productId={props.productId}
               />
             ))}
-            <QnaForm //
+            <QnaForm
               addComment={addComment}
               userName={userName}
               userEmail={userEmail}
@@ -230,7 +262,9 @@ function Comments(props) {
                 review={review}
                 deleteReview={deleteReview}
                 setClickedReview={setClickedReview}
-                isEditing={clickedReview[0] === review.reviewId && clickedReview[1]}
+                isEditing={
+                  clickedReview[0] === review.reviewId && clickedReview[1]
+                }
                 updateReview={updateReview}
                 userName={userName}
                 userEmail={userEmail}

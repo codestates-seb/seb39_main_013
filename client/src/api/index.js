@@ -1,6 +1,6 @@
 import { axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
-import { queryClient } from "../utils/queryClient";
+// import { queryClient } from "../utils/queryClient";
 
 
 export const signUpFn = async (payload) => {
@@ -10,14 +10,12 @@ export const signUpFn = async (payload) => {
 
 export const loginFn = async (payload) => {
   const res = await axiosInstance.post("/login", payload);
-  console.log(res);
   if (res?.headers) {
     Cookie.set("authorization", res.headers["authorization"]);
   }
-  console.log("inner Index :", res);
+
   return res;
 };
-
 
 
 export const authorizeToken = async () => {
@@ -27,7 +25,6 @@ export const authorizeToken = async () => {
       Authorization: token,
     },
   });
-  console.log("res :", res);
   return res;
 };
 
@@ -46,12 +43,7 @@ export const productRegisterFn = async (registerInfo) => {
   return res;
 };
 
-export const getProductItems = async (params) => {
-  const res = await axiosInstance.get(`/api/v1/products`, {
-    params: { ...params },
-  });
-  return res.data;
-};
+
 
 export const getProductOne = async (id) => {
   const res = await axiosInstance.get(`/api/v1/products/${id}`);
@@ -112,14 +104,8 @@ export const getFavoriteItem = async () => {
 }
 
 export const getProductDetailInfo = async (params) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v1/products/', {
-    headers: {
-      Authorization: token,
-      params: params
-    }
-  });
-  return res;
+  const res = await axiosInstance.get(`/api/v1/products/?name=${params.name}`);
+  return res.data.data;
 }
 
 export const deleteFavoriteItem = async (id) => {
@@ -132,15 +118,7 @@ export const deleteFavoriteItem = async (id) => {
   return res;
 } 
 
-export const orderCartItems = async (body) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/orders/cart', body, {
-    headers: {
-      Authorization: token,
-    }
-  }).then(() => {queryClient.refetchQueries(["getCartData"])});
-  return res;
-}
+
 
 export const getOrderList = async () => {
   const token = Cookie.get("authorization");
@@ -151,3 +129,32 @@ export const getOrderList = async () => {
   });
   return res.data.data;
 }
+
+export const patchUserInfo = async (body, id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.patch(`/api/v1/members/${id}`, body, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+}
+
+export const getUserData = async (id) => {
+  const token = Cookie.get("authorization");
+  const res = await axiosInstance.get(`/api/v1/members/${id}`, {
+    headers: {
+      Authorization: token,
+    }
+  });
+  return res;
+}
+
+
+
+export const getProductItems = async (param) => {
+  const res = await axiosInstance.get(`/api/v1/products`, {
+    params: param,
+  });
+  return res.data;
+};

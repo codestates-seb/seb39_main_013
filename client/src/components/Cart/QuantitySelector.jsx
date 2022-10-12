@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { FiMinus, FiPlus } from "react-icons/fi";
 
-export default function QuantitySelector(props) {
+export default memo(function QuantitySelector(props) {
   const [quantity, setQuantity] = useState(props.productQuantity);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function QuantitySelector(props) {
       </button>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 100%;

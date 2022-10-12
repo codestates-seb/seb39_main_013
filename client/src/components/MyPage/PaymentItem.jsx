@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Price from "../Commons/Price";
 
 export default function PaymentItem(props) {
@@ -9,8 +9,8 @@ export default function PaymentItem(props) {
     <Container>
       <ItemProfile>
         <Link to={`/detail/${props.products[0].product_id}`}>
-          <ItemTextWrapper>
-            <span>product Title</span>
+          <ItemTextWrapper multi={props.products.length > 1 ? true : false}>
+            <span>{props.products[0].product_name}</span>
           </ItemTextWrapper>
         </Link>
       </ItemProfile>
@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 const ItemProfile = styled.div`
-  flex: 1.3;
+  flex: 2;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -63,10 +63,17 @@ const ItemProfile = styled.div`
 
 const ItemTextWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   font-size: 1rem;
   color: #525252;
   gap: 4px;
+
+  ${(props) =>
+    props.multi &&
+    css`
+      &::after {
+        content: " 외";
+      }
+    `}
 
   span {
     font-weight: 600;

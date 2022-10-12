@@ -16,7 +16,6 @@ function CommentCategory(props) {
     <Container>
       <div className="Banner-Items">
         <button
-          href="#"
           id={props.name[0]}
           onClick={handleClicked}
           className={
@@ -26,7 +25,6 @@ function CommentCategory(props) {
           {props.name[0]}
         </button>
         <button
-          href="#"
           id={props.name[1]}
           onClick={handleClicked}
           className={
@@ -36,7 +34,6 @@ function CommentCategory(props) {
           {props.name[1]}
         </button>
         <button
-          href="#"
           id={props.name[2]}
           onClick={handleClicked}
           className={
@@ -54,12 +51,17 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 32px;
 
   .Banner-Items {
     width: 100%;
     max-width: 700px;
     display: flex;
     justify-content: space-around;
+
+    button {
+      flex: 1;
+    }
   }
 
   button {
@@ -67,7 +69,7 @@ const Container = styled.div`
     text-decoration: none;
     font-size: 24px;
     font-weight: 900;
-    padding-bottom: 6px;
+    padding-bottom: 16px;
     position: relative;
     outline: none;
     border: 0;

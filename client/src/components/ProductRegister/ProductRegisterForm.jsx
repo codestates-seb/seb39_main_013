@@ -32,7 +32,6 @@ export default function ProductRegisterForm() {
     thumb_images: thumbImage,
     content_images: contentImg,
   });
-  console.log(isValid);
 
   useEffect(() => {
     let valid = true;
@@ -113,13 +112,6 @@ export default function ProductRegisterForm() {
             require={true}
             changeHandler={inputChangeHandler}
           />
-          {/* <InputSelect
-            name="sub_class"
-            label={"Category2"}
-            text={"Category2"}
-            require={true}
-            changeHandler={inputChangeHandler}
-          /> */}
         </CategoryBox>
         <InputText
           name={"stock"}

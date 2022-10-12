@@ -1,23 +1,21 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function ProfileCard() {
+export default function ProfileCard(props) {
   return (
     <Container>
       <div>
         <ImageWrapper>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv-xDIYOuEy1r-AOVNQi807ovbQJln9JwyCw&usqp=CAU"
-            alt="profileImg"
-          />
+          <img src={props.info.profileImg} alt="profileImg" />
         </ImageWrapper>
         <ProfileInfo>
-          <span>NickName</span>
-          <Link to="/">프로필 수정</Link>
+          <span>{props.info.name}</span>
+          <Link to="edit">프로필 수정</Link>
         </ProfileInfo>
       </div>
-      <span>일반회원</span>
+      <span>{props.info.role}</span>
     </Container>
   );
 }
@@ -71,5 +69,6 @@ const ProfileInfo = styled.div`
     border-radius: 8px;
     background-color: transparent;
     padding: 8px 1rem;
+    color: black;
   }
 `;

@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
+import { tablet } from "../../utils/styleTheme";
 
 // eslint-disable-next-line
 function SubBanner(props) {
   return (
     <Container>
-      {/* 추후 이미지 소스를 아이템에 답긴 url 또는 페이지로 수정해 주어야 한다. */}
-      {/* <img src={`${props.url}`}></img> */}
-      <div href="https://www.naver.com">
+      <div>
         <img src={props.imgUrl}></img>
       </div>
     </Container>
@@ -16,10 +15,16 @@ function SubBanner(props) {
 }
 
 const Container = styled.div`
+  width: 100%;
   img {
-    /* height: 500px; */
-    object-fit: fill;
+    object-fit: cover;
+    object-position: center;
     width: 100%;
+    min-height: 320px;
+  }
+
+  @media ${tablet} {
+    display: none;
   }
 `;
 
