@@ -32,8 +32,8 @@ function Comment(props) {
                 <div className="comment-author">{props.item.questionName}</div>
 
                 <div className="comment-CreatedAt">{props.item.questionCreatedAt}</div>
-                {props.userIsLogin && props.userEmail === props.commentEmail ? <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정하기</button> : null}
-                {props.userIsLogin && props.userEmail === props.commentEmail ? <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제하기</button> : null}
+                {props.userIsLogin && props.userEmail === props.commentEmail ? <button onClick={() => props.setClickedQuestion([props.item.questionId, false, true])}>질문 수정</button> : null}
+                {props.userIsLogin && props.userEmail === props.commentEmail ? <button onClick={() => props.deleteQuestion(props.item.questionId)}>질문 삭제</button> : null}
               </div>
             </div>
             <div className="comment-content_bottom">

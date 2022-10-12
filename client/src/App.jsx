@@ -10,6 +10,7 @@ import ScrollToTop from "./components/Commons/ScrollToTop";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./utils/PrivateRoute";
 import { routerList } from "./utils/Routers";
+
 import { dataQuestions } from "./components/Comment/dataQuestions";
 import { dataAnswers } from "./components/Comment/dataAnswers";
 import { dataReviews } from "./components/Comment/dataReviews";
@@ -18,11 +19,7 @@ import { mobile, tablet } from "./utils/styleTheme";
 function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
   useEffect(() => {
-    if (
-      !localStorage.getItem("dataQuestions") &&
-      !localStorage.getItem("dataAnswers") &&
-      !localStorage.getItem("dataReviews")
-    ) {
+    if (!localStorage.getItem("dataQuestions") && !localStorage.getItem("dataAnswers") && !localStorage.getItem("dataReviews")) {
       //처음에 로컬 스토리지가 없는 경우에
       localStorage.setItem("dataQuestions", JSON.stringify(dataQuestions));
       localStorage.setItem("dataAnswers", JSON.stringify(dataAnswers));
