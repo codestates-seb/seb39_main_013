@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
@@ -13,22 +13,10 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import ErrorPage from "../Commons/ErrorPage";
 
 function MainItems(props) {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [onLoading, setOnLoading] = useState(false);
   const userInfo = useSelector((state) => state.user);
-  const getFavoriteData = useGetFavoriteItem();
+  const getFavoriteData = useGetFavoriteItem(userInfo);
   const getDataList = useGetProductItems(props.params, setOnLoading);
-
-  useEffect(() => {
-    if (userInfo.isLogin && !getFavoriteData.isError) {
-      getFavoriteData.refetch();
-      setIsFavorite(true);
-    }
-
-    if (!userInfo.isLogin) {
-      setIsFavorite(false);
-    }
-  }, [userInfo.isLogin, getFavoriteData.isError]);
 
   const nextButtonClickHandler = () => {
     props.setPage((prev) => prev + 1);
@@ -69,7 +57,7 @@ function MainItems(props) {
           getDataList?.data?.data.map((datas) => {
             let favorite = false;
             const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
-            if (isFavorite && fa.includes(datas.product_id)) {
+            if (fa?.includes(datas.product_id)) {
               favorite = true;
             }
             return (
