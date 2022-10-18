@@ -29,7 +29,7 @@ public class ProductService {
 
     public void decreaseStock(Long productId, Integer quantity) {
        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("해당 상품은 없습니다."));
-       product.decreaseStock(quantity);
+//       product.decreaseStock(quantity);
        productRepository.save(product);
        //더티체킹
     }
@@ -46,11 +46,14 @@ public class ProductService {
         validateCheckAndUpdate(requestDto, findProduct);
         return findProduct;
     }
+
     public Page<ProductDto> getProductPage(int page, int pageSize, ProductCondition condition) {
-        //        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
         return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
     }
 
+    public Page<ProductDto> getProductPageV2(int page, int pageSize, ProductCondition condition) {
+        return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
+    }
     public List<ProductDto> getProduct(String name) {
         return productRepository.getProduct(name);
     }
@@ -60,9 +63,9 @@ public class ProductService {
         if (StringUtils.hasText(requestDto.getMajorClass())) findProduct.setMajorClass(requestDto.getMajorClass());
         if (StringUtils.hasText(requestDto.getName())) findProduct.setName(requestDto.getName());
         if (requestDto.getPrice() != null) findProduct.setPrice(requestDto.getPrice());
-        if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
+//        if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
         if (StringUtils.hasText(requestDto.getColor())) findProduct.setColor(requestDto.getColor());
-        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
+//        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
         if (requestDto.getThumbImages() != null) findProduct.setThumbImages(requestDto.getThumbImages());
         if (requestDto.getContentImages() != null) findProduct.setContentImages(requestDto.getContentImages());
     }

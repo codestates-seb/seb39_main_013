@@ -7,7 +7,7 @@ import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepository;
-import com.codestates.eCommerce.product.dto.ResponseDto;
+import com.codestates.eCommerce.product.dto.ProductResponseDto;
 import com.codestates.eCommerce.product.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,8 +37,8 @@ public class CartService {
         for (Cart cart : carts) {
             Optional<Product> optionalProduct = productRepository.findById(cart.getProductId());
             Product product = optionalProduct.get();
-            ResponseDto responseDto = productMapper.toResponseProductDto(product);
-            CartDto.Response cartResponse = new CartDto.Response(cart.getCartId(), responseDto, cart.getProductQuantity(), cart.isWanted());
+            ProductResponseDto productResponseDto = productMapper.toResponseProductDto(product);
+            CartDto.Response cartResponse = new CartDto.Response(cart.getCartId(), productResponseDto, cart.getProductQuantity(), cart.isWanted());
             response.add(cartResponse);
         }
         return response;

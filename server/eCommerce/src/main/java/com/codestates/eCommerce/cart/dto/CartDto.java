@@ -1,7 +1,6 @@
 package com.codestates.eCommerce.cart.dto;
 
-import com.codestates.eCommerce.product.domain.entity.Product;
-import com.codestates.eCommerce.product.dto.ResponseDto;
+import com.codestates.eCommerce.product.dto.ProductResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -22,7 +21,7 @@ public class CartDto {
     @ToString
     public static class Response {
         private Long cartId;
-        private ResponseDto product;
+        private ProductResponseDto product;
         private int productQuantity;
         private boolean isWanted;
     }

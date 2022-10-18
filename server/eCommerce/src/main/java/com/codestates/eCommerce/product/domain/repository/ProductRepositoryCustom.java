@@ -10,5 +10,6 @@ import java.util.List;
 public interface ProductRepositoryCustom
 {
     Page<ProductDto> searchPageSimple(Pageable pageable, ProductCondition condition);
+    Page<ProductDto> searchProductPage(Pageable pageable, ProductCondition condition);
     List<ProductDto> getProduct(String name);
 }

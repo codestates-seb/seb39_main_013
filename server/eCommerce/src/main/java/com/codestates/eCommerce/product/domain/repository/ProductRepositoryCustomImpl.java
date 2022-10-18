@@ -34,9 +34,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                         product.majorClass,
                         product.name,
                         product.price,
-                        product.stock,
                         product.color,
-                        product.size,
                         product.thumbImages,
                         product.contentImages
                 ))
@@ -53,9 +51,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     product.majorClass,
                     product.name,
                     product.price,
-                    product.stock,
                     product.color,
-                    product.size,
                     product.thumbImages,
                     product.contentImages
                 ))
@@ -68,8 +64,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
                     priceGoe(condition.getMinPrice()),
-                    priceLoe(condition.getMaxPrice()),
-                    stockLoe(condition.getStock())
+                    priceLoe(condition.getMaxPrice())
+//                    stockLoe(condition.getStock())
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())//페이지 사이즈
@@ -84,15 +80,63 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     nameContains(condition.getName()),
                     colorEq(condition.getColor()),
                     priceGoe(condition.getMinPrice()),
-                    priceLoe(condition.getMaxPrice()),
-                    sizeGt(condition.getMajorClass(), condition.getSize()),
-                    stockLoe(condition.getStock())
+                    priceLoe(condition.getMaxPrice())
+//                    sizeGt(condition.getMajorClass(), condition.getSize()),
+//                    stockLoe(condition.getStock())
                 )
                 .fetch().size();
 
         return new PageImpl<>(content,pageable,total);
     }
 
+
+    @Override
+    public Page<ProductDto> searchProductPage(Pageable pageable, ProductCondition condition) {
+        List<ProductDto> content = queryFactory
+                .select(new QProductDto(
+                        product.productId,
+                        product.brandId,
+                        product.brandName,
+                        product.majorClass,
+                        product.name,
+                        product.price,
+                        product.color,
+                        product.thumbImages,
+                        product.contentImages
+                ))
+                .from(product)
+                .groupBy(product.name)
+                .where(
+                        brandIdEq(condition.getBrandId()),
+                        brandNameContains(condition.getBrandName()),
+                        majorClassEq(condition.getMajorClass()),
+                        nameContains(condition.getName()),
+                        colorEq(condition.getColor()),
+                        priceGoe(condition.getMinPrice()),
+                        priceLoe(condition.getMaxPrice())
+//                        stockLoe(condition.getStock())
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())//페이지 사이즈
+                .fetch();
+
+        int total = queryFactory
+                .selectFrom(product)
+                .where(
+                        brandIdEq(condition.getBrandId()),
+                        brandNameContains(condition.getBrandName()),
+                        majorClassEq(condition.getMajorClass()),
+                        nameContains(condition.getName()),
+                        colorEq(condition.getColor()),
+                        priceGoe(condition.getMinPrice()),
+                        priceLoe(condition.getMaxPrice())
+//                        sizeGt(condition.getMajorClass(), condition.getSize()),
+//                        stockLoe(condition.getStock())
+                )
+                .fetch().size();
+
+        return new PageImpl<>(content,pageable,total);
+    }
     /* 조건 */
     private BooleanExpression brandIdEq(Long brandId) {
         return brandId!=null ? product.brandId.eq(brandId) : null;
@@ -120,13 +164,13 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return price != null ? product.price.loe(price) : null;
     }
 
-    private BooleanExpression stockLoe(Integer stock) {
-        return stock != null ? product.stock.loe(stock) : null;
-    }
-
-    private BooleanExpression sizeGt(String majorClass , String size) {
-        return hasText(majorClass) && hasText(size) ? product.size.castToNum(Integer.class).gt(Integer.parseInt(size)) : null;
-    }
+//    private BooleanExpression stockLoe(Integer stock) {
+//        return stock != null ? product.stock.loe(stock) : null;
+//    }
+//
+//    private BooleanExpression sizeGt(String majorClass , String size) {
+//        return hasText(majorClass) && hasText(size) ? product.size.castToNum(Integer.class).gt(Integer.parseInt(size)) : null;
+//    }
 
     private BooleanExpression productIdGt(Long lastProductId) {
         return lastProductId != null ? product.productId.gt(lastProductId): null;
