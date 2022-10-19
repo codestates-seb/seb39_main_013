@@ -9,6 +9,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Table(
+        uniqueConstraints={
+                @UniqueConstraint(
+                        name = "product_size",
+                        columnNames={"PRODUCT_ID", "size"}
+                )
+        }
+)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +27,7 @@ public class ProductItem {
     private Long productItemId;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
     private String size;

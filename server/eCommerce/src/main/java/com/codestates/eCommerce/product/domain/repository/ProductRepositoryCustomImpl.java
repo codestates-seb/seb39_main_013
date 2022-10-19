@@ -1,9 +1,13 @@
 package com.codestates.eCommerce.product.domain.repository;
 
+import com.codestates.eCommerce.product.domain.entity.Product;
+import com.codestates.eCommerce.product.domain.entity.ProductItem;
 import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
 import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.QProductDto;
+import com.codestates.eCommerce.product.mapper.ProductItemMapper;
+import com.codestates.eCommerce.product.mapper.ProductMapper;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +21,14 @@ import java.util.List;
 
 import static com.codestates.eCommerce.product.domain.entity.QProduct.product;
 
+import static com.codestates.eCommerce.product.domain.entity.QProductItem.productItem;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
 @RequiredArgsConstructor
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+    private final ProductItemMapper productItemMapper;
 
     @Override
     public List<ProductDto> getProduct(String name) {
@@ -42,6 +48,32 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(product.name.eq(name))
                 .fetch();
     }
+
+    @Override
+    public List<Product> searchProductWithItemList(Long productId) {
+        return  queryFactory
+                .selectFrom(product)
+                .innerJoin(product.productItems, productItem)
+                .fetchJoin()
+                .where(product.productId.eq(productId))
+                .distinct()
+                .fetch();
+    }
+
+    /*TODO 도저히 DTO로 변환하면서 받는법을 모르겠음*/
+    @Override
+    public List<Product> searchProductWithItem(Long productId, String size) {
+        return  queryFactory
+                .selectFrom(product)
+                .innerJoin(product.productItems, productItem)
+                .fetchJoin()
+                .where(
+                    product.productId.eq(productId).and(productItem.size.eq(size))
+                )
+                .distinct()
+                .fetch();
+    }
+
     public Page<ProductDto> searchPageSimple(Pageable pageable, ProductCondition condition) {
         List<ProductDto> content = queryFactory
                 .select(new QProductDto(
@@ -52,6 +84,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     product.name,
                     product.price,
                     product.color,
+                    null,
                     product.thumbImages,
                     product.contentImages
                 ))
@@ -137,6 +170,9 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
         return new PageImpl<>(content,pageable,total);
     }
+
+
+
     /* 조건 */
     private BooleanExpression brandIdEq(Long brandId) {
         return brandId!=null ? product.brandId.eq(brandId) : null;

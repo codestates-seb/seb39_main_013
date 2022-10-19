@@ -20,9 +20,18 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     public List<Order> searchOrder(Long buyerId) {
         return queryFactory.select(order)
                 .from(order)
-                .leftJoin(order.orderProducts, orderProduct)
+                .join(order.orderProducts, orderProduct)
                 .fetchJoin()
-                .where(order.buyerId.eq(buyerId))
+                .on(order.buyerId.eq(buyerId))
                 .distinct().fetch();
     }
+//    @Override
+//    public List<Order> searchOrder(Long buyerId) {
+//        return queryFactory.select(order)
+//                .from(order)
+//                .leftJoin(order.orderProducts, orderProduct)
+//                .fetchJoin()
+//                .where(order.buyerId.eq(buyerId))
+//                .distinct().fetch();
+//    }
 }

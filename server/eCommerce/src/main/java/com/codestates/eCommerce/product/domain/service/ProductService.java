@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -68,5 +67,15 @@ public class ProductService {
 //        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
         if (requestDto.getThumbImages() != null) findProduct.setThumbImages(requestDto.getThumbImages());
         if (requestDto.getContentImages() != null) findProduct.setContentImages(requestDto.getContentImages());
+    }
+
+    /** Todo 상품디테일
+     * */
+
+    public List<Product> searchProductWithItemList(Long productId) {
+        return productRepository.searchProductWithItemList(productId);
+    }
+    public List<Product> searchProductWithItem(Long productId, String size) {
+        return productRepository.searchProductWithItem(productId,size);
     }
 }

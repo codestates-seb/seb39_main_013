@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ProductItemResponseDto {
     private Long productItemId;
-    private ProductDto product;
     private String size;
     private Integer stock;
 }

@@ -5,7 +5,6 @@ import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.product.controller.ProductControllerV2;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
 import com.codestates.eCommerce.product.dto.ProductCondition;
-import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.ProductResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,12 +33,21 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage), HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<?> getProductWithItems(Long productId) {
-//        List<ProductResponseDto> productResponseDtos = appProductSerivce.searchProduct(productId);
-        return new ResponseEntity<>(new SingleResponseDto<>(new ProductDto()),HttpStatus.OK);
-    }
+
 
     /* TODO 상품 디테일 재정의*/
+    @GetMapping("/info/list/{product-id}")
+    public ResponseEntity<?> getProductWithItemList(@PathVariable("product-id") Long productId) {
+        List<ProductResponseDto> productResponseDtos = appProductSerivce.searchProductWithItemList(productId);
+        return new ResponseEntity<>(new SingleResponseDto<>(productResponseDtos),HttpStatus.OK);
+    }
+
+    @GetMapping("/info/{product-id}/{size}")
+    public ResponseEntity<?> getProductWithItem(@PathVariable("product-id") Long productId, @PathVariable("size") String size) {
+        List<ProductResponseDto> productResponseDtos = appProductSerivce.searchProductWithItem(productId, size);
+        return new ResponseEntity<>(new SingleResponseDto<>(productResponseDtos),HttpStatus.OK);
+    }
+
+
 
 }

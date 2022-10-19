@@ -33,16 +33,16 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ProductHistory> productHistories;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductItem> productItems = new ArrayList<>();
 
     private Long brandId;
     private String brandName;
     private String majorClass;
-    @Column(name = "name")
+    @Column(name = "name",unique = true)
     private String name;
     private Integer price;
 //    private Integer stock;
@@ -60,9 +60,9 @@ public class Product extends BaseEntity {
 
     public void addProductItems(ProductItem productItem) {
         this.productItems.add(productItem);
-        if (productItem.getProduct()!=this) {
-            productItem.setProduct(this);
-        }
+//        if (productItem.getProduct()!=this) {
+//            productItem.setProduct(this);
+//        }
     }
 
     //    public static Product createProduct(Long brandId, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentImages) {

@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 public class ProductItemDto {
     private Long productItemId;
-    private ProductDto product;
     private String size;
     private Integer stock;
 }

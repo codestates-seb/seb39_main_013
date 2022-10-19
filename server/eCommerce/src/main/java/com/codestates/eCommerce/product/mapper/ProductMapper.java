@@ -9,7 +9,11 @@ import org.mapstruct.NullValueCheckStrategy;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+import static org.mapstruct.NullValueMappingStrategy.RETURN_DEFAULT;
+
+@Mapper(componentModel = "spring",
+        nullValueMappingStrategy = RETURN_DEFAULT ,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProductMapper {
 
 
@@ -25,7 +29,7 @@ public interface ProductMapper {
     ProductResponseDto toResponseDto(ProductDto productDto);
     //서비스 -> 컨트롤러
     List<ProductResponseDto> toResponseDtoList(List<ProductDto> productDto);
-
+    List<ProductResponseDto> toResponseDtos(List<Product> products);
     ResponseDetailDto toResponseDetailDto(ProductDetailDto productDetailDto);
 
     /*Todo 리팩토링*/

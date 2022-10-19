@@ -14,12 +14,12 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class AppProductSerivce {
 
     private final ProductService productService;
     private final ProductMapper productMapper;
 
+    @Transactional
     public ProductResponseDto postProduct(RequestDto.Post requestDto) {
         Product product = productMapper.toEntity(requestDto);
         Product saveProduct = productService.save(product);
@@ -62,8 +62,22 @@ public class AppProductSerivce {
         });
     }
 
+    @Transactional
     public ProductResponseDto updateProduct(Long productId, RequestDto.Patch requestDto) {
         Product updateProduct = productService.updateProduct(productId, requestDto);
         return productMapper.toResponseProductDto(updateProduct);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductResponseDto> searchProductWithItemList(Long productId) {
+        List<Product> products = productService.searchProductWithItemList(productId);
+        return productMapper.toResponseDtos(products);
+    }
+    /**Todo 상품디테일
+     * */
+    @Transactional(readOnly = true)
+    public List<ProductResponseDto> searchProductWithItem(Long productId, String size) {
+        List<Product> products = productService.searchProductWithItem(productId,size);
+        return productMapper.toResponseDtos(products);
     }
 }
