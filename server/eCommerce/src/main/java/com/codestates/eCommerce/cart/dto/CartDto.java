@@ -12,7 +12,7 @@ public class CartDto {
     @ToString
     public static class Post {
         @NotNull
-        private Long productId;
+        private Long productItemId;
         @NotNull
         private int productQuantity;
         private boolean isWanted;

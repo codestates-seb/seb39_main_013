@@ -24,6 +24,7 @@ import javax.persistence.*;
 public class ProductItem {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "product_item_id")
     private Long productItemId;
 
     @ManyToOne

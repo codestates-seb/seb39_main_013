@@ -6,15 +6,13 @@ import com.codestates.eCommerce.product.controller.ProductControllerV2;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
 import com.codestates.eCommerce.product.dto.ProductCondition;
 import com.codestates.eCommerce.product.dto.ProductResponseDto;
+import com.codestates.eCommerce.product.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,7 +32,6 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
     }
 
 
-
     /* TODO 상품 디테일 재정의*/
     @GetMapping("/info/list/{product-id}")
     public ResponseEntity<?> getProductWithItemList(@PathVariable("product-id") Long productId) {
@@ -48,6 +45,11 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
         return new ResponseEntity<>(new SingleResponseDto<>(productResponseDtos),HttpStatus.OK);
     }
 
+    @PatchMapping("/{product-id}")
+    public ResponseEntity<?> updateProduct(@PathVariable("product-id") Long productId, @RequestBody RequestDto.Patch requestDto) {
+        ProductResponseDto productResponseDto = appProductSerivce.updateProduct(productId,requestDto);
+        return new ResponseEntity<>(new SingleResponseDto<>(productResponseDto),HttpStatus.ACCEPTED);
+    }
 
 
 }
