@@ -3,7 +3,6 @@ package com.codestates.eCommerce.security.config;
 import com.codestates.eCommerce.common.config.matterMost.NotificationManager;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.member.mapper.MemberMapper;
-import com.codestates.eCommerce.security.jwt.CustomAccessDeniedHandler;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
 import com.codestates.eCommerce.security.jwt.JwtFilter;
@@ -20,20 +19,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity(debug = true) // 스프링 시큐리티 필터(SecurityConfig)가 스프링 필터 체인에 등록
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // @Secured 활성화, @PreAuthorize & @PostAuthorize 활성화
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final CorsFilter corsFilter;
+//    private final CorsFilter corsFilter;
     private final MemberRepository repository;
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final OAuth2SuccessHandler successHandler;
     private final OAuth2FailureHandler failureHandler;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final CustomAuthenticationEntryPoint entryPoint;
     private final JwtFilter jwtFilter;
     private final MemberMapper mapper;
     private final NotificationManager notificationManager;
@@ -41,14 +40,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
+//                .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
                 .formLogin().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(entryPoint)
+                .and()
+
                 .httpBasic().disable()
                 .apply(new CustomDsl())
                 .and()
-//                .exceptionHandling()
-//                .authenticationEntryPoint(restAuthenticationEntryPoint)
-//                .and()
                 .authorizeRequests()
                 .antMatchers(
                         "/api/v1/carts/**",
@@ -56,24 +56,11 @@ public class SecurityConfig {
                         "/api/v1/members/{member-id}/**"
                 )
                 .authenticated()
-
-//                .antMatchers("/api/v1/members/user/**").access("hasRole('ROLE_MEMBER') or hasRole('MANAGER')")
-//                .antMatchers("/api/v1/members/user/**").access("hasRole('MEMBER') or hasRole('MANAGER')")
-//                .antMatchers("/api/v1/members/manager/**").access("hasRole('MANAGER')")
                 .anyRequest().permitAll();
 //                .and()
-//                .exceptionHandling()
-//                .accessDeniedHandler(accessDeniedHandler)
-//                .authenticationEntryPoint(restAuthenticationEntryPoint);
-//                .and().addFilterBefore(jwtFilter, JwtAuthenticationFilter.class);
-//                .and()
-
-//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-//                .and()
 //                .oauth2Login()
-//                .loginProcessingUrl("/login")
-//                .successHandler(successHandler)
-//                .failureHandler(failureHandler)
+////                .tokenEndpoint()
+//
 //                .userInfoEndpoint()
 //                .userService(principalOauth2UserService);
 
