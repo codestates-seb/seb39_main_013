@@ -1,4 +1,4 @@
-package com.codestates.eCommerce.security.jwt;
+package com.codestates.eCommerce.security.config;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
