@@ -6,7 +6,6 @@ import com.codestates.eCommerce.member.mapper.MemberMapper;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
 import com.codestates.eCommerce.security.jwt.JwtFilter;
-import com.codestates.eCommerce.security.oauth.CorsFilter;
 import com.codestates.eCommerce.security.oauth.OAuth2FailureHandler;
 import com.codestates.eCommerce.security.oauth.OAuth2SuccessHandler;
 import com.codestates.eCommerce.security.oauth.PrincipalOauth2UserService;
@@ -20,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity(debug = true) // 스프링 시큐리티 필터(SecurityConfig)가 스프링 필터 체인에 등록
@@ -57,13 +57,11 @@ public class SecurityConfig {
                         "/api/v1/members/{member-id}/**"
                 )
                 .authenticated()
-                .anyRequest().permitAll();
-//                .and()
-//                .oauth2Login()
-////                .tokenEndpoint()
-//
-//                .userInfoEndpoint()
-//                .userService(principalOauth2UserService);
+                .anyRequest().permitAll()
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
 
         http.csrf().disable();
         return http.build();
