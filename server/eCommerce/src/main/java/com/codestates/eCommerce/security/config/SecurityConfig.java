@@ -6,6 +6,7 @@ import com.codestates.eCommerce.member.mapper.MemberMapper;
 import com.codestates.eCommerce.security.jwt.JwtAuthenticationFilter;
 import com.codestates.eCommerce.security.jwt.JwtAuthorizationFilter;
 import com.codestates.eCommerce.security.jwt.JwtFilter;
+import com.codestates.eCommerce.security.oauth.CorsFilter;
 import com.codestates.eCommerce.security.oauth.OAuth2FailureHandler;
 import com.codestates.eCommerce.security.oauth.OAuth2SuccessHandler;
 import com.codestates.eCommerce.security.oauth.PrincipalOauth2UserService;
@@ -25,7 +26,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // @Secured 활성화, @PreAuthorize & @PostAuthorize 활성화
 @RequiredArgsConstructor
 public class SecurityConfig {
-//    private final CorsFilter corsFilter;
+    private final CorsFilter corsFilter;
     private final MemberRepository repository;
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final OAuth2SuccessHandler successHandler;
@@ -40,7 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//                .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
+                .addFilter(corsFilter) // @CrossOrigin(인증X), 인증(O) 필터에 등록
                 .formLogin().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(entryPoint)
