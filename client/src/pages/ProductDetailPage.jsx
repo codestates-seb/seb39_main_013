@@ -9,16 +9,13 @@ export default function ProductDetailPage() {
   const params = useParams();
   const getItem = useGetItem(params.id);
 
-  if (getItem.isLoading) {
-    return (
-      <Container>
-        <DetailSkeleton />
-      </Container>
-    );
-  }
   return (
     <Container>
-      <ProductDetailForm dataInfo={getItem.data} />
+      {getItem.isLoading ? (
+        <DetailSkeleton />
+      ) : (
+        <ProductDetailForm dataInfo={getItem.data} />
+      )}
     </Container>
   );
 }

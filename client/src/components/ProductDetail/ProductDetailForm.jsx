@@ -1,37 +1,21 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { memo } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import useGetProductDetailInfo from "../../hooks/useGetProductDetailInfo";
 import { desktop, tablet } from "../../utils/styleTheme";
 import Comments from "../Comment/Comments";
-import DetailSkeleton from "./DetailSkeleton";
+
 import ProductDetailOrder from "./ProductDetailOrder";
 
 export default memo(function ProductDetailForm(props) {
-  const getProductDetailInfo = useGetProductDetailInfo({
-    name: props.dataInfo.name,
-  });
-
-  if (getProductDetailInfo.isLoading) {
-    return <DetailSkeleton />;
-  }
-
   return (
     <Container>
       <OrderWrapper>
         <ImageWrapper>
           <img src={props.dataInfo.thumb_images[0]} alt="img" />
         </ImageWrapper>
-        <ProductDetailOrder
-          title={props.dataInfo.name}
-          price={props.dataInfo.price}
-          subTitle={props.dataInfo.brand_name}
-          color={props.dataInfo.color}
-          size={props.dataInfo.size}
-          maxQuantity={props.dataInfo.stock}
-          data={props.dataInfo}
-          sizeList={getProductDetailInfo.data}
-        />
+        <ProductDetailOrder />
       </OrderWrapper>
 
       <Comments

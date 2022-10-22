@@ -27,10 +27,7 @@ export const productRegisterFn = async (registerInfo) => {
   return res;
 };
 
-export const getProductOne = async (id) => {
-  const res = await axiosInstance.get(`/api/v1/products/${id}`);
-  return res.data.data;
-};
+
 
 export const deleteCartItem = async (id) => {
   const token = Cookie.get("authorization");
@@ -53,10 +50,7 @@ export const getCartData = async () => {
   return res.data.data;
 };
 
-export const getProductDetailInfo = async (params) => {
-  const res = await axiosInstance.get(`/api/v1/products/?name=${params.name}`);
-  return res.data.data;
-};
+
 
 export const deleteFavoriteItem = async (id) => {
   const token = Cookie.get("authorization");
@@ -98,9 +92,4 @@ export const getUserData = async (id) => {
   return res;
 };
 
-export const getProductItems = async (param) => {
-  const res = await axiosInstance.get(`/api/v1/products`, {
-    params: param,
-  });
-  return res.data;
-};
+

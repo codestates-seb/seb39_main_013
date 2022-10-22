@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useQuery } from "react-query";
-import { getProductItems } from "../api";
+import { axiosInstance } from "../api/axiosInstance";
+
+const getProductItems = async (param) => {
+  const res = await axiosInstance.get(`/api/v2/products`, {
+    params: param,
+  });
+  return res.data;
+};
 
 export default function useGetProductItems(params, setFunction) {
   const { data, isLoading, isSuccess, isError, refetch } = useQuery(
