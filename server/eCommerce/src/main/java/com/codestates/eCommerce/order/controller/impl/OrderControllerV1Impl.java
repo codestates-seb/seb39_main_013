@@ -1,6 +1,7 @@
-package com.codestates.eCommerce.order.controller;
+package com.codestates.eCommerce.order.controller.impl;
 
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
+import com.codestates.eCommerce.order.controller.OrderControllerV1;
 import com.codestates.eCommerce.order.domain.service.AppOrderService;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.ResponseDto;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
 @Slf4j
-public class OrderController {
+public class OrderControllerV1Impl implements OrderControllerV1 {
 
     private final AppOrderService appOrderService;
 

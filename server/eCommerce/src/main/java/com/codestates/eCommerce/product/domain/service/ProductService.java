@@ -4,14 +4,12 @@ import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepository;
-import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.ProductConditionDto;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class ProductService {
 
     public void decreaseStock(Long productId, Integer quantity) {
        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("해당 상품은 없습니다."));
-       product.decreaseStock(quantity);
+//       product.decreaseStock(quantity);
        productRepository.save(product);
        //더티체킹
     }
@@ -46,11 +44,14 @@ public class ProductService {
         validateCheckAndUpdate(requestDto, findProduct);
         return findProduct;
     }
-    public Page<ProductDto> getProductPage(int page, int pageSize, ProductCondition condition) {
-        //        return productRepositoryCustom.searchPageSimple(PageRequest.of(page,size), condition);
-        return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
+
+    public Page<ProductDto> getProductPage(int page, int pageSize, ProductConditionDto condition) {
+        return productRepository.searchPageSimple(condition);
     }
 
+    public Page<ProductDto> getProductPageV2(ProductConditionDto condition) {
+        return productRepository.searchPageSimple(condition);
+    }
     public List<ProductDto> getProduct(String name) {
         return productRepository.getProduct(name);
     }
@@ -60,10 +61,26 @@ public class ProductService {
         if (StringUtils.hasText(requestDto.getMajorClass())) findProduct.setMajorClass(requestDto.getMajorClass());
         if (StringUtils.hasText(requestDto.getName())) findProduct.setName(requestDto.getName());
         if (requestDto.getPrice() != null) findProduct.setPrice(requestDto.getPrice());
-        if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
+//        if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
         if (StringUtils.hasText(requestDto.getColor())) findProduct.setColor(requestDto.getColor());
-        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
+//        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
         if (requestDto.getThumbImages() != null) findProduct.setThumbImages(requestDto.getThumbImages());
         if (requestDto.getContentImages() != null) findProduct.setContentImages(requestDto.getContentImages());
+    }
+
+    /** Todo 상품디테일
+     * */
+
+    public List<Product> searchProductWithItemList(Long productId) {
+        return productRepository.searchProductWithItemList(productId);
+    }
+    public Product searchProductWithItem(Long productId, String size) {
+        return productRepository.searchProductWithItem(productId,size);
+    }
+
+    public void decreaseStockV2(Long productId, String productSize, Integer quantity) {
+        Product product = (Product) productRepository.searchProductWithItem(productId,productSize);
+        productRepository.save(product);
+        //더티체킹
     }
 }
