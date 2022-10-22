@@ -21,7 +21,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity // 스프링 시큐리티 필터(SecurityConfig)가 스프링 필터 체인에 등록
+@EnableWebSecurity(debug = true) // 스프링 시큐리티 필터(SecurityConfig)가 스프링 필터 체인에 등록
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // @Secured 활성화, @PreAuthorize & @PostAuthorize 활성화
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -73,9 +73,10 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
-//                    .addFilter(corsFilter)
                     .addFilter(new JwtAuthenticationFilter(authenticationManager, mapper))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, repository, notificationManager));
         }
     }
+
+
 }

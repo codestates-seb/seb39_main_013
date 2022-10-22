@@ -19,7 +19,6 @@ public class OrderService {
         reqOrder.setBuyerId(memberId);
         reqOrder.setTotalPrice();
         reqOrder.addOrderProducts(reqOrder.getOrderProducts());
-
         reqOrder.setOrderStatus(OrderStatus.ORDERED);
         return orderRepository.save(reqOrder);
 
@@ -32,5 +31,7 @@ public class OrderService {
     public List<Order> getOrderByQueryDSL(Long buyerId) {
         return orderRepository.searchOrder(buyerId);
     }
-
+    public List<Order> getOrderV2(Long buyerId) {
+        return orderRepository.searchOrderV2(buyerId);
+    }
 }

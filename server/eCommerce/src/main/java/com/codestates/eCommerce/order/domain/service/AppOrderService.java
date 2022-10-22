@@ -5,9 +5,9 @@ import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.OrderResponseDto;
-import com.codestates.eCommerce.order.mapper.OrderProductMapper;
-import com.codestates.eCommerce.order.mapper.OrderMapper;
 import com.codestates.eCommerce.order.dto.ResponseDto;
+import com.codestates.eCommerce.order.mapper.OrderMapper;
+import com.codestates.eCommerce.order.mapper.OrderProductMapper;
 import com.codestates.eCommerce.product.domain.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,24 +32,45 @@ public class AppOrderService {
     * 주문이 되었으므로 주문된 상품들과 함께 return
     * */
     public ResponseDto placeOrder(Member member, OrderRequestDto reqOrderDto){
-        //카드에 담긴걸 줌누
-        //
         Order order = orderMapper.toOrderEntity(reqOrderDto);
 
         order.setBuyerId(member.getMemberId());
         Order createOrder = orderService.createOrder(member.getMemberId(),order);
 
         createOrder.getOrderProducts().forEach(pd -> productService.decreaseStock(pd.getProductId(), pd.getProductQuantity()));  //상품재고 감소
-
-        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우기
-
-
+        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우
         OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
         return new ResponseDto(orderResponseDto);
     }
 
     public ResponseDto getOrderInfo(Member member) {
         List<Order> order = orderService.getOrderByQueryDSL(member.getMemberId());
+        List<OrderResponseDto> orderResponseDto = orderMapper.toOrderResponseDtoList(order);
+        return new ResponseDto(orderResponseDto);
+    }
+
+    /** Todo V2
+     * */
+    public ResponseDto placeOrderCartV2(Member member, OrderRequestDto reqOrderDto){
+        Order order = orderMapper.toOrderEntity(reqOrderDto);
+
+        order.setBuyerId(member.getMemberId());
+        Order createOrder = orderService.createOrder(member.getMemberId(),order);
+        createOrder.getOrderProducts().forEach(pd -> productService.decreaseStockV2(pd.getProductId(), pd.getProductSize() ,pd.getProductQuantity()));  //상품재고 감소
+        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우
+        OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
+        return new ResponseDto(orderResponseDto);
+    }
+    public ResponseDto placeOrderV2(Member member, OrderRequestDto reqOrderDto){
+        Order order = orderMapper.toOrderEntity(reqOrderDto);
+        order.setBuyerId(member.getMemberId());
+        Order createOrder = orderService.createOrder(member.getMemberId(),order);
+        createOrder.getOrderProducts().forEach(pd -> productService.decreaseStockV2(pd.getProductId(), pd.getProductSize() ,pd.getProductQuantity()));  //상품재고 감소
+        OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
+        return new ResponseDto(orderResponseDto);
+    }
+    public ResponseDto getOrderInfoV2(Member member) {
+        List<Order> order = orderService.getOrderV2(member.getMemberId());
         List<OrderResponseDto> orderResponseDto = orderMapper.toOrderResponseDtoList(order);
         return new ResponseDto(orderResponseDto);
     }

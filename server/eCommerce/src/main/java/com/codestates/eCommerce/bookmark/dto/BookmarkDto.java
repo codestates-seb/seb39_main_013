@@ -1,6 +1,6 @@
 package com.codestates.eCommerce.bookmark.dto;
 
-import com.codestates.eCommerce.product.dto.ResponseDto;
+import com.codestates.eCommerce.product.dto.ProductResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,6 @@ public class BookmarkDto {
     @AllArgsConstructor
     public static class Response {
         private Long bookmarkId;
-        private ResponseDto product;
+        private ProductResponseDto product;
     }
 }
