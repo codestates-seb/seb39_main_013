@@ -71,7 +71,7 @@ public class ProductService {
     /** Todo 상품디테일
      * */
 
-    public List<Product> searchProductWithItemList(Long productId) {
+    public Product searchProductWithItemList(Long productId) {
         return productRepository.searchProductWithItemList(productId);
     }
     public Product searchProductWithItem(Long productId, String size) {

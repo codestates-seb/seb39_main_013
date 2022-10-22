@@ -48,14 +48,14 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<Product> searchProductWithItemList(Long productId) {
+    public Product searchProductWithItemList(Long productId) {
         return  queryFactory
                 .selectFrom(product)
                 .innerJoin(product.productItems, productItem)
                 .fetchJoin()
                 .where(product.productId.eq(productId))
                 .distinct()
-                .fetch();
+                .fetchOne();
     }
 
     /*TODO 도저히 DTO로 변환하면서 받는법을 모르겠음*/

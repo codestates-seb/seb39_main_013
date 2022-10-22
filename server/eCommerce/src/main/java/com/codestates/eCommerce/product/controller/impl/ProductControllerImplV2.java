@@ -37,7 +37,7 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
     /* TODO 상품 디테일 재정의*/
     @GetMapping("/info/list/{product-id}")
     public ResponseEntity<?> getProductWithItemList(@PathVariable("product-id") Long productId) {
-        List<ProductResponseDto> productResponseDtos = appProductSerivce.searchProductWithItemList(productId);
+        ProductResponseDto productResponseDtos = appProductSerivce.searchProductWithItemList(productId);
         return new ResponseEntity<>(new SingleResponseDto<>(productResponseDtos),HttpStatus.OK);
     }
 
