@@ -37,7 +37,7 @@ public class BookmarkService {
         for (Bookmark bookmark : bookmarks) {
             Optional<Product> optionalProduct = productRepository.findById(bookmark.getProductId());
             Product product = optionalProduct.get();
-            ProductResponseDto productResponseDto = productMapper.toResponseProductDto(product);
+            ProductResponseDto productResponseDto = productMapper.toProductResponseDto(product);
             BookmarkDto.Response bookmarkResponse = new BookmarkDto.Response(bookmark.getBookmarkId(), productResponseDto);
             response.add(bookmarkResponse);
         }

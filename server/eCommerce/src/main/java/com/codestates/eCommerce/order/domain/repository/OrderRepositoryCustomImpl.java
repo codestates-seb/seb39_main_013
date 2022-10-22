@@ -1,6 +1,8 @@
 package com.codestates.eCommerce.order.domain.repository;
 
 import com.codestates.eCommerce.order.domain.entity.Order;
+import com.codestates.eCommerce.order.dto.OrderDto;
+import com.codestates.eCommerce.order.dto.QOrderDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,13 +27,17 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
                 .on(order.buyerId.eq(buyerId))
                 .distinct().fetch();
     }
-//    @Override
-//    public List<Order> searchOrder(Long buyerId) {
-//        return queryFactory.select(order)
-//                .from(order)
-//                .leftJoin(order.orderProducts, orderProduct)
-//                .fetchJoin()
-//                .where(order.buyerId.eq(buyerId))
-//                .distinct().fetch();
-//    }
+
+    @Override
+    public List<Order> searchOrderV2(Long buyerId) {
+        return queryFactory
+                .select(order)
+                .from(order)
+                .leftJoin(orderProduct)
+                .on(order.buyerId.eq(buyerId))
+                .fetchJoin()
+                .distinct()
+                .fetch();
+    }
+
 }

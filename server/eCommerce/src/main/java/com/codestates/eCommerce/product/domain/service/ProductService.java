@@ -4,12 +4,11 @@ import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.product.domain.repository.ProductRepository;
-import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.ProductConditionDto;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -46,12 +45,12 @@ public class ProductService {
         return findProduct;
     }
 
-    public Page<ProductDto> getProductPage(int page, int pageSize, ProductCondition condition) {
-        return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
+    public Page<ProductDto> getProductPage(int page, int pageSize, ProductConditionDto condition) {
+        return productRepository.searchPageSimple(condition);
     }
 
-    public Page<ProductDto> getProductPageV2(int page, int pageSize, ProductCondition condition) {
-        return productRepository.searchPageSimple(PageRequest.of(page,pageSize), condition);
+    public Page<ProductDto> getProductPageV2(ProductConditionDto condition) {
+        return productRepository.searchPageSimple(condition);
     }
     public List<ProductDto> getProduct(String name) {
         return productRepository.getProduct(name);
@@ -75,7 +74,13 @@ public class ProductService {
     public List<Product> searchProductWithItemList(Long productId) {
         return productRepository.searchProductWithItemList(productId);
     }
-    public List<Product> searchProductWithItem(Long productId, String size) {
+    public Product searchProductWithItem(Long productId, String size) {
         return productRepository.searchProductWithItem(productId,size);
+    }
+
+    public void decreaseStockV2(Long productId, String productSize, Integer quantity) {
+        Product product = (Product) productRepository.searchProductWithItem(productId,productSize);
+        productRepository.save(product);
+        //더티체킹
     }
 }

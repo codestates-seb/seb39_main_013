@@ -1,9 +1,8 @@
 package com.codestates.eCommerce.product.controller;
 
-import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.ProductConditionDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 
 /** 코드스테이츠 수료중에 만든 버전
@@ -16,7 +15,7 @@ public interface ProductControllerV1 {
 
     public ResponseEntity<?> getProductByName(String name) ;
 
-    public ResponseEntity<?> getProductPages(ProductCondition productCondition) ;
+    public ResponseEntity<?> getProductPages(ProductConditionDto productConditionDto) ;
 
     public ResponseEntity<?> updateProduct(Long productId, RequestDto.Patch requestDto);
 }

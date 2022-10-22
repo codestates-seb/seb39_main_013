@@ -44,8 +44,8 @@ public class ProductControllerImplV1 implements ProductControllerV1 {
 
 
     @GetMapping
-    public ResponseEntity<?> getProductPages(ProductCondition productCondition) {
-        Page<ProductResponseDto> responseProductPage = appProductSerivce.getProductPage(productCondition.getPage(),productCondition.getPageSize(),productCondition);
+    public ResponseEntity<?> getProductPages(ProductConditionDto productConditionDto) {
+        Page<ProductResponseDto> responseProductPage = appProductSerivce.getProductPage(productConditionDto.getPage(), productConditionDto.getPageSize(), productConditionDto);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage),HttpStatus.OK);
     }
 

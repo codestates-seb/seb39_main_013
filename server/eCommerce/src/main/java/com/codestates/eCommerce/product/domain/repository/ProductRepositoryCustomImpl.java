@@ -1,18 +1,16 @@
 package com.codestates.eCommerce.product.domain.repository;
 
 import com.codestates.eCommerce.product.domain.entity.Product;
-import com.codestates.eCommerce.product.domain.entity.ProductItem;
-import com.codestates.eCommerce.product.domain.repository.ProductRepositoryCustom;
-import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.ProductConditionDto;
 import com.codestates.eCommerce.product.dto.ProductDto;
 import com.codestates.eCommerce.product.dto.QProductDto;
 import com.codestates.eCommerce.product.mapper.ProductItemMapper;
-import com.codestates.eCommerce.product.mapper.ProductMapper;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -62,7 +60,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     /*TODO 도저히 DTO로 변환하면서 받는법을 모르겠음*/
     @Override
-    public List<Product> searchProductWithItem(Long productId, String size) {
+    public Product searchProductWithItem(Long productId, String size) {
         return  queryFactory
                 .selectFrom(product)
                 .innerJoin(product.productItems, productItem)
@@ -71,37 +69,35 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     product.productId.eq(productId).and(productItem.size.eq(size))
                 )
                 .distinct()
-                .fetch();
+                .fetchOne();
     }
 
-    public Page<ProductDto> searchPageSimple(Pageable pageable, ProductCondition condition) {
+    public Page<ProductDto> searchPageSimple(ProductConditionDto condition) {
         List<ProductDto> content = queryFactory
                 .select(new QProductDto(
-                    product.productId,
-                    product.brandId,
-                    product.brandName,
-                    product.majorClass,
-                    product.name,
-                    product.price,
-                    product.color,
-                    null,
-                    product.thumbImages,
-                    product.contentImages
+                        product.productId,
+                        product.brandId,
+                        product.brandName,
+                        product.majorClass,
+                        product.name,
+                        product.price,
+                        product.color,
+                        product.thumbImages,
+                        product.contentImages
                 ))
                 .from(product)
-                .groupBy(product.name)
                 .where(
-                    brandIdEq(condition.getBrandId()),
-                    brandNameContains(condition.getBrandName()),
-                    majorClassEq(condition.getMajorClass()),
-                    nameContains(condition.getName()),
-                    colorEq(condition.getColor()),
-                    priceGoe(condition.getMinPrice()),
-                    priceLoe(condition.getMaxPrice())
+                        brandIdEq(condition.getBrandId()),
+                        brandNameContains(condition.getBrandName()),
+                        majorClassEq(condition.getMajorClass()),
+                        nameContains(condition.getName()),
+                        colorEq(condition.getColor()),
+                        priceGoe(condition.getMinPrice()),
+                        priceLoe(condition.getMaxPrice())
 //                    stockLoe(condition.getStock())
                 )
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())//페이지 사이즈
+                .offset(condition.getPage())
+                .limit(condition.getPageSize())//페이지 사이즈
                 .fetch();
 
         int total = queryFactory
@@ -119,12 +115,12 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 )
                 .fetch().size();
 
-        return new PageImpl<>(content,pageable,total);
+        return new PageImpl<>(content,PageRequest.of(condition.getPage(),condition.getPageSize()),total);
     }
 
 
     @Override
-    public Page<ProductDto> searchProductPage(Pageable pageable, ProductCondition condition) {
+    public Page<ProductDto> searchProductPage(Pageable pageable, ProductConditionDto condition) {
         List<ProductDto> content = queryFactory
                 .select(new QProductDto(
                         product.productId,

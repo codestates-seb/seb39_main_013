@@ -4,9 +4,10 @@ import com.codestates.eCommerce.common.dto.MultiResponseDto;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
 import com.codestates.eCommerce.product.controller.ProductControllerV2;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
-import com.codestates.eCommerce.product.dto.ProductCondition;
+import com.codestates.eCommerce.product.dto.ProductConditionDto;
 import com.codestates.eCommerce.product.dto.ProductResponseDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,8 +27,9 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
 
     /* TODO 페이지 관리 재정의*/
     @GetMapping
-    public ResponseEntity<?> getProductsPage(ProductCondition productCondition) {
-        Page<ProductResponseDto> responseProductPage = appProductSerivce.getProductPageV2(productCondition.getPage(), productCondition.getPageSize(), productCondition);
+    public ResponseEntity<?> getProductsPage(ProductConditionDto productConditionDto) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Page<ProductResponseDto> responseProductPage = appProductSerivce.getProductPageV2(productConditionDto);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage), HttpStatus.OK);
     }
 
@@ -41,7 +43,7 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
 
     @GetMapping("/info/{product-id}/{size}")
     public ResponseEntity<?> getProductWithItem(@PathVariable("product-id") Long productId, @PathVariable("size") String size) {
-        List<ProductResponseDto> productResponseDtos = appProductSerivce.searchProductWithItem(productId, size);
+        ProductResponseDto productResponseDtos = appProductSerivce.searchProductWithItem(productId, size);
         return new ResponseEntity<>(new SingleResponseDto<>(productResponseDtos),HttpStatus.OK);
     }
 

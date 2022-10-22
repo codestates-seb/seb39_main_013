@@ -22,7 +22,7 @@ public interface ProductMapper {
     Product toEntity(RequestDto.Post post);
     Product toEntity(ProductDto ProductDto);
     ProductDto toProductDto(Product product);
-    ProductResponseDto toResponseProductDto(Product product);
+    ProductResponseDto toProductResponseDto(Product product);
     List<Product> toEntityList(List<ProductDto> ProductDtos);
     List<ProductDto> toDtoList(List<Product> products);
 
