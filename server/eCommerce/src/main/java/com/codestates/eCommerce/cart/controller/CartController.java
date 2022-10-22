@@ -39,8 +39,8 @@ public class CartController {
     /*Todo productItem기준으로 가져오기*/
     @GetMapping
     public ResponseEntity getCarts(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-//        Long memberId = principalDetails.getMember().getMemberId();
-          Long memberId = 1L;
+        Long memberId = principalDetails.getMember().getMemberId();
+//          Long memberId = 1L;
 //        List<Cart> carts = service.findCarts(memberId);
 //        List<CartDto.Response> response = mapper.cartsToResponses(carts);
 

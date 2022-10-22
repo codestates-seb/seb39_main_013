@@ -69,9 +69,9 @@ public class AppProductSerivce {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductResponseDto> searchProductWithItemList(Long productId) {
-        List<Product> products = productService.searchProductWithItemList(productId);
-        return productMapper.toResponseDtos(products);
+    public ProductResponseDto searchProductWithItemList(Long productId) {
+        Product products = productService.searchProductWithItemList(productId);
+        return productMapper.toProductResponseDto(products);
     }
     /**Todo 상품디테일
      * */

@@ -13,6 +13,6 @@ public interface ProductRepositoryCustom
     Page<ProductDto> searchPageSimple(ProductConditionDto condition);
     Page<ProductDto> searchProductPage(Pageable pageable, ProductConditionDto condition);
     List<ProductDto> getProduct(String name);
-    List<Product> searchProductWithItemList(Long productId);
+    Product searchProductWithItemList(Long productId);
     Product searchProductWithItem(Long productId, String size);
 }
