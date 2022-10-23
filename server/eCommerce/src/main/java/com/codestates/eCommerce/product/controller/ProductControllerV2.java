@@ -11,5 +11,5 @@ public interface ProductControllerV2 {
     public ResponseEntity<?> getProductWithItemList(Long productId);
     public ResponseEntity<?> getProductWithItem(Long productId, String size);
     public ResponseEntity<?> updateProduct(Long productId, RequestDto.Patch requestDto);
-
+    public ResponseEntity<?> getProductByName(String name) ;
 }

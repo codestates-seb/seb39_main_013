@@ -40,6 +40,12 @@ public class AppProductSerivce {
     }
 
     @Transactional(readOnly = true)
+    public List<ProductResponseDto> getProductV2(String name){
+        List<ProductDto> product = productService.getProductByName(name);
+        return  productMapper.toResponseDtoList(product);
+    }
+
+    @Transactional(readOnly = true)
     public Page<ProductResponseDto> getProductPage(int page, int size , ProductConditionDto productConditionDto) {
         Page<ProductDto> pageProductDtos = productService.getProductPage(page,size, productConditionDto);
         return pageProductDtos.map(new Function<ProductDto, ProductResponseDto>() {
