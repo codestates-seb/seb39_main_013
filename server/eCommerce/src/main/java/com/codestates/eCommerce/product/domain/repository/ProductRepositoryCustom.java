@@ -15,4 +15,6 @@ public interface ProductRepositoryCustom
     List<ProductDto> getProduct(String name);
     Product searchProductWithItemList(Long productId);
     Product searchProductWithItem(Long productId, String size);
+
+    List<ProductDto> getProductByName(String name);
 }

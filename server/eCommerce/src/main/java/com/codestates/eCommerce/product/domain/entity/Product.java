@@ -38,7 +38,6 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductItem> productItems = new ArrayList<>();
-
     private Long brandId;
     private String brandName;
     private String majorClass;

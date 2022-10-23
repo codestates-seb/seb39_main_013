@@ -7,6 +7,7 @@ import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
 import com.codestates.eCommerce.product.dto.ProductConditionDto;
 import com.codestates.eCommerce.product.dto.ProductResponseDto;
 import com.codestates.eCommerce.product.dto.RequestDto;
+import com.codestates.eCommerce.product.dto.ResponseDetailDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,5 +54,10 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
         return new ResponseEntity<>(new SingleResponseDto<>(productResponseDto),HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("name/{name}")
+    public ResponseEntity<?> getProductByName(@PathVariable("name") String name) {
+        List<ProductResponseDto> responseDto = appProductSerivce.getProductV2(name);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.OK);
+    }
 
 }

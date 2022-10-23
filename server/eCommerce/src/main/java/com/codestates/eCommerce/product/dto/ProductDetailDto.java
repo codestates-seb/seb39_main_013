@@ -16,6 +16,7 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @ToString
 public class ProductDetailDto {
+    private Long productId;
     private Long brandId;
     private String brandName;
     private String majorClass;

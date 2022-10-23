@@ -83,4 +83,8 @@ public class ProductService {
         productRepository.save(product);
         //더티체킹
     }
+
+    public List<ProductDto> getProductByName(String name) {
+        return productRepository.getProductByName(name);
+    }
 }

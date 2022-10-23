@@ -72,6 +72,26 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .fetchOne();
     }
 
+    @Override
+    public List<ProductDto> getProductByName(String name) {
+        return queryFactory
+                .select(new QProductDto(
+                        product.productId,
+                        product.brandId,
+                        product.brandName,
+                        product.majorClass,
+                        product.name,
+                        product.price,
+                        product.color,
+                        product.thumbImages,
+                        product.contentImages
+                )).from(product)
+                .where(
+                        nameContains(name),
+                        brandNameContains(name))
+                .fetch();
+    }
+
     public Page<ProductDto> searchPageSimple(ProductConditionDto condition) {
         List<ProductDto> content = queryFactory
                 .select(new QProductDto(
