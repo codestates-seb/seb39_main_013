@@ -1,6 +1,5 @@
 import { axiosInstance } from "./axiosInstance";
 import Cookie from "js-cookie";
-// import { queryClient } from "../utils/queryClient";
 
 export const authorizeToken = async () => {
   const token = Cookie.get("authorization");
@@ -27,8 +26,6 @@ export const productRegisterFn = async (registerInfo) => {
   return res;
 };
 
-
-
 export const deleteCartItem = async (id) => {
   const token = Cookie.get("authorization");
   const res = await axiosInstance.delete(`/api/v1/carts/${id}`, {
@@ -49,8 +46,6 @@ export const getCartData = async () => {
 
   return res.data.data;
 };
-
-
 
 export const deleteFavoriteItem = async (id) => {
   const token = Cookie.get("authorization");
@@ -91,5 +86,3 @@ export const getUserData = async (id) => {
   });
   return res;
 };
-
-

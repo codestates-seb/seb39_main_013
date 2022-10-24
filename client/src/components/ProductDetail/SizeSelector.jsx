@@ -23,7 +23,6 @@ export default memo(function SizeSelector(props) {
   const slideItemClickHandler = (value) => {
     setSelectItem(value);
   };
-  console.log(props.size);
 
   return (
     <Container>
