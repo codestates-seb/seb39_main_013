@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.CorsFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,6 +25,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // @Secured 활성화, @PreAuthorize & @PostAuthorize 활성화
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final CorsFilter corsFilter;
     private final MemberMapper mapper;
     private final MemberRepository repository;
     private final NotificationManager notificationManager;
@@ -34,8 +36,9 @@ public class SecurityConfig {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
+                .addFilter(corsFilter)
                 .csrf().disable() // @CrossOrigin(인증X), 인증(O) 필터에 등록
-                .cors(withDefaults())
+//                .cors(withDefaults())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
