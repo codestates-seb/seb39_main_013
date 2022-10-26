@@ -26,16 +26,6 @@ export const productRegisterFn = async (registerInfo) => {
   return res;
 };
 
-export const deleteCartItem = async (id) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.delete(`/api/v1/carts/${id}`, {
-    headers: {
-      Authorization: token,
-    },
-  });
-  return res;
-};
-
 export const getCartData = async () => {
   const token = Cookie.get("authorization");
   const res = await axiosInstance.get("/api/v1/carts", {
