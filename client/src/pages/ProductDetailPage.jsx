@@ -4,21 +4,23 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import useGetItem from "../hooks/useGetItem";
 import DetailSkeleton from "../components/ProductDetail/DetailSkeleton";
+import ErrorPage from "../components/Commons/ErrorPage";
 
 export default function ProductDetailPage() {
   const params = useParams();
   const getItem = useGetItem(params.id);
 
-  if (getItem.isLoading) {
-    return (
-      <Container>
-        <DetailSkeleton />
-      </Container>
-    );
+  if (getItem.isError) {
+    <ErrorPage errorText={"Network Error"} retryAction={getItem.refetch} />;
   }
+
   return (
     <Container>
-      <ProductDetailForm dataInfo={getItem.data} />
+      {getItem.isLoading ? (
+        <DetailSkeleton />
+      ) : (
+        <ProductDetailForm dataInfo={getItem.data} />
+      )}
     </Container>
   );
 }

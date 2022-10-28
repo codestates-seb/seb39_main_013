@@ -1,13 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { useMutation, useQueryClient } from "react-query";
-import { addCartItem } from "../api";
+import Cookies from "js-cookie";
+import { useMutation } from "react-query";
+import { axiosInstance } from "../api/axiosInstance";
+import { queryClient } from "../utils/queryClient";
+
+const addCartItem = async (body) => {
+  const token = Cookies.get("authorization");
+  const res = await axiosInstance.post("/api/v1/carts", body, {
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  return res;
+};
 
 export default function useAddCartMutaion(body) {
-  const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(() => addCartItem(body), {
     retry: false,
-    onSuccess: (data) => {
-      queryClient.refetchQueries(["getCartData"]);
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getCartData"]);
     },
   });
 

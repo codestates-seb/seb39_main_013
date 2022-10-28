@@ -7,9 +7,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Price from "./Price";
 import useAddFavoriteItem from "../../hooks/useAddFavoriteItem";
-import Loading from "./Loading";
 import useDeleteFavorite from "../../hooks/useDeleteFavorite";
-import { memo } from "react";
 
 // eslint-disable-next-line
 function ItemCard(props) {

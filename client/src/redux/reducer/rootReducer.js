@@ -6,7 +6,7 @@ import userSlice from "./userSlice";
 const rootReducer = combineReducers({
   user: userSlice,
   modal: modalSlice,
-  cart: cartSlice
+  cart: cartSlice,
 });
 
 export default rootReducer;

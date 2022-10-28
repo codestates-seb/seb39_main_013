@@ -81,7 +81,7 @@ export default function LoginForm() {
         </SignButton>
         <SignMenuWrapper>
           <div>
-            이미 계정이 있으신가요?
+            계정이 없으신가요?
             <Link to="/signup">회원가입</Link>
           </div>
         </SignMenuWrapper>
