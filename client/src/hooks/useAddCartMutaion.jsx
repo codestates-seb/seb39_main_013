@@ -22,6 +22,5 @@ export default function useAddCartMutaion(body) {
       queryClient.invalidateQueries(["getCartData"]);
     },
   });
-
   return { mutate, isLoading };
 }

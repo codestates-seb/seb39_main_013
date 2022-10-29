@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { desktop, tablet } from "../../utils/styleTheme";
 import Comments from "../Comment/Comments";

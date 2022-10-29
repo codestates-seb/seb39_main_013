@@ -33,7 +33,6 @@ export const getCartData = async () => {
       Authorization: token,
     },
   });
-
   return res.data.data;
 };
 
@@ -49,7 +48,7 @@ export const deleteFavoriteItem = async (id) => {
 
 export const getOrderList = async () => {
   const token = Cookie.get("authorization");
-  const res = await axiosInstance.get("/api/v1/orders/info", {
+  const res = await axiosInstance.get("/api/v2/orders/info", {
     headers: {
       Authorization: token,
     },

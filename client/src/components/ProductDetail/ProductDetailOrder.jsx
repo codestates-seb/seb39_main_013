@@ -26,6 +26,7 @@ export default memo(function ProductDetailOrder() {
   const [sizeId, setSizeId] = useState(getItem.data.product_items[0]);
   const [toLogin, setToLogin] = useState(false);
 
+  console.log(sizeId);
   useEffect(() => {
     setTotalPrice(Number(quantity) * Number(getItem.data.price));
   }, [getItem.data, quantity]);
@@ -62,7 +63,7 @@ export default memo(function ProductDetailOrder() {
   }, [totalPrice, userInfo]);
 
   const addCartAction = useAddCartMutaion({
-    productId: sizeId.productItemId,
+    productItemId: sizeId.productItemId,
     productQuantity: quantity,
     isWanted: true,
   });
