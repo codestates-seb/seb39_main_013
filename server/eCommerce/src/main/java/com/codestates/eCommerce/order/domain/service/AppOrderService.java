@@ -1,7 +1,11 @@
 package com.codestates.eCommerce.order.domain.service;
 
 import com.codestates.eCommerce.cart.service.CartService;
+import com.codestates.eCommerce.common.exception.BusinessLogicException;
+import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.member.entity.Member;
+import com.codestates.eCommerce.member.repository.MemberRepository;
+import com.codestates.eCommerce.member.service.MemberService;
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.dto.OrderRequestDto;
 import com.codestates.eCommerce.order.dto.OrderResponseDto;
@@ -21,6 +25,7 @@ import java.util.List;
 public class AppOrderService {
 
     private final OrderMapper orderMapper;
+    private final MemberRepository memberRepository;
     private final OrderProductMapper orderProductMapper;
     private final CartService cartService;
     private final OrderService orderService;
@@ -52,12 +57,12 @@ public class AppOrderService {
     /** Todo V2
      * */
     public ResponseDto placeOrderCartV2(Member member, OrderRequestDto reqOrderDto){
+        Member buyer = memberRepository.findById(member.getMemberId()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         Order order = orderMapper.toOrderEntity(reqOrderDto);
-
-        order.setBuyerId(member.getMemberId());
-        Order createOrder = orderService.createOrder(member.getMemberId(),order);
-        createOrder.getOrderProducts().forEach(pd -> productService.decreaseStockV2(pd.getProductId(), pd.getProductSize() ,pd.getProductQuantity()));  //상품재고 감소
-        cartService.deleteCartByMemberId(member.getMemberId()); //카트 비우
+        Order createOrder = orderService.createOrder(buyer.getMemberId(), order);
+        createOrder.getOrderProducts()
+                .forEach(pd -> productService.decreaseStockV2(pd.getProductId(), pd.getProductSize() ,pd.getProductQuantity()));  //상품재고 감소
+        cartService.deleteCartByMemberId(buyer.getMemberId());
         OrderResponseDto orderResponseDto = orderMapper.toOrderResponseDto(order);
         return new ResponseDto(orderResponseDto);
     }

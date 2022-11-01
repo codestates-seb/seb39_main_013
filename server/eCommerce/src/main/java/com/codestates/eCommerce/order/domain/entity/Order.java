@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "orders")
 public class Order extends BaseEntity {
     @Id
@@ -31,20 +32,26 @@ public class Order extends BaseEntity {
     private OrderStatus orderStatus;
     private int totalPrice;
 
-//    //생성 메서드
-//    public static Order createOrder(Long buyerId, List<OrderProduct> orderProducts, String buyerAddr){
-//        //중복된건 로직이 들어가서 수정해야함.
-//        Order order = new Order();
-//        order.setBuyerId(buyerId);
-//        order.setOrderProducts(orderProducts.forEach(OrderProduct););
-//        order.setBuyerAddress(buyerAddr);
-//        order.setOrderStatus(OrderStatus.ORDERED);
-//        order.setTotalPrice();
-//        return order;
-//    }
+
+    //    //생성 메서드
+    public static Order createOrder(Long buyerId, Order orderInfo){
+        return new Order(
+                orderInfo.getOrderId(),
+                orderInfo.getMerchantUid(),
+                buyerId,
+                orderInfo.getBuyerName(),
+                orderInfo.getBuyerPostcode(),
+                orderInfo.getBuyerTel(),
+                orderInfo.getOrderProducts(),
+                orderInfo.getBuyerAddress(),
+                OrderStatus.ORDERED,
+                orderInfo.calculateTotalPrice()
+                );
+    }
+
     //주문상품 총가격 설정
-    public void setTotalPrice() {
-        this.totalPrice = this.orderProducts
+    public int calculateTotalPrice() {
+        return this.orderProducts
                 .stream().mapToInt(pd -> pd.getProductPrice() * pd.getProductQuantity())
                 .sum();
     }

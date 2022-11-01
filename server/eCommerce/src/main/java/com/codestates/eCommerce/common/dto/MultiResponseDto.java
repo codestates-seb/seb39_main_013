@@ -1,5 +1,7 @@
 package com.codestates.eCommerce.common.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import java.util.List;
 // 자바
 
 @Getter
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MultiResponseDto<T> {
     private final List<T> data;
     private final PageInfo pageInfo;
@@ -24,6 +27,7 @@ public class MultiResponseDto<T> {
 
     @Getter
     @AllArgsConstructor
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     private static class PageInfo{
         private int page;
         private int size;

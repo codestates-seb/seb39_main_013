@@ -35,9 +35,7 @@ public class ProductDto {
         this.majorClass = majorClass;
         this.name = name;
         this.price = price;
-//        this.stock = stock;
         this.color = color;
-//        this.size = size;
         this.productItemDtos = productItemDtos;
         this.thumbImages = thumbImages;
         this.contentImages = contentImages;

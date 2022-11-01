@@ -11,7 +11,9 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 //@Table(
@@ -37,7 +39,7 @@ public class Product extends BaseEntity {
     private List<ProductHistory> productHistories;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ProductItem> productItems = new ArrayList<>();
+    private Set<ProductItem> productItems = new HashSet<>();
     private Long brandId;
     private String brandName;
     private String majorClass;
@@ -78,5 +80,10 @@ public class Product extends BaseEntity {
 //        return product;
 //    }
 
+    public void decrease(String productSize, int quantity) {
+        this.productItems.stream()
+                .filter(productItem -> productItem.getSize().equals(productSize))
+                .forEach(productItem -> productItem.decreaseStock(quantity));
+    }
 
 }

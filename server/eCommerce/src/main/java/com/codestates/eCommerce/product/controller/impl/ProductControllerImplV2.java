@@ -29,7 +29,6 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
     /* TODO 페이지 관리 재정의*/
     @GetMapping
     public ResponseEntity<?> getProductsPage(ProductConditionDto productConditionDto) {
-        ObjectMapper objectMapper = new ObjectMapper();
         Page<ProductResponseDto> responseProductPage = appProductSerivce.getProductPageV2(productConditionDto);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage), HttpStatus.OK);
     }

@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class ProductConditionDto {
     private Integer page;
@@ -22,6 +21,19 @@ public class ProductConditionDto {
     private Integer maxPrice = 10000000;
     private Integer minPrice;
     private String color;
+
+    @Builder
+    public ProductConditionDto(Integer page, Integer pageSize, Long brandId, String brandName, String majorClass, String name, Integer maxPrice, Integer minPrice, String color) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.brandId = brandId;
+        this.brandName = brandName;
+        this.majorClass = majorClass;
+        this.name = name;
+        this.maxPrice = maxPrice;
+        this.minPrice = minPrice;
+        this.color = color;
+    }
 
     public void setPage(int page) {
         this.page = page-1;

@@ -61,9 +61,7 @@ public class ProductService {
         if (StringUtils.hasText(requestDto.getMajorClass())) findProduct.setMajorClass(requestDto.getMajorClass());
         if (StringUtils.hasText(requestDto.getName())) findProduct.setName(requestDto.getName());
         if (requestDto.getPrice() != null) findProduct.setPrice(requestDto.getPrice());
-//        if (requestDto.getStock() != null) findProduct.increaseStock(requestDto.getStock());
         if (StringUtils.hasText(requestDto.getColor())) findProduct.setColor(requestDto.getColor());
-//        if (StringUtils.hasText(requestDto.getSize())) findProduct.setSize(requestDto.getSize());  //사이즈는 of
         if (requestDto.getThumbImages() != null) findProduct.setThumbImages(requestDto.getThumbImages());
         if (requestDto.getContentImages() != null) findProduct.setContentImages(requestDto.getContentImages());
     }
@@ -72,14 +70,15 @@ public class ProductService {
      * */
 
     public Product searchProductWithItemList(Long productId) {
-        return productRepository.searchProductWithItemList(productId);
+        return productRepository.searchProductWithItemList(productId).orElseThrow();
     }
     public Product searchProductWithItem(Long productId, String size) {
-        return productRepository.searchProductWithItem(productId,size);
+        return productRepository.searchProductWithItem(productId,size).orElseThrow();
     }
 
     public void decreaseStockV2(Long productId, String productSize, Integer quantity) {
-        Product product = (Product) productRepository.searchProductWithItem(productId,productSize);
+        Product product = productRepository.searchProductWithItem(productId,productSize).orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        product.decrease(productSize, quantity);
         productRepository.save(product);
         //더티체킹
     }

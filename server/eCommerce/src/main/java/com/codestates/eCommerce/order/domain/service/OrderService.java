@@ -5,7 +5,6 @@ import com.codestates.eCommerce.order.domain.repository.OrderRepository;
 import com.codestates.eCommerce.order.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +14,7 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     public Order createOrder(Long memberId, Order reqOrder){
-//        Order order = Order.createOrder(memberId, reqOrder.getOrderProducts(),reqOrder.getBuyerAddress());
-        reqOrder.setBuyerId(memberId);
-        reqOrder.setTotalPrice();
-        reqOrder.addOrderProducts(reqOrder.getOrderProducts());
-        reqOrder.setOrderStatus(OrderStatus.ORDERED);
+        Order order = Order.createOrder(memberId, reqOrder);
         return orderRepository.save(reqOrder);
 
     }

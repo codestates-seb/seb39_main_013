@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.codestates.eCommerce.product.domain.entity.QProduct.product;
 
@@ -48,28 +49,28 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public Product searchProductWithItemList(Long productId) {
-        return  queryFactory
+    public Optional<Product> searchProductWithItemList(Long productId) {
+        return Optional.ofNullable(queryFactory
                 .selectFrom(product)
                 .innerJoin(product.productItems, productItem)
                 .fetchJoin()
                 .where(product.productId.eq(productId))
                 .distinct()
-                .fetchOne();
+                .fetchOne());
     }
 
     /*TODO 도저히 DTO로 변환하면서 받는법을 모르겠음*/
     @Override
-    public Product searchProductWithItem(Long productId, String size) {
-        return  queryFactory
+    public Optional<Product> searchProductWithItem(Long productId, String size) {
+        return Optional.ofNullable(queryFactory
                 .selectFrom(product)
                 .innerJoin(product.productItems, productItem)
                 .fetchJoin()
                 .where(
-                    product.productId.eq(productId).and(productItem.size.eq(size))
+                        product.productId.eq(productId).and(productItem.size.eq(size))
                 )
                 .distinct()
-                .fetchOne();
+                .fetchOne());
     }
 
     @Override
