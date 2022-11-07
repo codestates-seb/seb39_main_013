@@ -8,10 +8,10 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring") //Spring 빈 등록
+@Mapper(componentModel = "spring")
 public interface ReviewMapper {
-    Review reviewRequestDtoToReview(ReviewRequestDto reviewRequestDto);  //RequestDto -> review 로 변환
-    Review reviewPatchDtoToReview(ReviewPatchDto reviewPatchDto);  //PatchDto -> review 로 변환
-    ReviewResponseDto reviewToReviewResponseDto(Review review);  //ResponseDto -> review 로 변환
+    Review reviewRequestDtoToReview(ReviewRequestDto reviewRequestDto);
+    Review reviewPatchDtoToReview(ReviewPatchDto reviewPatchDto);
+    ReviewResponseDto reviewToReviewResponseDto(Review review);
     List<ReviewResponseDto> reviewsToReviewResponseDtos(List<Review> reviews);
 }

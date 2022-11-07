@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    Optional<Review> findById(Long reviewId);
-
-
+    Optional<Review> findByReviewCode(String reviewCode);
+    Optional<Review> findById(long reviewId);
 }

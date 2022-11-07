@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,11 +18,15 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class ReviewPatchDto {
     private Long reviewId;
+    private Long memberId;
+    private Long productId;
+    private Long orderProductId;
 
     @NotBlank(message = "최소 10자 이상의 수정 내용을 입력해주세요.")
     private String content;
 
     private String image;
+    private String reviewCode;
     private int star_rating;
     private int height;
     private int weight;

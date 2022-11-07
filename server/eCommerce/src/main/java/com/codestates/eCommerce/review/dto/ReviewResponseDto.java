@@ -8,16 +8,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewResponseDto {
+    private Long reviewId;
     private Long memberId;
     private Long productId;
     private Long orderProductId;
     private String content;
     private String image;
+    private String reviewCode;
     private int height;
     private int weight;
     private Review.Size size;
@@ -25,4 +30,5 @@ public class ReviewResponseDto {
     private boolean status;
     private boolean changeInfo;
     private Review.ReviewStatus reviewStatus;
+
 }

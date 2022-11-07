@@ -2,6 +2,7 @@ package com.codestates.eCommerce.review.service;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
+import com.codestates.eCommerce.member.service.MemberService;
 import com.codestates.eCommerce.product.domain.service.ProductService;
 import com.codestates.eCommerce.review.entity.Review;
 import com.codestates.eCommerce.review.repository.ReviewRepository;
@@ -12,58 +13,62 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-    private final ProductService productService;
-
 
 
     public Review createReview(Review review) {
-        Review findReview = findVerifiedReview(review.getReviewId());
-        findReview.setReviewStatus(Review.ReviewStatus.REVIEW_COMPLETE);
-        return reviewRepository.save(review);  //리뷰정보 저장
+        verifyExistReview(review.getReviewCode());
+        review.setReviewCode(review.getReviewCode());
+        return reviewRepository.save(review);
+
     }
 
     public Review updateReview(Review review) {
-        Review findReview = findVerifiedReview(review.getReviewId());  //존재하는 리뷰인지 검증
+        Review findReview = findVerifiedReview(review.getReviewId());
 
-        Optional.ofNullable(review.getContent())  //업데이트 대상목록
+        Optional.ofNullable(review.getContent())
                 .ifPresent(content -> findReview.setContent(content));
         Optional.ofNullable(review.getImage())
                 .ifPresent(image -> findReview.setImage(image));
         Optional.ofNullable(review.getColor())
                 .ifPresent(color -> findReview.setColor(color));
+        Optional.ofNullable(review.getStar_rating())
+                .ifPresent(star_rating -> findReview.setStar_rating(star_rating));
 
-        findReview. setReviewStatus(Review.ReviewStatus.REVIEW_EDITED);
-        return reviewRepository.save(findReview);  //업데이트
+        return reviewRepository.save(review);
     }
 
     public Review findReview(Long reviewId) {
-        return reviewRepository.save(findReview(reviewId));  //특정 리뷰조회
+        return findVerifiedReview(reviewId);
+
     }
 
     public Page<Review> findReviews(int page, int size) {
         return reviewRepository.findAll(PageRequest.of(page, size,
-                Sort.by("reviewId").descending()));  //모든 리뷰조회
+                Sort.by("reviewId").descending()));
     }
 
     public void deleteReview(Long reviewId) {
         Review findReview = findVerifiedReview(reviewId);
-        findReview.setReviewStatus(Review.ReviewStatus.REVIEW_DELETE);
-        reviewRepository.save(findReview);  //리뷰 삭제
+        reviewRepository.save(findReview);
     }
 
-    public Review findVerifiedReview(long reviewId){  //삭제할 리뷰가 있는지 검증
+    public Review findVerifiedReview(long reviewId) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
-        Review findReview =
-                optionalReview.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
+        Review findReview = optionalReview.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
         return findReview;
+    }
 
+    private void verifyExistReview(String reviewCode) {
+        Optional<Review> review = reviewRepository.findByReviewCode(reviewCode);
+        if(review.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND);
+        }
     }
 }
