@@ -20,7 +20,8 @@ public class Cart extends BaseEntity {
 //    private Member member;
 //    @Column(name = "MEMBER_ID")
     private Long memberId;
-    private Long productId;
+    @JoinColumn(name = "product_item_id")
+    private Long productItemId;
     private int productQuantity;
     private boolean isWanted;
 }

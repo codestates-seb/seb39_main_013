@@ -14,22 +14,22 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class AppProductSerivce {
 
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-    public ResponseDto postProduct(RequestDto.Post requestDto) {
+    @Transactional
+    public ProductResponseDto postProduct(RequestDto.Post requestDto) {
         Product product = productMapper.toEntity(requestDto);
         Product saveProduct = productService.save(product);
-        return productMapper.toResponseProductDto(saveProduct);
+        return productMapper.toProductResponseDto(saveProduct);
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto getProduct(Long productId){
+    public ProductResponseDto getProduct(Long productId){
         Product product = productService.findVerifiedProduct(productId);
-        return productMapper.toResponseProductDto(product);
+        return productMapper.toProductResponseDto(product);
     }
 
     @Transactional(readOnly = true)
@@ -40,18 +40,50 @@ public class AppProductSerivce {
     }
 
     @Transactional(readOnly = true)
-    public Page<ResponseDto> getProductPage(int page, int size ,ProductCondition productCondition) {
-        Page<ProductDto> pageProductDtos = productService.getProductPage(page,size, productCondition);
-        return pageProductDtos.map(new Function<ProductDto, ResponseDto>() {
+    public List<ProductResponseDto> getProductV2(String name){
+        List<ProductDto> product = productService.getProductByName(name);
+        return  productMapper.toResponseDtoList(product);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ProductResponseDto> getProductPage(int page, int size , ProductConditionDto productConditionDto) {
+        Page<ProductDto> pageProductDtos = productService.getProductPage(page,size, productConditionDto);
+        return pageProductDtos.map(new Function<ProductDto, ProductResponseDto>() {
             @Override
-            public ResponseDto apply(ProductDto productDto) {
+            public ProductResponseDto apply(ProductDto productDto) {
                 return productMapper.toResponseDto(productDto);
             }
         });
     }
 
-    public ResponseDto updateProduct(Long productId, RequestDto.Patch requestDto) {
+    /*Todo 리팩토링 */
+    @Transactional(readOnly = true)
+    public Page<ProductResponseDto> getProductPageV2(ProductConditionDto productConditionDto) {
+        Page<ProductDto> pageProductDtos = productService.getProductPageV2(productConditionDto);
+        return pageProductDtos.map(new Function<ProductDto, ProductResponseDto>() {
+            @Override
+            public ProductResponseDto apply(ProductDto productDto) {
+                return productMapper.toResponseDto(productDto);
+            }
+        });
+    }
+
+    @Transactional
+    public ProductResponseDto updateProduct(Long productId, RequestDto.Patch requestDto) {
         Product updateProduct = productService.updateProduct(productId, requestDto);
-        return productMapper.toResponseProductDto(updateProduct);
+        return productMapper.toProductResponseDto(updateProduct);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductResponseDto searchProductWithItemList(Long productId) {
+        Product products = productService.searchProductWithItemList(productId);
+        return productMapper.toProductResponseDto(products);
+    }
+    /**Todo 상품디테일
+     * */
+    @Transactional(readOnly = true)
+    public ProductResponseDto searchProductWithItem(Long productId, String size) {
+        Product product = productService.searchProductWithItem(productId,size);
+        return productMapper.toProductResponseDto(product);
     }
 }

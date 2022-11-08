@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Table(
-        name="product",
-        uniqueConstraints={
-                @UniqueConstraint(
-                        name = "nameSize",
-                        columnNames={"name", "size"}
-                )
-        }
-)
+//@Table(
+//        name="product",
+//        uniqueConstraints={
+//                @UniqueConstraint(
+//                        name = "nameSize",
+//                        columnNames={"name", "size"}
+//                )
+//        }
+//)
 @Entity
 @Getter @Setter
 @NoArgsConstructor
@@ -35,22 +35,29 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+<<<<<<< HEAD
 
 
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
+=======
+    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+>>>>>>> a4df2d4eae9509af72d04babb6fcddb8f298005d
     private List<ProductHistory> productHistories;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductItem> productItems = new ArrayList<>();
     private Long brandId;
     private String brandName;
     private String majorClass;
-    @Column(name = "name")
+    @Column(name = "name",unique = true)
     private String name;
     private Integer price;
-    private Integer stock;
-    @Column(name = "size")
-    private String size;
+//    private Integer stock;
+//    @Column(name = "size")
+//    private String size;
     private String color;
 
 
@@ -60,27 +67,27 @@ public class Product extends BaseEntity {
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private List<String> contentImages = new ArrayList<>();
-//    private Double review;
 
-    public static Product createProduct(Long brandId, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentImages) {
-        Product product = new Product();
-        product.setBrandId(brandId);
-        product.setMajorClass(majorClass);
-        product.setName(name);
-        product.setPrice(price);
-        product.setStock(stock);
-        product.setColor(color);
-        product.setSize(size);
-        product.setThumbImages(thumbImages);
-        product.setContentImages(contentImages);
-        return product;
+    public void addProductItems(ProductItem productItem) {
+        this.productItems.add(productItem);
+//        if (productItem.getProduct()!=this) {
+//            productItem.setProduct(this);
+//        }
     }
-    public void increaseStock(int quantity) {
-        this.stock += quantity;
-    }
-    public void decreaseStock(int quantity) {
-        if (this.stock < quantity) throw new ProductBusinessExcepion(this.productId, this.stock, ProductExceptionCode.NOT_ENOUGH_STOCK);
-        this.stock -= quantity;
-    }
+
+    //    public static Product createProduct(Long brandId, String majorClass, String name, Integer price, Integer stock, String color, String size, List<String> thumbImages, List<String> contentImages) {
+//        Product product = new Product();
+//        product.setBrandId(brandId);
+//        product.setMajorClass(majorClass);
+//        product.setName(name);
+//        product.setPrice(price);
+//        product.setStock(stock);
+//        product.setColor(color);
+//        product.setSize(size);
+//        product.setThumbImages(thumbImages);
+//        product.setContentImages(contentImages);
+//        return product;
+//    }
+
 
 }

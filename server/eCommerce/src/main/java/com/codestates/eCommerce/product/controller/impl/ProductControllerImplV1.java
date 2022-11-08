@@ -1,7 +1,8 @@
-package com.codestates.eCommerce.product.controller;
+package com.codestates.eCommerce.product.controller.impl;
 
 import com.codestates.eCommerce.common.dto.MultiResponseDto;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
+import com.codestates.eCommerce.product.controller.ProductControllerV1;
 import com.codestates.eCommerce.product.domain.service.AppProductSerivce;
 import com.codestates.eCommerce.product.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -9,16 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 @Slf4j
-public class ProductController {
+public class ProductControllerImplV1 implements ProductControllerV1 {
 
     private final AppProductSerivce appProductSerivce;
 
@@ -28,30 +26,33 @@ public class ProductController {
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> postProduct(@RequestBody RequestDto.Post product) {
-        ResponseDto responseDto = appProductSerivce.postProduct(product);
-        return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.CREATED);
+        ProductResponseDto productResponseDto = appProductSerivce.postProduct(product);
+        return new ResponseEntity<>(new SingleResponseDto<>(productResponseDto),HttpStatus.CREATED);
     }
+
     @GetMapping("/{product-id}")
     public ResponseEntity<?> getProduct(@PathVariable("product-id") Long productId) {
-        ResponseDto responseDto = appProductSerivce.getProduct(productId);
-        return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.OK);
+        ProductResponseDto productResponseDto = appProductSerivce.getProduct(productId);
+        return new ResponseEntity<>(new SingleResponseDto<>(productResponseDto),HttpStatus.OK);
     }
-    @GetMapping("/")
+
     public ResponseEntity<?> getProductByName(@RequestParam("name") String name) {
         ResponseDetailDto responseDto = appProductSerivce.getProduct(name);
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.OK);
     }
 
+
+
     @GetMapping
-    public ResponseEntity<?> getProductPage(ProductCondition productCondition) {
-        Page<ResponseDto> responseProductPage = appProductSerivce.getProductPage(productCondition.getPage(),productCondition.getPageSize(),productCondition);
+    public ResponseEntity<?> getProductPages(ProductConditionDto productConditionDto) {
+        Page<ProductResponseDto> responseProductPage = appProductSerivce.getProductPage(productConditionDto.getPage(), productConditionDto.getPageSize(), productConditionDto);
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage),HttpStatus.OK);
     }
 
     @PatchMapping("/{product-id}")
     public ResponseEntity<?> updateProduct(@PathVariable("product-id") Long productId, @RequestBody RequestDto.Patch requestDto) {
-        ResponseDto responseDto = appProductSerivce.updateProduct(productId,requestDto);
-        return new ResponseEntity<>(new SingleResponseDto<>(responseDto),HttpStatus.ACCEPTED);
+        ProductResponseDto productResponseDto = appProductSerivce.updateProduct(productId,requestDto);
+        return new ResponseEntity<>(new SingleResponseDto<>(productResponseDto),HttpStatus.ACCEPTED);
     }
 
 }
