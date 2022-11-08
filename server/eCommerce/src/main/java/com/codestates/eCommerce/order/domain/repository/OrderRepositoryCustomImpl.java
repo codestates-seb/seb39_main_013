@@ -2,7 +2,6 @@ package com.codestates.eCommerce.order.domain.repository;
 
 import com.codestates.eCommerce.order.domain.entity.Order;
 import com.codestates.eCommerce.order.dto.OrderDto;
-import com.codestates.eCommerce.order.dto.QOrderDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

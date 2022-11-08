@@ -35,16 +35,12 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-<<<<<<< HEAD
 
 
     @OneToMany(mappedBy = "product")
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews;
 
-    @OneToMany(mappedBy = "product")
-=======
     @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
->>>>>>> a4df2d4eae9509af72d04babb6fcddb8f298005d
     private List<ProductHistory> productHistories;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.LAZY)

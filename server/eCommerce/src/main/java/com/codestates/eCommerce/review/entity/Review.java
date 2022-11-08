@@ -35,7 +35,7 @@ public class Review extends BaseEntity {
     private Size size;
     private Color color;
     @Enumerated(value = EnumType.STRING)
-    private ReviewStatus reviewStatus = ReviewStatus.ALL_REVIEWS;
+    private ReviewStatus reviewStatus = ReviewStatus.REVIEW_COMPLETEE;
     private boolean status;
     private boolean changeInfo;
     private Brightness brightness;
@@ -49,7 +49,7 @@ public class Review extends BaseEntity {
     public enum Thickness {}
     public enum Gender {}
     public enum ReviewStatus {
-        ALL_REVIEWS("리뷰를 조회합니다."),
+        REVIEW_COMPLETEE("리뷰를 조회합니다."),
         REVIEW_CREATE("리뷰가 작성되엇습니다."),
         REVIEW_UPDATE("리뷰가 수정되엇습니다.");
 
@@ -69,7 +69,6 @@ public class Review extends BaseEntity {
         this.weight = weight;
         this.size = size;
         this.color = color;
-
         this.reviewCode = reviewCode;
     }
 }

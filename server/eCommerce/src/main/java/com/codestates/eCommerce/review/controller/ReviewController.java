@@ -30,8 +30,7 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewRequestDto reviewRequestDto) {
         Review review = reviewService.createReview(mapper.reviewRequestDtoToReview(reviewRequestDto));  //메퍼를 통해 객체로 반환
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{review-id}")
@@ -39,15 +38,13 @@ public class ReviewController {
                                       @Valid @RequestBody ReviewPatchDto reviewPatchDto) {
         reviewPatchDto.setReviewId(reviewId);
         Review review = reviewService.updateReview(mapper.reviewPatchDtoToReview(reviewPatchDto));
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
     }
 
     @GetMapping("/{review-id}")
     public ResponseEntity getReview(@PathVariable("review-id") long reviewId) {
         Review review = reviewService.findReview(reviewId);
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
     }
 
     @GetMapping
@@ -55,10 +52,7 @@ public class ReviewController {
                                      @Positive @RequestParam int size) {
         Page<Review> pageReviews = reviewService.findReviews(page - 1, size);
         List<Review> reviews = pageReviews.getContent();
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.reviewsToReviewResponseDtos(reviews),
-                        pageReviews), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.reviewsToReviewResponseDtos(reviews), pageReviews), HttpStatus.OK);
     }
 
     @DeleteMapping("/{review-id}")
