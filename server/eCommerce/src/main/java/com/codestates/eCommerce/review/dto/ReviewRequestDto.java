@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,21 +19,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewRequestDto {
+    @Positive
     private Long reviewId;
     private Long memberId;
     private Long productId;
     private Long orderProductId;
-
     @NotBlank(message = "최소 4자 이상의 입력이 필요합니다.")
     private String password;
-
     @NotBlank (message = "최소 10자 이상의 리뷰내용을 입력해주세요.")
     private String content;
-
     private String image;
+
     private String reviewCode;
     private int height;
     private int weight;
     private Review.Size size;
     private Review.Color color;
+
 }

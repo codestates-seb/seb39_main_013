@@ -5,6 +5,7 @@ import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.member.service.MemberService;
 import com.codestates.eCommerce.product.domain.service.ProductService;
 import com.codestates.eCommerce.review.entity.Review;
+import com.codestates.eCommerce.review.mapper.ReviewMapper;
 import com.codestates.eCommerce.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,12 +25,11 @@ public class ReviewService {
 
     public Review createReview(Review review) {
         verifyExistReview(review.getReviewCode());
-        review.setReviewCode(review.getReviewCode());
         return reviewRepository.save(review);
-
     }
 
     public Review updateReview(Review review) {
+
         Review findReview = findVerifiedReview(review.getReviewId());
 
         Optional.ofNullable(review.getContent())
@@ -40,13 +40,14 @@ public class ReviewService {
                 .ifPresent(color -> findReview.setColor(color));
         Optional.ofNullable(review.getStar_rating())
                 .ifPresent(star_rating -> findReview.setStar_rating(star_rating));
+        Optional.ofNullable(review.getReviewStatus())
+                .ifPresent(reviewStatus -> findReview.setReviewStatus(reviewStatus));
 
         return reviewRepository.save(review);
     }
 
     public Review findReview(Long reviewId) {
         return findVerifiedReview(reviewId);
-
     }
 
     public Page<Review> findReviews(int page, int size) {
@@ -68,7 +69,7 @@ public class ReviewService {
     private void verifyExistReview(String reviewCode) {
         Optional<Review> review = reviewRepository.findByReviewCode(reviewCode);
         if(review.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND);
+            throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
         }
     }
 }

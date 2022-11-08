@@ -9,3 +9,4 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByReviewCode(String reviewCode);
     Optional<Review> findById(long reviewId);
 }
+

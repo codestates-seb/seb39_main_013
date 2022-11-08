@@ -22,7 +22,6 @@ public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -35,15 +34,14 @@ public class Review extends BaseEntity {
     private int weight;
     private Size size;
     private Color color;
-    @Enumerated(EnumType.STRING)
-    private ReviewStatus reviewStatus;
-
-
+    @Enumerated(value = EnumType.STRING)
+    private ReviewStatus reviewStatus = ReviewStatus.ALL_REVIEWS;
     private boolean status;
     private boolean changeInfo;
     private Brightness brightness;
     private Thickness thickness;
     private Gender gender;
+
 
     public enum Size {}
     public enum Brightness {}
@@ -51,9 +49,19 @@ public class Review extends BaseEntity {
     public enum Thickness {}
     public enum Gender {}
     public enum ReviewStatus {
+        ALL_REVIEWS("리뷰를 조회합니다."),
+        REVIEW_CREATE("리뷰가 작성되엇습니다."),
+        REVIEW_UPDATE("리뷰가 수정되엇습니다.");
+
+        @Getter
+        private String status;
+
+        ReviewStatus(String status) {
+            this.status = status;
+        }
     }
 
-    public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color, ReviewStatus reviewStatus, String reviewCode) {
+    public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color, String reviewCode) {
         this.content = content;
         this.image = image;
         this.star_rating = star_rating;
@@ -61,7 +69,7 @@ public class Review extends BaseEntity {
         this.weight = weight;
         this.size = size;
         this.color = color;
-        this.reviewStatus = reviewStatus;
+
         this.reviewCode = reviewCode;
     }
 }

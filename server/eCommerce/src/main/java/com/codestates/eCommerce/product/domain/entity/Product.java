@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
 
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
