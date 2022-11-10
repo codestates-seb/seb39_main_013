@@ -29,7 +29,7 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewRequestDto reviewRequestDto) {
-        Review review = reviewService.createReview(mapper.reviewRequestDtoToReview(reviewRequestDto));  //메퍼를 통해 객체로 반환
+        Review review = reviewService.createReview(mapper.reviewRequestDtoToReview(reviewRequestDto));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.CREATED);
     }
 

@@ -3,6 +3,7 @@ package com.codestates.eCommerce.review.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import com.codestates.eCommerce.product.domain.entity.Product;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,27 +36,48 @@ public class Review extends BaseEntity {
     private Size size;
     private Color color;
     @Enumerated(value = EnumType.STRING)
-    private ReviewStatus reviewStatus = ReviewStatus.REVIEW_COMPLETEE;
+    private ReviewStatus reviewStatus = ReviewStatus.COMPLETE;
     private boolean status;
     private boolean changeInfo;
-    private Brightness brightness;
-    private Thickness thickness;
     private Gender gender;
 
+    public enum Size {
+        SIZE_S("SMALL"),
+        SIZE_M("MEDIUM"),
+        SIZE_R("LARGE");
 
-    public enum Size {}
-    public enum Brightness {}
-    public enum Color {}
-    public enum Thickness {}
-    public enum Gender {}
+        private String size;
+        Size(String size) {
+            this.size = size;
+        }
+    }
+    public enum Color {
+        BLACK("블랙"),
+        RED("레드"),
+        WHITE("화이트"),
+        BLUE("블루");
+
+        private String color;
+        Color(String color) {
+            this.color = color;
+        }
+    }
+
+    public enum Gender {
+        MALE("남성"),
+        FEMALE("여성");
+
+        private String gender;
+        Gender(String gender) {
+            this.gender = gender;
+        }
+    }
     public enum ReviewStatus {
-        REVIEW_COMPLETEE("리뷰를 조회합니다."),
+        COMPLETE("리뷰를 조회합니다."),
         REVIEW_CREATE("리뷰가 작성되엇습니다."),
         REVIEW_UPDATE("리뷰가 수정되엇습니다.");
 
-        @Getter
         private String status;
-
         ReviewStatus(String status) {
             this.status = status;
         }

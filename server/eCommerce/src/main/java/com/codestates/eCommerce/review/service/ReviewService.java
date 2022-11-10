@@ -24,7 +24,6 @@ public class ReviewService {
 
 
     public Review createReview(Review review) {
-        String reviewCode = review.getReviewCode();
         verifyExistReview(review.getReviewCode());
         return reviewRepository.save(review);
     }
