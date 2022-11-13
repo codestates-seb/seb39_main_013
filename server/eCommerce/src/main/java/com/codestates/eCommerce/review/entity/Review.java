@@ -74,8 +74,8 @@ public class Review extends BaseEntity {
     }
     public enum ReviewStatus {
         COMPLETE("리뷰를 조회합니다."),
-        REVIEW_CREATE("리뷰가 작성되엇습니다."),
-        REVIEW_UPDATE("리뷰가 수정되엇습니다.");
+        REVIEW_CREATE("리뷰가 작성되었습니다."),
+        REVIEW_UPDATE("리뷰가 수정되었습니다.");
 
         private String status;
         ReviewStatus(String status) {
