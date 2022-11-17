@@ -2,10 +2,8 @@ package com.codestates.eCommerce.review.service;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
-import com.codestates.eCommerce.member.service.MemberService;
-import com.codestates.eCommerce.product.domain.service.ProductService;
+import com.codestates.eCommerce.review.entity.QReview;
 import com.codestates.eCommerce.review.entity.Review;
-import com.codestates.eCommerce.review.mapper.ReviewMapper;
 import com.codestates.eCommerce.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,7 +22,7 @@ public class ReviewService {
 
 
     public Review createReview(Review review) {
-        verifyExistReview(review.getReviewCode());
+//        verifyExistReview(review.getNickname());
         return reviewRepository.save(review);
     }
 
@@ -66,10 +64,10 @@ public class ReviewService {
         return findReview;
     }
 
-    private void verifyExistReview(String reviewCode) {
-        Optional<Review> review = reviewRepository.findByReviewCode(reviewCode);
-        if(review.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
-        }
-    }
+//    private void verifyExistReview(String nickname) {
+//        Optional<Review> review = reviewRepository.findByNickname(nickname);
+//        if(review.isPresent()) {
+//            throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
+//        }
+//    }
 }

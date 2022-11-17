@@ -26,7 +26,6 @@ public class ReviewPatchDto {
     @NotBlank(message = "최소 10자 이상의 수정 내용을 입력해주세요.")
     private String content;
     private String image;
-    private String reviewCode;
     private int star_rating;
     private int height;
     private int weight;
@@ -34,9 +33,6 @@ public class ReviewPatchDto {
     private Review.Color color;
     private Review.ReviewStatus reviewStatus;
 
-    public String getReviewCode() {
-        return reviewCode;
-    }
 
     public Review.ReviewStatus getReviewStatus() {
         return reviewStatus;
