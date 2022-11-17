@@ -29,17 +29,20 @@ public class Review extends BaseEntity {
     @Column(length = 3000)
     private String content;
     private String image;
-    private String reviewCode;
     private int star_rating;
     private int height;
     private int weight;
+    @Column(length = 10)
     private Size size;
+    @Column(length = 10)
     private Color color;
     @Enumerated(value = EnumType.STRING)
-    private ReviewStatus reviewStatus = ReviewStatus.COMPLETE;
+    private ReviewStatus reviewStatus;
     private boolean status;
     private boolean changeInfo;
     private Gender gender;
+
+
 
     public enum Size {
         SIZE_S("SMALL"),
@@ -51,6 +54,7 @@ public class Review extends BaseEntity {
             this.size = size;
         }
     }
+
     public enum Color {
         BLACK("블랙"),
         RED("레드"),
@@ -66,16 +70,18 @@ public class Review extends BaseEntity {
     public enum Gender {
         MALE("남성"),
         FEMALE("여성");
-
         private String gender;
+
         Gender(String gender) {
             this.gender = gender;
         }
     }
+
     public enum ReviewStatus {
-        COMPLETE("리뷰를 조회합니다."),
+        COMPLETE("처리가 완료되었습니다."),
         REVIEW_CREATE("리뷰가 작성되었습니다."),
-        REVIEW_UPDATE("리뷰가 수정되었습니다.");
+        REVIEW_UPDATE("리뷰가 수정되었습니다."),
+        REVIEW_DELETE("리뷰가 삭제되었습니다.");
 
         private String status;
         ReviewStatus(String status) {
@@ -83,7 +89,9 @@ public class Review extends BaseEntity {
         }
     }
 
-    public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color, String reviewCode) {
+
+
+    public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color) {
         this.content = content;
         this.image = image;
         this.star_rating = star_rating;
@@ -91,6 +99,5 @@ public class Review extends BaseEntity {
         this.weight = weight;
         this.size = size;
         this.color = color;
-        this.reviewCode = reviewCode;
     }
 }

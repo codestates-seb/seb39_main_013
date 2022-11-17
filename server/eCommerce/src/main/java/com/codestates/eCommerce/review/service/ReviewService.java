@@ -24,7 +24,7 @@ public class ReviewService {
 
 
     public Review createReview(Review review) {
-        verifyExistReview(review.getReviewCode());
+//        verifyExistReview(review.getNickname());
         return reviewRepository.save(review);
     }
 
@@ -40,8 +40,6 @@ public class ReviewService {
                 .ifPresent(color -> findReview.setColor(color));
         Optional.ofNullable(review.getStar_rating())
                 .ifPresent(star_rating -> findReview.setStar_rating(star_rating));
-        Optional.ofNullable(review.getReviewStatus())
-                .ifPresent(reviewStatus -> findReview.setReviewStatus(reviewStatus));
 
         return reviewRepository.save(review);
     }
@@ -66,10 +64,10 @@ public class ReviewService {
         return findReview;
     }
 
-    private void verifyExistReview(String reviewCode) {
-        Optional<Review> review = reviewRepository.findByReviewCode(reviewCode);
-        if(review.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
-        }
-    }
+//    private void verifyExistReview(String nickname) {
+//        Optional<Review> review = reviewRepository.findByNickname(nickname);
+//        if(review.isPresent()) {
+//            throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
+//        }
+//    }
 }
