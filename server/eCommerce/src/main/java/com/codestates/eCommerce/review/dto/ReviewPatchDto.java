@@ -33,4 +33,8 @@ public class ReviewPatchDto {
     private Review.Color color;
     private Review.ReviewStatus reviewStatus;
 
+
+    public Review.ReviewStatus getReviewStatus() {
+        return reviewStatus;
+    }
 }
