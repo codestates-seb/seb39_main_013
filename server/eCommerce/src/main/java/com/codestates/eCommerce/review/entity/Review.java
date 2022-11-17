@@ -49,7 +49,7 @@ public class Review extends BaseEntity {
         SIZE_S("SMALL"),
         SIZE_M("MEDIUM"),
         SIZE_R("LARGE");
-        
+
         private String size;
         Size(String size) {
             this.size = size;
@@ -71,8 +71,8 @@ public class Review extends BaseEntity {
     public enum Gender {
         MALE("남성"),
         FEMALE("여성");
-        private String gender;
 
+        private String gender;
         Gender(String gender) {
             this.gender = gender;
         }
@@ -83,6 +83,8 @@ public class Review extends BaseEntity {
         REVIEW_CREATE("리뷰가 작성되었습니다."),
         REVIEW_UPDATE("리뷰가 수정되었습니다."),
         REVIEW_DELETE("리뷰가 삭제되었습니다.");
+
+
 
         private String status;
         ReviewStatus(String status) {
