@@ -49,7 +49,7 @@ public class Review extends BaseEntity {
         SIZE_S("SMALL"),
         SIZE_M("MEDIUM"),
         SIZE_R("LARGE");
-        
+
         private String size;
         Size(String size) {
             this.size = size;

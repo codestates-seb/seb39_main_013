@@ -33,8 +33,4 @@ public class ReviewResponseDto {
     private boolean status;
     private boolean changeInfo;
     private Review.ReviewStatus reviewStatus;
-
-    public Review.ReviewStatus getReviewStatus() {
-        return reviewStatus;
-    }
 }
