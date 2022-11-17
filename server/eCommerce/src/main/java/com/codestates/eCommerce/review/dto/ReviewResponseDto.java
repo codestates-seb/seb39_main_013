@@ -25,14 +25,21 @@ public class ReviewResponseDto {
     private Long orderProductId;
     private String content;
     private String image;
+    @NotBlank
+    @Pattern(regexp = "^([A-Za-z]){3}$",
+            message = "리뷰 코드는 3자리 영문이어야 합니다.")
+    private String reviewCode;
     private int height;
     private int weight;
-    private int star_rating;
     private Review.Size size;
     private Review.Color color;
     private boolean status;
     private boolean changeInfo;
     private Review.ReviewStatus reviewStatus;
+
+    public String getReviewCode() {
+        return reviewCode;
+    }
 
     public Review.ReviewStatus getReviewStatus() {
         return reviewStatus;

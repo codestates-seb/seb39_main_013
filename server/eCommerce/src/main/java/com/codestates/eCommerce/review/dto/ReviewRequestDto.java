@@ -24,12 +24,15 @@ public class ReviewRequestDto {
     private Long memberId;
     private Long productId;
     private Long orderProductId;
-    @NotBlank(message = "최소 10자 이상의 리뷰내용을 입력해주세요.")
+    @NotBlank(message = "최소 4자 이상의 입력이 필요합니다.")
+    private String password;
+    @NotBlank (message = "최소 10자 이상의 리뷰내용을 입력해주세요.")
     private String content;
     private String image;
+
+    private String reviewCode;
     private int height;
     private int weight;
-    private int star_rating;
     private Review.Size size;
     private Review.Color color;
 

@@ -35,10 +35,14 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
+
     @OneToMany(mappedBy = "product")
     private List<Review> reviews;
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ProductHistory> productHistories;
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductItem> productItems = new ArrayList<>();
     private Long brandId;

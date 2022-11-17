@@ -2,20 +2,15 @@ package com.codestates.eCommerce.review.controller;
 
 import com.codestates.eCommerce.common.dto.MultiResponseDto;
 import com.codestates.eCommerce.common.dto.SingleResponseDto;
-import com.codestates.eCommerce.order.dto.OrderRequestDto;
-import com.codestates.eCommerce.order.dto.ResponseDto;
 import com.codestates.eCommerce.review.dto.ReviewPatchDto;
 import com.codestates.eCommerce.review.dto.ReviewRequestDto;
 import com.codestates.eCommerce.review.entity.Review;
 import com.codestates.eCommerce.review.mapper.ReviewMapper;
 import com.codestates.eCommerce.review.service.ReviewService;
-import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
