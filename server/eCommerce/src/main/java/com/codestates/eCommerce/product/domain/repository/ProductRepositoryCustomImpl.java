@@ -202,7 +202,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return hasText(name) ? product.name.contains(name) : null;
     }
 
-    private BooleanExpression brandNameContains(String brandName) {return hasText(brandName) ? product.brandName.contains(brandName) : null;}
+    private BooleanExpression brandNameContains(String brandName) {
+        return hasText(brandName) ? product.brandName.contains(brandName) : null;}
 
     private BooleanExpression colorEq(String color) {
         return hasText(color) ? product.color.eq(color) : null;

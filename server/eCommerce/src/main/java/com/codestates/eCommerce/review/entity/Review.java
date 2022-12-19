@@ -2,23 +2,22 @@ package com.codestates.eCommerce.review.entity;
 
 
 import com.codestates.eCommerce.common.BaseEntity;
+import com.codestates.eCommerce.order.domain.entity.OrderProduct;
 import com.codestates.eCommerce.product.domain.entity.Product;
+import com.codestates.eCommerce.review.dto.ReviewResponseDto;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codestates.eCommerce.review.entity.QReview.review;
 
-@Entity
+
+@Entity(name = "reviews")
 @Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "reviews")
 public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +36,7 @@ public class Review extends BaseEntity {
     @Column(length = 10)
     private Color color;
     @Enumerated(value = EnumType.STRING)
-    private ReviewStatus reviewStatus;
-    private boolean status;
-    private boolean changeInfo;
-    private Gender gender;
-
+    private StatusRecode statusRecode;
 
 
     public enum Size {
@@ -67,31 +62,22 @@ public class Review extends BaseEntity {
         }
     }
 
-    public enum Gender {
-        MALE("남성"),
-        FEMALE("여성");
-        private String gender;
-
-        Gender(String gender) {
-            this.gender = gender;
-        }
-    }
-
-    public enum ReviewStatus {
+    public enum StatusRecode {
         COMPLETE("처리가 완료되었습니다."),
         REVIEW_CREATE("리뷰가 작성되었습니다."),
         REVIEW_UPDATE("리뷰가 수정되었습니다."),
         REVIEW_DELETE("리뷰가 삭제되었습니다.");
 
         private String status;
-        ReviewStatus(String status) {
+
+        StatusRecode(String status) {
             this.status = status;
         }
     }
 
 
-
-    public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color) {
+    @Builder  //불필요한 패턴이지만 Mapper + Builder 를 써보고자 했음
+    public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color,StatusRecode statusRecode) {
         this.content = content;
         this.image = image;
         this.star_rating = star_rating;
@@ -99,5 +85,6 @@ public class Review extends BaseEntity {
         this.weight = weight;
         this.size = size;
         this.color = color;
+        this.statusRecode = statusRecode;
     }
 }

@@ -27,12 +27,13 @@ public class ReviewController {
     private final ReviewMapper mapper;
 
 
+    //리뷰 생성
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewRequestDto reviewRequestDto) {
         Review review = reviewService.createReview(mapper.reviewRequestDtoToReview(reviewRequestDto));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.CREATED);
     }
-
+    //리뷰 수정
     @PatchMapping("/{review-id}")
     public ResponseEntity patchReview(@PathVariable("review-id") @Positive long reviewId,
                                       @Valid @RequestBody ReviewPatchDto reviewPatchDto) {
@@ -40,13 +41,13 @@ public class ReviewController {
         Review review = reviewService.updateReview(mapper.reviewPatchDtoToReview(reviewPatchDto));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
     }
-
+    //리뷰 단건 조회
     @GetMapping("/{review-id}")
     public ResponseEntity getReview(@PathVariable("review-id") long reviewId) {
         Review review = reviewService.findReview(reviewId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
     }
-
+    //모든 리뷰 조회
     @GetMapping
     public ResponseEntity getReviews(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
@@ -54,7 +55,7 @@ public class ReviewController {
         List<Review> reviews = pageReviews.getContent();
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.reviewsToReviewResponseDtos(reviews), pageReviews), HttpStatus.OK);
     }
-
+    //리뷰 삭제
     @DeleteMapping("/{review-id}")
     public ResponseEntity deleteReview(@PathVariable("review-id") long reviewId) {
         reviewService.deleteReview(reviewId);

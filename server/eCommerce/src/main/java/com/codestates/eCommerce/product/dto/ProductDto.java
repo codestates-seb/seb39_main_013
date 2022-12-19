@@ -27,6 +27,8 @@ public class ProductDto {
     private List<String> thumbImages;
     private List<String> contentImages;
 
+
+
     @QueryProjection
     public ProductDto(Long productId, Long brandId, String brandName, String majorClass, String name, Integer price,  String color, List<ProductItemDto> productItemDtos,List<String> thumbImages, List<String> contentImages) {
         this.productId = productId;

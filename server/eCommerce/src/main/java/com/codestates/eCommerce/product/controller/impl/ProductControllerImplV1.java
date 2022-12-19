@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 @Slf4j
-public class ProductControllerImplV1 implements ProductControllerV1 {
+public class ProductControllerImplV1 implements ProductControllerV1 {  //ProductController interface의 기능을 사용할 수 읶는 컴트롤러클래스
 
     private final AppProductSerivce appProductSerivce;
 

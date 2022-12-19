@@ -7,7 +7,7 @@ import com.codestates.eCommerce.review.entity.Review;
 import org.mapstruct.Mapper;
 
 import java.util.List;
-
+//DTO <-> Entity 변환
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
     Review reviewRequestDtoToReview(ReviewRequestDto reviewRequestDto);

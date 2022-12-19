@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface ProductRepositoryCustom
-{
+public interface ProductRepositoryCustom {
     Page<ProductDto> searchPageSimple(ProductConditionDto condition);
     Page<ProductDto> searchProductPage(Pageable pageable, ProductConditionDto condition);
     List<ProductDto> getProduct(String name);
+
     Product searchProductWithItemList(Long productId);
     Product searchProductWithItem(Long productId, String size);
 

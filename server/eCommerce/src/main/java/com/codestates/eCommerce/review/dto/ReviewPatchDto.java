@@ -16,13 +16,9 @@ import java.util.List;
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ReviewPatchDto {
-    @Positive
     private Long reviewId;
     private Long memberId;
-    private Long productId;
-    private Long orderProductId;
     @NotBlank(message = "최소 10자 이상의 수정 내용을 입력해주세요.")
     private String content;
     private String image;
@@ -31,6 +27,5 @@ public class ReviewPatchDto {
     private int weight;
     private Review.Size size;
     private Review.Color color;
-    private Review.ReviewStatus reviewStatus;
 
 }

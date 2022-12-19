@@ -15,20 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ReviewRequestDto {
-    @Positive
     private Long reviewId;
     private Long memberId;
-    private Long productId;
-    private Long orderProductId;
     @NotBlank (message = "최소 10자 이상의 리뷰내용을 입력해주세요.")
     private String content;
     private String image;
     private int height;
     private int weight;
+    private int star_rating;
     private Review.Size size;
     private Review.Color color;
 }
