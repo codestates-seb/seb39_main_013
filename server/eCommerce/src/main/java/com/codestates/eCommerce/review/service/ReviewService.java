@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -45,11 +46,12 @@ public class ReviewService {
                 .ifPresent(color -> findReview.setColor(color));
         Optional.ofNullable(review.getStar_rating())
                 .ifPresent(star_rating -> findReview.setStar_rating(star_rating));
+        Optional.ofNullable(review.getStatusRecode())
+                .ifPresent(statusRecode -> findReview.setStatusRecode(statusRecode));
 
-        Review.StatusRecode statusRecode = Review.StatusRecode.REVIEW_UPDATE;
         return reviewRepository.save(review);
     }
-
+    @Transactional(readOnly = true)
     public Review findReview(Long reviewId) {
         return findVerifiedReview(reviewId);
     }
@@ -64,7 +66,7 @@ public class ReviewService {
         Review.StatusRecode statusRecode = Review.StatusRecode.REVIEW_DELETE;
         reviewRepository.save(findReview);
     }
-    //검증
+    @Transactional(readOnly = true)
     public Review findVerifiedReview(long reviewId) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
         Review findReview = optionalReview.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));

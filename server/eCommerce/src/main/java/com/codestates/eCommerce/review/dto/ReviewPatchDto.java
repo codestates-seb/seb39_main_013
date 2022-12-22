@@ -13,9 +13,9 @@ import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReviewPatchDto {
     private Long reviewId;
     private Long memberId;
@@ -27,5 +27,14 @@ public class ReviewPatchDto {
     private int weight;
     private Review.Size size;
     private Review.Color color;
+    private Review.StatusRecode statusRecode;
 
+
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    public void setStatusRecode(Review.StatusRecode statusRecode) {
+        this.statusRecode = statusRecode;
+    }
 }

@@ -23,5 +23,9 @@ public class ReviewResponseDto {
     private Review.Size size;
     private Review.Color color;
     private Review.StatusRecode statusRecode;
+
+    public Review.StatusRecode getStatusRecode() {
+        return statusRecode;
+    }
 }
 

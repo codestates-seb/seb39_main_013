@@ -16,6 +16,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReviewRequestDto {
     private Long reviewId;
     private Long memberId;

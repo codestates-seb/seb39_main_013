@@ -15,28 +15,34 @@ import java.util.List;
 import static com.codestates.eCommerce.review.entity.QReview.review;
 
 
-@Entity(name = "reviews")
-@Getter @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity(name = "reviews")
 public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-    @Column(length = 3000)
+    @Column(nullable = false ,length = 3000)
     private String content;
     private String image;
+    @Column(nullable = false)
     private int star_rating;
+    @Column(nullable = false)
     private int height;
+    @Column(nullable = false)
     private int weight;
-    @Column(length = 10)
+    @Column(nullable = false)
     private Size size;
-    @Column(length = 10)
+    @Column(nullable = false)
     private Color color;
-    @Enumerated(value = EnumType.STRING)
-    private StatusRecode statusRecode;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private StatusRecode statusRecode = StatusRecode.COMPLETE;
+    @ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)  //,지연로딩
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 
     public enum Size {
@@ -45,6 +51,7 @@ public class Review extends BaseEntity {
         SIZE_R("LARGE");
 
         private String size;
+
         Size(String size) {
             this.size = size;
         }

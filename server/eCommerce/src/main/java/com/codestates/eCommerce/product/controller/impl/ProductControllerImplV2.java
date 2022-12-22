@@ -34,7 +34,6 @@ public class ProductControllerImplV2 implements ProductControllerV2 {
         return new ResponseEntity<>(new MultiResponseDto<>(responseProductPage.getContent(),responseProductPage), HttpStatus.OK);
     }
 
-
     /* TODO 상품 디테일 재정의*/
     @GetMapping("/info/list/{product-id}")
     public ResponseEntity<?> getProductWithItemList(@PathVariable("product-id") Long productId) {
