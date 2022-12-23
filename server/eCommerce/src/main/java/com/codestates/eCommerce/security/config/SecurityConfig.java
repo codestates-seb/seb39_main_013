@@ -53,7 +53,8 @@ public class SecurityConfig {
                         .antMatchers(
                                 "/api/v1/carts/**",
                                 "/api/v1/bookmarks/**",
-                                "/api/v1/members/{member-id}/**"
+                                "/api/v1/members/{member-id}/**",
+                                "/api/v1/reviews/{review-id}/**"
                         ).authenticated()
                         .anyRequest().permitAll()
                 )
