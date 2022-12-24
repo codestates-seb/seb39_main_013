@@ -45,8 +45,7 @@ public class ReviewController {
         Review review = reviewService.updateReview(mapper.patchToReview(patch));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.OK);
     }
-
-
+    
     //모든 리뷰 조회
     @GetMapping
     public ResponseEntity getReviews(@Positive @RequestParam int page,
