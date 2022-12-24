@@ -59,6 +59,5 @@ public class ProductDto {
         this.thumbImages = thumbImages;
         this.contentImages = contentImages;
     }
-
 }
 

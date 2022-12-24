@@ -1,8 +1,11 @@
 package com.codestates.eCommerce.member.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
+import com.codestates.eCommerce.review.entity.Review;
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -26,6 +29,7 @@ public class Member extends BaseEntity {
     private int height;
     private int weight;
     private String role;
+
 
 //    @OneToMany()
 //    @JoinColumn(name = "MEMBER_ID")

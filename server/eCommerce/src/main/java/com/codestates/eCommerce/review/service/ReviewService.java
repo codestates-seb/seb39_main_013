@@ -1,5 +1,6 @@
 package com.codestates.eCommerce.review.service;
 
+
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
 import com.codestates.eCommerce.review.entity.Review;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -22,54 +22,50 @@ public class ReviewService {
 
 
     public Review createReview(Review review) {
-        Review createReview = Review.builder()           //Mapstruct가 변환해주는 흐름으로 코드를 작성했으므로 성능적인 향상은 없다 -?
-                .content(review.getContent())
-                .image(review.getImage())
-                .star_rating(review.getStar_rating())
-                .height(review.getHeight())
-                .weight(review.getWeight())
-                .color(review.getColor())
-                .size(review.getSize())
-                .statusRecode(Review.StatusRecode.REVIEW_CREATE)
-                .build();
-        return reviewRepository.save(createReview);
+        return reviewRepository.save(review);
     }
 
     public Review updateReview(Review review) {
-        Review findReview = findVerifiedReview(review.getReviewId());
+//        Review patchReview = findVerifiedReview(review.getReviewId());
 
-        Optional.ofNullable(review.getContent())
-                .ifPresent(content -> findReview.setContent(content));
-        Optional.ofNullable(review.getImage())
-                .ifPresent(image -> findReview.setImage(image));
-        Optional.ofNullable(review.getColor())
-                .ifPresent(color -> findReview.setColor(color));
-        Optional.ofNullable(review.getStar_rating())
-                .ifPresent(star_rating -> findReview.setStar_rating(star_rating));
-        Optional.ofNullable(review.getStatusRecode())
-                .ifPresent(statusRecode -> findReview.setStatusRecode(statusRecode));
+//        Optional.ofNullable(review.getContent())
+//                .ifPresent(content -> patchReview.setContent(content));
+//        Optional.ofNullable(review.getImage())
+//                .ifPresent(image -> patchReview.setImage(image));
+//        Optional.ofNullable(review.getColor())
+//                .ifPresent(color -> patchReview.setColor(color));
+//        Optional.ofNullable(review.getStar_rating())
+//                .ifPresent(star_rating -> patchReview.setStar_rating(star_rating));
+//        Optional.ofNullable(review.getStatusRecode())
+//                .ifPresent(statusRecode -> patchReview.setStatusRecode(statusRecode));
 
-        return reviewRepository.save(review);
+
+        Review patchReview = findVerifiedReview(review.getReviewId());
+
+        if (review.getContent() != null) patchReview.setContent(review.getContent());
+        if (review.getColor() != null) patchReview.setColor(review.getColor());
+        if (review.getSize() != null) patchReview.setSize(review.getSize());
+        if (review.getHeight() != null) patchReview.setHeight(review.getHeight());
+        if (review.getWeight() != null) patchReview.setWeight(review.getWeight());
+        if (review.getStar_rating() != null) patchReview.setStar_rating(review.getStar_rating());
+
+        return reviewRepository.save(patchReview);
     }
-    @Transactional(readOnly = true)
-    public Review findReview(Long reviewId) {
-        return findVerifiedReview(reviewId);
-    }
 
-//    public Page<Review> findReviews(int page, int size) {
-//        return reviewRepository.findAll(PageRequest.of(page, size,
-//                Sort.by("reviewId").descending()));
-//    }
+
+    public Page<Review> findReviews(int page, int size) {
+        return reviewRepository.findAll(PageRequest.of(page, size,
+                Sort.by("reviewId").descending()));
+    }
 
     public void deleteReview(Long reviewId) {
         Review findReview = findVerifiedReview(reviewId);
-        Review.StatusRecode statusRecode = Review.StatusRecode.REVIEW_DELETE;
         reviewRepository.save(findReview);
     }
-    @Transactional(readOnly = true)
-    public Review findVerifiedReview(long reviewId) {
-        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
-        Review findReview = optionalReview.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
+
+    public Review findVerifiedReview(Long reviewId) {
+        Optional<Review> review = reviewRepository.findById(reviewId);
+        Review findReview = review.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
         return findReview;
     }
 }

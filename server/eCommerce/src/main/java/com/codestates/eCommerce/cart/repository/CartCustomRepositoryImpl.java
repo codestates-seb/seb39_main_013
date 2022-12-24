@@ -19,7 +19,6 @@ import static com.codestates.eCommerce.product.domain.entity.QProductItem.produc
 public class CartCustomRepositoryImpl implements CartCustomRepository{
     private final JPAQueryFactory queryFactory;
 
-    //컨트롤러에서 get요청을 했을 때 내가 원하는 값을 확인할 수 있다
     @Override
     public List<CartItem> getCartItemByMemberId(Long memberId) {
         return queryFactory
