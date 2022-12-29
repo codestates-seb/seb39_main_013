@@ -7,8 +7,10 @@ import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.member.service.MemberService;
 import com.codestates.eCommerce.review.entity.Review;
+import com.codestates.eCommerce.review.enums.Size;
 import com.codestates.eCommerce.review.enums.StatusRecode;
 import com.codestates.eCommerce.review.repository.ReviewRepository;
+import com.codestates.eCommerce.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,26 +29,25 @@ public class ReviewService {
     private final MemberRepository repository;
 
 
-    public Review createReview(Review review) {
+    public Review createReview(Review review, PrincipalDetails principalDetails) {
+        review.setMemberId(principalDetails.getMember().getMemberId());
         review.setStatusRecode(StatusRecode.REVIEW_CREATE);
         return reviewRepository.save(review);
     }
-    
 
-    public Review updateReview(Review review) {
-        Review patchReview = findVerifiedReview(review.getReviewId());
+
+    public Review updateReview(Review review, Long reviewId) {
+        Review patchReview = findVerifiedReview(reviewId);
 
         Optional.ofNullable(review.getContent()).ifPresent(content -> patchReview.setContent(content));
         Optional.ofNullable(review.getImage()).ifPresent(image -> patchReview.setImage(image));
-//        Optional.ofNullable(review.getColor()).ifPresent(color -> patchReview.setColor(color));
-//        Optional.ofNullable(review.getSize()).ifPresent(size -> patchReview.setSize(size));
+        Optional.ofNullable(review.getColor()).ifPresent(color -> patchReview.setColor(color));
+        Optional.ofNullable(review.getSize()).ifPresent(size -> patchReview.setSize(size));
         Optional.ofNullable(review.getHeight()).ifPresent(height -> patchReview.setHeight(height));
         Optional.ofNullable(review.getWeight()).ifPresent(weight -> patchReview.setWeight(weight));
         Optional.ofNullable(review.getStar_rating()).ifPresent(star_rating -> patchReview.setStar_rating(star_rating));
-        Optional.ofNullable(review.getStatusRecode()).ifPresent(statusRecode -> patchReview.setStatusRecode(statusRecode));
 
-
-//        Review patchReview = findVerifiedReview(review.getReviewId());
+//        Review patchReview = findVerifiedReview(ReviewId);
 //
 //        if (review.getContent() != null) patchReview.setContent(review.getContent());
 //        if (review.getColor() != null) patchReview.setColor(review.getColor());

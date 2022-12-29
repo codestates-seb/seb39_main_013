@@ -9,7 +9,7 @@ public enum StatusRecode {
     REVIEW_DELETE("리뷰가 삭제되었습니다.");
 
     @Getter
-    private String status;
+    private final String status;
 
     StatusRecode(String status) {
         this.status = status;

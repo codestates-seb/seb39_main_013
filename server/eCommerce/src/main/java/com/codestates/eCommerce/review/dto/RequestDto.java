@@ -1,7 +1,7 @@
 package com.codestates.eCommerce.review.dto;
 
 
-import com.codestates.eCommerce.review.enums.Size;
+
 import com.codestates.eCommerce.review.enums.StatusRecode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.awt.*;
+
 
 public class RequestDto {
-    @Getter @Setter
+    @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Post {
@@ -24,8 +24,8 @@ public class RequestDto {
         private int height;
         private int weight;
         private int star_rating;
-        private Size size;
-        private Color color;
+        private String size;
+        private String color;
     }
 
     @Getter @Setter
@@ -40,8 +40,8 @@ public class RequestDto {
         private int star_rating;
         private int height;
         private int weight;
-        private Size size;
-        private Color color;
+        private String size;
+        private String color;
         private StatusRecode statusRecode;
     }
 }

@@ -1,9 +1,6 @@
 package com.codestates.eCommerce.review.dto;
 
 
-
-
-import com.codestates.eCommerce.review.enums.Size;
 import com.codestates.eCommerce.review.enums.StatusRecode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,15 +13,14 @@ public class ResponseDto {
     @AllArgsConstructor
     public static class Response {
         private Long reviewId;
-
         private Long memberId;
         private Long productId;
         private String content;
         private String image;
         private int height;
         private int weight;
-        private Size size;
-        private Color color;
+        private String size;
+        private String color;
         private StatusRecode statusRecode;
 
     }

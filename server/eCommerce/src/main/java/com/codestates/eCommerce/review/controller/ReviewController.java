@@ -35,21 +35,19 @@ public class ReviewController {
     //리뷰 생성
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody RequestDto.Post post, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Review review = reviewService.createReview(mapper.postToReview(post));
+        Review review = reviewService.createReview(mapper.postToReview(post),principalDetails);
         review.setMemberId(principalDetails.getMember().getMemberId());
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.CREATED);
     }
 
-
-
     @PatchMapping("/{review-id}")
     public ResponseEntity patchReview(@PathVariable("review-id") @Positive Long reviewId,
-                                      @Valid @RequestBody RequestDto.Patch patch,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+                                      @Valid @RequestBody RequestDto.Patch patch,
+                                      @AuthenticationPrincipal PrincipalDetails principalDetails) {
         patch.setMemberId(principalDetails.getMember().getMemberId());
-        Review review = reviewService.updateReview(mapper.patchToReview(patch));
+        Review review = reviewService.updateReview(mapper.patchToReview(patch), reviewId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.OK);
     }
-
 
     //모든 리뷰 조회
     @GetMapping
@@ -59,6 +57,7 @@ public class ReviewController {
         List<Review> reviews = pageReviews.getContent();
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.reviewsToResponseDtos(reviews), pageReviews), HttpStatus.OK);
     }
+
 
     //리뷰 삭제
     @DeleteMapping("/{review-id}")

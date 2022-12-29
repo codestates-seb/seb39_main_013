@@ -3,9 +3,7 @@ package com.codestates.eCommerce.review.entity;
 
 
 import com.codestates.eCommerce.common.BaseEntity;
-import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.product.domain.entity.Product;
-import com.codestates.eCommerce.review.enums.Size;
 import com.codestates.eCommerce.review.enums.StatusRecode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,14 +26,20 @@ public class Review extends BaseEntity {
     private Long memberId;
     @Column(nullable = false ,length = 3000)
     private String content;
+    @Lob @Basic(fetch = FetchType.LAZY)
     private String image;
+    @Column(nullable = false)
     private int star_rating;
+    @Column(nullable = false)
     private int height;
+    @Column(nullable = false)
     private int weight;
-    private Size size;
-    private Color color;
+    @Column(nullable = false)
+    private String size;
+    @Column(insertable = true,updatable = true)
+    private String color;
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(insertable = true,updatable = true)
     private StatusRecode statusRecode = StatusRecode.COMPLETE;
     @ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)  //,지연로딩
     @JoinColumn(name = "product_id")
@@ -43,12 +47,14 @@ public class Review extends BaseEntity {
 
 
 
-    public Review(String content, String image, int star_rating, int height, int weight, StatusRecode statusRecode) {
+    public Review(String content, String image, int star_rating, int height, int weight, String size, String color, StatusRecode statusRecode) {
         this.content = content;
         this.image = image;
         this.star_rating = star_rating;
         this.height = height;
         this.weight = weight;
+        this.size = size;
+        this.color = color;
         this.statusRecode = statusRecode;
     }
 }

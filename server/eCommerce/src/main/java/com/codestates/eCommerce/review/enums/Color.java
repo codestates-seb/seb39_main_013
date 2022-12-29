@@ -9,7 +9,7 @@ public enum Color {
     RED("레드");
 
     @Getter
-    private String Color;
+    private final String Color;
 
     Color(String color) {
         Color = color;
