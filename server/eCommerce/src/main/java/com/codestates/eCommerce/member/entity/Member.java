@@ -31,6 +31,8 @@ public class Member extends BaseEntity {
     private String role;
 
 
+
+
 //    @OneToMany()
 //    @JoinColumn(name = "MEMBER_ID")
 //    private List<Cart> carts = new ArrayList<>();

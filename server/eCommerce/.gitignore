@@ -36,7 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-
 application-aws.yml
 application-mysql.yml
 application-local.yml

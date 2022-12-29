@@ -1,16 +1,15 @@
 package com.codestates.eCommerce.member.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class MemberDto {
-    @Getter @AllArgsConstructor
+    @Getter @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @NotBlank
         private String password;
@@ -23,9 +22,10 @@ public class MemberDto {
         private String homeAddress;
         private String zipcode;
     }
-
     @Getter @AllArgsConstructor
+    @Setter
     public static class Response {
+
         private Long memberId;
         private String name;
         private String email;

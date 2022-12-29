@@ -1,14 +1,18 @@
 package com.codestates.eCommerce.review.dto;
 
-import com.codestates.eCommerce.review.entity.Review;
+
+import com.codestates.eCommerce.review.enums.Size;
+import com.codestates.eCommerce.review.enums.StatusRecode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.awt.*;
 
 public class RequestDto {
-    @Getter
+    @Getter @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Post {
@@ -20,11 +24,11 @@ public class RequestDto {
         private int height;
         private int weight;
         private int star_rating;
-        private Review.Size size;
-        private Review.Color color;
+        private Size size;
+        private Color color;
     }
 
-    @Getter
+    @Getter @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Patch {
@@ -36,21 +40,8 @@ public class RequestDto {
         private int star_rating;
         private int height;
         private int weight;
-        private Review.Size size;
-        private Review.Color color;
-        private Review.StatusRecode statusRecode;
-
-        public void setReviewId(Long reviewId) {
-            this.reviewId = reviewId;
-        }
-
-        public void setStatusRecode(Review.StatusRecode statusRecode) {
-            this.statusRecode = statusRecode;
-        }
-
+        private Size size;
+        private Color color;
+        private StatusRecode statusRecode;
     }
-
-
-
-
 }

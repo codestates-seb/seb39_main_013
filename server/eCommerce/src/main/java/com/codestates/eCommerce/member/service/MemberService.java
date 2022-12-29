@@ -49,7 +49,7 @@ public class MemberService {
         return member.getMemberId();
     }
 
-    private Member findVerifiedMember(long memberId) {
+    public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = repository.findById(memberId);
         Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return member;
