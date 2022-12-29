@@ -28,6 +28,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+import static com.codestates.eCommerce.review.entity.QReview.review;
+
 @RestController
 @RequestMapping("/api/v1/reviews")
 @RequiredArgsConstructor
@@ -35,25 +37,23 @@ import java.util.List;
 @Slf4j
 public class ReviewController {
     private final ReviewService reviewService;
-    private final ReviewRepository reviewRepository;
     private final ReviewMapper mapper;
 
 
-    //리뷰 작성
+
     @PostMapping
-    public ResponseEntity postReview(@Valid @RequestBody RequestDto.Post post, @AuthenticationPrincipal PrincipalDetails principalDetails ) {
+    public ResponseEntity postReview(@Valid @RequestBody RequestDto.Post post, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Review review = reviewService.createReview( mapper.postToReview(post));
-        review.setWriterId(principalDetails.getMember().getMemberId());
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.CREATED);
     }
 
 
-    //리뷰 수정
     @PatchMapping("/{review-id}")
     public ResponseEntity patchReview(@PathVariable("review-id") @Positive Long reviewId,
                                       @Valid @RequestBody RequestDto.Patch patch,
                                       @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        patch.setWriterId(principalDetails.getMember().getMemberId());
+        patch.setMemberId(principalDetails.getMember().getMemberId());
         Review review = reviewService.updateReview(mapper.patchToReview(patch));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.OK);
     }
@@ -66,7 +66,6 @@ public class ReviewController {
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.reviewsToResponseDtos(reviews), pageReviews), HttpStatus.OK);
     }
 
-    //리뷰 삭제
     @DeleteMapping("/{review-id}")
     public ResponseEntity deleteReview(@PathVariable("review-id") @Positive Long reviewId,
                                        @AuthenticationPrincipal PrincipalDetails principalDetails) {
