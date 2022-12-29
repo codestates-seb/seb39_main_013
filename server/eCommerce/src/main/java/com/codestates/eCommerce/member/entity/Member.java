@@ -29,12 +29,9 @@ public class Member extends BaseEntity {
     private int height;
     private int weight;
     private String role;
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Review> review = new ArrayList<>();
 
 
-
-    //    @OneToMany()
+//    @OneToMany()
 //    @JoinColumn(name = "MEMBER_ID")
 //    private List<Cart> carts = new ArrayList<>();
 //    @Enumerated(value = EnumType.STRING)
