@@ -15,7 +15,7 @@ public class ResponseDto {
     @AllArgsConstructor
     public static class Response {
         private Long reviewId;
-        private Long memberId;
+        private Long writerId;
         private Long productId;
         private String content;
         private String image;

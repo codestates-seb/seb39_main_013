@@ -18,7 +18,7 @@ public class RequestDto {
     @NoArgsConstructor
     public static class Post {
         private Long reviewId;
-        private Long memberId;
+        private Long writerId;
         private Long productId;
         @NotBlank (message = "최소 10자 이상의 리뷰내용을 입력해주세요.")
         private String content;
@@ -35,7 +35,7 @@ public class RequestDto {
     @NoArgsConstructor
     public static class Patch {
         private Long reviewId;
-        private Long memberId;
+        private Long writerId;
         private Long productId;
         @NotBlank(message = "최소 10자 이상의 수정 내용을 입력해주세요.")
         private String content;

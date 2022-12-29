@@ -4,6 +4,7 @@ package com.codestates.eCommerce.review.entity;
 
 import com.codestates.eCommerce.common.BaseEntity;
 import com.codestates.eCommerce.member.entity.Member;
+import com.codestates.eCommerce.member.entity.QMember;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.review.enums.Color;
 import com.codestates.eCommerce.review.enums.Size;
@@ -25,7 +26,7 @@ public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
-    private Long memberId;
+    private Long writerId;
     @Column(nullable = false ,length = 3000)
     private String content;
     private String image;
@@ -45,7 +46,9 @@ public class Review extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)  //,지연로딩
     @JoinColumn(name = "product_id")
     private Product product;
-
+    @ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public Review(String content, String image, int star_rating, int height, int weight, Size size, Color color, StatusRecode statusRecode) {
         this.content = content;
