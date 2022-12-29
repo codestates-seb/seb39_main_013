@@ -30,11 +30,11 @@ public class Review extends BaseEntity {
     private String content;
     private String image;
     @Column(nullable = false)
-    private Integer star_rating;
+    private int star_rating;
     @Column(nullable = false)
-    private Integer height;
+    private int height;
     @Column(nullable = false)
-    private Integer weight;
+    private int weight;
     @Column(nullable = false)
     private Size size;
     @Column(nullable = false)
