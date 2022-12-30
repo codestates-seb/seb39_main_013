@@ -36,10 +36,10 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody RequestDto.Post post, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Review review = reviewService.createReview(mapper.postToReview(post),principalDetails);
-        review.setMemberId(principalDetails.getMember().getMemberId());
+        review.setMemberId(principalDetails.getMember().getMemberId()); //인증된 사용자 정보가져옴
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.CREATED);
     }
-
+    //리뷰 수정
     @PatchMapping("/{review-id}")
     public ResponseEntity patchReview(@PathVariable("review-id") @Positive Long reviewId,
                                       @Valid @RequestBody RequestDto.Patch patch,

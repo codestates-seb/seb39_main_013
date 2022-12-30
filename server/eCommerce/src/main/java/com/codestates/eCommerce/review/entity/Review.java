@@ -40,7 +40,7 @@ public class Review extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(insertable = true,updatable = true)
     private StatusRecode statusRecode = StatusRecode.COMPLETE;
-    @ManyToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)  //,지연로딩
+    @ManyToOne(cascade = CascadeType.PERSIST ,fetch = FetchType.LAZY)  //,지연로딩
     @JoinColumn(name = "product_id")
     private Product product;
 }
