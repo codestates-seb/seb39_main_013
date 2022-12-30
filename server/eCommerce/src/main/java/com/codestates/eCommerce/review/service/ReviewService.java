@@ -3,11 +3,9 @@ package com.codestates.eCommerce.review.service;
 
 import com.codestates.eCommerce.common.exception.BusinessLogicException;
 import com.codestates.eCommerce.common.exception.ExceptionCode;
-import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.member.repository.MemberRepository;
 import com.codestates.eCommerce.member.service.MemberService;
 import com.codestates.eCommerce.review.entity.Review;
-import com.codestates.eCommerce.review.enums.Size;
 import com.codestates.eCommerce.review.enums.StatusRecode;
 import com.codestates.eCommerce.review.repository.ReviewRepository;
 import com.codestates.eCommerce.security.auth.PrincipalDetails;
