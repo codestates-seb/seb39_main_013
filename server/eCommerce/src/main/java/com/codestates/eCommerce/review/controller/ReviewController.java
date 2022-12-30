@@ -39,6 +39,7 @@ public class ReviewController {
         review.setMemberId(principalDetails.getMember().getMemberId()); //인증된 사용자 정보가져옴
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.CREATED);
     }
+
     //리뷰 수정
     @PatchMapping("/{review-id}")
     public ResponseEntity patchReview(@PathVariable("review-id") @Positive Long reviewId,
@@ -46,7 +47,8 @@ public class ReviewController {
                                       @AuthenticationPrincipal PrincipalDetails principalDetails) {
         patch.setMemberId(principalDetails.getMember().getMemberId());
         Review review = reviewService.updateReview(mapper.patchToReview(patch), reviewId);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.reviewToResponse(review)), HttpStatus.OK);
     }
 
     //모든 리뷰 조회
@@ -57,7 +59,6 @@ public class ReviewController {
         List<Review> reviews = pageReviews.getContent();
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.reviewsToResponseDtos(reviews), pageReviews), HttpStatus.OK);
     }
-
 
     //리뷰 삭제
     @DeleteMapping("/{review-id}")

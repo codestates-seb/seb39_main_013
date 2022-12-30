@@ -10,7 +10,9 @@ public enum ExceptionCode {
     PRODUCT_NOT_FOUND(404, "Coffee not found"),
     EXPIRED_TOKEN(410, "Token Expired"),
     REVIEW_NOT_FOUND(404,"Review not found"),
-    REVIEW_EXISTS(409,"Review exists");
+    REVIEW_EXISTS(409,"Review exists"),
+    QUESTION_NOT_FOUND(404,"Question not found");
+
 
 //    PRODUCT_EXISTS(409, "Coffee Code exists"),
 //    ORDER_NOT_FOUND(404, "Order not found"),
