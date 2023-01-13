@@ -17,11 +17,11 @@ public class ResponseDto {
         private Long productId;
         private String content;
         private String image;
+        private int star_rating;
         private int height;
         private int weight;
         private String size;
         private String color;
         private StatusRecode statusRecode;
-
     }
 }

@@ -33,6 +33,8 @@ public class Member extends BaseEntity {
 
 
 
+
+
 //    @OneToMany()
 //    @JoinColumn(name = "MEMBER_ID")
 //    private List<Cart> carts = new ArrayList<>();

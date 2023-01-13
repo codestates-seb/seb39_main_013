@@ -16,9 +16,8 @@ public class RequestDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Post {
-        private Long reviewId;
         private Long memberId;
-        @NotBlank (message = "최소 10자 이상의 리뷰내용을 입력해주세요.")
+        @NotBlank (message = "최소 10자 이상의 리뷰내용을 입력해주세요.")  //필수 입력 검증 .by주원
         private String content;
         private String image;
         private int height;
@@ -34,7 +33,7 @@ public class RequestDto {
     public static class Patch {
         private Long reviewId;
         private Long memberId;
-        @NotBlank(message = "최소 10자 이상의 수정 내용을 입력해주세요.")
+        @NotBlank(message = "최소 10자 이상의 수정 내용을 입력해주세요.")  //필수 입력 검증 .by주원
         private String content;
         private String image;
         private int star_rating;
@@ -42,6 +41,6 @@ public class RequestDto {
         private int weight;
         private String size;
         private String color;
-        private StatusRecode statusRecode;
+
     }
 }

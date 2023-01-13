@@ -3,6 +3,7 @@ package com.codestates.eCommerce.review.entity;
 
 
 import com.codestates.eCommerce.common.BaseEntity;
+import com.codestates.eCommerce.member.entity.Member;
 import com.codestates.eCommerce.product.domain.entity.Product;
 import com.codestates.eCommerce.review.enums.StatusRecode;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,7 @@ import javax.persistence.*;
 
 
 @Entity(name = "REVIEWS")
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review extends BaseEntity {
@@ -39,8 +39,9 @@ public class Review extends BaseEntity {
     private String color;
     @Enumerated(EnumType.STRING)
     @Column(insertable = true,updatable = true)
-    private StatusRecode statusRecode = StatusRecode.COMPLETE;
-    @ManyToOne(cascade = CascadeType.PERSIST ,fetch = FetchType.LAZY)  //,지연로딩
+    private StatusRecode statusRecode;
+    @ManyToOne(cascade = CascadeType.PERSIST ,fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 public class ResponseDto {
     @Getter
     @Setter
@@ -16,5 +18,6 @@ public class ResponseDto {
         private Long productId;
         private String content;
         private boolean secret;
+
     }
 }
