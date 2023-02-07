@@ -17,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.codestates.eCommerce.question.entity.QQuestion.question;
-import static com.codestates.eCommerce.review.entity.QReview.review;
 
 @Service
 @Transactional
