@@ -4,6 +4,7 @@ import com.codestates.eCommerce.common.BaseEntity;
 import com.codestates.eCommerce.common.exception.product.ProductBusinessExcepion;
 import com.codestates.eCommerce.common.exception.product.ProductExceptionCode;
 import com.codestates.eCommerce.product.domain.listener.ProductEntityListener;
+import com.codestates.eCommerce.review.entity.Review;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -33,6 +34,10 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<ProductHistory> productHistories;
 

@@ -8,7 +8,8 @@ public enum ExceptionCode {
     CART_NOT_FOUND(404, "Cart not found"),
     BOOKMARK_NOT_FOUND(404, "Bookmark not found"),
     PRODUCT_NOT_FOUND(404, "Coffee not found"),
-    EXPIRED_TOKEN(410, "Token Expired");
+    EXPIRED_TOKEN(410, "Token Expired"),
+    REVIEW_NOT_FOUND(404,"Review not found");
 
 //    PRODUCT_EXISTS(409, "Coffee Code exists"),
 //    ORDER_NOT_FOUND(404, "Order not found"),

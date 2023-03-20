@@ -1,8 +1,6 @@
 name: PR Java CI with Gradle
 
 on:
-  pull_request:
-    branches: [ "dev" ]
   push:
     branches: [ "dev" ]
     
@@ -42,6 +40,7 @@ jobs:
           cloud.aws.credentials.access-key: ${{ secrets.AWS_ACCESS_KEY }}
           cloud.aws.credentials.secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           cloud.aws.s3.bucket: ${{ secrets.IMAGE_BUCKET }}
+          notification.mattermost.webhook-url: ${{ secrets.MATTERMOST_URL }
     # gradle 권한  
     - name: Change mode gradle
       run: chmod +x gradlew
