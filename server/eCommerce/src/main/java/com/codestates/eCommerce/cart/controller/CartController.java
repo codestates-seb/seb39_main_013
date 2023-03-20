@@ -1,6 +1,7 @@
 package com.codestates.eCommerce.cart.controller;
 
 import com.codestates.eCommerce.cart.dto.CartDto;
+import com.codestates.eCommerce.cart.dto.CartItem;
 import com.codestates.eCommerce.cart.entity.Cart;
 import com.codestates.eCommerce.cart.mapper.CartMapper;
 import com.codestates.eCommerce.cart.service.CartService;
@@ -25,6 +26,7 @@ public class CartController {
     private final CartService service;
     private final CartMapper mapper;
 
+    /*Todo productItem기준으로 등록*/
     @PostMapping
     public ResponseEntity postCart(@Valid @RequestBody CartDto.Post post,
                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -34,14 +36,15 @@ public class CartController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /*Todo productItem기준으로 가져오기*/
     @GetMapping
     public ResponseEntity getCarts(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long memberId = principalDetails.getMember().getMemberId();
-
+//          Long memberId = 1L;
 //        List<Cart> carts = service.findCarts(memberId);
 //        List<CartDto.Response> response = mapper.cartsToResponses(carts);
 
-        List<CartDto.Response> response = service.findCarts(memberId);
+        List<CartItem> response = service.findCarts(memberId);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 

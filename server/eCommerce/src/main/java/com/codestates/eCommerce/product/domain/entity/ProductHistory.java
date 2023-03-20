@@ -36,6 +36,7 @@ public class ProductHistory extends BaseEntity {
     @Column(columnDefinition = "json")
     private List<String> contentImages = new ArrayList<>();
 
+    /*Todo  리팩토링*/
     public static ProductHistory create(Product product) {
         ProductHistory productHistory = new ProductHistory();
         productHistory.setProduct(product);
@@ -44,9 +45,9 @@ public class ProductHistory extends BaseEntity {
         productHistory.setMajorClass(product.getMajorClass());
         productHistory.setName(product.getName());
         productHistory.setPrice(product.getPrice());
-        productHistory.setStock(product.getStock());
+//        productHistory.setStock(product.getStock());
         productHistory.setColor(product.getColor());
-        productHistory.setSize(product.getSize());
+//        productHistory.setSize(product.getSize());
         productHistory.setThumbImages(product.getThumbImages());
         productHistory.setContentImages(product.getContentImages());
         return productHistory;

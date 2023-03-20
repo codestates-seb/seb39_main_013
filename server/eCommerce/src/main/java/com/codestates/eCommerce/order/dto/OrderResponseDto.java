@@ -22,5 +22,4 @@ public class OrderResponseDto {
     private String merchantUid;
     private OrderStatus orderStatus;
     private int totalPrice;
-
 }

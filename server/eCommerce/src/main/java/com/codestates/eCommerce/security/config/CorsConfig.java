@@ -11,7 +11,7 @@ import java.util.Collections;
 @Configuration
 public class CorsConfig {
     @Bean
-    public CorsFilter corsFilter() {
+    public CorsFilter corsFiltera() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true); //서버가 응답할 때 json을 자바스크립트에서 처리할 수 있도록 설정합니다 -> 무슨 의미?
