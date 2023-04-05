@@ -40,14 +40,14 @@ export const imageRegisterFn = async (formData) => {
 };
 
 export const productRegisterFn = async (registerInfo) => {
-  const res = await axiosInstance.post("/api/v1/products", registerInfo);
+  const res = await axiosInstance.post("/api/v2/products", registerInfo);
   return res;
 };
 
 
 
 export const getProductOne = async (id) => {
-  const res = await axiosInstance.get(`/api/v1/products/${id}`);
+  const res = await axiosInstance.get(`/api/v2/products/${id}`);
   return res.data.data;
 };
 
@@ -105,7 +105,7 @@ export const getFavoriteItem = async () => {
 }
 
 export const getProductDetailInfo = async (params) => {
-  const res = await axiosInstance.get(`/api/v1/products/?name=${params.name}`);
+  const res = await axiosInstance.get(`/api/v2/products/?name=${params.name}`);
   return res.data.data;
 }
 
@@ -121,7 +121,7 @@ export const deleteFavoriteItem = async (id) => {
 
 export const orderCartItems = async (body) => {
   const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/orders/cart', body, {
+  const res = await axiosInstance.post('/api/v2/orders/cart', body, {
     headers: {
       Authorization: token,
     }
@@ -132,7 +132,7 @@ export const orderCartItems = async (body) => {
 
 export const getOrderList = async () => {
   const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v1/orders/info', {
+  const res = await axiosInstance.get('/api/v2/orders/info', {
     headers: {
       Authorization: token,
     }
@@ -162,7 +162,7 @@ export const getUserData = async (id) => {
 
 export const orderPoductItem = async (body) => {
   const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/orders/product', body, {
+  const res = await axiosInstance.post('/api/v2/orders/product', body, {
     headers: {
       Authorization: token,
     }
@@ -171,7 +171,7 @@ export const orderPoductItem = async (body) => {
 }
 
 export const getProductItems = async (param) => {
-  const res = await axiosInstance.get(`/api/v1/products`, {
+  const res = await axiosInstance.get(`/api/v2/products`, {
     params: param,
   });
   return res.data;
