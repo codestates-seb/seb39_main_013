@@ -71,13 +71,13 @@ export default memo(function CartForm() {
             return (
               <CartItem
                 key={v.cartId}
-                id={v.product.product_id}
-                itemImg={v.product.thumb_images[0]}
-                price={v.product.price}
-                maxQuantity={v.product.stock}
-                brandName={v.product.brand_name}
-                itemTitle={v.product.name}
-                size={v.product.size}
+                id={v.productItemId}
+                itemImg={v.thumbImages[0]}
+                price={v.price}
+                maxQuantity={v.stock}
+                brandName={v.brandName}
+                itemTitle={v.name}
+                size={v.size}
                 setTotalPrice={setTotalPrice}
                 cartId={v.cartId}
               />
