@@ -28,9 +28,9 @@ export default memo(function ProductDetailOrder(props) {
   }, [props.price, quantity]);
 
   useEffect(() => {
-    const setId = props.sizeList.info.filter((v) => v.size === size)[0];
+    const setId = props.sizeList.product_items.filter((v) => v.size === size)[0];
     if (setId) {
-      setSizeId(setId.product_id);
+      setSizeId(setId.productItemId);
     }
   }, [size]);
 
@@ -58,8 +58,8 @@ export default memo(function ProductDetailOrder(props) {
     });
   }, [totalPrice, userInfo]);
 
-  const addCartAction = useAddCartMutaion({
-    productId: sizeId,
+  const addCartAction =  useAddCartMutaion({
+    productItemId: sizeId,
     productQuantity: quantity,
     isWanted: true,
   });
@@ -110,7 +110,7 @@ export default memo(function ProductDetailOrder(props) {
       <OrderFormBody
         setSize={setSize}
         setQuantity={setQuantity}
-        sizeList={props.sizeList.info}
+        sizeList={props.sizeList.product_items}
         color={props.color}
         maxQuantity={props.maxQuantity}
       />

@@ -10,6 +10,5 @@ export default function useValidate(value) {
     // }
   }, [value]);
 
-  console.log(value);
   return <div>useValidate</div>;
 }

@@ -24,7 +24,6 @@ export default function useGetUserInfo(id) {
             isLogin: true,
           })
         );
-        console.log("query success");
       },
     }
   );

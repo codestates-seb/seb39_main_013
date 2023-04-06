@@ -29,7 +29,7 @@ export default function SizeSelector(props) {
       <SliderWrapper arrows={false} {...settings}>
         {props.size.map((v) => {
           return (
-            <div key={v.product_id}>
+            <div key={v.productItemId}>
               <SlideItem
                 selected={selectItem === v.size}
                 onClick={() => slideItemClickHandler(v.size)}

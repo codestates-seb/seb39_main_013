@@ -52,6 +52,7 @@ export const getProductOne = async (id) => {
 };
 
 export const addCartItem = async (body) => {
+  console.log('api on :', body)
   const token = Cookie.get("authorization");
   const res = await axiosInstance.post('/api/v1/carts', body, {
     headers: {
