@@ -7,21 +7,23 @@ import Button from "../Commons/Button";
 import Price from "../Commons/Price";
 import useGetCartDataQuery from "../../hooks/useGetCartDataQuery";
 import { memo } from "react";
-import Loading from "../Commons/Loading";
 import { useSelector } from "react-redux";
 import useOrderCartItems from "../../hooks/useOrderCartItems";
+import ErrorPage from "../Commons/ErrorPage";
+import CartItemSkeleton from "./CartItemSkeleton";
+import NoItems from "../Commons/NoItems";
 
 export default memo(function CartForm() {
   const [totalPrice, setTotalPrice] = useState({});
   const [calcPrice, setCalcPrice] = useState(0);
   const [paymentData, setPaymentData] = useState({});
+  const [onLoading, setOnLoading] = useState(false);
   const userInfo = useSelector((state) => state.user);
-  const getCartData = useGetCartDataQuery();
+  const getCartData = useGetCartDataQuery(setOnLoading);
   const orderCartAction = useOrderCartItems(
     paymentData,
     getCartData.data,
-    "cart",
-    setTotalPrice
+    "cart"
   );
 
   useEffect(() => {
@@ -54,8 +56,17 @@ export default memo(function CartForm() {
     orderCartAction.mutate();
   };
 
-  if (getCartData.isLoading || orderCartAction.isLoading) {
-    return <Loading />;
+  if (getCartData.isError) {
+    return (
+      <ErrorPage
+        errorText={"Network Error"}
+        retryAction={getCartData.refetch}
+      />
+    );
+  }
+
+  if (getCartData?.data?.length === 0) {
+    return <NoItems shopLink={true} />;
   }
 
   return (
@@ -66,7 +77,9 @@ export default memo(function CartForm() {
         <MenuBox>TOTAL</MenuBox>
       </FormHeader>
       <FormBody>
-        {getCartData?.data &&
+        {getCartData.isLoading || onLoading ? (
+          <CartItemSkeleton size={3} />
+        ) : (
           getCartData?.data.map((v) => {
             return (
               <CartItem
@@ -82,7 +95,8 @@ export default memo(function CartForm() {
                 cartId={v.cartId}
               />
             );
-          })}
+          })
+        )}
       </FormBody>
       <FormFooter>
         <SubTotal>
@@ -93,7 +107,7 @@ export default memo(function CartForm() {
           </span>
         </SubTotal>
       </FormFooter>
-      <Button disable={getCartData.data.length} onClick={clickHander}>
+      <Button disable={getCartData?.data?.length} onClick={clickHander}>
         ORDER NOW
       </Button>
     </Container>
@@ -125,6 +139,8 @@ const MenuBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  font-size: 18px;
+  font-weight: 600;
 
   &:nth-child(1) {
     flex: 2;

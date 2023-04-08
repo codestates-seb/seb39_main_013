@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 
-export default function SizeSelector(props) {
+export default memo(function SizeSelector(props) {
   const [selectItem, setSelectItem] = useState(props.size[0].size);
   useEffect(() => {
     props.setSize(selectItem);
   }, [selectItem]);
+
   const settings = {
     focusOnSelect: true,
     slidesToShow: 3,
@@ -43,7 +44,7 @@ export default function SizeSelector(props) {
       <IoMdArrowDropright />
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 100%;
@@ -63,6 +64,12 @@ const SliderWrapper = styled(Slider)`
   .slick-arrow .slick-next {
     display: none;
   }
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const SlideItem = styled.button`
@@ -70,12 +77,14 @@ const SlideItem = styled.button`
   background-color: ${(props) => props.selected && "black"};
   border: none;
   background-color: transparent;
+  font-size: 1rem;
+  color: #49474c;
 
   ${(props) =>
     props.selected &&
     css`
       color: #2d7df4;
-      font-size: 1rem;
+      font-size: 18px;
       font-weight: 700;
     `}
 `;

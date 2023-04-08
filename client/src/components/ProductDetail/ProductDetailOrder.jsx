@@ -11,26 +11,35 @@ import useAddCartMutaion from "../../hooks/useAddCartMutaion";
 import { useSelector } from "react-redux";
 import { memo } from "react";
 import useOrderProductItem from "../../hooks/useOrderProductItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useModal from "../../hooks/useModal";
+import useGetItem from "../../hooks/useGetItem";
 
-export default memo(function ProductDetailOrder(props) {
-  const [quantity, setQuantity] = useState(props.size);
+export default memo(function ProductDetailOrder() {
+  const params = useParams();
+  const getItem = useGetItem(params.id);
+  const userInfo = useSelector((state) => state.user);
+  const [quantity, setQuantity] = useState();
   const [size, setSize] = useState(0);
   const [totalPrice, setTotalPrice] = useState({});
   const [paymentData, setPaymentData] = useState({});
-  const [sizeId, setSizeId] = useState();
+  const [sizeId, setSizeId] = useState(getItem.data.product_items[0]);
   const [toLogin, setToLogin] = useState(false);
 
-  const userInfo = useSelector((state) => state.user);
   useEffect(() => {
-    setTotalPrice(Number(quantity) * Number(props.price));
-  }, [props.price, quantity]);
+    setTotalPrice(Number(quantity) * Number(getItem.data.price));
+  }, [getItem.data, quantity]);
 
   useEffect(() => {
+<<<<<<< HEAD
     const setId = props.sizeList.product_items.filter((v) => v.size === size)[0];
     if (setId) {
       setSizeId(setId.productItemId);
+=======
+    const setId = getItem.data.product_items.filter((v) => v.size === size)[0];
+    if (setId) {
+      setSizeId(setId);
+>>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
     }
   }, [size]);
 
@@ -58,15 +67,20 @@ export default memo(function ProductDetailOrder(props) {
     });
   }, [totalPrice, userInfo]);
 
+<<<<<<< HEAD
   const addCartAction =  useAddCartMutaion({
     productItemId: sizeId,
+=======
+  const addCartAction = useAddCartMutaion({
+    productItemId: sizeId.productItemId,
+>>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
     productQuantity: quantity,
     isWanted: true,
   });
 
   const orderProductAction = useOrderProductItem(
     paymentData,
-    [{ ...props.data, quantity, totalPrice, size }],
+    [{ ...getItem.data, quantity, totalPrice, size }],
     "product"
   );
 
@@ -76,7 +90,7 @@ export default memo(function ProductDetailOrder(props) {
       type: "orderModal",
       props: {
         text: "상품을 카트에 추가하시겠습니까?",
-        img: props.data.thumb_images[0],
+        img: getItem.data.thumb_images[0],
         action: addCartAction,
         setState: setToLogin,
       },
@@ -89,7 +103,7 @@ export default memo(function ProductDetailOrder(props) {
       type: "orderModal",
       props: {
         text: "상품을 주문하시겠습니까?",
-        img: props.data.thumb_images[0],
+        img: getItem.data.thumb_images[0],
         action: orderProductAction,
         setState: setToLogin,
       },
@@ -103,16 +117,22 @@ export default memo(function ProductDetailOrder(props) {
   return (
     <Container>
       <OrderFormHeader
-        title={props.title}
-        price={props.price}
-        subTitle={props.subTitle}
+        title={getItem.data.name}
+        price={getItem.data.price}
+        subTitle={getItem.data.brand_name}
       />
       <OrderFormBody
         setSize={setSize}
         setQuantity={setQuantity}
+<<<<<<< HEAD
         sizeList={props.sizeList.product_items}
         color={props.color}
         maxQuantity={props.maxQuantity}
+=======
+        sizeList={getItem.data.product_items}
+        color={getItem.data.color}
+        maxQuantity={sizeId.stock}
+>>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
       />
       <OrderFormFooter />
       <OrderInfo totalPrice={totalPrice} size={size} />

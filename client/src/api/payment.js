@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { orderCartItems, orderPoductItem } from ".";
 
-export const paymentClickHandler = (data, productInfo, mode) => {
+export const paymentClickHandler = (data, productInfo, mode, orderMethod) => {
   const IMP = window.IMP;
   IMP.init("imp15788743");
   const reqPayment = (res) => {
@@ -15,8 +14,13 @@ export const paymentClickHandler = (data, productInfo, mode) => {
         merchantUid : res.merchant_uid,
         products : productInfo.map(v => {
           return {
+<<<<<<< HEAD
             "productId" : mode === 'cart' ? v.productId : v.productId,
             "quantity" : mode === 'cart' ? 1 : 1,
+=======
+            "productId" : mode === 'cart' ? v.productId : v.product_id,
+            "quantity" : mode === 'cart' ? 1 : v.quantity,
+>>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
             "productName": mode === 'cart' ? v.name : v.name,
             "price" : mode === 'cart' ? v.price : v.totalPrice,
             "size" : mode === 'cart' ? v.size : v.size,
@@ -24,11 +28,9 @@ export const paymentClickHandler = (data, productInfo, mode) => {
           }
         })
       }
-      if(mode === 'cart') {
-        orderCartItems(body);
-      }else if(mode === 'product') {
-        orderPoductItem(body);
-      }
+
+      orderMethod(body);
+
     }else {
       console.log("payment Error!!!" + error_msg);
     }

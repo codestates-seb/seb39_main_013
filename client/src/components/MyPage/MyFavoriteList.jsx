@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React from "react";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import Loading from "../Commons/Loading";
 import styled from "styled-components";
@@ -8,12 +8,8 @@ import NoItems from "../Commons/NoItems";
 import { useSelector } from "react-redux";
 
 export default function MyFavoriteList() {
-  const getFavoriteData = useGetFavoriteItem();
   const userInfo = useSelector((state) => state.user);
-
-  useEffect(() => {
-    getFavoriteData.refetch();
-  }, []);
+  const getFavoriteData = useGetFavoriteItem(userInfo);
 
   if (getFavoriteData.isLoading) {
     return <Loading />;

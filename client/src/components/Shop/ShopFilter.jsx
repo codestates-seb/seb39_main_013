@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { memo } from "react";
 import styled from "styled-components";
+import { tablet } from "../../utils/styleTheme";
 import ColorSelector from "../ProductRegister/ColorSelector";
 import CategorySelector from "./CategorySelector";
 import PriceRange from "./PriceRange";
@@ -46,6 +47,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 48px;
+
+  @media ${tablet} {
+    padding: 28px 0;
+  }
 `;
 
 const PriceSelector = styled.div`

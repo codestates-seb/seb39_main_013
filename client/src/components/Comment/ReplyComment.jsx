@@ -11,13 +11,13 @@ function ReplyComment(props) {
         </div>
         <div className="replyComment-right-part">
           <div className="ReaplyComment-content">
-            <div className="ReaplyComment-content-top">
-              <div className="ReaplyComment-content-top__left">
+            <div className="ReplyComment-content-top">
+              <div className="ReplyComment-content-top__left">
                 <div className="replyComment-author">{props.reply.answerName}</div>
                 <div className="replyComment-CreatedAt">{props.reply.answerCreatedAt}</div>
 
                 {props.userIsLogin && props.userEmail === props.reply.answerEmail ? ( //
-                  <button onClick={() => props.deleteAnswer(props.reply.answerId)}>답변 삭제하기</button>
+                  <button onClick={() => props.deleteAnswer(props.reply.answerId)}>답변 삭제</button>
                 ) : null}
               </div>
             </div>
@@ -63,22 +63,23 @@ const Container = styled.div`
     flex: auto;
     display: flex;
 
-    .ReaplyComment-content-top {
+    .ReplyComment-content-top {
       display: flex;
       height: 15px;
       padding-top: 9px;
 
-      .ReaplyComment-content-top__left {
+      .ReplyComment-content-top__left {
         display: flex;
         align-items: center;
         flex: auto;
         button {
-          margin: 0 5px;
+          margin: 0 3px;
           padding: 3px 7px;
           font-size: 14px;
           border: none;
           outline: none;
           border-radius: 5px;
+          background-color: rgba(255, 93, 93, 0.87);
         }
 
         .replyComment-author {
@@ -93,6 +94,7 @@ const Container = styled.div`
       }
     }
     .ReaplyComment-content_bottom {
+      margin-top: 10px;
       .replyComment-text {
         height: auto;
         padding: 10px 0;

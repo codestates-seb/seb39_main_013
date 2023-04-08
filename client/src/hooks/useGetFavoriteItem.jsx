@@ -1,18 +1,25 @@
+import Cookies from "js-cookie";
 import { useQuery } from "react-query";
-import { getFavoriteItem } from "../api";
-import { persistor } from "../redux/store";
+import { axiosInstance } from "../api/axiosInstance";
 
-export default function useGetFavoriteItem() {
+const getFavoriteItem = async () => {
+  const token = Cookies.get("authorization");
+  const res = await axiosInstance.get("/api/v1/bookmarks", {
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  return res.data.data;
+};
+
+export default function useGetFavoriteItem(userInfo) {
   const { data, isLoading, refetch, isSuccess } = useQuery(
     ["getFavoriteData"],
     getFavoriteItem,
     {
-      retry: 1,
-      enabled: false,
-      onError: async (err) => {
-        await persistor.purge();
-        console.log(err);
-      },
+      retry: 2,
+      enabled: !!userInfo.isLogin,
     }
   );
 

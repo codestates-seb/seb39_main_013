@@ -32,6 +32,26 @@ export default function EditProfile() {
   );
 
   useEffect(() => {
+    if (inputs.phone.length === 10) {
+      setInputs((prev) => {
+        return {
+          ...prev,
+          phone: inputs.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    } else if (inputs.phone.length === 13) {
+      setInputs((prev) => {
+        return {
+          ...prev,
+          phone: inputs.phone
+            .replace(/-/g, "")
+            .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+        };
+      });
+    }
+  }, [inputs.phone]);
+
+  useEffect(() => {
     setInputs({
       name: userInfo.name,
       phone: userInfo.phone,

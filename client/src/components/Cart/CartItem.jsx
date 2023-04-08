@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Price from "../Commons/Price";
 import useDeleteCartData from "../../hooks/useDeleteCartData";
 import Loading from "../Commons/Loading";
+import { tablet } from "../../utils/styleTheme";
 
 export default memo(function CartItem(props) {
   const [quantity, setQuantity] = useState(0);
@@ -94,6 +95,12 @@ const ItemProfile = styled.div`
     align-items: center;
     gap: 24px;
   }
+
+  @media ${tablet} {
+    a {
+      flex-direction: column;
+    }
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -111,6 +118,15 @@ const ItemTextWrapper = styled.div`
   font-size: 1rem;
   color: #525252;
   gap: 4px;
+
+  @media ${tablet} {
+    align-items: center;
+    justify-content: center;
+
+    span {
+      text-align: center;
+    }
+  }
 
   span {
     font-weight: 600;
@@ -144,7 +160,8 @@ const OptionWrapper = styled.div`
     gap: 14px;
 
     span {
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 600;
     }
   }
 
@@ -153,10 +170,15 @@ const OptionWrapper = styled.div`
     align-items: center;
     justify-content: center;
     gap: 4px;
-    font-size: 14px;
+    font-size: 1rem;
     svg {
       fill: #656565;
     }
+  }
+
+  @media ${tablet} {
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -171,5 +193,14 @@ const TotalPrice = styled.div`
   svg {
     fill: #656565;
     margin-bottom: -2px;
+  }
+
+  @media ${tablet} {
+    flex-direction: column-reverse;
+    div {
+      svg {
+        display: none;
+      }
+    }
   }
 `;

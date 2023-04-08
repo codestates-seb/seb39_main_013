@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
@@ -10,24 +10,13 @@ import ItemCard from "../Commons/ItemCard";
 import NoItems from "../Commons/NoItems";
 import Skeleton from "../Commons/Skeleton";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import ErrorPage from "../Commons/ErrorPage";
 
 function MainItems(props) {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [onLoading, setOnLoading] = useState(false);
   const userInfo = useSelector((state) => state.user);
-  const getFavoriteData = useGetFavoriteItem();
+  const getFavoriteData = useGetFavoriteItem(userInfo);
   const getDataList = useGetProductItems(props.params, setOnLoading);
-
-  useEffect(() => {
-    if (userInfo.isLogin && !getFavoriteData.isError) {
-      getFavoriteData.refetch();
-      setIsFavorite(true);
-    }
-
-    if (!userInfo.isLogin) {
-      setIsFavorite(false);
-    }
-  }, [userInfo.isLogin, getFavoriteData.isError]);
 
   const nextButtonClickHandler = () => {
     props.setPage((prev) => prev + 1);
@@ -48,32 +37,42 @@ function MainItems(props) {
     );
   }
 
-  if (getDataList.isSuccess && getDataList.data.length === 0) {
+  if (getDataList.isSuccess && getDataList.data.data.length === 0) {
     return <NoItems />;
+  }
+
+  if (getDataList.isError) {
+    return (
+      <ErrorPage
+        errorText={"Network Error"}
+        retryAction={getDataList.refetch}
+      />
+    );
   }
 
   return (
     <>
       <Container mode={props.mode}>
-        {getDataList?.data?.data.map((datas) => {
-          let favorite = false;
-          const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
-          if (isFavorite && fa.includes(datas.product_id)) {
-            favorite = true;
-          }
-          return (
-            <ItemCard
-              key={datas.product_id}
-              id={datas.product_id}
-              productImg={datas.thumb_images[0]}
-              brand={datas.brand_name}
-              title={datas.name}
-              price={datas.price}
-              favorite={favorite}
-              isLogin={userInfo.isLogin}
-            />
-          );
-        })}
+        {getDataList.isSuccess &&
+          getDataList?.data?.data.map((datas) => {
+            let favorite = false;
+            const fa = getFavoriteData?.data?.map((v) => v.product.product_id);
+            if (fa?.includes(datas.product_id)) {
+              favorite = true;
+            }
+            return (
+              <ItemCard
+                key={datas.product_id}
+                id={datas.product_id}
+                productImg={datas.thumb_images[0]}
+                brand={datas.brand_name}
+                title={datas.name}
+                price={datas.price}
+                favorite={favorite}
+                isLogin={userInfo.isLogin}
+              />
+            );
+          })}
       </Container>
       <ButtonWrapper>
         <div>

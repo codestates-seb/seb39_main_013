@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styled from "styled-components";
+import { tablet } from "../../utils/styleTheme";
 import Button from "../Commons/Button";
 
 /**
@@ -58,6 +59,10 @@ const InputWrapper = styled.div`
   align-items: center;
   gap: 16px;
   margin-bottom: 8px;
+
+  @media ${tablet} {
+    flex-direction: column;
+  }
 
   input {
     font-weight: 600;
