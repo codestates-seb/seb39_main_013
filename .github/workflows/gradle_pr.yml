@@ -1,0 +1,78 @@
+name: PR Java CI with Gradle
+
+on:
+  push:
+    branches: [ "dev" ]
+    
+permissions:
+  contents: read
+  
+env:
+  S3_BUCKET_NAME: s3-jar
+  working-directory: ./server/eCommerce
+  RESOURCE_PATH: ./server/eCommerce/src/main/resources/application-prod.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # branch 변경
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: dev
+    # runner jdk 설정    
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    # 환경변수 세팅    
+    - name: Set yaml file 
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ${{ env.RESOURCE_PATH }}
+      env:
+          spring.datasource.url: ${{ secrets.MYSQL_URL }}
+          spring.datasource.username: ${{ secrets.MYSQL_USERNAME }}
+          spring.datasource.password: ${{ secrets.MYSQL_PASSWORD }}
+          security.google.client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+          security.google.client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          cloud.aws.credentials.access-key: ${{ secrets.AWS_ACCESS_KEY }}
+          cloud.aws.credentials.secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          cloud.aws.s3.bucket: ${{ secrets.IMAGE_BUCKET }}
+          notification.mattermost.webhook-url: ${{ secrets.MATTERMOST_URL }
+    # gradle 권한  
+    - name: Change mode gradle
+      run: chmod +x gradlew
+      working-directory: ${{ env.working-directory }}
+    # Build  
+    - name: Build with Gradle
+      run : ./gradlew clean build
+      working-directory: ${{ env.working-directory }}
+      
+    # build한 후 프로젝트를 압축합니다.
+    - name: Make zip file
+      run: zip -r ./deploy.zip .
+      shell: bash
+      working-directory: ${{ env.working-directory }}
+      
+    # Access Key와 Secret Access Key를 통해 권한을 확인합니다.
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+    
+    # 압축한 프로젝트를 S3로 전송합니다.
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./deploy.zip s3://$S3_BUCKET_NAME/deploy.zip
+      working-directory: ${{ env.working-directory }}
+      
+   # CodeDeploy에게 배로 명령을 내립니다.
+    - name: Code Deploy
+      run: >
+        aws deploy create-deployment --application-name eCommerce
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --deployment-group-name eCommerce-group
+        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=deploy.zip
