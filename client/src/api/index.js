@@ -26,48 +26,6 @@ export const productRegisterFn = async (registerInfo) => {
   return res;
 };
 
-<<<<<<< HEAD
-
-
-export const getProductOne = async (id) => {
-  const res = await axiosInstance.get(`/api/v2/products/${id}`);
-  return res.data.data;
-};
-
-export const addCartItem = async (body) => {
-  console.log('api on :', body)
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/carts', body, {
-    headers: {
-      Authorization: token,
-    }
-  });
-  
-  return res; 
-}
-
-export const deleteCartItem = async (id) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.delete(`/api/v1/carts/${id}`, {
-    headers: {
-      Authorization: token
-    }
-  });
-  return res;
-}
-
-export const addFavoriteItem = async (id) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v1/bookmarks', id, {
-    headers: {
-      Authorization: token
-    }
-  });
-  return res;
-}
-
-=======
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
 export const getCartData = async () => {
   const token = Cookie.get("authorization");
   const res = await axiosInstance.get("/api/v1/carts", {
@@ -77,27 +35,7 @@ export const getCartData = async () => {
   });
 
   return res.data.data;
-<<<<<<< HEAD
-}
-
-export const getFavoriteItem = async () => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v1/bookmarks', {
-    headers: {
-      Authorization: token
-    }
-  })
-
-  return res.data.data;
-}
-
-export const getProductDetailInfo = async (params) => {
-  const res = await axiosInstance.get(`/api/v2/products/?name=${params.name}`);
-  return res.data.data;
-}
-=======
 };
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
 
 export const deleteFavoriteItem = async (id) => {
   const token = Cookie.get("authorization");
@@ -107,30 +45,11 @@ export const deleteFavoriteItem = async (id) => {
     },
   });
   return res;
-<<<<<<< HEAD
-} 
-
-export const orderCartItems = async (body) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v2/orders/cart', body, {
-    headers: {
-      Authorization: token,
-    }
-  }).then(() => {queryClient.refetchQueries(["getCartData"])});
-  console.log(res);
-  return res;
-}
-
-export const getOrderList = async () => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.get('/api/v2/orders/info', {
-=======
 };
 
 export const getOrderList = async () => {
   const token = Cookie.get("authorization");
   const res = await axiosInstance.get("/api/v2/orders/info", {
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
     headers: {
       Authorization: token,
     },
@@ -156,25 +75,4 @@ export const getUserData = async (id) => {
     },
   });
   return res;
-<<<<<<< HEAD
-}
-
-export const orderPoductItem = async (body) => {
-  const token = Cookie.get("authorization");
-  const res = await axiosInstance.post('/api/v2/orders/product', body, {
-    headers: {
-      Authorization: token,
-    }
-  });
-  return res;
-}
-
-export const getProductItems = async (param) => {
-  const res = await axiosInstance.get(`/api/v2/products`, {
-    params: param,
-  });
-  return res.data;
 };
-=======
-};
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322

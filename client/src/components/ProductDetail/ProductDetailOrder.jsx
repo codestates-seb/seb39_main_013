@@ -31,15 +31,9 @@ export default memo(function ProductDetailOrder() {
   }, [getItem.data, quantity]);
 
   useEffect(() => {
-<<<<<<< HEAD
-    const setId = props.sizeList.product_items.filter((v) => v.size === size)[0];
-    if (setId) {
-      setSizeId(setId.productItemId);
-=======
     const setId = getItem.data.product_items.filter((v) => v.size === size)[0];
     if (setId) {
       setSizeId(setId);
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
     }
   }, [size]);
 
@@ -67,13 +61,8 @@ export default memo(function ProductDetailOrder() {
     });
   }, [totalPrice, userInfo]);
 
-<<<<<<< HEAD
-  const addCartAction =  useAddCartMutaion({
-    productItemId: sizeId,
-=======
   const addCartAction = useAddCartMutaion({
     productItemId: sizeId.productItemId,
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
     productQuantity: quantity,
     isWanted: true,
   });
@@ -124,15 +113,9 @@ export default memo(function ProductDetailOrder() {
       <OrderFormBody
         setSize={setSize}
         setQuantity={setQuantity}
-<<<<<<< HEAD
-        sizeList={props.sizeList.product_items}
-        color={props.color}
-        maxQuantity={props.maxQuantity}
-=======
         sizeList={getItem.data.product_items}
         color={getItem.data.color}
         maxQuantity={sizeId.stock}
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
       />
       <OrderFormFooter />
       <OrderInfo totalPrice={totalPrice} size={size} />
@@ -160,7 +143,6 @@ const ButtonWrapper = styled.div`
     border-radius: 10px;
     flex: 1;
     padding: 20px;
-
     &:hover {
       opacity: 0.7;
     }

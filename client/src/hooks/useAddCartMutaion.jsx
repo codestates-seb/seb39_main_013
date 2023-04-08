@@ -16,11 +16,6 @@ const addCartItem = async (body) => {
 };
 
 export default function useAddCartMutaion(body) {
-<<<<<<< HEAD
-  const queryClient = useQueryClient();
-  console.log('inner hooks :', body)
-=======
->>>>>>> bf90e35b06cccc99b8f6e4980c55a8f2b218f322
   const { mutate, isLoading } = useMutation(() => addCartItem(body), {
     retry: false,
     onSuccess: () => {
