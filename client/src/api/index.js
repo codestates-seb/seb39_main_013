@@ -22,7 +22,7 @@ export const imageRegisterFn = async (formData) => {
 };
 
 export const productRegisterFn = async (registerInfo) => {
-  const res = await axiosInstance.post("/api/v1/products", registerInfo);
+  const res = await axiosInstance.post("/api/v2/products", registerInfo);
   return res;
 };
 
@@ -49,7 +49,7 @@ export const deleteFavoriteItem = async (id) => {
 
 export const getOrderList = async () => {
   const token = Cookie.get("authorization");
-  const res = await axiosInstance.get("/api/v1/orders/info", {
+  const res = await axiosInstance.get("/api/v2/orders/info", {
     headers: {
       Authorization: token,
     },

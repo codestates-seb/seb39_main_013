@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { axiosInstance } from "../api/axiosInstance";
 
 const getSerchItems = (params) => {
-  const res = axiosInstance.get(`/api/v1/products`, {
+  const res = axiosInstance.get(`/api/v2/products`, {
     params: {
       page: 1,
       pageSize: 30,

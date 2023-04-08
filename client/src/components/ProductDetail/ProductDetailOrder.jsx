@@ -62,7 +62,7 @@ export default memo(function ProductDetailOrder() {
   }, [totalPrice, userInfo]);
 
   const addCartAction = useAddCartMutaion({
-    productId: sizeId.productItemId,
+    productItemId: sizeId.productItemId,
     productQuantity: quantity,
     isWanted: true,
   });

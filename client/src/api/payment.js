@@ -8,19 +8,19 @@ export const paymentClickHandler = (data, productInfo, mode, orderMethod) => {
     const { success, error_msg } = res;
     if (success) {
       const body = {
-        buyer_address : res.buyer_addr,
-        buyer_name : res.buyer_name,
-        buyer_tel : res.buyer_tel,
-        buyer_postcode : res.buyer_postcode,
-        merchant_uid : res.merchant_uid,
+        buyerAddress : res.buyer_addr,
+        buyerName : res.buyer_name,
+        buyerTel : res.buyer_tel,
+        buyerPostcode : res.buyer_postcode,
+        merchantUid : res.merchant_uid,
         products : productInfo.map(v => {
           return {
-            "product_id" : mode === 'cart' ? v.product.product_id : v.product_id,
-            "quantity" : mode === 'cart' ? v.productQuantity : v.quantity,
-            "product_name": mode === 'cart' ? v.product.name : v.name,
-            "price" : mode === 'cart' ? v.product.price : v.totalPrice,
-            "size" : mode === 'cart' ? v.product.size : v.size,
-            "color" : mode === 'cart' ? v.product.color : v.color
+            "productId" : mode === 'cart' ? v.productId : v.product_id,
+            "quantity" : mode === 'cart' ? 1 : v.quantity,
+            "productName": mode === 'cart' ? v.name : v.name,
+            "price" : mode === 'cart' ? v.price : v.totalPrice,
+            "size" : mode === 'cart' ? v.size : v.size,
+            "color" : mode === 'cart' ? v.color : v.color
           }
         })
       }

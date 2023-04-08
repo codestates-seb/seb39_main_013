@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../api/axiosInstance";
 
 export const getProductDetailInfo = async (params) => {
-  const res = await axiosInstance.get(`/api/v1/products/?name=${params.name}`);
+  const res = await axiosInstance.get(`/api/v2/products/?name=${params.name}`);
   return res.data.data;
 };
 

@@ -13,7 +13,7 @@ export default function useOrderCartItems(payment, productData, mode) {
   const orderCartItems = async (body) => {
     const token = Cookies.get("authorization");
     const res = await axiosInstance
-      .post("/api/v1/orders/cart", body, {
+      .post("/api/v2/orders/cart", body, {
         headers: {
           Authorization: token,
         },
